@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "1-1.5" > /sys/bus/usb/drivers/usb/unbind
+sleep 2
+#echo "1-1.5" > /sys/bus/usb/devices/1-1.5/driver/bind
+echo "1-1.5" > /sys/bus/usb/drivers/usb/bind

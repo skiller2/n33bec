@@ -1,0 +1,21 @@
+<div style="height: 250px; overflow: auto; font-size: 9px;">
+    <table class="table cs-table-striped table-condensed table-hover nopadding">
+        <thead>
+            <tr>
+                <th class="p-0">Componente</th>
+                <th class="p-0" style="text-align: center;">Valor</th>
+                <th class="p-0" style="text-align: center;">Contador</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="(cod_tema,io_data) in widgetiolista.io" class="{{io_data.color}}">
+                <td title="{{cod_tema}}">{{io_data.nom_tema}}</td>
+                <td style="text-align: center;" ng-show="io_data.ind_manual != '1'">{{io_data.des_valor}}</td>
+                <td style="text-align: center;" ng-show="io_data.ind_manual == '1'"><button type="button" class="btn btn-{{io_data.color}} btn-grid" ng-click="widgetiolista.setData(cod_tema,io_data.value)">{{io_data.des_valor}}</button></td>
+                <td style="text-align: center;">{{io_data.count}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <img class="" src="../../../Content/Images/Raspberry-Pi-GPIO-Layout-Model-B-Plus.png" style="width:100%;">
+
+</div>

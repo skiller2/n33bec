@@ -1,0 +1,15 @@
+<div>
+  <div class="input-group">
+    <div class="col-xs-10"><input class="form-control input-xs" type="text" name="desde" placeholder="desde" ng-model="vm.desde"
+        ignore-dirty />
+    </div>
+    <div class="col-xs-10"><input class="form-control input-xs" type="text" name="hasta" placeholder="hasta" ng-model="vm.hasta"
+        ignore-dirty />
+    </div>
+    <button class="btn btn-success btn-xs" ng-click="vm.addRange()"><i class="fas fa-plus"></i></button>
+  </div>
+  <ul class="list-inline">
+    <li class="list-group-item" ng-repeat="(key, rango)  in vm.JSONdata"><span class="text-muted">{{ rango.d }} -
+        {{rango.h }}</span> <button class="btn btn-danger btn-xs" ng-click="vm.delRange(key)"><i class="fas fa-minus"></i></button></li>
+  </ul>
+</div>

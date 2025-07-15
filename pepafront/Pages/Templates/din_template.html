@@ -1,0 +1,46 @@
+<hr style="border-color:white;"/>
+<div class="row justify-content-md-center w-100">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="din_val_0" class="col-sm-10 label-adjust">Etiqueta Valor 0 <span class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="din_val_0" name="din_val_0" placeholder="val_0" ng-model="din.json_parametros.val_0" ng-required="true">
+        </div>
+        <div class="form-group">
+            <label for="din_val_1" class="col-sm-10 label-adjust">Etiqueta Valor 1 <span class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="din_val_1" name="din_val_1" placeholder="val_1" ng-model="din.json_parametros.val_1" ng-required="true">
+        </div>      
+        <div class="form-group">
+            <label for="din_count" class="col-sm-10 label-adjust">Contador <span class="field-required">*</span></label>
+            <select class="form-control form-control-sm" ng-model="din.json_parametros.count" ng-required="true">
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-4">  
+        <div class="form-group">
+            <label for="din_color_val_0" class="col-sm-10 label-adjust">Color Valor 0 <span class="field-required">*</span></label>
+            <select class="form-control form-control-sm" ng-model="din.json_parametros.color_val_0" 
+                    ng-required="true" ng-options="item.id as item.name for item in din.coloresList">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="din_color_val_1" class="col-sm-10 label-adjust">Color Valor 1 <span class="field-required">*</span></label>
+            <select class="form-control form-control-sm" ng-model="din.json_parametros.color_val_1" 
+                    ng-required="true" ng-options="item.id as item.name for item in din.coloresList">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="io" class="col-sm-10 label-adjust">GPIO <span class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="io" name="io" placeholder="GPIO" ng-model="din.json_parametros.io" ng-required="true">
+        </div>
+        <div class="form-group">
+            <label for="ind_manual" class="col-sm-10 label-adjust">Permite modificación manual<span class="field-required">*</span></label>
+            <select class="form-control form-control-sm" ng-model="din.json_parametros.ind_manual" ng-required="true">
+                <option value="1">Sí</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+    </div>
+</div>

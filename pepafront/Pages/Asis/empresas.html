@@ -1,0 +1,38 @@
+<div class="titulo_menu">{{empresas.form_title}}</div>
+<uib-tabset active="empresas.active" class="bg-local-black">
+    <button type="button" class="btn btn-outline-warning btn-sm" click-and-disable="empresas.updateEmpresas()">&#160;Actualiza Organización&#160;</button>
+    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+        <div class="w-100">
+            <grilla gridoptions="empresas.gridOptions"
+                    urlback="empresas"
+                    api="empresas.grilla=API"
+                    class="d-flex flex-column w-100" style="height: 520px;"
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+        <div class="container-fluid">
+            <div class="row justify-content-md-center w-100">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="cod_empresa" class="col-sm-10 label-adjust">Cód. Organización</label>
+                        <input type="text" class="form-control form-control-sm" id="cod_empresa" name="cod_empresa" ng-model="empresas.empresa.cod_empresa" readonly="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nom_empresa" class="col-sm-10 label-adjust">Nombre</label>
+                        <input type="text" class="form-control form-control-sm" id="nom_empresa" name="nom_empresa" ng-model="empresas.empresa.nom_empresa" readonly="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="des_empresa" class="col-sm-10 label-adjust">Descripción</label>
+                        <input type="text" class="form-control form-control-sm" id="des_empresa" name="des_empresa" ng-model="empresas.empresa.des_empresa" readonly="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-2">
+                <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+            </div>
+        </div>
+    </uib-tab>    
+</uib-tabset>

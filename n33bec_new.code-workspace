@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "pepaapi"
+		},
+		{
+			"path": "n33bec-dev"
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "n33bec\\node_modules\\typescript\\lib",
+		"files.exclude": {
+			"**/dist": true,
+			"**/node_modules": true
+		},
+		"git.ignoreLimitWarning": true,
+		"makefile.extensionOutputFolder": "./.vscode",
+	}
+}

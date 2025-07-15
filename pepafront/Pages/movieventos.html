@@ -1,0 +1,11 @@
+<div class="titulo_menu" translate>Eventos</div>
+<div class="w-100">
+    <grilla gridoptions="movieventos.gridOptions"      
+            urlback="movieventos"
+            api="movieventos.grilla=API"
+            onclick-export="movieventos.exportar(tipo)"
+            show-refresh-btn="movimientos.autoRefreshBtn"
+            class="d-flex flex-column w-100" style="height: 520px;"
+    />
+</div>
+<div ui-view="movieventomodal"></div>

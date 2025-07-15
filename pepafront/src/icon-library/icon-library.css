@@ -1,0 +1,71 @@
+.cs-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+/*  ll-stroke-width: 0;
+  ll-stroke: currentColor;
+  ll-fill: currentColor;
+  */
+}
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.icon-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
+
+.cs-icon-cartel {
+  width: 2.3212890625em;
+}
+
+.cs-icon-espejo {
+  width: 1em;
+}
+
+.cs-icon-flash {
+  width: 1em;
+}
+
+.cs-icon-lineal {
+  width: 1em;
+}
+
+.cs-icon-central {
+  width: 1em;
+}
+
+.cs-icon-detector-humo {
+  width: 1em;
+}
+
+.cs-icon-electrobomba{
+  width: 1em;
+}
+
+.cs-icon-motobomba{
+  width: 1em;
+}
+
+.cs-icon-alarma-gral{
+  width: 1em;
+}
+
+.cs-icon-bomba{
+  width: 1em;
+}
+
+
+.cs-icon-campana{
+  width: 1em;
+}
+
+.cs-icon-controlacceso{
+  width: 1em;
+}
+
+.cs-icon-ampliacionextincion{
+  width: 1em;
+}
+

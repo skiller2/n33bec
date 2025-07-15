@@ -1,0 +1,160 @@
+<div class="titulo_menu" translate>Movimientos</div>
+<uib-tabset active="movimientos.active" class="bg-local-black">    
+    <uib-tab index="0" heading="Permanentes OK" ui-sref=".({action:'permanentes'})">
+        <div class="bg-local-permitidos w-100">
+            <grilla gridoptions="movimientos.gridOptionsPermanentes"
+                    filtroextra="movimientos.filtroextra"
+                    urlback="movimientos/permanentes"
+                    onclick-export="movimientos.exportarPermanentes(tipo)"
+                    on-selection="movimientos.onSelection(sel)"
+                    api="movimientos.grillaPermanentes=API"
+                    class="d-flex flex-column w-100" style="height: 520px;"
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="1" heading="Temporales OK" ui-sref=".({action:'temporales'})">
+        <div class="bg-local-permitidos w-100">
+            <grilla gridoptions="movimientos.gridOptionsTemporales"
+                    filtroextra="movimientos.filtroextra"
+                    urlback="movimientos/temporales"
+                    onclick-export="movimientos.exportarTemporales(tipo)"
+                    api="movimientos.grillaTemporales=API"
+                    on-selection="movimientos.onSelection(sel)"
+                    class="d-flex flex-column w-100" style="height: 520px;"
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="2" heading="Rechazados" ui-sref=".({action:'rechazados'})">
+        <div class="bg-local-rechazados w-100">
+            <grilla gridoptions="movimientos.gridOptionsRechazados"
+                    filtroextra="movimientos.filtroextra"
+                    urlback="movimientos/rechazados"
+                    onclick-export="movimientos.exportarRechazados(tipo)"
+                    on-selection="movimientos.onSelection(sel)"
+                    api="movimientos.grillaRechazados=API"
+                    show-refresh-btn="movimientos.autoRefreshBtnRechazados"
+                    auto-refresh="movimientos.autoRefreshRechazados"
+                    class="d-flex flex-column w-100" style="height: 520px;"
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="3" ui-sref=".({action:'detalle'})" heading="Detalle">
+        <div class="container-fluid">
+            <div class="header">
+                <h4 class="title" >{{movimientos.form_title}}</h4>
+            </div>
+            <ng-form name="frmMovimientos" class="form-horizontal" novalidate ng-validator>
+                <div class="row justify-content-md-center w-100">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="form-group">
+                            <label for="cod_persona" class="col-sm-10 label-adjust" translate>Fecha</label>
+                            <input type="text" class="form-control form-control-sm" id="stm_movimiento" ng-model="movimientos.persona.stm_movimiento" formatted="ftDateTime" name="stm_movimiento" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label for="cod_persona" class="col-sm-10 label-adjust" translate>Cod. Persona</label>
+                            <input type="text" class="form-control form-control-sm" id="cod_persona" name="cod_persona" data-ng-model="movimientos.persona.cod_persona" readonly="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nom_persona" class="col-sm-10 label-adjust" translate>Nombre</label>
+                            <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona" data-ng-model="movimientos.persona.nom_persona"  readonly="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ape_persona" class="col-sm-10 label-adjust" translate>Apellido</label>
+                            <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona" data-ng-model="movimientos.persona.ape_persona" readonly="">            
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cod_sexo" class="col-sm-10 label-adjust" translate>Sexo</label>
+                            <select class="form-control form-control-sm" id="cod_sexo" name="cod_sexo"
+                                    data-ng-model="movimientos.persona.cod_sexo" disabled=""
+                                    ng-options="item.id as item.name for item in movimientos.tipoSexo">
+                            </select>            
+                        </div>
+                        <div class="form-group">
+                            <label for="cod_tipo_doc" class="col-sm-10 label-adjust" translate>Tipo Doc.</label>
+                            <select class="form-control form-control-sm" id="cod_tipo_doc" name="cod_tipo_doc"
+                                    data-ng-model="movimientos.persona.cod_tipo_doc" disabled=""
+                                    ng-options="item.id as item.name for item in movimientos.tipoDocumento">
+                            </select>            
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nro_documento" class="col-sm-10 label-adjust" translate>Nro. Doc.</label>
+                            <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento" data-ng-model="movimientos.persona.nro_documento" readonly="">            
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-sm-10 label-adjust" translate>E-mail</label>
+                            <input type="email" class="form-control form-control-sm" id="email" name="email" data-ng-model="movimientos.persona.email" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-5">
+                        <div class="form-group">
+                            <label for="img_persona" class="col-sm-10 label-adjust" translate>Foto</label>
+                            <div class="form-control form-control-img"><img id="img_persona" ng-src="{{movimientos.persona.img_persona}}" ng-show="movimientos.persona.img_persona"/></div>
+                        </div>
+
+                        <div class="form-group" >
+                            <label for="cod_credencial" class="col-sm-10 label-adjust" translate>Credencial</label>
+                            <input type="text" class="form-control form-control-sm" id="cod_credencial" name="cod_credencial" data-ng-model="movimientos.persona.cod_credencial" readonly="" formatted="ftTarjeta">
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-lg-5" ng-if="movimientos.lastselected.urlback == 'movimientos/temporales'">
+                        <div class="form-group" >
+                            <label for="cod_ou_contacto" class="col-sm-10 label-adjust" translate>Cod. OU Contacto</label>
+                            <input type="text" class="form-control form-control-sm" id="cod_ou_contacto" name="cod_ou_contacto" data-ng-model="movimientos.persona.cod_ou_contacto" readonly="">
+                        </div>
+
+                        <div class="form-group" >
+                            <label for="nom_ou_contacto" class="col-sm-10 label-adjust" translate>Nombre OU Contacto</label>
+                            <input type="text" class="form-control form-control-sm" id="nom_ou_contacto" name="nom_ou_contacto" data-ng-model="movimientos.persona.nom_ou_contacto" readonly="">
+                        </div>
+
+                        <div class="form-group" >
+                            <label for="cod_persona_contacto" class="col-sm-10 label-adjust" translate>Cod. Persona Contacto</label>
+                            <input type="text" class="form-control form-control-sm" id="cod_persona_contacto" name="cod_persona_contacto" data-ng-model="movimientos.persona.cod_persona_contacto" readonly="">
+                        </div>
+
+                        <div class="form-group" >
+                            <label for="nom_persona_contacto" class="col-sm-10 label-adjust" translate>Nombre Persona Contacto</label>
+                            <input type="text" class="form-control form-control-sm" id="nom_persona_contacto" name="nom_persona_contacto" data-ng-model="movimientos.persona.nom_persona_contacto"  readonly="">
+                        </div>
+
+                        <div class="form-group" >
+                            <label for="ape_persona_contacto" class="col-sm-10 label-adjust" translate>Apellido Persona Contacto</label>
+                            <input type="text" class="form-control form-control-sm" id="ape_persona_contacto" name="ape_persona_contacto" data-ng-model="movimientos.persona.ape_persona_contacto" readonly="">
+                        </div>
+
+                        
+                    </div>
+                </div>
+                <div class="modal-footer p-2">                    
+                </div>
+            </ng-form>
+        </div>
+    </uib-tab>
+    <uib-tab index="4" ui-sref=".({action:'leetarjeta'})" heading="Leer Tarjeta">
+        <div class="col-md-6 col-lg-5">
+            <div class="form-group">
+                <label for="cod_credencial" class="col-sm-10 label-adjust" translate>Cód. Tarjeta</label>
+                <input type="text" class="form-control form-control-sm" id="cod_credencial" name="cod_credencial" ng-model="movimientos.test.cod_credencial">
+            </div>
+            <div class="form-group">
+                <label for="id_lector" class="col-sm-10 label-adjust" translate>Lectores</label>
+                <select class="form-control form-control-sm" id="id_lector" name="id_lector"
+                        ng-model="movimientos.test.id_lector" 
+                        ng-options="key as value.descripcion for (key,value) in movimientos.lectores">
+                </select>
+            </div>            
+            <div>
+                <span class="help-inline" style="color:yellow;" ><span  translate>Separa Facility Code:</span> {{movimientos.lectores[movimientos.test.id_lector]['ind_separa_facility_code']}}</span>
+            </div>
+            <button class="btn btn-primary btn-xs" ng-click="movimientos.leerCredencial()" translate>Leer Tarjeta</button>
+        </div>
+    </uib-tab>
+</uib-tabset>
+
+<div ui-view="movimientomodal" ></div>

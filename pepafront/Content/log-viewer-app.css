@@ -1,0 +1,139 @@
+/*LOG*/
+
+
+.log-viewer-back-disconnected {
+  background-color: rgb(37, 1, 1);
+}
+
+.log-viewer-back-connected {
+  background-color: black;
+}
+
+
+log-viewer-content {
+  display:block;
+  font-family:consolas;
+  font-size:.9em;
+  margin:0;
+  padding:0;
+  overflow: auto
+}
+
+
+log-viewer-content .log-viewer-logentry{
+  white-space:nowrap;
+  height:15px;
+  vertical-align:bottom;
+}
+
+log-viewer-content .log-viewer-server-color{
+  width:5px;
+  height:15px;
+  display:inline-block;
+  margin-right:10px;
+  border:1px solid black;
+  vertical-align:bottom;
+}
+
+log-viewer-content .highlight{
+  padding:0 2px;
+}
+
+log-viewer-content body {
+  background-color:#222;
+  color:#fff;
+  font-family:'Segoe UI';
+}
+
+log-viewer-content label{
+  margin-left:30px;
+}
+
+log-viewer-content input{
+  border:1px solid #444;
+  border-radius:4px;
+  margin:0 5px 0 5px;
+  line-height:20px;
+}
+
+log-viewer-content input[type=number]{
+  width:50px;
+  text-align:center;
+}
+
+log-viewer-content input[type=text]{
+  width:200px;
+  padding-left:10px;
+  transition:width linear .1s;
+}
+
+log-viewer-content button{
+  padding:5px 10px;
+  border-radius:3px;
+}
+
+log-viewer-content #header{
+  border-bottom:1px solid #AAA;
+  padding:5px;
+
+  top:0;
+  left:0;
+  width:100%;
+
+  white-space:nowrap;
+}
+
+log-viewer-content #add-source{
+  width:200px;
+}
+
+log-viewer-content #regex{
+  width:100px;
+}
+
+log-viewer-content #highlight{
+  width:100px;
+}
+
+log-viewer-content #log-container{
+  margin-top:60px;
+}
+
+log-viewer-content .blink{
+  animation-name: blinker;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blinker {
+  0% { opacity: .3; }
+  50% { opacity:.7;}
+  100% { opacity: 1.0; }
+}
+
+log-viewer-content .log-viewer {
+  background-color:#222;
+  color:#fff;
+  font-family:'Segoe UI';
+}
+
+log-viewer-content .log-highlight{
+  background-color:yellow;
+  color:black;
+}
+log-viewer-content .log-highlight-error{
+  background-color:darkred;
+  color:white;
+}
+log-viewer-content .log-highlight-warn{
+  background-color:lightgoldenrodyellow;
+  color:dimgray;
+}
+
+log-viewer-content .logoffline{
+  background-color:red;
+}
+
+log-viewer-content .logonline{    
+}

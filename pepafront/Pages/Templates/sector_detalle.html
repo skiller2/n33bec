@@ -1,0 +1,161 @@
+<script type="text/ng-template" id="detalleModalContent.html">
+    <div class="modal-header">
+      <h3 class="modal-title"><cs-icon symbol="ctrl.json_posicion_img.class"></cs-icon> {{ctrl.nom_tema}}
+      </h3>
+  </div>
+  <div class="modal-body"> 
+
+    <div class="row">
+      <div class="col-sm-5">Ubicación</div>
+      <div class="col-sm-7">{{ctrl.des_ubicacion}}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5">Componente</div>
+      <div class="col-sm-7">{{ctrl.cod_tema}}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5">Detalle</div>
+      <div class="col-sm-7">{{ctrl.des_observaciones}}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5">Fecha evento</div>
+      <div class="col-sm-7">{{ctrl.stm_evento | ftDateTime }}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5">Fecha evento anterior</div>
+      <div class="col-sm-7">{{ctrl.stm_evento_ultimo | ftDateTime }}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5">Fecha evento prueba</div>
+      <div class="col-sm-7">{{ctrl.stm_evento_prueba | ftDateTime }}</div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ctrl.showImagenTema()"><i class="fas fa-photo-video"> </i> Imagen</button>
+    <button class="btn btn-primary" type="button" ng-click="ctrl.ok()">OK</button>
+    <button ng-if="ctrl.bus_id" class="btn btn-primary" type="button" ng-click="ctrl.sendReset()" ng-disabled="ctrl.btn_reset_disabled">RESET</button>
+  </div>
+</script>
+<div class="d-flex flex-column flex-fill h-100   ">
+
+    <h4>
+        <span ng-repeat="sector in ctrl.sectorTree.slice().reverse()"
+            ng-click="ctrl.showSector(sector.cod_sector,false)"
+            ng-class="{'text-warning':sector.cod_sector===ctrl.selected.cod_sector}">/{{ sector.nom_sector }}</span>
+    </h4>
+
+    <div>
+        <div class="btn-group btn-group-sm p-2" role="group" aria-label="">
+            <!-- button type="button" class="btn btn-secondary cs-btn-min-width" click-and-disable="ctrl.showImagenTema(ctrl.cod_tema)">
+        <div>Componente</div>
+        <div> <i class="fas fa-photo-video cs-fa-15x"></i> </div>
+      </button -->
+
+            <button type="button" class="btn btn-secondary cs-btn-min-width"
+                click-and-disable="ctrl.showImagenSector()">
+                <div>Plano</div>
+                <div> <i class="fas fa-map cs-fa-15x"></i> </div>
+            </button>
+
+            <button type="button" class="btn btn-secondary cs-btn-min-width-2x "
+                click-and-disable="ctrl.verEstadosIOs(ctrl.selected.cod_sector)">
+                <div>Ver Estados</div>
+                <div> <i class="fas fa-adjust cs-fa-15x"></i> </div>
+            </button>
+            <button type="button" class="btn btn-secondary cs-btn-min-width" click-and-disable="ctrl.verDocs()">
+                <div>PDF</div>
+                <div> <i class="fas fa-file-pdf cs-fa-15x"></i> </div>
+            </button>
+
+            <button ng-if="ctrl.cod_tema" type="button" class="btn btn-secondary cs-btn-min-width-2x"
+                click-and-disable="ctrl.fresetear('contador')">
+                <div>Resetear Contador</div>
+                <div> <i class="fas fa-calculator cs-fa-15x cs-btn-min-width"></i> </div>
+            </button>
+            <button ng-if="ctrl.cod_tema && ctrl.tema.tipo_evento_prioridad !='NO' " type="button"
+                class="btn btn-secondary cs-btn-min-width" click-and_disable="ctrl.restaurarTema()">
+                <div>Restaurar</div>
+                <div>
+                    <div ng-if="ctrl.tema.ind_alarma"><i class="fa fa-bell cs-fa-15x cs-text-alarma"></i></div>
+                    <div ng-if="ctrl.tema.ind_prealarma"><i class="fa fa-bell cs-fa-15x cs-text-prealarma"></i></div>
+                    <div ng-if="ctrl.tema.ind_alarmatec"><i class="fa fa-wrench cs-fa-15x cs-text-alarmatec"></i></div>
+                    <div ng-if="ctrl.tema.ind_falla"><i class="fa fa-exclamation-triangle cs-fa-15x cs-text-falla"></i>
+                    </div>
+                    <div ng-if="ctrl.tema.ind_desconexion"><i
+                            class="fa fa-exclamation-triangle cs-fa-15x cs-text-desconexion"></i></div>
+                </div>
+            </button>
+            <button type="button" class="btn btn-secondary cs-btn-min-width" click-and-disable="ctrl.close()">
+                <div>Cerrar</div>
+                <div> <i class="fas fa-times cs-fa-15x"></i> </div>
+            </button>
+        </div>
+        <!-- div style="height: 10px;"></div -->
+    </div>
+
+    <div class="d-flex w-100 h-100 justify-content-center align-items-center"
+        style="background-color: white; position: relative;">
+        <div class="content w-100 h-100 position-relative">
+            <pan-zoom ng-model="ctrl.imgdata" class="w-100 h-100 d-block position-relative">
+                <cs-icon ng-repeat="tema in ctrl.icons_imagen" ng-if="tema.class" title="{{ tema.nom_tema }}"
+                    symbol="tema.class" ng-click="ctrl.temaPopUp(tema.cod_tema)"
+                    ng-touchstart="ctrl.temaPopUp(tema.cod_tema)" ng-class="tema.event_class"
+                    ng-style="{'position':'absolute', 'line-height':'0', 'left': tema.left+'px', 'top': tema.top+'px', 'font-size': tema.width+'px', 'transform': 'rotate('+tema.rotacion_grados+'deg) rotatey('+tema.rotaciony_grados+'deg)', 'touch-action':'auto'}">
+                </cs-icon>
+            </pan-zoom>
+        </div>
+
+        <div ng-show="ctrl.ind_video" class="content w-100 h-100 position-absolute bg-dark fadecard flex-column d-flex">
+            <div class="btn-group btn-group-responsive d-flex " role="group">
+
+                <button type="button" class="btn btn-secondary" click-and-disable="ctrl.showVideo(url)"
+                    ng-repeat="url in ctrl.selected.obj_urls_videos track by $index">
+                    <i class="fas fa-video"></i><span class="p-1">Cámara #{{ $index }}</span>
+
+                </button>
+            </div>
+            <div class="card-body d-flex justify-content-center">
+
+                <img ng-if="!ctrl.video_url.includes('.mpd')" alt="Video" class=""
+                    style="max-width: 100%;max-height: 100;" ng-src="{{ctrl.video_url}}" />
+
+                <!-- img class="rounded-lg" src="{{ctrl.video_url}}" style="max-width: 100%; max-height: 100%;"/ -->
+                <video ng-if="ctrl.video_url.includes('.mpd')" data-dashjs-player autoplay controls
+                    ng-src="{{ctrl.video_url}}" type="application/dash+xml"
+                    style="max-width: 100%;max-height: 100%;     margin: auto;">
+                    <script ng-if="ctrl.video_url.includes('.mpd')" src="../../Content/dash.all.min.js"></script>
+
+                </video>
+
+            </div>
+        </div>
+
+
+        <div ng-if="ctrl.ind_documentos" class="content w-100 h-100 position-absolute bg-dark fadecard"
+            style="background-color: red;">
+            <docs-viewer style=" touch-action:auto" on-close="ctrl.ind_documentos=0" url="ctrl.documentos_url">
+            </docs-viewer>
+        </div>
+
+
+
+        <div ng-if="ctrl.ind_detalle_temas"
+            class="position-absolute card text-white bg-dark mb-3 shadow-lg w-75 h-75 fadecard">
+            <div class="card-header d-flex">
+                <h5 class="card-title mr-auto">Componentes de {{ ctrl.nom_sector }}</h5><button
+                    ng-click="ctrl.ind_detalle_temas=0" type="button" class="btn btn-secondary"><i
+                        class="fas fa-times cs-fa-1x"></i></button>
+            </div>
+            <div class="card-body" style="overflow:auto">
+                <ul class="list-group py-1 text-left">
+                    <li class="list-group-item py-0 px-1 text-dark">Estado actual</li>
+                    <li ng-repeat="tema in ctrl.estados_temas_actuales" title=" {{ tema.cod_tema }}"
+                        class="list-group-item py-0 list-group-item text-dark {{tema.color}}"
+                        ng-click="ctrl.temaPopUp(tema.cod_tema)">{{ tema.nom_tema}} =
+                        {{tema.des_valor}} ({{tema.valor}})</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

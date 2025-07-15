@@ -1,0 +1,31 @@
+<div class="row justify-content-md-left">
+  <div class="col-md-2">
+    <select class="form-control form-control-sm" ng-model="vm.sel_io" ng-change="vm.changeIO()" ignore-dirty ng-options="value as value for value in vm.iosList"
+      size="20"></select>
+  </div>
+  <div class="col-md-4">
+    <div><label for="clase" class="col-sm-10 label-adjust">Clase <span class="field-required">*</span></label><select
+        class="form-control form-control-sm" ng-model="vm.io_actual.direction" ng-required="true" ng-options="value as value for value in vm.directions"></select></div>
+    <div><label for="label" class="col-sm-10 label-adjust">Etiqueta <span class="field-required">*</span></label><input
+        type="text" class="form-control form-control-sm" id="io_label" name="io_label" placeholder="label" ng-model="vm.io_actual.io_label"
+        ng-required="true"></div>
+    <div><label for="direction" class="col-sm-10 label-adjust">Dirección <span class="field-required">*</span></label><select
+        class="form-control form-control-sm" ng-model="vm.io_actual.direction" ng-required="true" ng-options="value as value for value in vm.directions"></select></div>
+    <div ng-hide="vm.checkDirection()"><label for="optvisible" class="col-sm-10 label-adjust">Visible <span class="field-required">*</span></label><select
+        class="form-control form-control-sm" ng-model="vm.io_actual.visible" ng-required="true" ng-options="value as value for value in vm.tf"></select></div>
+    <div ng-hide="vm.checkDirection()"><label for="val_0" class="col-sm-10 label-adjust">Etiqueta Valor 0 <span class="field-required">*</span></label><input
+        type="text" class="form-control form-control-sm" id="val_0" name="val_0" placeholder="val_0" ng-model="vm.io_actual.val_0"
+        ng-required="true"></div>
+    <div ng-hide="vm.checkDirection()"><label for="val_1" class="col-sm-10 label-adjust">Etiqueta Valor 1 <span class="field-required">*</span></label><input
+        type="text" class="form-control form-control-sm" id="val_1" name="val_1" placeholder="val_1" ng-model="vm.io_actual.val_1"
+        ng-required="true"></div>
+    <div ng-hide="vm.checkDirection()"><label for="color_val_0" class="col-sm-10 label-adjust">Color Valor 0 <span
+          class="field-required">*</span></label><select class="form-control form-control-sm" ng-model="vm.io_actual.color_val_0"
+        ng-required="true" ng-options="key as value for (key,value) in vm.colores"></select></div>
+    <div ng-hide="vm.checkDirection()"><label for="color_val_1" class="col-sm-10 label-adjust">Color Valor 1 <span
+          class="field-required">*</span></label><select class="form-control form-control-sm" ng-model="vm.io_actual.color_val_1"
+        ng-required="true" ng-options="key as value for (key,value) in vm.colores"></select></div>
+    <div ng-hide="vm.checkDirection()"><label for="count" class="col-sm-10 label-adjust">Contador <span class="field-required">*</span></label><select
+        class="form-control form-control-sm" ng-model="vm.io_actual.count" ng-required="true" ng-options="value as value for value in vm.tf"></select></div>
+  </div>
+</div>

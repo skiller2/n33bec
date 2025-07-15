@@ -1,0 +1,31 @@
+<div class="bg-dark text-white">
+    <div class="modal-header">
+        <div class="modal-title"><h4>{{modalAlert.msg_title}}  {{modalAlert.msg_icon}}</h4></div>
+    </div>
+    <div class="modal-body">
+        <table style="width:100%;">
+            <tr>
+                <td><i class="fas fa-{{modalAlert.msg_icon}} fa-2x text-{{modalAlert.msg_icon}}"></i></td>
+                <td><div class="modal-message-body">{{modalAlert.msg_message}}</div></td>
+            </tr>
+        </table>
+        <div ng-repeat="debug in modalAlert.msg_debug">
+            <div class="modal-title"><h4>{{debug.message}}</h4></div>
+            <div ng-repeat="trace in debug.trace">
+                <div ng-if="trace.function">                        
+                    {{trace.class}}
+                    {{trace.type}}                        
+                    {{trace.function}}                        
+                    {{trace.args}}
+                </div>
+                <div ng-if="trace.file && trace.line">
+                    {{trace.file}}
+                    line {{trace.line}}
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="modal-footer p-2">
+        <button type="button" class="btn btn-outline-success btn-sm" ng-click="modalAlert.close()" >OK</button>
+    </div>
+</div>

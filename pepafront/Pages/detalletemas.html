@@ -1,0 +1,29 @@
+<div class="card bg-local-black shadow  " >
+    <div class="card-body">
+            <div class="card-title text-white">
+                <strong>Detalle Componente</strong>
+            </div>
+            <ul class="list-group py-1" ng-if="$ctrl.ind_alarma">
+                <li class="list-group-item cs-bg-alarma py-0 px-1"><span translate>Alarma</span> {{ $ctrl.stm_event_alarma | ftDateTime }}</li>
+                <li ng-repeat="tema in $ctrl.estados_temas_alarma" class="list-group-item py-0 list-group-item-{{tema.color}}" >{{ tema.nom_tema}} = {{tema.des_valor}}({{tema.valor}})</li>
+            </ul>
+            <ul class="list-group py-1" ng-if="$ctrl.ind_prealarma">
+                <li class="list-group-item cs-bg-prealarma py-0 px-1"><span translate>Pre Alarma</span> {{ $ctrl.stm_event_prealarma | ftDateTime }}</li>
+                <li ng-repeat="tema in $ctrl.estados_temas_prealarma" class="list-group-item py-0 list-group-item-{{tema.color}}" >{{ tema.nom_tema}} = {{tema.des_valor}}({{tema.valor}})</li>
+            </ul>
+            <ul class="list-group py-1" ng-if="$ctrl.ind_alarmatec">
+                <li class="list-group-item cs-bg-alarmatec py-0 px-1"><span translate>Alarma Técnica</span> {{ $ctrl.stm_event_alarma_tecnica | ftDateTime }}</li>
+                <li ng-repeat="tema in $ctrl.estados_temas_alarma_tecnica" class="list-group-item py-0 list-group-item-{{tema.color}}" >{{ tema.nom_tema}} = {{tema.des_valor}}({{tema.valor}})</li>
+            </ul>
+
+            <ul class="list-group py-1" ng-if="$ctrl.ind_falla">
+                <li class="list-group-item cs-bg-falla py-0 px-1"><span translate>Falla</span> {{ $ctrl.stm_event_falla | ftDateTime }}</li>
+                <li ng-repeat="tema in $ctrl.estados_temas_falla" class="list-group-item py-0 list-group-item-{{tema.color}}" >{{ tema.nom_tema}} = {{tema.des_valor}}({{tema.valor}})</li>
+            </ul>
+
+            <ul class="list-group py-1 text-dark">
+                <li class="list-group-item py-0 px-1 " translate>Estado actual</li>
+                <li ng-repeat="tema in $ctrl.estados_temas_actuales" class="list-group-item py-0 list-group-item-{{tema.color}}" ><span title=" pepe {{ tema.cod_tema}} " >{{ tema.nom_tema}} = {{tema.des_valor}}({{tema.valor}})</span></li>
+            </ul>            
+    </div>
+</div>

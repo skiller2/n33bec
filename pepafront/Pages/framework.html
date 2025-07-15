@@ -1,0 +1,105 @@
+<div class="vh-100">
+  <header>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-1">
+      <div class="navbar flex-column align-items-start p-0 m-0">
+        <div title="Estado compilación de accesos" class="led-{{body.colorEstadoHabiAcceso}} small"></div>
+        <div title="Estado consola" class="led-{{body.colorEstadoConsola}} small"></div>
+        <div title="Estado backend" class="led-{{body.colorEstadoBackend}} small"></div>
+      </div>
+      <div class="navbar flex-column align-items-start p-0 m-0 px-1">
+        <div title="Modo sistema verde normal, amarillo prueba" class="led-{{body.colorEstadoPrueba}} small"></div>
+        <div title="Estado configuración componentes" class="led-{{body.colorEstadoTema}} small"></div>
+        <div title="Estado configuración componentes" class="led-{{body.colorEstadoTema}} small"></div>
+      </div>
+
+      <div class="dropdown " uib-dropdown>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-haspopup="true" aria-expanded="false"
+          uib-dropdown-toggle title="menu"><span class="navbar-toggler-icon"></span></button>
+        <div class="dropdown-menu" uib-dropdown-menu role="menu">
+          <a ng-if="!body.isLogged" class="dropdown-item" ng-click="body.callLogin(true)"><i
+              class="fas fa-sign-in-alt"></i><span  translate>Ingresar</span></a>
+          <a ng-if="body.isLogged" class="dropdown-item" ui-sref=".logout"><i class="fas fa-sign-out-alt"></i><span  translate>Salir</span></a>
+          <div class="dropdown-divider"></div>
+          <a ng-repeat="menu in body.menu" class="dropdown-item" ui-sref="{{menu.id}}({action:'lista'})">
+            <i class="fa fa-{{menu.icon}}"></i><span ng-if="menu.name"> {{menu.name}} </span>
+            <div ng-if="menu.divider" class="dropdown-divider"></div>
+          </a>
+        </div>
+      </div>
+
+      <a class="navbar-brand p-0 my-0" href="#"><span  translate>N33-BEC</span> ({{body.id_disp_origen}})</a>
+
+      <ds-widget-clock show-digital digital-format="'HH:mm:ss'"
+        class="text-warning navbar-collapse text-warning collapse p-0 m-0"></ds-widget-clock>
+
+      <div class="collapse navbar-collapse flex-column align-items-end">
+        <div class="navbar-nav">
+          <ui-select ng-if="body.isLogged" class="btn btn-outline-light btn-sm" id="cod_ou" name="cod_ou"
+            style="width:14vw; padding-top: 0; padding-bottom: 0; color: white;" ng-model="body.cod_ou" ng-change="body.fcambiaSelOU()" title="Empresa"
+            xng-options="item.cod_ou as item.nom_ou for item in body.codOuList">
+            <ui-select-match placeholder="Empresa"><span ng-bind="$select.selected.nom_ou"></span></ui-select-match>
+            <ui-select-choices repeat="item.cod_ou as item in body.codOuList | filter: $select.search">
+              <div ng-bind-html="item.nom_ou | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+
+          <button ng-if="! body.isLogged" class="btn btn-outline-light btn-sm mx-1" ng-click="body.callLogin(true)"><i
+              class="fa fa-user" title="Ingresar"></i><span  translate> Ingresar<span></button>
+
+          <button ng-if="body.isLogged" class="btn btn-outline-danger btn-sm mx-1" ui-sref=".logout"
+            title="Salir">Salir</button>
+
+          <button ng-if="body.isLogged" class="btn btn-outline-danger btn-sm mx-1" ng-click="body.initCaptureDevices()"
+            title="Camera"><i class="fa fa-camera"></i></button>
+
+
+          <div ng-if="body.isLogged" class="dropdown" uib-dropdown>
+            <button class="btn btn-outline-light dropdown-toggle mx-1 btn-sm" type="button" data-toggle="dropdown2"
+              aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle title="Menu">Menu</button>
+            <div class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu">
+              <a ng-repeat="menu in body.menu" class="dropdown-item" ui-sref="{{menu.id}}({action:'lista'})">
+                <i class="fa fa-{{menu.icon}}"></i><span ng-if="menu.name"> {{menu.name}} </span>
+                <div ng-if="menu.divider" class="dropdown-divider"></div>
+              </a>
+            </div>
+          </div>
+
+          <button ng-model="body.bell" class="btn {{body.btn_bell_class}} mx-1 {{body.shake_bell_class}} btn-sm"
+            ng-click="body.switchAudio()" title="Alarma"><i class="fa fa-bell"></i>
+          </button>
+
+        </div>
+      </div>
+
+
+      <div class="mx-auto order-1">
+        <!-- span us-spinner="{radius:10, width:8, length: 16, color:'red'}" spinner-key="spinner-1"></span -->
+      </div>
+
+    </nav>
+  </header>
+
+
+  <!-- Content will be injected here -->
+  <main class="d-flex flex-column flex-fill vh-100">
+
+    <div class="d-flex flex-grow-1 align-self-center align-items-center mw-100">
+      <div class="vw-100 h-100 align-self-start">
+        <div ng-repeat="menu in body.menu" ui-view="{{menu.id}}" class="d-inline"></div>
+      </div>
+
+    </div>
+    <div class="p-0 consola-framework">
+      <app-console class="d-block" style="height:200px"></app-console>
+    </div>
+  </main>
+
+  <footer class="footer fixed-bottom">
+    <div class="container-fluid">
+      <span class="text-muted"><span translate>Versión:</span> {{body.version}}
+        {{body.codUsuario}}</span>
+      <!--nav class="navbar fixed-bottom" style="width: 50%">
+    </nav-->
+    </div>
+  </footer>
+</div>

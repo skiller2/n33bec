@@ -1,0 +1,201 @@
+<div class="titulo_menu">{{parametros.form_title}}</div>
+<uib-tabset active="parametros.active" class="bg-local-black">
+  <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <div class="w-100">
+      <grilla gridoptions="parametros.gridOptions" onclick-edit="parametros.toggle(accion)"
+        onclick-add="parametros.toggle(accion)" onclick-copy="parametros.toggle(accion)"
+        onclick-delete="parametros.confirmDelete()" urlback="parametros" api="parametros.grilla=API"
+        class="d-flex flex-column w-100" style="height: 520px;"
+        />
+    </div>
+  </uib-tab>
+  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <div class="container-fluid">
+      <div class="row justify-content-md-center w-100">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="den_parametro_dt" class="col-sm-10 label-adjust" translate>Parámetro <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="den_parametro_dt" name="den_parametro_dt"
+              placeholder="Parámetro" ng-model="parametros.parametro_dt.den_parametro" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="val_parametro_dt" class="col-sm-10 label-adjust" translate>Valor <span
+                class="field-required">*</span></label>
+            <textarea class="form-control form-control-sm" id="val_parametro_dt" name="val_parametro_dt"
+              placeholder="Valor" style="width: 400px; height: 200px;" readonly=""
+              ng-model="parametros.parametro_dt.val_parametro"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="des_parametro_dt" class="col-sm-10 label-adjust" translate>Descripción <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="des_parametro_dt" name="des_parametro_dt"
+              placeholder="Descripción" ng-model="parametros.parametro_dt.des_parametro" readonly="">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+      </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="2" heading="{{parametros.action_title}}" ui-sref=".({action:parametros.action})"
+    ng-hide="parametros.hide">
+    <div class="container-fluid">
+      <ng-form name="frmParametros" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="den_parametro" class="col-sm-10 label-adjust" translate>Parámetro <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="den_parametro" name="den_parametro"
+                placeholder="Parámetro" ng-model="parametros.parametro.den_parametro" ng-required="true"
+                ng-readonly="parametros.noteditable">
+              <span class="help-inline"
+                ng-show="frmParametros.den_parametro.$invalid && frmParametros.den_parametro.$touched" translate>Debe ingresar un Parámetro</span>
+            </div>
+
+            <div class="form-group">
+              <label for="val_parametro" class="col-sm-10 label-adjust" translate>Valor <span
+                  class="field-required">*</span></label>
+              <textarea class="form-control form-control-sm" id="val_parametro" name="val_parametro" placeholder="Valor"
+                style="width: 400px; height: 200px;" ng-model="parametros.parametro.val_parametro"
+                ng-required="true"></textarea>
+              <span class="help-inline"
+                ng-show="frmParametros.val_parametro.$invalid && frmParametros.val_parametro.$touched" translate>Debe ingresar un Valor</span>
+            </div>
+
+            <div class="form-group">
+              <label for="des_parametro" class="col-sm-10 label-adjust" translate>Descripción <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="des_parametro" name="des_parametro"
+                placeholder="Descripción" ng-model="parametros.parametro.des_parametro" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmParametros.des_parametro.$invalid && frmParametros.des_parametro.$touched" translate>Debe ingresar una Descripción</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+          <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+          <button dtcancela active-tab="parametros.active" hide-tab="parametros.hide" type="button"
+            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmParametros.$valid, 'modal-button-primary-disabled': !(frmParametros.$valid && frmParametros.$dirty)} "
+            ng-disabled="!(frmParametros.$dirty)" click-and-disable="parametros.ok()">&#160;<span translate>Grabar</span>&#160;</button>
+        </div>
+      </ng-form>
+    </div>
+  </uib-tab>
+
+  <uib-tab index="5" ui-sref=".({action:'mensajeria'})" heading="Prueba Chat">
+    <div class="container-fluid">
+      <ng-form name="frmParametros3" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="des_mensaje" class="col-sm-10 label-adjust" translate>Mensaje <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="des_mensaje" name="des_mensaje"
+                placeholder="Valor" ng-model="parametros.chattest.des_mensaje" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmParametros3.des_mensaje.$invalid && frmParametros3.des_mensaje.$touched" translate>Debe ingresar un Mensaje</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+          <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+          <button dtcancela hide-tab="parametros.hide" type="button"
+            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmParametros3.$valid, 'modal-button-primary-disabled': !(frmParametros3.$valid && frmParametros3.$dirty)} "
+            click-and-disable="parametros.sendchattest()">&#160;<span translate>Enviar</span>&#160;</button>
+        </div>
+      </ng-form>
+    </div>
+  </uib-tab>
+  <uib-tab index="3" ui-sref=".({action:'mail'})" heading="Prueba Mail">
+    <div class="container-fluid">
+      <ng-form name="frmParametros2" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="des_asunto" class="col-sm-10 label-adjust" translate>Asunto <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="des_asunto" name="des_asunto"
+                placeholder="Asunto" ng-model="parametros.mailtest.des_asunto" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmParametros2.des_asunto.$invalid && frmParametros2.des_asunto.$touched" translate>Debe ingresar un Asunto</span>
+            </div>
+
+            <div class="form-group">
+              <label for="des_mensaje" class="col-sm-10 label-adjust" translate>Mensaje <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="des_mensaje" name="des_mensaje"
+                placeholder="Valor" ng-model="parametros.mailtest.des_mensaje" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmParametros2.des_mensaje.$invalid && frmParametros2.des_mensaje.$touched" translate>Debe ingresar un Mensaje</span>
+            </div>
+
+            <div class="form-group">
+              <label for="des_destinatario" class="col-sm-10 label-adjust" translate>Destinatario <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="des_parametro" name="des_parametro"
+                placeholder="Destinatario" ng-model="parametros.mailtest.des_destinatario" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmParametros2.des_destinatario.$invalid && frmParametros2.des_destinatario.$touched" translate>Debe ingresar un destinatario</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+          <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+          <button dtcancela hide-tab="parametros.hide" type="button"
+            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmParametros2.$valid, 'modal-button-primary-disabled': !(frmParametros2.$valid && frmParametros2.$dirty)} "
+            click-and-disable="parametros.sendmailtest()">&#160;<span  translate>Enviar</span>&#160;</button>
+        </div>
+      </ng-form>
+    </div>
+  </uib-tab>
+
+  <uib-tab index="4" ui-sref=".({action:'procesos'})" heading="Gestión de procesos" class="clearfix">
+    <div class="container-fluid">
+      <ng-form name="frmProcesos" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="des_mensaje" class="col-sm-10 label-adjust" translate>Proceso</label>
+              <select class="form-control form-control-sm" id="cod_daemon" name="cod_daemon"
+                ng-model="parametros.selected_daemon" ng-change="parametros.procesoUpdate()"
+                ng-options="demonio as demonio.nom_daemon for demonio in parametros.listademonios">
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="des_mensaje" class="col-sm-10 label-adjust" translate>Descripción</label>
+              <textarea type="text" class="form-control form-control-sm" id="des_daemon" name="des_daemon"
+                placeholder="descripción" ng-model="parametros.selected_daemon.des_daemon" readonly></textarea>
+            </div>
+            <div class="form-group">
+              <label for="des_destinatario" class="col-sm-10 label-adjust" translate>Código</label>
+                <input type="text" class="form-control form-control-sm" id="cod_daemon" name="cod_daemon" readonly ng-model="parametros.selected_daemon.cod_daemon"/>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmProcesos.$valid, 'modal-button-primary-disabled': !(frmProcesos.$valid && frmProcesos.$dirty)} "
+            click-and-disable="parametros.resetDaemon()" translate>Reiniciar</button>
+        </div>
+      </ng-form>
+    </div>
+
+
+  </uib-tab>
+</uib-tabset>

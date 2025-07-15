@@ -1,0 +1,133 @@
+<div class="titulo_menu">{{unidadesorganiz.form_title}}</div>
+<uib-tabset active="unidadesorganiz.active" class="bg-local-black">
+    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+        <div class="w-100">
+            <grilla gridoptions="unidadesorganiz.gridOptions"
+                    onclick-edit="unidadesorganiz.toggle(accion)"
+                    onclick-add="unidadesorganiz.toggle(accion)"
+                    onclick-copy="unidadesorganiz.toggle(accion)"
+                    onclick-delete="unidadesorganiz.confirmDelete()"
+                    urlback="unidadesorganiz"
+                    api="unidadesorganiz.grilla=API"
+                    class="d-flex flex-column w-100" style="height: 520px;"
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+        <div class="container-fluid">
+            <div class="row justify-content-md-center w-100">
+                <div class="col col-md-8">
+                    <div class="form-group">
+                        <label for="cod_ou_dt" class="col-sm-10 label-adjust" translate>Cod. Organización</label>
+                        <input type="text" class="form-control form-control-sm" id="cod_ou_dt" name="cod_ou_dt" ng-model="unidadesorganiz.ou_dt.cod_ou" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_ou_dt" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="nom_ou_dt" name="nom_ou_dt" placeholder="Nombre"
+                               ng-model="unidadesorganiz.ou_dt.nom_ou" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="des_ou_dt" class="col-sm-10 label-adjust" translate>Descripción <span class="field-required">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="des_ou_dt" name="des_ou_dt" placeholder="Descripción"
+                               ng-model="unidadesorganiz.ou_dt.des_ou" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="centro_emergencias_dt" class="col-sm-10 label-adjust" translate>Centro Emergencias</label>
+                        <input type="text" class="form-control form-control-sm" id="centro_emergencias_dt" name="centro_emergencias_dt" 
+                            placeholder="Centro Emergencias" ng-model="unidadesorganiz.ou_dt.centro_emergencias" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tel_centro_emergencias_dt" class="col-sm-10 label-adjust" translate>Tel. Centro Emergencias</label>
+                        <input type="text" class="form-control form-control-sm" id="tel_centro_emergencias_dt" name="tel_centro_emergencias_dt" 
+                            placeholder="Tel. Centro Emergencias" ng-model="unidadesorganiz.ou_dt.tel_centro_emergencias" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ind_ou_admin" class="col-sm-10 label-adjust" translate>Organización administradora</label>
+                        <input class="checkbox" type="checkbox" class="form-control form-control-sm" id="ind_ou_admin" name="ind_ou_admin" 
+                            ng-model="unidadesorganiz.ou_dt.ind_ou_admin" readonly=""/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sel_sectores_dt" class="col-sm-10 label-adjust" translate>Sectores</label>
+                        <ui-select multiple ng-model="unidadesorganiz.ou_dt.sectoresSel" append-to-body="true" close-on-select="false" disabled="">
+                            <ui-select-match ui-lock-choice="true" placeholder="Sectores" >{{$item.nom_sector}}</ui-select-match>
+                            <ui-select-choices repeat="sector.cod_sector as sector in unidadesorganiz.sectoresList | filter: $select.search">
+                                <div ng-bind-html="sector.nom_sector | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-2">
+                <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+            </div>
+        </div>
+    </uib-tab>
+    <uib-tab index="2" heading="{{unidadesorganiz.action_title}}" ui-sref=".({action:unidadesorganiz.action})" ng-hide="unidadesorganiz.hide">
+        <div class="container-fluid">
+            <ng-form name="frmOU" class="form-horizontal" novalidate ng-validator>
+                <div class="row justify-content-md-center w-100">
+                    <div class="col col-md-8">
+                        <div class="form-group" ng-class="{'has-warning' : frmOU.cod_ou.$dirty}">
+                            <label for="cod_ou" class="col-sm-10 label-adjust" translate>Cod. Organización</label>
+                            <input type="text" class="form-control form-control-sm" id="cod_ou" name="cod_ou" data-ng-model="unidadesorganiz.ou.cod_ou" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nom_ou" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="nom_ou" name="nom_ou" placeholder="Nombre"
+                                   ng-model="unidadesorganiz.ou.nom_ou" ng-required="true">
+                            <span class="help-inline" ng-show="frmOU.nom_ou.$invalid && frmOU.nom_ou.$touched" translate>Debe ingresar un Nombre</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="des_ou" class="col-sm-10 label-adjust" translate>Descripción <span class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="des_ou" name="des_ou" placeholder="Descripción"
+                                   ng-model="unidadesorganiz.ou.des_ou" ng-required="true">
+                            <span class="help-inline" ng-show="frmOU.des_ou.$invalid && frmOU.des_ou.$touched" translate>Debe ingresar una Descripción</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="centro_emergencias" class="col-sm-10 label-adjust" translate>Centro Emergencias</label>
+                            <input type="text" class="form-control form-control-sm" id="centro_emergencias" name="centro_emergencias" 
+                                placeholder="Centro Emergencias" ng-model="unidadesorganiz.ou.centro_emergencias">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tel_centro_emergencias" class="col-sm-10 label-adjust" translate>Tel. Centro Emergencias</label>
+                            <input type="text" class="form-control form-control-sm" id="tel_centro_emergencias" name="tel_centro_emergencias" 
+                                placeholder="Tel. Centro Emergencias" ng-model="unidadesorganiz.ou.tel_centro_emergencias">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ind_ou_admin" class="col-sm-10 label-adjust" translate>Organización administradora</label>
+                            <input class="checkbox" type="checkbox" class="form-control form-control-sm" id="ind_ou_admin" name="ind_ou_admin" 
+                                ng-model="unidadesorganiz.ou.ind_ou_admin"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sel_sectores" class="col-sm-10 label-adjust" translate>Sectores</label>
+                            <ui-select multiple ng-model="unidadesorganiz.ou.sectoresSel" append-to-body="true" close-on-select="false">
+                                <ui-select-match placeholder="Sectores" >{{$item.nom_sector}}</ui-select-match>
+                                <ui-select-choices repeat="sector.cod_sector as sector in unidadesorganiz.sectoresList | filter: $select.search">
+                                    <div ng-bind-html="sector.nom_sector | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer p-2">
+                    <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+                    <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+                    <button dtcancela hide-tab="unidadesorganiz.hide" type="button" class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmOU.$valid, 'modal-button-primary-disabled': !(frmOU.$valid && frmOU.$dirty)} " ng-disabled="!(frmOU.$dirty)" click-and-disable="unidadesorganiz.ok()">&#160;<span  translate>Grabar</span>&#160;</button>
+                </div>
+            </ng-form>
+        </div>
+    </uib-tab>
+</uib-tabset>

@@ -1,0 +1,4 @@
+<div class="log-viewer">
+  <div class="log-viewer-entry" ng-repeat="logline in logController.loglines"><span class="log-viewer-server-color"
+      ng-style="{ backgroundColor: logline.color}"></span><span ng-bind-html="logline.HtmlLine"></span></div>
+</div>

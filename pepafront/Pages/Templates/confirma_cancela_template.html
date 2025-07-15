@@ -1,0 +1,17 @@
+<div class="bg-dark text-white">        
+    <div class="modal-header">
+        <div class="modal-title"><h4>{{modalAlert.msg_title}}</h4></div>
+    </div>
+    <div class="modal-body">
+        <table style="width:100%;">
+            <tr>
+                <td><i class="fas fa-question-circle fa-2x text-info"></i></td>
+                <td><div class="modal-message-body">{{modalAlert.msg_message}}</div></td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer p-2">
+        <button type="button" class="btn btn-outline-danger btn-sm" ng-click="modalAlert.close()" translate>Cancelar</button>
+        <button type="button" class="btn btn-outline-success btn-sm" ng-click="modalAlert.ok()" translate>OK</button>
+    </div>
+</div>

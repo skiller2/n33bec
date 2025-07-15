@@ -1,0 +1,16 @@
+<div class="">
+  <span>Version {{widgetprocessor.processor.version}}</span><br>
+  <span>Uso CPU</span><br>
+  <div>
+    <gauge-chart class="d-flex overflow-hidden w-100" config="widgetprocessor.configCPULoad" data="widgetprocessor.dataCPULoad"></gauge-chart>
+  </div>
+  <span>Temperatura</span><br>
+  <div style="width:100px; height:100px">
+    <gauge-chart config="widgetprocessor.configTemp" data="widgetprocessor.dataTemp"></gauge-chart>
+  </div>
+  <!-- span>GPU Temp {{widgetprocessor.processor.gpuTemp}}</span><br -->
+  <div ng-repeat="value in widgetprocessor.processor.cpuFrequency track by $index">
+    <span>CPU{{$index}} Frequency:</span> <span>{{value}} Mhz</span>
+  </div>
+  <br>
+</div>

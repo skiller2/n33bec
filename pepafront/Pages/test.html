@@ -1,0 +1,177 @@
+<style>
+/* 
+   abn-tree.css
+
+   style for the angular-bootstrap-nav-tree
+   for both Bootstrap 2 and Bootstrap 3
+
+*/
+
+
+
+/* ------------------------------------------
+AngularJS Animations...
+
+The first selector is for Angular 1.1.5
+The second selector is for Angular 1.2.0
+
+*/
+.abn-tree-animate-enter,
+li.abn-tree-row.ng-enter {
+  transition: 200ms linear all;
+  position: relative;
+  display: block;
+  opacity: 0;
+  max-height:0px;
+}
+.abn-tree-animate-enter.abn-tree-animate-enter-active,
+li.abn-tree-row.ng-enter-active{
+  opacity: 1;
+  max-height:30px;
+}
+
+.abn-tree-animate-leave,
+li.abn-tree-row.ng-leave {
+  transition: 200ms linear all;
+  position: relative;
+  display: block;
+  height:30px;
+  max-height: 30px;
+  opacity: 1;
+}
+.abn-tree-animate-leave.abn-tree-animate-leave-active,
+li.abn-tree-row.ng-leave-active {  
+  height: 0px;
+  max-height:0px;
+  opacity: 0;
+}
+
+
+/* 
+------------------------------------------
+Angular 1.2.0 Animation 
+*/
+
+
+.abn-tree-animate.ng-enter{
+
+}
+.abn-tree-animate.ng-enter{
+
+}
+
+
+
+
+/*
+   end animation stuff
+-----------------------------------------
+   begin normal css stuff
+*/
+ul.abn-tree li.abn-tree-row {  
+  padding: 0px;
+  margin:0px;
+}
+
+ul.abn-tree li.abn-tree-row a {
+  padding: 3px 10px;
+}
+
+ul.abn-tree i.indented {
+  padding: 2px;
+}
+
+.abn-tree {
+  cursor: pointer;
+}
+ul.nav.abn-tree .level-1 .indented {
+  position: relative;
+  left: 0px;
+}
+ul.nav.abn-tree .level-2 .indented {
+  position: relative;
+  left: 20px;
+}
+ul.nav.abn-tree .level-3 .indented {
+  position: relative;
+  left: 40px;
+}
+ul.nav.abn-tree .level-4 .indented {
+  position: relative;
+  left: 60px;
+}
+ul.nav.abn-tree .level-5 .indented {
+  position: relative;
+  left: 80px;
+}
+ul.nav.abn-tree .level-6 .indented {
+  position: relative;
+  left: 100px;
+}
+ul.nav.nav-list.abn-tree .level-7 .indented {
+  position: relative;
+  left: 120px;
+}
+ul.nav.nav-list.abn-tree .level-8 .indented {
+  position: relative;
+  left: 140px;
+}
+ul.nav.nav-list.abn-tree .level-9 .indented {
+  position: relative;
+  left: 160px;
+}
+
+</style>
+<p>Cod Sector: {{ test.cod_sector }}</p>
+
+
+<select class="form-control form-control-sm" name="cod_sector_dt"
+ng-model="test.cod_sector" ng-options="item.cod_sector as item.nom_tema for item in test.sectoresList"
+xtree-options="test.sectoresList">
+
+<option value="90823098120938">Test1</option>
+<option value="90821323098120938">Test2</option>
+<option value="9098120938">Test3</option>
+
+
+</select>
+<div class="row justify-content-md-center w-100"
+style="height: 60vh; position: relative; background-color: whitesmoke;">
+
+<pan-zoom ng-model="test.sector_imgdata" temas="[test.sector_imgiconos]" >
+  <p>ESTOY PROBANDO</p>
+  <cs-icon title="{{ HOLA }}"  symbol="" ng-click="test.temaPopUp(tema.cod_tema)" ng-touchstart="test.temaPopUp(tema.cod_tema)" ng-class="cs-icon-cartel onoff-AL" style="position:absolute; left: {{tema.left}}px; top: {{tema.top }}px; font-size: {{ tema.width }}px; line-height:0; transform: rotate({{ tema.rotacion_grados }}deg); touch-action:auto;  " ></cs-icon>
+
+</pan-zoom>
+</div>
+     
+
+<!--
+<button ng-click="test.my_tree.expand_all()" class="btn btn-default btn-sm">Expand All</button>
+<button ng-click="test.my_tree.collapse_all()" class="btn btn-default btn-sm">Collapse All</button>
+<tree-grid tree-data="test.sucesotree" col-defs="test.col_defs" tree-control="test.my_tree" on-select="test.my_tree_handler(branch)"  expand-on="test.expanding_property" expand-level="4" icon-leaf= "fas fa-frog" template-url="./Templates/tree_grid_template.html"></tree-grid>
+-->
+
+
+
+
+
+<!--
+  <div class="d-flex w-50 h-50"
+    style="background-color: darkgray; position: relative; overflow: hidden; user-select: none; touch-action: none; ">
+
+    <abn-tree tree-data="test.treedata_avm" tree-control="treedata_avm" icon-leaf="icon-file"
+      icon-expand="icon-plus-sign" icon-collapse="icon-minus-sign" on-select="my_tree_handler(branch)" expand-level="2"
+      initial-selection="" />
+  </div>
+<h1> ICONO</h1>
+<div>
+  <i class="cs-icon-cartel" style="width: 50; height: 50;"/>
+  <cs-icon symbol="cs-icon-cartel"></cs-icon>
+
+  <cs-icon symbol="cs-icon-cartel" style="font-size: 120px;"></cs-icon>
+
+
+</div>
+</div>
+-->

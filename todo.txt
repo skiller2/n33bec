@@ -1,0 +1,67 @@
+Entradas
+Acc1-1          NC
+Acc1-2          NC
+Pulsador        NA
+EscEm1          NC
+EscEm2(Interna) NC
+Pir Montante    NC
+Puerta Montante NC
+Invalido        NA
+Valido          NA
+
+Salida Alarma1 (GPIO17)
+Salida Alarma2 (GPIO18)
+Salida Alarma3 (GPIO18)
+
+
+Alarma1 si Acc1-1 o Acc1-2 y no válido y manda mail con captura de imagen
+
+7-21 Valido OK
+21-7 Valido activo alarma2 y manda mail con captura de imagen
+
+Esc1 Dispara alarma3 y manda main con captura de imagen Camara 3
+Esc2 Dispara alarma3 y manda mail con captura de imagen Camara 3
+Pir Montante Dispara alarma3 y manda mail con captura de imagen Camara 3
+Puerta Montant Dispara alarma3 y manda mail con captura de imagen Camara 3
+
+
+SNAP
+
+apt install snapd
+
+snap install ubuntu-frame
+snap install ubuntu-frame-osk
+snap install web-kiosk
+snap install wpe-webkit-mir-kiosk
+
+snap connect wpe-webkit-mir-kiosk:wayland
+snap connect ubuntu-frame-osk:wayland
+
+
+
+
+systemctl enable snap.wpe-webkit-mir-kiosk.restart-watcher
+systemctl enable snap.wpe-webkit-mir-kiosk.daemon
+systemctl enable snap.ubuntu-frame.daemon
+systemctl enable snap.ubuntu-frame-osk.daemon
+
+PARA poner es single-user
+systemctl isolate multi-user.target
+systemctl set-default multi-user.target
+
+PARA poner en graphical
+systemctl set-default graphical.target
+
+#snap install frame-it --classic
+#snap start  ubuntu-frame
+#snap start  ubuntu-frame-osk
+#snap start wpe-webkit-mir-kiosk.restart-watcher
+#frame-it snap run wpe-webkit-mir-kiosk.cog
+
+
+
+/usr/share/applications/chromium-browser.desktop
+
+
+
+

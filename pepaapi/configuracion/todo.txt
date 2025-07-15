@@ -1,0 +1,138 @@
+usermod -a -G dialout www-data
+usermod -a -G gpio www-data
+
+sudo nano /etc/apt/sources.list
+cambiar  “stretch” to “buster”
+
+
+#para remover versiones viejas
+apt-get remove '^php.*'
+
+systemctl stop dhcpcd
+systemctl disable dhcpcd
+apt-get remove dhcpcd5
+
+
+
+
+
+apt install autossh mariadb-server supervisor mc nginx php-mysql php php-fpm php-zip php-curl php-memcached hostapd dnsmasq wiringpi memcached php-bcmath libnginx-mod-nchan memcached
+mkdir /var/log/pepa
+
+mkdir /var/www/html/pepaapi
+mkdir /var/www/html/pepafront
+mkdir /var/www/html/pepaapi/storage
+mkdir /var/www/html/pepaapi/storage/files
+mkdir /var/www/html/pepaapi/storage/framework
+mkdir /var/www/html/pepaapi/storage/framework/cache
+mkdir /var/www/html/pepaapi/storage/framework/sessions
+mkdir /var/www/html/pepaapi/storage/framework/views
+chown www-data:root -R /var/www/html/pepaapi/storage
+
+chown www-data:root /var/log/pepa
+ln -sf /var/log/pepa /var/www/html/pepaapi/storage/logs
+
+En la base mysql
+CREATE USER 'eval'@'%' IDENTIFIED BY 'lave';
+GRANT ALL PRIVILEGES ON *.* TO 'eval'@'%'  WITH GRANT OPTION;
+
+
+en /var/www/pepaapi/.env fijarse:
+CACHE_DRIVER=memcached
+
+
+en el directorio /var/www/html/pepaapi/app/Console/Commands
+marcar ejecutables los archivos..
+
+
+
+useradd -m autossh583
+
+touch /home/autossh583/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQftgj/me8qZ1TLY6CPUonG4dZWV00PAPomBbz1RLa9X3jD2+3pQ9EX7TCYu+5BUbx6D1t2LzDYH0zum305/1cdXyPr/7lmbZjJLedhJHbE7Pc4iZnUSGSuBhALZZKLzLEb81oXqUZ0HAYGqTEr/0BvF/KAtLV40rJHdQweA1RFn4QgIW5ROKbw3GftrlSv8e0FqsJJlOMQjvzMbkYZLVTLJoLUZWXb43yjFGsS9nB2chde3/3GaVOqjA5Z84e5mdE+tzsifzu/zhEmJMRU/YX5taudjtzcSVP16QyH/Tv1ZtozgrCjEqSmxI8d+IO/r4xBmXW8Zqt3BeYq1hueP5Pzg9aM0RLAaYvms7o0j3IdcxX7dsTR7PE6Pn5a0opOe7/M6fd58gJHRSbVyOLY1WvHzxAGApTRb/mcie8/xYBjEtiYo01OwvzY2dmlzb9+bLOZ3AvikOijlQS69fVEd1BAn42YOPyFX8cBi6mkit16pGvZ64s5sT4LvtDEtORz4Kc7d5/f4J56/RyrzMPh1ScCdJNitZi9yhdsjGsMaBKY8h+hFi9OVWsN776TP0W1pkW65ukGzlaXZyedYOH7KAcYqUCjQNYFmCn0VJhAOSmX0HWYoMfIBD2q0cDsmZPZZRl7hmJy/cODy4AP3TiSix3Z5wkUNCxP7NIitM0QQCQEQ== bushard
+
+touch /home/autossh583/.ssh/id_rsa
+
+-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----
+
+
+
+#Para mostrar el display en un sector
+http://localhost:9000/#!/displaysec/777/IO01
+
+--autoplay-policy=no-user-gesture-required
+
+
+
+
+
+Telegram
+- Unirse a BotFather
+- enviar /newbot  (responder las preguntas)
+- copiar el token para controlar el bot.
+
+En n33-bec
+- Cargar en el parámetro TELEGRAM_TOKEN el token del bot
+- Cargar en el parámetro TELEGRAM_CHAT_ID el identificador del grupo al cual mandarle los msgs. (Ej: -389384318)  Para ver el ID del grupo se puede obtener desde web.telegram.org posicionándose en el grupo y es el último dato de la url. ej g132132131
+
+
+
+dtoverlay=disable-bt en config.txt para habilitar ttyAMA0
+
+
+
+
+Syncro de hora:
+/etc/systemd/timesyncd.conf
+
+

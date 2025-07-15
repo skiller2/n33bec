@@ -1,0 +1,17 @@
+<h1>
+  {{model.title}}
+  <span style="font-size: 16px" class="float-right">
+    <a href="" ng-if="editMode" title="{{ translate('ADF_DASHBOARD_TITLE_TOOLTIP_ADD') }}" ng-click="addWidgetDialog()">
+      <i class="fas fa-plus"></i>
+    </a>
+    <a href="" ng-if="editMode" title="{{ translate('ADF_COMMON_EDIT_DASHBOARD') }}" ng-click="editDashboardDialog()">
+      <i class="fas fa-cog"></i>
+    </a>
+    <a href="" ng-if="options.editable" title="{{editMode ? translate('ADF_DASHBOARD_TITLE_TOOLTIP_SAVE') : translate('ADF_DASHBOARD_TITLE_TOOLTIP_EDIT_MODE') }}" ng-click="toggleEditMode()">
+      <i class="fas" x-ng-class="{'fa-edit' : !editMode, 'fa-save' : editMode}"></i>
+    </a>
+    <a href="" ng-if="editMode" title="{{ translate('ADF_DASHBOARD_TITLE_TOOLTIP_UNDO') }}" ng-click="cancelEditMode()">
+      <i class="fas fa-repeat adf-flip"></i>
+    </a>
+  </span>
+</h1>

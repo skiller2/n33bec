@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "pepafront"
+		},
+		{
+			"path": "pepaapi"
+		},
+		{
+			"name": "pepaweb",
+			"path": "."
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "n33bec\\node_modules\\typescript\\lib",
+		"files.exclude": {
+			"**/dist": true,
+			"**/node_modules": true
+		},
+		"idf.espIdfPathWin": "C:\\Users\\alfredo\\esp\\esp-idf",
+		"idf.pythonBinPathWin": "C:\\Users\\alfredo\\.espressif\\python_env\\idf4.4_py3.8_env\\Scripts\\python.exe",
+	}
+}

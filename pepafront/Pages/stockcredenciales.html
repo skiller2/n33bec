@@ -1,0 +1,105 @@
+<div class="titulo_menu">{{stockcredenciales.form_title}}</div>
+<uib-tabset active="stockcredenciales.active" class="bg-local-black">
+    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+        <div class="w-100">
+            <grilla gridoptions="stockcredenciales.gridOptions"
+                    onclick-edit="stockcredenciales.toggle(accion)"
+                    onclick-add="stockcredenciales.toggle(accion)"
+                    onclick-copy="stockcredenciales.toggle(accion)"
+                    onclick-delete="stockcredenciales.confirmDelete()"
+                    urlback="stockcredenciales"
+                    api="stockcredenciales.grilla=API"
+                    class="d-flex flex-column w-100" style="height: 520px;"
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+        <div class="container-fluid">
+            <div class="row justify-content-md-center w-100">
+                <div class="col col-md-8">
+
+                    <div class="form-group">
+                        <label for="cod_credencial_dt" class="col-sm-10 label-adjust" translate>Cód. Tarjeta <span class="field-required">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="cod_credencial_dt" name="cod_credencial_dt" formatted="ftTarjeta"
+                               ng-model="stockcredenciales.credencial_dt.cod_credencial" readonly="">
+                    </div>
+
+                    <div class="form-group error">
+                        <label for="ref_credencial_dt" class="col-sm-10 label-adjust" translate>Ref. Tarjeta <span class="field-required">*</span></label>
+                        <input type="text" class="form-control has-error" id="ref_credencial_dt" name="ref_credencial_dt" placeholder="Ref. Tarjeta" 
+                               ng-model="stockcredenciales.credencial_dt.ref_credencial" readonly="">
+                    </div>
+
+                    <div class="form-group error">
+                        <label for="tipo_credencial_dt" class="col-sm-10 label-adjust" translate>Tipo Tarjeta <span class="field-required">*</span></label>
+                        <select class="form-control has-error" id="tipo_credencial_dt" name="tipo_credencial_dt" 
+                                ng-model="stockcredenciales.credencial_dt.tipo_credencial" disabled=""
+                                ng-options="item.id as item.name for item in stockcredenciales.tipoCredencial">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo_habilitacion_dt" class="col-sm-10 label-adjust" translate>Tipo Habilitación <span class="field-required">*</span></label>
+                        <select class="form-control form-control-sm" id="tipo_credencial_dt" name="tipo_habilitacion_dt"
+                                ng-model="stockcredenciales.credencial_dt.tipo_habilitacion" disabled=""
+                                ng-options="item.id as item.name for item in stockcredenciales.tipoHabilitacion">
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer p-2">
+                <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+            </div>
+        </div>
+    </uib-tab>
+    <uib-tab index="2" heading="{{stockcredenciales.action_title}}" ui-sref=".({action:stockcredenciales.action})" ng-hide="stockcredenciales.hide">
+        <div class="container-fluid">
+            <ng-form name="frmStockCredenciales" class="form-horizontal" novalidate ng-validator>
+                <div class="row justify-content-md-center w-100">
+                    <div class="col col-md-8">
+
+                        <div class="form-group" ng-class="{'has-warning' : frmStockCredenciales.cod_credencial.$dirty}">
+                            <label for="cod_credencial" class="col-sm-10 label-adjust" translate>Cód. Tarjeta <span class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="cod_credencial" name="cod_credencial" formatted="ftTarjeta" ng-model-options="{updateOn: 'blur'}"
+                                   ng-model="stockcredenciales.credencial.cod_credencial" ng-required="true" ng-readonly="stockcredenciales.noteditable">
+                            <span class="help-inline" ng-show="frmStockCredenciales.cod_credencial.$invalid && frmStockCredenciales.cod_credencial.$touched" translate>Debe ingresar un Cód. Tarjeta</span>
+                        </div>
+
+                        <div class="form-group error">
+                            <label for="ref_credencial" class="col-sm-10 label-adjust">Ref. Tarjeta <span class="field-required">*</span></label>
+                            <input type="text" class="form-control has-error" id="ref_credencial" name="ref_credencial" placeholder="Ref. Tarjeta" 
+                                   ng-model="stockcredenciales.credencial.ref_credencial" ng-required="true">
+                            <span class="help-inline" ng-show="frmStockCredenciales.ref_credencial.$invalid && frmStockCredenciales.ref_credencial.$touched" translate>Debe ingresar Ref. Tarjeta</span>
+                        </div>
+
+                        <div class="form-group error">
+                            <label for="tipo_credencial" class="col-sm-10 label-adjust" translate>Tipo Tarjeta <span class="field-required">*</span></label>
+                            <select class="form-control has-error" id="tipo_credencial" name="tipo_credencial" 
+                                    ng-model="stockcredenciales.credencial.tipo_credencial" ng-required="true"
+                                    ng-options="item.id as item.name for item in stockcredenciales.tipoCredencial">
+                            </select>
+                            <span class="help-inline" ng-show="frmStockCredenciales.tipo_credencial.$invalid && frmStockCredenciales.tipo_credencial.$touched">Debe seleccionar un Tipo Tarjeta</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipo_habilitacion" class="col-sm-10 label-adjust" translate>Tipo Habilitación <span class="field-required">*</span></label>
+                            <select class="form-control form-control-sm" id="tipo_credencial" name="tipo_habilitacion"
+                                    ng-model="stockcredenciales.credencial.tipo_habilitacion" ng-required="true"
+                                    ng-options="item.id as item.name for item in stockcredenciales.tipoHabilitacion">
+                            </select>
+                            <span class="help-inline" ng-show="frmStockCredenciales.tipo_habilitacion.$invalid && frmStockCredenciales.tipo_habilitacion.$touched" translate>Debe seleccionar un Tipo Habilitación</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer p-2">
+                    <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+                    <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+                    <button dtcancela hide-tab="stockcredenciales.hide" type="button" class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmStockCredenciales.$valid, 'modal-button-primary-disabled': !(frmStockCredenciales.$valid && frmStockCredenciales.$dirty)} " ng-disabled="!(frmStockCredenciales.$dirty)" click-and-disable="stockcredenciales.ok()">&#160;<span  translate>Grabar</span>&#160;</button>
+                </div>
+            </ng-form>
+        </div>
+    </uib-tab>
+</uib-tabset>

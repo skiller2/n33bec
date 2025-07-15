@@ -1,0 +1,80 @@
+<div class="card bg-local-black shadow text-white" >
+    <div class="card-body">
+            <div class="card-title">
+                <strong translate>Ingreso credenciales</strong>
+            </div>
+            <!-- ng-virtual-keyboard -->
+            <div class="">
+                <ng-form name="$ctrl.frmSignin" class="" novalidate ng-validator >
+
+                    <div class="form-group row">
+                        <label for="cod_usuario" class="col-sm-5 col-form-label" translate>Usuario</label>
+                        <!--
+                        <div class="col-sm-7" ng-focus="$ctrl.onFocus('cod_usuario')" >
+                            <ui-select class="form-control" ng-model="$ctrl.cod_usuario" theme="bootstrap"   >
+                                <ui-select-match  placeholder="Ingrese usuario"  >{{$select.selected}}</ui-select-match>
+                                <ui-select-choices repeat="user in $ctrl.getUsuariosSelect($select.search) | filter: $select.search">
+                                  <div ng-bind="user"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        -->
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="cod_usuario" placeholder="Usuario" ng-model="$ctrl.cod_usuario" ng-required="true"
+                            uib-typeahead="usuario for usuario in $ctrl.usuarios | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0"
+                            typeahead-is-open="$ctrl.cod_usuario_open" typeahead-on-select="$ctrl.onSelect($item, $model, $label)"
+                            typeahead-open-on-focus
+
+                            ng-focus="$ctrl.onFocus('cod_usuario')" ng-change="$ctrl.onChange('cod_usuario')"
+                            ng-disabled="$ctrl.inputsdisabled"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="contrasena" class="col-sm-5 col-form-label" translate>Contraseña</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" ng-model="$ctrl.contrasena" ng-required="true" ng-change="$ctrl.onChange('contrasena')" ng-focus="$ctrl.onFocus('contrasena')"                             ng-disabled="$ctrl.inputsdisabled"
+                            />
+                        </div>
+                        <div ng-show="$ctrl.showkeyboard" class="text-dark teclado-tam">
+                            <div class="simple-keyboard" disabled="true"></div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    <div class="form-group row">
+                        <label for="ind_cambio_pass" class="col-sm-5 col-form-label" translate>Cambiar Contraseña</label>
+                        <div class="col-sm-7">
+                            <input class="checkbox-inline" type="checkbox" id="ind_cambio_pass" name="ind_cambio_pass" ng-model="$ctrl.ind_cambio_pass" ng-disabled="$ctrl.inputsdisabled">
+                        </div>
+                    </div>
+                    <div ng-show="$ctrl.ind_cambio_pass" class="form-group row">
+                        <label for="contrasena_nueva" class="col-sm-5 col-form-label" translate>Contraseña Nueva</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" id="contrasena_nueva" name="contrasena_nueva" placeholder="Contraseña Nueva"
+                                   ng-model="$ctrl.contrasena_nueva" ng-required="$ctrl.ind_cambio_pass" ng-focus="$ctrl.onFocus('contrasena_nueva')" ng-change="$ctrl.onChange('contrasena_nueva')" ng-disabled="$ctrl.inputsdisabled" 
+                                   />
+                        </div>
+                    </div>
+                    <div ng-show="$ctrl.ind_cambio_pass" class="form-group row">
+                        <label for="confirma_contrasena" class="col-sm-5 col-form-label" translate>Reingrese Contraseña Nueva</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" id="confirma_contrasena" name="confirma_contrasena" placeholder="Reingrese Contraseña Nueva"
+                                   ng-model="$ctrl.confirma_contrasena" ng-required="$ctrl.ind_cambio_pass" ng-pattern="$ctrl.contrasena_nueva" ng-focus="$ctrl.onFocus('confirma_contrasena')" ng-change="$ctrl.onChange('confirma_contrasena')" ng-disabled="$ctrl.inputsdisabled" />
+                            <span class="help-inline" ng-show="$ctrl.frmSignin.confirma_contrasena.$invalid && $ctrl.frmSignin.confirma_contrasena.$touched" translate>Las contraseñas no coinciden</span>
+                        </div>
+                    </div>
+                    <div class="card-footer border-light">
+                        <div class="row">
+                            <div class="col-sm" ng-click="$ctrl.restart()">                                
+                            </div>
+                            <div class="col-sm text-right">
+                                <button type="submit" class="btn btn-outline-primary btn-sm" ng-disabled="!($ctrl.frmSignin.$valid && $ctrl.frmSignin.$dirty)" click-and-disable="$ctrl.trySignin()" translate>Ingresar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <p data-ng-show="$ctrl.error" class="error">Ups: {{ $ctrl.error}}</p>
+                </ng-form>
+            </div>
+    </div>
+</div>

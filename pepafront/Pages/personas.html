@@ -1,0 +1,253 @@
+<div class="titulo_menu">{{personas.form_title}}</div>
+<uib-tabset active="personas.active" class="bg-local-black">
+    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+        <div class="w-100">
+            <grilla gridoptions="personas.gridOptions"
+                    onclick-edit="personas.toggle(accion)"
+                    onclick-add="personas.toggle(accion)"
+                    onclick-copy="personas.toggle(accion)"
+                    onclick-delete="personas.confirmDelete()"
+                    urlback="personas"
+                    api="personas.grilla=API"
+                    class="d-flex flex-column w-100" style="height: 520px;"                    
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+        <div class="container-fluid">
+            <div class="row justify-content-md-center w-100">
+                <div class="col-lg-3 col-md-6">
+                    <div class="form-group">
+                        <label for="cod_persona_dt" class="col-sm-10 label-adjust" translate>Cod. Persona</label>
+                        <input type="text" class="form-control form-control-sm" id="cod_persona_dt" name="cod_persona_dt" ng-model="personas.persona_dt.cod_persona" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_persona_dt" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="nom_persona_dt" name="nom_persona_dt" placeholder="Nombre"
+                               ng-model="personas.persona_dt.nom_persona" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ape_persona_dt" class="col-sm-10 label-adjust" translate>Apellido <span class="field-required">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="ape_persona_dt" name="ape_persona_dt" placeholder="Apellido"
+                               ng-model="personas.persona_dt.ape_persona" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cod_sexo_dt" class="col-sm-10 label-adjust" translate>Sexo <span class="field-required">*</span></label>
+                        <select class="form-control form-control-sm" id="cod_sexo_dt" name="cod_sexo_dt"
+                                ng-model="personas.persona_dt.cod_sexo" disabled=""
+                                ng-options="item.id as item.name for item in personas.tipoSexo">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cod_tipo_doc_dt" class="col-sm-10 label-adjust" translate>Tipo Documento <span class="field-required">*</span></label>
+                        <select class="form-control form-control-sm" id="cod_tipo_doc_dt" name="cod_tipo_doc_dt"
+                                ng-model="personas.persona_dt.cod_tipo_doc" disabled=""
+                                ng-options="item.id as item.name for item in personas.tipoDocumento">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="form-group">
+                        <label for="nro_documento_dt" class="col-sm-10 label-adjust" translate>Nro. Documento <span class="field-required">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="nro_documento_dt" name="nro_documento_dt" placeholder="Nro. Documento"
+                               ng-model="personas.persona_dt.nro_documento" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_dt" class="col-sm-10 label-adjust" translate>E-mail </label>
+                        <input type="email" class="form-control form-control-sm" id="email_dt" name="email_dt" placeholder="Correo electrónico"
+                               ng-model="personas.persona_dt.email" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ind_bloqueo_dt" class="col-sm-10 label-adjust" translate>Persona Bloqueada </label>
+                        <input class="checkbox-inline" type="checkbox" id="ind_bloqueo_dt" name="ind_bloqueo_dt" ng-model="personas.persona_dt.ind_bloqueo" disabled="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="des_motivo_bloqueo_dt" class="col-sm-10 label-adjust" translate>Motivo Bloqueo </label>
+                        <textarea  class="form-control form-control-sm" id="des_motivo_bloqueo_dt" name="des_motivo_bloqueo_dt" readonly=""
+                                   placeholder="Motivo Bloqueo" ng-model="personas.persona_dt.des_motivo_bloqueo"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="obs_visitas_dt" class="col-sm-10 label-adjust" translate>Observación Visitas </label>
+                        <textarea  class="form-control form-control-sm" id="obs_visitas_dt" name="obs_visitas_dt" readonly=""
+                                   placeholder="Observación Visitas" ng-model="personas.persona_dt.obs_visitas"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="obs_habilitacion" class="col-sm-10 label-adjust" translate>Observaciones Última Habilitación</label>
+                        <textarea  class="form-control form-control-sm" id="obs_ult_habilitacion_dt" name="obs_ult_habilitacion_dt" maxlength="255"
+                                   placeholder="Observaciones Última Habilitación" ng-model="personas.persona_dt.obs_ult_habilitacion"></textarea>
+                    </div>                    
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="form-group">
+                        <label for="img_persona_dt" class="col-sm-10 label-adjust" translate>Foto </label>
+                        <div class="form-control form-control-img"><img id="img_persona_dt" ng-src="{{personas.persona_dt.img_persona}}" ng-show="personas.persona_dt.img_persona"/></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="img_documento_dt" class="col-sm-10 label-adjust" translate>Documento </label>
+                        <div class="form-control form-control-img"><img id="img_documento_dt" ng-src="{{personas.persona_dt.img_documento}}" ng-show="personas.persona_dt.img_documento"/></div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="form-group">
+                        <label for="img_apto_fisico" class="col-sm-10 label-adjust" translate>Apto Físico </label>
+                        <div class="form-control form-control-img"><img id="img_apto_fisico_dt" ng-src="{{personas.persona_dt.img_apto_fisico}}" ng-show="personas.persona_dt.img_apto_fisico"/></div>
+                    </div>
+
+                    <div class="form-group input-append date first-avail">
+                        <label for="fec_otorgamiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico </label>
+                        <input type="date" class="form-control form-control-sm" id="fec_otorgamiento_af_dt" name="fec_otorgamiento_af_dt"
+                               ng-model="personas.persona_dt.fec_otorgamiento_af" fmtdatetimesql readonly/>
+                    </div>
+
+                    <div class="form-group input-append date first-avail">
+                        <label for="fec_vencimiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico </label>
+                        <input type="date" class="form-control form-control-sm" id="fec_vencimiento_af_dt" name="fec_vencimiento_af_dt"
+                               ng-model="personas.persona_dt.fec_vencimiento_af" fmtdatetimesql readonly/>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer p-2">
+                <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+            </div>
+        </div>
+    </uib-tab>
+    <uib-tab index="2" heading="{{personas.action_title}}" ui-sref=".({action:personas.action})" ng-hide="personas.hide">
+        <div class="container-fluid">
+            <ng-form name="frmPersonas" class="form-horizontal" novalidate ng-validator>
+                <div class="row justify-content-md-center w-100">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="form-group" ng-class="{'has-warning' : frmPersonas.cod_persona.$dirty}">
+                            <label for="cod_persona" class="col-sm-10 label-adjust" translate>Cod. Persona</label>
+                            <input type="text" class="form-control form-control-sm" id="cod_persona" name="cod_persona" ng-model="personas.persona.cod_persona" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nom_persona" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona" placeholder="Nombre"
+                                   ng-model="personas.persona.nom_persona" ng-required="true">
+                            <span class="help-inline" ng-show="frmPersonas.nom_persona.$invalid && frmPersonas.nom_persona.$touched" translate>Debe ingresar un Nombre</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ape_persona" class="col-sm-10 label-adjust" translate>Apellido <span class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona" placeholder="Apellido"
+                                   ng-model="personas.persona.ape_persona" ng-required="true">
+                            <span class="help-inline" ng-show="frmPersonas.ape_persona.$invalid && frmPersonas.ape_persona.$touched" translate>Debe ingresar un Apellido</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cod_sexo" class="col-sm-10 label-adjust" translate>Sexo <span class="field-required">*</span></label>
+                            <select class="form-control form-control-sm" id="cod_sexo" name="cod_sexo"
+                                    ng-model="personas.persona.cod_sexo" ng-required="true"
+                                    ng-options="item.id as item.name for item in personas.tipoSexo">
+                            </select>
+                            <span class="help-inline" ng-show="frmPersonas.cod_genero.$invalid && frmPersonas.cod_genero.$touched" translate>Debe seleccionar un Sexo</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cod_tipo_doc" class="col-sm-10 label-adjust" translate>Tipo Documento <span class="field-required">*</span></label>
+                            <select class="form-control form-control-sm" id="cod_tipo_doc" name="cod_tipo_doc"
+                                    ng-model="personas.persona.cod_tipo_doc" ng-required="true"
+                                    ng-options="item.id as item.name for item in personas.tipoDocumento">
+                            </select>
+                            <span class="help-inline" ng-show="frmPersonas.cod_tipo_doc.$invalid && frmPersonas.cod_tipo_doc.$touched" translate>Debe seleccionar un Tipo Documento</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="form-group">
+                            <label for="nro_documento" class="col-sm-10 label-adjust" translate>Nro. Documento <span class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento" placeholder="Nro. Documento"
+                                   ng-model="personas.persona.nro_documento" ng-required="true">
+                            <span class="help-inline" ng-show="frmPersonas.nro_documento.$invalid && frmPersonas.nro_documento.$touched" translate>Debe ingresar un Nro. Documento</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-sm-10 label-adjust" translate>E-mail </label>
+                            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico"
+                                   ng-model="personas.persona.email">
+                            <span class="help-inline" ng-show="frmPersonas.email.$invalid && frmPersonas.email.$touched" translate>Debe ingresar un E-mail válido</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ind_bloqueo" class="col-sm-10 label-adjust" translate>Persona Bloqueada </label>
+                            <input class="checkbox-inline" type="checkbox" id="ind_bloqueo" name="ind_bloqueo" ng-model="personas.persona.ind_bloqueo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="des_motivo_bloqueo" class="col-sm-10 label-adjust" translate>Motivo Bloqueo </label>
+                            <textarea  class="form-control form-control-sm" id="des_motivo_bloqueo" name="des_motivo_bloqueo" ng-disabled="!personas.persona.ind_bloqueo"
+                                       placeholder="Motivo Bloqueo"  ng-model="personas.persona.des_motivo_bloqueo"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="obs_visitas" class="col-sm-10 label-adjust" translate>Observación Visitas </label>
+                            <textarea  class="form-control form-control-sm" id="obs_visitas" name="obs_visitas" 
+                                       placeholder="Observación Visitas"  ng-model="personas.persona.obs_visitas"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="obs_habilitacion" class="col-sm-10 label-adjust" translate>Observaciones Última Habilitación</label>
+                            <textarea  class="form-control form-control-sm" id="obs_ult_habilitacion" name="obs_ult_habilitacion" maxlength="255"
+                                       placeholder="Observaciones Última Habilitación" ng-model="personas.persona.obs_ult_habilitacion"></textarea>
+                        </div>                    
+    
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="form-group">
+                            <label for="img_persona" class="col-sm-10 label-adjust" translate>Foto <span class="field-required">*</span></label>
+                            <capture-image id="img_persona" class="form-control form-control-img" ng-model="personas.persona.img_persona" showadjuntar="true" device-num="0" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="img_documento" class="col-sm-10 label-adjust" translate>Documento <span class="field-required">*</span></label>
+                            <capture-image id="img_documento" class="form-control form-control-img" ng-model="personas.persona.img_documento" showadjuntar="true" device-num="1" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="form-group">
+                            <label for="webcam" class="col-sm-10 label-adjust" translate>Apto Físico </label>
+                            <adjuntar-img id="img_apto_fisico" class="form-control form-control-sm" ng-model="personas.persona.img_apto_fisico" />
+                        </div>
+
+                        <div class="form-group input-append date first-avail">
+                            <label for="fec_otorgamiento_af" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico </label>
+                            <input type="date" class="form-control form-control-sm" id="fec_otorgamiento_af" name="fec_otorgamiento_af"
+                                   ng-model="personas.persona.fec_otorgamiento_af" fmtdatetimesql/>
+                        </div>
+
+                        <div class="form-group input-append date first-avail">
+                            <label for="fec_vencimiento_af" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico </label>
+                            <input type="date" class="form-control form-control-sm" id="fec_vencimiento_af" name="fec_vencimiento_af"
+                                   ng-model="personas.persona.fec_vencimiento_af" fmtdatetimesql readonly/>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer p-2">
+                    <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+                    <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+                    <button dtcancela hide-tab="personas.hide" type="button" class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmPersonas.$valid, 'modal-button-primary-disabled': !(frmPersonas.$valid && frmPersonas.$dirty)} " ng-disabled="!(frmPersonas.$dirty)" click-and-disable="personas.ok()">&#160;<span  translate>Grabar</span>&#160;</button>
+                </div>
+            </ng-form>
+        </div>
+    </uib-tab>
+</uib-tabset>

@@ -1,0 +1,286 @@
+<div class="titulo_menu">{{sectores.form_title}}</div>
+<uib-tabset active="sectores.active" class="bg-local-black">
+  <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <div class="w-100">
+      <grilla gridoptions="sectores.gridOptions" onclick-edit="sectores.toggle(accion)"
+        onclick-add="sectores.toggle(accion)" onclick-copy="sectores.toggle(accion)"
+        onclick-delete="sectores.confirmDelete()" urlback="sectores" 
+        api="sectores.grilla=API"
+        class="d-flex flex-column w-100" style="height: 520px;"
+         />
+    </div>
+  </uib-tab>
+  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <div class="container-fluid">
+      <div class="row justify-content-md-center w-100">
+        <div class="col-lg-6 col-md-6">
+          <div class="form-group">
+            <label for="cod_sector_padre_dt" class="col-sm-10 label-adjust" translate>Sector Padre</label>
+            <select class="form-control form-control-sm" id="cod_sector_padre_dt" name="cod_sector_padre_dt"
+              ng-model="sectores.sector_dt.cod_sector_padre" disabled
+              ng-options="item.cod_sector as item.nom_tema for item in sectores.sectoresList">
+              <option value="">Raíz</option>
+
+            </select>
+
+          </div>
+          <div class="form-group">
+            <label for="cod_referencia_dt" class="col-sm-10 label-adjust" translate>Denominación Sector <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="cod_referencia_dt" name="cod_referencia_dt"
+              placeholder="Denominación Sector" ng-model="sectores.sector_dt.cod_referencia" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="nom_sector_dt" class="col-sm-10 label-adjust" translate>Nombre <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="nom_sector_dt" name="nom_sector_dt"
+              placeholder="Nombre" ng-model="sectores.sector_dt.nom_sector" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
+            <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt" name="cant_cod_tema_dt"
+              placeholder="Cantidad" ng-model="sectores.sector_dt.cant_cod_tema" readonly>
+          </div>
+
+
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <div class="form-group">
+            <label for="des_sector_dt" class="col-sm-10 label-adjust" translate>Descripción <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="des_sector_dt" name="des_sector_dt"
+              placeholder="Descripción" ng-model="sectores.sector_dt.des_sector" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="des_ubicacion_dt" class="col-sm-10 label-adjust" translate>Ubicación <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="des_ubicacion_dt" name="des_ubicacion_dt"
+              placeholder="Ubicación" ng-model="sectores.sector_dt.des_ubicacion" readonly="">
+          </div>
+          <div class="form-group">
+            <label for="max_cant_personas_dt" class="col-sm-10 label-adjust" translate>Cantidad máxima de personas </label>
+            <input class="form-control form-control-sm" type="text" id="max_cant_personas_dt"
+              name="max_cant_personas_dt" ng-model="sectores.sector_dt.max_cant_personas" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="ind_permanencia" class="col-sm-10 label-adjust" translate>Control Permanencia </label>
+            <input class="checkbox-inline" type="checkbox" id="ind_permanencia_dt" name="ind_permanencia_dt"
+              ng-model="sectores.sector_dt.ind_permanencia" disabled>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+
+
+        </div>
+        <div class="col-lg-6 col-md-6">
+
+          <div class="form-group">
+            <label for="sec_obj_urls_videos_dt" class="col-sm-10 label-adjust" translate>URLs Videos</label>
+            <input class="form-control form-control-sm" id="sec_obj_urls_videos_dt" name="sec_obj_urls_videos_dt"
+              placeholder="URLs Videos" ng-model="sectores.sector_dt.obj_urls_videos" ng-list=", " readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="cod_sector_dt" class="col-sm-10 label-adjust" translate>Cod. Sector</label>
+            <input type="text" class="form-control form-control-sm" id="cod_sector_dt" name="cod_sector_dt"
+              ng-model="sectores.sector_dt.cod_sector" readonly="">
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 w-100 "
+          style="height: 60vh;">
+            <div class="form-group" style="height: 50vh;">
+              <label for="suc_img_plano_dt1" class="col-sm-10 label-adjust" translate>Imagen Plano</label>
+              <div id="sec_img_plano_dt1" class="form-control form-control-img">
+                <pan-zoom ng-model="sectores.sector_dt.imagenes.img_plano" />
+              </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+      </div>
+      <div class="modal-footer p-2">
+        <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+      </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="2" heading="{{sectores.action_title}}" ui-sref=".({action:sectores.action})" ng-hide="sectores.hide">
+    <div class="container-fluid">
+      <ng-form name="frmSectores" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-lg-6 col-md-6">
+
+            <div class="form-group">
+              <label for="cod_sector_padre" class="col-sm-10 label-adjust" translate>Sector Padre</label>
+              <select class="form-control form-control-sm" id="cod_sector_padre" name="cod_sector_padre"
+              ng-model="sectores.sector.cod_sector_padre"
+              ng-options="item.cod_sector as item.nom_tema for item in sectores.sectoresList">
+              <option value="" translate>Raíz</option>
+
+            </select>
+            </div>
+            <div class="form-group">
+              <label for="cod_referencia" class="col-sm-10 label-adjust" translate>Denominación Sector<span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="cod_referencia" name="cod_referencia"
+                placeholder="Denominación Sector" ng-model="sectores.sector.cod_referencia" ng-required="true"
+
+                >
+              <span class="help-inline"
+                ng-show="frmSectores.cod_referencia.$invalid && frmSectores.cod_referencia.$touched" translate>Debe ingresar una Denominación Sector</span>
+            </div>
+
+            <div class="form-group">
+              <label for="nom_sector" class="col-sm-10 label-adjust" translate>Nombre <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="nom_sector" name="nom_sector"
+                placeholder="Nombre" ng-model="sectores.sector.nom_sector" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmSectores.nom_sector.$invalid && frmSectores.nom_sector.$touched" translate>Debe ingresar un Nombre</span>
+            </div>
+            <div class="form-group">
+              <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
+              <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt" name="cant_cod_tema_dt"
+                placeholder="Cantidad" ng-model="sectores.sector.cant_cod_tema" readonly>
+            </div>
+  
+          </div>
+          <div class="col-lg-6 col-md-6">
+
+            <div class="form-group">
+              <label for="des_sector" class="col-sm-10 label-adjust" translate>Descripción <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="des_sector" name="des_sector"
+                placeholder="Descripción" ng-model="sectores.sector.des_sector" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmSectores.des_sector.$invalid && frmSectores.des_sector.$touched" translate>Debe ingresar una Descripción</span>
+            </div>
+
+            <div class="form-group">
+              <label for="des_ubicacion" class="col-sm-10 label-adjust" translate>Ubicación <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="des_ubicacion" name="des_ubicacion"
+                placeholder="Ubicación" ng-model="sectores.sector.des_ubicacion" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmSectores.des_ubicacion.$invalid && frmSectores.des_ubicacion.$touched" translate>Debe ingresar una Ubicación</span>
+            </div>
+            <div class="form-group">
+              <label for="max_cant_personas" class="col-sm-10 label-adjust" translate>Cantidad máxima de personas</label>
+              <input class="form-control form-control-sm" type="text" id="max_cant_personas" name="max_cant_personas"
+                ng-model="sectores.sector.max_cant_personas">
+            </div>
+
+            <div class="form-group">
+              <label for="ind_permanencia" class="col-6 col-md-10 label-adjust" translate>Control Permanencia </label>
+              <input class="checkbox-inline" type="checkbox" id="ind_permanencia" name="ind_permanencia"
+                ng-model="sectores.sector.ind_permanencia">
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+
+            <div class="form-group">
+              <label for="suc_img_plano" class="col-sm-10 label-adjust" translate>Imagen Plano</label>
+              <adjuntar-img class="sec_img_plano" class="form-control form-control-sm"
+                ng-model="sectores.sector.imagenes.img_plano" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+
+            <div class="form-group">
+              <label for="sec_obj_urls_videos" class="col-sm-10 label-adjust" translate>URLs Videos</label>
+              <input class="form-control form-control-sm" id="sec_obj_urls_videos" name="sec_obj_urls_videos"
+                placeholder="URLs Videos" ng-model="sectores.sector.obj_urls_videos" ng-list=", ">
+            </div>
+
+            <div class="form-group" ng-class="{'has-warning' : frmSectores.cod_sector.$dirty}">
+              <label for="cod_sector" class="col-sm-10 label-adjust" translate>Cod. Sector</label>
+              <input type="text" class="form-control form-control-sm" id="cod_sector" name="cod_sector"
+                data-ng-model="sectores.sector.cod_sector" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+          <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+          <button dtcancela hide-tab="sectores.hide" type="button"
+            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm "
+            ng-class="{'modal-button-primary': frmSectores.$valid, 'modal-button-primary-disabled': !(frmSectores.$valid && frmSectores.$dirty)} "
+            ng-disabled="!(frmSectores.$dirty)" click-and-disable="sectores.ok()">
+            <!-- span class="spinner-border spinner-border-sm" role="status" aria-hidden="false"></span -->
+            <span class="" translate>Grabar</span>
+          </button>
+        </div>
+      </ng-form>
+    </div>
+  </uib-tab>
+  <uib-tab index="3" heading="Videos" ui-sref=".({action:'videos'})">
+    <div class="container-fluid">
+
+
+      <div class="row justify-content-md-center w-100">
+        <div class="col-lg-6 col-md-6">
+          <div class="form-group">
+            <label for="cod_sector_padre_dt" class="col-sm-10 label-adjust" translate>Sector Padre</label>
+            <select class="form-control form-control-sm" id="cod_sector_padre_dt" name="cod_sector_padre_dt"
+              ng-model="sectores.sector_dt.cod_sector_padre" disabled
+              ng-options="item.cod_sector as item.nom_tema for item in sectores.sectoresList">
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cod_referencia_dt" class="col-sm-10 label-adjust" translate>Denominación Sector <span
+                class="field-required" >*</span></label>
+            <input type="text" class="form-control form-control-sm" id="cod_referencia_dt" name="cod_referencia_dt"
+              placeholder="Denominación Sector" ng-model="sectores.sector_dt.cod_referencia" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="nom_sector_dt" class="col-sm-10 label-adjust" translate>Nombre <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="nom_sector_dt" name="nom_sector_dt"
+              placeholder="Nombre" ng-model="sectores.sector_dt.nom_sector" readonly="">
+          </div>
+          <div class="form-group">
+            <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
+            <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt" name="cant_cod_tema_dt"
+              placeholder="Cantidad" ng-model="sectores.sector_dt.cant_cod_tema" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="suc_img_plano_dt2" class="col-sm-10 label-adjust" translate>Imagen Plano</label>
+            <div id="sec_img_plano_dt2" class="form-control form-control-img">
+              <pan-zoom ng-model="sectores.sector_dt.imagenes.img_plano" />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+
+          <div class="form-group" ng-if="sectores.active==3 "
+            ng-repeat="url in sectores.sector_dt.obj_urls_videos track by $index">
+            <label for="sec_obj_urls_videos_dt" class="col-sm-10 label-adjust">{{url}}</label>
+
+            <div class="form-control form-control-img"><img ng-src="{{url}}" ng-on-error="sectores.loaderror(url)" />
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </uib-tab>
+
+</uib-tabset>

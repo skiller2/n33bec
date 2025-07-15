@@ -1,0 +1,19 @@
+<div class="container-fluid h-100 d-flex flex-column log-viewer-back-disconnected position-relative" ng-class="{ 'log-viewer-back-connected' : console.conected==true}">
+  <div ng-if="!console.conected" class="d-flex justify-content-center">
+    <div class="">
+      <button class="btn btn-outline-primary btn-sm" ng-show="true"
+        ng-click="console.reconect_cons($event)">Reconectar</button>
+      <button ng-if="console.applocal" class="btn btn-outline-danger btn-sm" ng-show="true" ng-click="console.reboot()">Reiniciar</button>
+    </div>
+  </div>
+  <div class="row h-100 overflow-auto">
+    <log-viewer-content class="">
+      <div class="log-viewer-entry" ng-repeat="(key,value) in console.loglines | orderBy:'-'">
+        <span class="text-{{::value.level_class}}"><i class="{{::value.level_icon}}"></i></span>
+        <span class="text-{{::value.level_class}}" ng-bind="value.HtmlLine" title="{{ ::value.title }}"></span>
+      </div>
+    </log-viewer-content>
+  </div>
+  <div style="background-color: transparent; width: 50px; height: 50px; position: absolute; right: 30px; bottom: 0;" ng-click="console.hidebtn($event)"></div>
+
+</div>

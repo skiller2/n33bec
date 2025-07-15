@@ -1,0 +1,1107 @@
+body {
+  background-color: #212529 !important;
+}
+
+.webcam-live {
+  width: 70%;
+  height: 100%;
+}
+
+.page-item {
+  z-index: 1;
+  color: #fff;
+  background-color: transparent !important;
+  border-color: blue !important;
+}
+
+.page-item .active {
+  background-color: blue !important;
+}
+
+.page-link {
+  background-color: transparent !important;
+  border-color: blue !important;
+}
+
+.form-control-img {
+  min-height: 200px !important; 
+  height: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-control-img .img-center {
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  margin: auto;
+  display: inline-block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+.form-control-img img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.form-control-img video {
+  max-height: 100%;
+  max-width: 100%;
+  background-color: forestgreen;
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 41px;
+  height: 20px;
+  top: 5px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  display: none;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #2196F3;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(21px);
+  -ms-transform: translateX(21px);
+  transform: translateX(21px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+a[ng-click] {
+  cursor: pointer;
+}
+
+.nopadding tr td {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.btn-grid {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-right: 1em !important;
+  padding-left: 1em !important;
+  font-size: 7px;
+}
+
+.zoom {
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: zoom-in;
+}
+
+.zoom:hover,
+.zoom:active,
+.zoom:focus {
+  /**adjust scale to desired size,
+    add browser prefixes**/
+  -ms-transform: scale(2.5);
+  -moz-transform: scale(2.5);
+  -webkit-transform: scale(2.5);
+  -o-transform: scale(2.5);
+  transform: scale(2.5);
+  position: relative;
+  z-index: 100;
+}
+
+.led-box {
+  height: 30px;
+  width: 25%;
+  margin: 10px 0;
+  float: left;
+}
+
+.led-box p {
+  font-size: 12px;
+  text-align: center;
+  margin: 1em;
+}
+
+.led-red {
+  width: 24px;
+  height: 24px;
+  background-color: #F00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+}
+
+.small {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+
+.led-yellow {
+  width: 24px;
+  height: 24px;
+  background-color: #FF0;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #808002 0 -1px 9px, #FF0 0 2px 12px;
+}
+
+.led-green {
+  width: 24px;
+  height: 24px;
+  background-color: #ABFF00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+}
+
+.led-blue {
+  width: 24px;
+  height: 24px;
+  background-color: #24E0FF;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
+}
+
+
+
+.nav-tabs {
+  line-height: 0.7;
+}
+
+/*.form-control    {
+    line-height: 0.7;
+}
+
+select.form-control:not([size]):not([multiple]) {
+    height: calc(1.50rem);
+    padding: 0;
+}*/
+
+.titulo_menu {
+  text-align: right;
+  float: right;
+  margin-right: 10px;
+  font-size: 1.5em;
+  color: yellow;
+}
+
+.bg-local-black {
+  background-color: #232629 !important;
+}
+
+.bg-local-permitidos {
+  background-color: #003311 !important;
+}
+
+.bg-local-rechazados {
+  background-color: #330000 !important;
+}
+
+.navbar .dropdown-menu-right {
+  right: 0;
+  left: auto;
+}
+
+.wgcolorback {
+  background-color: darkseagreen
+}
+
+/*---------------------------------------------------
+    LESS Elements 0.9
+  ---------------------------------------------------
+    A set of useful LESS mixins
+    More info at: http://lesselements.com
+  ---------------------------------------------------*/
+.has-search .form-control {
+  padding-left: 2.375rem;
+  background-color: lightcyan;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 1.82rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.form-control {
+  color: black;
+}
+
+.form-control:focus {
+  color: black;
+}
+
+.ui-select-container > input, 
+.ui-select-container > input:focus {
+  border: 0 !important;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.ui-select-match > span{
+  border: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+}
+
+
+.ui-select-choices.ui-select-choices-content.ui-select-dropdown.dropdown-menu {
+  display: block;
+}
+
+/* NUEVO */
+
+
+
+.shaker {
+  animation: shake 1s cubic-bezier(.36, .07, .19, .97) both;
+  transform: translate3d(0, 0, 0);
+/*  backface-visibility: hidden;*/
+  --webkit-backface-visibility:hidden;
+  perspective: 1000px;
+  animation-iteration-count: infinite;
+
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, -4px, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 4px, 0);
+  }
+}
+
+adjuntar-file, 
+adjuntar-img,
+make-snapshot
+{
+  height: 100% !important;
+}
+
+
+input[type=checkbox] {
+  margin-top: 5px;
+  height: 1.5em;
+}
+
+.widget-clock .square {
+  position: inherit;
+  padding: 0;
+}
+
+.widget-clock .time {
+  font-size: 1.5rem;
+
+}
+
+/*
+.list-group-item:nth-child(odd) {
+    background-color: #ff0000 !important;
+}
+    
+.list-group-item:nth-child(even) {
+    background-color: #0000ff !important;
+}
+*/
+
+ul.list-group.list-group-striped li:nth-of-type(odd) {
+  background: grey;
+}
+
+ul.list-group.list-group-striped li:nth-of-type(even) {
+  background: darkgray;
+}
+
+ul.list-group.list-group-hover li:hover {
+  background: blue;
+}
+
+.form-input-img {
+  width: 70%;
+  max-height: 100%;
+}
+
+.fixed-bottom {
+  right: auto;
+}
+
+
+
+
+@media (min-width: 576px) {
+  .filtercard {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .filtercard {
+    width: 75% !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .filtercard {
+    width: 50% !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .filtercard {
+    width: 50% !important;
+  }
+}
+
+
+/* clock custom themes*/
+
+.widget-clock.blue-light .clock-face {
+  stroke: #153b6f;
+  fill: #0e2434;
+}
+
+.widget-clock.blue-light .minor {
+  stroke: #0089ff;
+  stroke-width: 0.5;
+}
+
+.widget-clock.blue-light .major {
+  stroke: rgba(119, 176, 242, 0.97);
+  stroke-width: 0.5;
+}
+
+.widget-clock.blue-light .hour {
+  stroke: rgba(119, 176, 242, 0.97);
+  stroke-width: 1;
+}
+
+.widget-clock.blue-light .minute {
+  stroke: #0089ff;
+  stroke-width: 0.75;
+}
+
+.widget-clock.blue-light .second,
+.widget-clock.blue-light .second-counterweight {
+  stroke: rgb(234, 31, 54);
+  stroke-width: 0.5;
+}
+
+.widget-clock.blue-light .second-counterweight {
+  stroke-width: 1.5;
+}
+
+/*digital clock custom theme*/
+
+.widget-clock.blue-light .digital {
+  text-align: center;
+}
+
+.widget-clock.blue-light .time {
+  font-family: 'Rationale', sans-serif;
+  font-size: 3.0em;
+  color: #1da4eb;
+}
+
+
+.fadecard.ng-enter {
+  transition: all ease-in 0.5s;
+  opacity: 0;
+}
+
+/* The finishing CSS styles for the enter animation */
+.fadecard.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+.box-shad {
+  -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.teclado-tam {
+  width: 100%;
+  margin: 10px;
+}
+
+
+/* display_sucesos */
+.display-bottom {
+  bottom: 0;
+  overflow: auto;
+  background-color: #222;
+}
+
+.display-messages {
+  text-align: center;
+}
+
+.display-messages>span {
+  font-family: monospace;
+  color: yellow;
+  white-space: pre;
+  font-size: 3.3vw;
+  display: inline-block;
+}
+
+.btn-normal,
+.text-normal,
+.cs-color-NO,
+.cs-text-normal {
+  color: #6c757d;
+}
+
+.cs-bg-normal {
+  background-color: #6c757d
+}
+
+.btn-prealarma,
+.text-prealarma,
+.cs-color-PA,
+.cs-text-prealarma {
+  color: darkorange;
+}
+
+
+.cs-bg-alarmatec {
+  background-color: darkorange;
+}
+
+.btn-alarmatec,
+.text-alarmatec,
+.cs-color-AT,
+.cs-text-alarmatec {
+  color: darkorange;
+}
+
+
+.btn-desconexion,
+.text-desconexion,
+.cs-color-DE,
+.cs-text-desconexion {
+  color: gold;
+}
+
+
+
+
+
+.cs-bg-prealarma {
+  background-color: darkorange;
+}
+
+.cs-btn-prealarma {
+  color: white;
+  background-color: darkorange;
+  border-color: darkorange;
+}
+
+.cs-btn-desconexion {
+  color: white;
+  background-color: gold;
+  border-color: gold;
+}
+
+.btn-alarma,
+.text-alarma,
+.cs-color-AL,
+.cs-text-alarma {
+  color: red;
+}
+
+.cs-bg-alarma {
+  background-color: red;
+}
+
+.cs-btn-alarma {
+  color: white;
+  background-color: red;
+  border-color: red;
+}
+
+.text-falla,
+.cs-color-FA,
+.cs-text-falla {
+  color: gold;
+}
+
+.text-evento,
+.cs-color-EV,
+.cs-text-evento {
+  color: white;
+}
+
+
+
+.cs-bg-falla {
+  background-color: gold;
+}
+
+.cs-btn-falla {
+  color: white;
+  background-color: gold;
+  border-color: gold;
+}
+
+.cs-btn-normal {
+  color: white;
+  background-color: green;
+  border-color: green;
+}
+
+.cs-fa-15x {
+  font-size: 1.4em;
+}
+
+.cs-w-10 {
+  width: 10%;
+}
+
+.cs-w-15 {
+  width: 2em;
+}
+
+.cs-w-20 {
+  width: 10em;
+}
+
+
+.bg-dashboard {
+  background-color: #aeaeae!important;
+}
+
+
+.cs-table-striped tbody tr:nth-of-type(odd) {
+  opacity: 0.8;
+}
+
+
+
+
+
+/* 
+ * treeGrid.css
+ *
+ * Styles for the tree-grid
+ * for both Bootstrap 2 and Bootstrap 3
+ *
+ */
+ .tree-grid-animate-enter,
+ .tree-grid-row.ng-enter {
+     -moz-transition: 200ms linear all;
+     -o-transition: 200ms linear all;
+     -webkit-transition: 200ms linear all;
+     transition: 200ms linear all;
+     position: relative;
+     display: block;
+     opacity: 0;
+     max-height: 0;
+ }
+ 
+ .tree-grid-animate-enter.tree-grid-animate-enter-active,
+ .tree-grid-row.ng-enter-active {
+   opacity    : 1;
+   max-height : 30px;
+ }
+ 
+ .tree-grid-animate-leave,
+ .tree-grid-row.ng-leave {
+     -moz-transition: 200ms linear all;
+   -o-transition: 200ms linear all;
+   -webkit-transition: 200ms linear all;
+     transition: 200ms linear all;
+     position: relative;
+     display: block;
+     height: 30px;
+     max-height: 30px;
+     opacity: 1;
+ }
+ 
+ .tree-grid-animate-leave.tree-grid-animate-leave-active,
+ .tree-grid-row.ng-leave-active {
+   height     : 0;
+   max-height : 0;
+   opacity    : 0;
+ }
+ 
+ /*
+  * Angular 1.2.0 Animation placeholders.
+ 
+ .tree-grid-animate.ng-enter {
+ }
+  */
+  
+ /*
+  * Normal CSS styles.
+  */
+ .tree-grid i.indented {
+   padding : 2px;
+ }
+ 
+ .tree-grid .level-1 .indented {
+   /* position : relative;
+   left     : 0; */
+   width: 0;
+ }
+ 
+ .tree-grid .level-2 .indented {
+   /* position : relative;
+   x-left     : 20px; */
+   width: 20px;
+ }
+ 
+ .tree-grid .level-3 .indented {
+   /* position : relative;
+   x-left     : 40px; */
+   width: 40px;
+ }
+ 
+ .tree-grid .level-4 .indented {
+   /* position : relative;
+   x-left     : 60px; */
+   width: 60px;
+ }
+ 
+ .tree-grid .level-5 .indented {
+   /* position : relative;
+   left     : 80px; */
+   width: 80px;
+ }
+ 
+ .tree-grid .level-6 .indented {
+   /* position : relative;
+   left     : 100px; */
+   width: 100px;
+ }
+ 
+ .tree-grid .level-7 .indented {
+   /* position : relative;
+   left     : 120px; */
+   width: 120px;
+ }
+ 
+ .tree-grid .level-8 .indented {
+   /* position : relative;
+   left     : 140px; */
+   width: 140px;
+ }
+ 
+ .tree-grid .level-9 .indented {
+   /* position : relative;
+   left     : 160px; */
+   width: 160px;
+ }
+ 
+ .tree-grid td, .tree-grid th {
+  border:none ;
+  padding: 0.1em 0.1em 0 0;
+ }
+
+ .tree-grid .tree-icon,
+ .tree-label {
+   cursor : pointer;
+ }
+ 
+ table.tree-grid {
+   max-height : 500px;
+   overflow-y : scroll;
+   color : white;
+ }
+
+ 
+
+ .cs-alert {
+  position: relative;
+  padding: 0.5rem 0.5rem;
+  margin-bottom: 0.1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+.btn-cs-alert-AL,
+.cs-alert-AL {
+  color: #61040e !important;
+  background-color: #ff0015;
+  border-color: #66000a;
+}
+
+.btn-cs-alert-AT,
+.cs-alert-AT {
+  color: rgb(255, 240, 223) !important;
+  background-color: darkorange;
+  border-color: rgb(68, 37, 0);
+}
+
+.btn-cs-alert-PA,
+.cs-alert-PA {
+  color: rgb(255, 240, 223) !important;
+  background-color: darkorange;
+  border-color: rgb(68, 37, 0);
+}
+
+.btn-cs-alert-FA,
+.cs-alert-FA {
+  color: rgb(46, 39, 0) !important;
+  background-color: gold;
+  border-color: rgb(75, 64, 0);
+}
+
+.btn-cs-alert-DE,
+.cs-alert-DE {
+  color: rgb(46, 39, 0) !important;
+  background-color: gold;
+  border-color: rgb(75, 64, 0);
+}
+
+.btn-cs-alert-EX,
+.cs-alert-EX {
+  color: rgb(46, 39, 0) !important;
+  background-color: darkolivegreen;
+  border-color: rgb(75, 64, 0);
+}
+
+.btn-cs-alert-NO,
+.cs-alert-NO {
+  color: rgb(206, 206, 206) !important;
+  background-color: grey;
+  border-color: rgb(24, 24, 24);
+}
+
+.btn-cs-alert-EV,
+.cs-alert-EV {
+  color: rgb(206, 206, 206) !important;
+  background-color: grey;
+  border-color: rgb(24, 24, 24);
+}
+
+
+.csicon-NO {
+  color: #cccccc;
+}
+
+.csicon-AL {
+  color: #c90519;
+}
+
+.csicon-PA {
+  color: darkorange;
+}
+
+.csicon-FA {
+  color: gold;
+}
+
+.csicon-AT {
+  color: darkorange;
+}
+
+.csicon-DE {
+  color: gold;
+}
+
+.csicon-EV {
+  color: grey;
+}
+
+
+
+
+
+
+.onoff-NO {
+  color: grey;
+}
+
+.onoff-AL {
+    animation:frame-onoff-AL 2s;
+    animation-iteration-count: infinite;
+    will-change: transform;
+}
+
+.onoff-PA {
+  animation:frame-onoff-PA 2s;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.onoff-FA {
+  animation:frame-onoff-FA 2s;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.onoff-AT {
+  animation:frame-onoff-AT 2s;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.onoff-DE {
+  animation:frame-onoff-DE 2s;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+
+@keyframes frame-onoff-AL 
+{
+0%   {color:red;}
+50%  {color:grey;}
+100%   {color:red;}
+}
+ 
+@keyframes frame-onoff-PA {
+  0%   {color:darkorange;}
+  50%  {color:grey;}
+  100%   {color:darkorange;}
+}
+
+@keyframes frame-onoff-FA {
+  0%   {color:gold;}
+  50%  {color:grey;}
+  100%   {color:gold;}
+}
+
+.cs-btn-min-width {
+  width: 10vw !important;
+}
+
+cs-btn-min-width-2x {
+  width: 20vw !important;
+}
+
+.cs-fnt-display {
+  font-family: monospace;
+  font-size: 2.3rem;
+/*  x-font-weight: 300; */
+  line-height: 0.9;
+  font-weight: bold;
+}
+
+@media (max-width: 1200px) {
+  .cs-fnt-display {
+    font-size: calc(0.605rem + 1.0vw);
+    
+  }
+
+  h3, .h3 {
+    font-size: calc(0.605rem + 2.0vw);
+  }
+
+}
+
+@media (max-width: 800px) {
+  .cs-fnt-display {
+    font-size: calc(0.555rem + 1.0vw);
+    
+  }
+
+  h3, .h3 {
+    font-size: calc(0.605rem + 2.0vw);
+  }
+
+}
+
+
+@keyframes cs-changeColor-normal {
+  0% {
+    background-color: rgb(33, 37, 41);
+  }
+
+  50% {
+    background-color: rgb(7, 7, 7);
+  }
+
+  100% {
+    background-color: rgb(33, 37, 41);
+  }
+}
+
+.cs-live-background-normal {
+  animation: cs-changeColor-normal ease;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+  animation-fill-mode: both;
+}
+
+@keyframes cs-changeColor-prueba {
+  0% {
+    background-color: rgb(33, 37, 41);
+  }
+
+  50% {
+    background-color: rgb(63, 58, 1);
+  }
+
+  100% {
+    background-color: rgb(33, 37, 41);
+  }
+}
+
+
+.cs-live-background-prueba {
+  animation: cs-changeColor-prueba ease;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+  animation-fill-mode: both;
+}
+
+
+cs-icon {
+/*  text-align: center; */
+}
+
+.cs-icon-descrip {
+  font-size: 1vw;
+  padding-top: 6px 0 0 0;
+  line-height: 1vw;
+  max-width: 150px;
+  text-align: center;
+}
+
+
+pan-zoom {
+  /*
+  display:block;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  */
+  overflow: hidden;
+  /*
+  user-select: none;*/
+  --webkit-user-select: none;
+  touch-action: none;
+}
+
+pan-zoom .pz-ele {
+  position : absolute;
+  min-width : 0;
+  min-height : 0;
+  left : 0;
+  top : 0;
+  transform-origin : 0 0 0;
+}
+
+pan-zoom .pz-info {
+  position : absolute;
+  left : 0;
+  top : 0;
+  color: black;
+  font-size: 10px;
+  z-index: 1000;
+  text-align: left;
+}
+
+@keyframes rotate{
+  to{ transform: rotateY(360deg); }
+}
+
+.cs-icon-animate {
+  animation:rotate 3s;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.cs-icon-animate:hover {
+  animation-play-state: paused;
+}
+
+.ui-select-match{
+  margin-top: -2px;
+
+}
+
+.btn-default-focus {
+  color: unset;
+  background-color:unset;
+  border-color:unset;
+  text-decoration: unset;
+  outline: unset;
+  outline-offset: unset;
+  box-shadow: unset;
+}
+
+.btn.btn-outline-light.btn-sm.ui-select-container.ui-select-bootstrap.dropdown .ui-select-toggle:hover {
+  color: black;
+
+}
+.btn.btn-outline-light.btn-sm.ui-select-container.ui-select-bootstrap.dropdown .ui-select-toggle {
+  color: white;
+  padding-top: 2px;
+}

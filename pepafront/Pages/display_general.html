@@ -1,0 +1,174 @@
+<div class="vh-100" style="user-select:none; touch-action:none;">
+  <div class="container-fluid h-100 p-0">
+    <div class="row no-gutters h-100">
+      <!-- span us-spinner="{radius:30, width:8, length: 16, color:'red'}" spinner-key="spinner-1"
+        style="z-index: 2000;"></span -->
+
+      <div ng-show="ctrl.ind_listado" class="col h-100 fadecard " id="main">
+        <!-- LISTADO DE eventos activos -->
+        <div class="h-50 d-flex" ng-class="ctrl.ind_modo_prueba==1 ? 'cs-live-background-prueba' : 'cs-live-background-normal' ">
+
+          <div class="col-4 p-0 d-none d-lg-block d-md-block d-sm-block" >
+
+            <div class=" container-fluid h-100 d-flex flex-column">
+              <div class="row overflow-auto h-100">
+                <tree-grid tree-data="ctrl.sectorestree" tree-control="ctrl.stc" col-defs="ctrl.col_defs"
+                  on-click="ctrl.showSectorDetalle(branch)" expand-on="ctrl.expanding_property" expand-level="0"
+                  template-url="tree_grid.html"></tree-grid>
+
+              </div>
+              
+              <div class="row"  ng-if="ctrl.showBtnPantallaPrincipal"> <!-- style="height: 6vh;" -->
+
+                <div class="btn-group btn-group-responsive d-flex w-100" role="group">
+
+
+                  <button type="button" class="btn btn-sm btn-outline-secondary" ui-sref="common.dashboard">
+                    <i class="fa fa-tachometer-alt"></i><span translate>Pantalla principal</span>
+                  </button>
+                  <button type="button" ng-if="ctrl.testModeLabel" class="btn btn-sm" ng-class="ctrl.ind_modo_prueba == 0 ? 'btn-outline-warning' : 'btn-warning'" ng-click="ctrl.toogleTestMode()">
+                    <i class="fas fa-check-double"></i><span ng-bind="ctrl.testModeLabel"></span>
+                  </button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 h-100 overflow-auto  p-0 ">
+
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-1">
+              <div class="dropdown " uib-dropdown>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-haspopup="true"
+                  aria-expanded="false" uib-dropdown-toggle><span class="navbar-toggler-icon"></span></button>
+                <div class="dropdown-menu" uib-dropdown-menu role="menu">
+                  <a ng-if="ctrl.showBtnPantallaPrincipal" class="dropdown-item" ui-sref="common.dashboard"> <i
+                      class="fa fa-tachometer-alt"></i>
+                    <span translate>Pantalla principal</span></a>
+                  <a ng-if="ctrl.showBtnPantallaPrincipal" class="dropdown-item" ng-click="ctrl.toogleTestMode()"> <i
+                      class="fa fa-check-double"></i>
+                      <span ng-bind="ctrl.testModeLabel"></span></a>
+
+                  <a ng-if="!ctrl.codUsuario" class="dropdown-item" ng-click="ctrl.authaction()"><i
+                      class="fas fa-sign-in-alt"></i>
+                    <span translate>Ingresar</span></a>
+                  <a ng-if="ctrl.codUsuario" class="dropdown-item" ng-click="ctrl.authaction()"><i
+                      class="fas fa-sign-out-alt"></i>
+                    <span translate>Salir</span></a>
+                </div>
+              </div>
+              <div class="d-sm-none ">
+                <button type="button" class="btn {{ctrl.button_alarma}} btn-sm "
+                click-and-disable="ctrl.showDisplay('listado')">
+                  <div class="{{ctrl.cs_shaker_alarpre}}"><i class="fas fa-bell"></i></div>
+                  <div>{{ctrl.des_valor_alarma}}</div>
+                </button>
+                <button type="button" class="btn {{ctrl.button_falla}} btn-sm"
+                click-and-disable="ctrl.showDisplay('listado')">
+                  <div class="ng-class: ctrl.cs_shaker_falla"><i class="fas fa-exclamation-triangle"></i></div>
+                  <div>{{ctrl.des_valor_falla}}</div>
+                </button>
+                <button type="button" class="btn {{ctrl.button_video}} btn-sm btnvideo" disabled="1"><i
+                    class="fas fa-video"></i>
+                  <div translate>VIDEO</div>
+                </button>
+                <button ng-model="ctrl.bell" class="btn {{ctrl.btn_bell_class}} btn-sm"
+                  click-and-disable="ctrl.switchAudio()">
+                  <div class="{{ctrl.shake_bell_class}}"><i class="fa fa-bell-slash text-white"></i></div>
+                  <div translate>SILENCIAR</div>
+                </button>
+              </div>
+            </nav>
+
+            <a ng-repeat="alerta in ctrl.alertas" class="cs-alert d-flex"
+              ng-class="'cs-alert-' + (alerta.tipo_evento || 'warning')" ng-click="ctrl.showSectorDetalle(alerta)">
+              <div class="col-3 p-0">{{alerta.stm_evento | ftDateTime}}</div>
+              <div class="col-7 p-0">
+                <div>{{alerta.nom_sectores}}</div>
+                <div>{{alerta.nom_tema}} {{alerta.des_observaciones}}</div>
+              </div>
+              <div class="col-2 p-0 text-right" title="{{alerta.cod_tema }}">
+                <i ng-if="alerta.tipo_evento == 'AL'" class="fa fa-bell cs-fa-15x"></i>
+                <i ng-if="alerta.tipo_evento == 'PA'" class="fa fa-bell cs-fa-15x"></i>
+                <i ng-if="alerta.tipo_evento == 'AT'" class="fa fa-wrench cs-fa-15x"></i>
+                <i ng-if="alerta.tipo_evento == 'FA'" class="fa fa-exclamation-triangle cs-fa-15x"></i>
+                <i ng-if="alerta.tipo_evento == 'DE'" class="fa fa-signal cs-fa-15x"></i>
+                <i ng-if="alerta.tipo_evento == 'EX'" class="fa fa-object-ungroup cs-fa-15x"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- CONSOLA -->
+        <div class="h-50 consola-sucesos">
+          <app-console class="h-100 d-block"></app-console>
+        </div>
+      </div>
+
+      <div ng-show="ctrl.ind_detalle" class="col h-100 fadecard text-center">
+        <sector-detalle cod-tema="ctrl.cod_tema" cod-sector="ctrl.cod_tema_sector" on-close="ctrl.showDisplay('listado')" />
+      </div>
+
+      <div ng-if="ctrl.ind_controlacceso" class="col h-100 fadecard text-center">
+        <control-acceso on-close="ctrl.showDisplay('listado')" />
+      </div>
+
+
+      <!-- BOTONES -->
+      <div class="d-none d-md-flex d-lg-flex d-sm-flex col-2 order-2 align-items-center">
+        <div class="sticky-top btn-group-vertical w-100">
+          <button type="button" class="btn {{ctrl.button_alarma}} btn-lg "
+          click-and-disable="ctrl.showDisplay('listado')" style="height: 19vh">
+            <div class="{{ctrl.cs_shaker_alarpre}}"><span ng-if="ctrl.cont_btn_alarma">{{ ctrl.cont_btn_alarma }}</span><i class="fas fa-bell fa-2x"></i></div>
+          <div>{{ctrl.des_valor_alarma}} </div>
+          </button>
+          <button type="button" class="btn {{ctrl.button_falla}} btn-lg"
+          click-and-disable="ctrl.showDisplay('listado')" style="height: 19vh">
+            <div class="ng-class: ctrl.cs_shaker_falla"><span ng-if="ctrl.cont_btn_falla">{{ ctrl.cont_btn_falla }}</span><i class="fas fa-exclamation-triangle fa-2x"></i></div>
+            <div class="text-truncate">{{ctrl.des_valor_falla}}</div>
+          </button>
+          <button type="button" class="btn {{ctrl.button_video}} btn-lg btnvideo" style="height: 19vh" disabled="1"><i
+              class="fas fa-video fa-2x"></i>
+            <p translate>VIDEO</p>
+          </button>
+          <button type="button" class="btn btn-lg btn-primary" style="height: 18vh" ng-click="ctrl.showDisplay('controlacceso')"><i
+            class="fas fa-user-check fa-2x"></i>
+          <p translate>Control Acceso</p>
+        </button>
+
+          <button ng-model="ctrl.bell" class="btn {{ctrl.btn_bell_class}} btn-lg " style="height: 16vh"
+            click-and-disable="ctrl.switchAudio()">
+            <div class="{{ctrl.shake_bell_class}}"><i class="fa fa-bell-slash fa-2x text-white"></i></div>
+            <div style="font-size: 100%;" translate>SILENCIAR</div>
+          </button>
+          <button class="btn btn-lg btn-dark" style="height: 9vh; font-size: 2.5vh;"
+            click-and-disable="ctrl.authaction()">
+            <div style="font-size: 100%;">{{ ctrl.codUsuario }}</div>
+            <div style="font-size: 100%;">{{ ctrl.btnauthtext }}</div>
+          </button>
+
+        </div>
+      </div>
+
+
+      <div class="col-2 order-2 d-none ">
+        <div class="row">
+          <button ng-model="ctrl.bell" class="btn {{ctrl.btn_bell_class}} btn-lg" style="height: 16vh"
+            click-and-disable="ctrl.switchAudio()">
+            <div class="{{ctrl.shake_bell_class}}"><i class="fa fa-bell-slash fa-2x text-white"></i></div>
+            <div style="font-size: 100%;" translate>SILENCIAR</div>
+          </button>
+        </div>
+
+        <div class="row">
+
+          <button class="btn btn-lg btn-dark" style="height: 9vh; font-size: 2.5vh;"
+            click-and-disable="ctrl.authaction()">
+            <div style="font-size: 100%;">{{ ctrl.codUsuario }}</div>
+            <div style="font-size: 100%;">{{ ctrl.btnauthtext }}</div>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

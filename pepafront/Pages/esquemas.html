@@ -1,0 +1,137 @@
+<div class="titulo_menu">{{esquemas.form_title}}</div>
+
+<uib-tabset active="esquemas.active" class="bg-local-black">
+    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+        <div class="w-100">
+            <grilla gridoptions="esquemas.gridOptions"
+                    onclick-edit="esquemas.toggle(accion)"
+                    onclick-add="esquemas.toggle(accion)"
+                    onclick-copy="esquemas.toggle(accion)"
+                    onclick-delete="esquemas.confirmDelete()"
+                    urlback="esquemas"
+                    api="esquemas.grilla=API"
+                    class="d-flex flex-column w-100" style="height: 520px;"
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+        <div class="container-fluid">
+            <div class="row justify-content-md-center w-100">
+                <div class="col-md-6 col-lg-5">
+                    <div class="form-group">
+                        <label for="cod_esquema_acceso_dt" class="col-sm-10 label-adjust" translate>Cód. Esquema Acceso <span class="field-required">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="cod_esquema_acceso_dt" name="cod_esquema_acceso_dt" placeholder="Cód. Esquema Acceso"
+                               ng-model="esquemas.esquema_dt.cod_esquema_acceso" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cod_ou_dt" class="col-sm-10 label-adjust" translate>Organización <span class="field-required">*</span></label>
+                        <select class="form-control form-control-sm" id="cod_ou_dt" name="cod_ou_dt" disabled="" ng-model="esquemas.esquema_dt.cod_ou" 
+                                ng-options="item.cod_ou as item.nom_ou for item in esquemas.cod_ou">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="des_esquema_acceso_dt" class="col-sm-10 label-adjust" translate>Descripción <span class="field-required">*</span></label>
+                        <input  class="form-control form-control-sm" id="des_esquema_acceso_dt" name="des_esquema_acceso_dt" placeholder="Descripción"
+                                ng-model="esquemas.esquema_dt.des_esquema_acceso" readonly="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fec_habilitacion_hasta_dt" class="col-sm-10 label-adjust" translate>Fecha Hasta Habilitación </label>
+                        <input type="datetime-local" class="form-control form-control-sm" id="fec_habilitacion_hasta_dt" name="fec_habilitacion_hasta_dt" readonly="" ng-model="esquemas.esquema_dt.fec_habilitacion_hasta"  fmtdatetimesql/>
+                    </div>
+					
+                    <div class="form-group">
+                        <label for="ind_estado_dt" class="col-sm-10 label-adjust" translate>Esquema Activo </label>
+                        <input class="checkbox-inline" type="checkbox" id="ind_estado_dt" name="ind_estado_dt" ng-model="esquemas.esquema_dt.ind_estado" disabled="">
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-5">
+
+                    <div class="form-group">
+                        <label class="col-sm-10 label-adjust" translate>Intervalos hábiles</label>
+                        <range-select ng-model="esquemas.esquema_dt.obj_intervalos_habiles"></range-select>                    
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-10 label-adjust" translate>Intervalos no hábiles</label>
+                        <range-select ng-model="esquemas.esquema_dt.obj_intervalos_nohabiles"></range-select>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-10 label-adjust" translate>Intervalos mixtos</label>
+                        <range-select ng-model="esquemas.esquema_dt.obj_intervalos_mixtos"></range-select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer p-2">
+                <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+            </div>
+        </div>
+    </uib-tab>
+    <uib-tab index="2" heading="{{esquemas.action_title}}" ui-sref=".({action:esquemas.action})" ng-hide="esquemas.hide">
+        <div class="container-fluid">
+            <ng-form name="frmEsquemas" class="form-horizontal" novalidate ng-validator>
+                <div class="row justify-content-md-center w-100">
+                    <div class="col-md-6 col-lg-5">
+                        <div class="form-group">
+                            <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" translate>Cód. Esquema Acceso <span class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="cod_esquema_acceso" name="cod_esquema_acceso" placeholder="Cód. Esquema Acceso"
+                                   ng-model="esquemas.esquema.cod_esquema_acceso" ng-required="true" ng-readonly="esquemas.noteditable">
+                            <span class="help-inline" ng-show="frmEsquemas.cod_esquema_acceso.$invalid && frmEsquemas.cod_esquema_acceso.$touched" translate>Debe ingresar un Cód. Esquema Acceso</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cod_ou" class="col-sm-10 label-adjust" translate>Organización <span class="field-required">*</span></label>
+                            <select class="form-control form-control-sm" id="cod_ou" name="cod_ou" ng-disabled="esquemas.disabled"
+                                    ng-model="esquemas.esquema.cod_ou" ng-required="true"
+                                    ng-options="item.cod_ou as item.nom_ou for item in esquemas.cod_ou">
+                            </select>
+                            <span class="help-inline" ng-show="frmEsquemas.cod_ou.$invalid && frmEsquemas.cod_ou.$touched" translate>Debe seleccionar una Organización</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="des_esquema_acceso" class="col-sm-10 label-adjust">Descripción <span class="field-required">*</span></label>
+                            <input  class="form-control form-control-sm" id="des_esquema_acceso" name="des_esquema_acceso" placeholder="Descripción"
+                                    ng-model="esquemas.esquema.des_esquema_acceso" ng-required="true">
+                            <span class="help-inline" ng-show="frmEsquemas.des_esquema_acceso.$invalid && frmEsquemas.des_esquema_acceso.$touched" translate>Debe ingresar una descripción</span>
+                        </div>
+                        
+                        <div class="form-group input-append date first-avail">
+                            <label for="fec_habilitacion_hasta" class="col-sm-10 label-adjust" translate>Fecha Hasta Habilitación </label>
+                            <input type="datetime-local" class="form-control form-control-sm" id="fec_habilitacion_hasta" name="fec_habilitacion_hasta" ng-model="esquemas.esquema.fec_habilitacion_hasta"  fmtdatetimesql/>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ind_estado" class="col-6 col-md-10 label-adjust" translate>Esquema Activo </label>
+                            <input class="checkbox-inline" type="checkbox" id="ind_estado" name="ind_estado" ng-model="esquemas.esquema.ind_estado">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-5">
+
+                        <div class="form-group">
+                            <label class="col-sm-10 label-adjust"  translate>Intervalos hábiles</label>
+                            <range-select ng-model="esquemas.esquema.obj_intervalos_habiles"></range-select>                    
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-10 label-adjust" translate>Intervalos no hábiles</label>
+                            <range-select ng-model="esquemas.esquema.obj_intervalos_nohabiles"></range-select>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-10 label-adjust" translate>Intervalos mixtos</label>
+                            <range-select ng-model="esquemas.esquema.obj_intervalos_mixtos"></range-select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer p-2">
+                    <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+                    <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+                    <button dtcancela hide-tab="esquemas.hide" type="button" class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmEsquemas.$valid, 'modal-button-primary-disabled': !(frmEsquemas.$valid && frmEsquemas.$dirty)} " ng-disabled="!(frmEsquemas.$dirty)" click-and-disable="esquemas.ok()" >&#160;<span translate>Grabar</span>&#160;</button>
+                </div>
+            </ng-form>
+        </div>
+    </uib-tab>
+</uib-tabset>

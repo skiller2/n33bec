@@ -1,0 +1,100 @@
+<style>
+
+    .display-split {
+        position: fixed;
+        left: 0;
+        right: 0;
+        height: 50%;
+    }
+
+    /* Control the left side */
+    .display-top {
+        top: 0;
+        width: 80%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: white;
+    }
+
+    .display-top img{
+        position: absolute;
+        height: 100%; 
+        width: 100%;
+    }
+
+    .display-top-right {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 20%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Control the right side */
+    .display-bottom {
+        bottom: 0;
+        overflow: auto;
+		background-color:#222;
+    }
+	
+	.display-messages {
+		text-align: center;
+	}
+    
+    .display-messages > span {
+        font-family:monospace; 
+        color:yellow;     
+		white-space: pre;
+		font-size: 1.9em;
+    }
+	
+	.flashingbackground{
+		animation: bg-color 3s infinite;
+		-webkit-animation: bg-color 3s infinite;
+	}	
+	
+	.big-button{
+	    width: 100%;
+		height: 100%;
+	}
+
+    @-webkit-keyframes bg-color {
+        0% { background-color: red; }
+        100% { background-color: black; }
+    }
+
+    @keyframes bg-color {
+        0% { background-color: red; }
+        100% { background-color: black; }
+    }
+
+    .d01 {
+        background-image: url("../Content/Images/display2_rojo.png");
+        top: 50px;
+        left: 100px;
+        z-index: 2;
+    }
+	
+</style>
+<div class="body-content display-split display-top d-flex">
+    <img src="../Content/Images/display2.png">
+    <img ng-src="{{display2.d03src}}">
+    <img ng-src="{{display2.d04src}}">
+    <img ng-src="{{display2.d07src}}">
+</div>
+<div class="display-top-right">
+  <button type="button" class="big-button btn {{display2.button}}" ng-click="display2.setData(display2.io_name,1)">{{display2.des_valor}}</button>
+</div>
+
+<div id="logViewer" class="display-split display-bottom">
+  <div class="log-viewer">
+    <div class="log-viewer-entry" ng-repeat="logline in display2.loglines">
+      <span class="text-{{logline.level_class}}"><span class="fa fa-{{logline.level_img}}-sign"> {{logline.level}}
+        </span></span>
+      <span ng-bind-html="logline.HtmlLine"></span>
+    </div>
+  </div>
+</div>

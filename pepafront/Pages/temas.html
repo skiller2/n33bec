@@ -1,0 +1,545 @@
+<div class="titulo_menu">{{temas.form_title}}</div>
+
+<uib-tabset active="temas.active" class="bg-local-black">
+    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+        <div class="w-100">
+            <grilla gridoptions="temas.gridOptions" onclick-edit="temas.toggle(accion)"
+                onclick-add="temas.toggle(accion)" onclick-copy="temas.toggle(accion)"
+                onclick-delete="temas.confirmDelete()" urlback="temas" api="temas.grilla=API"
+                class="d-flex flex-column w-100" style="height: 520px;" />
+        </div>
+    </uib-tab>
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+        <div class="container-fluid">
+            <div class="row justify-content-md-center w-100">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="cod_tema_dt" class="col-sm-10 label-adjust" translate>Identificación Componente</label>
+                        <input type="text" class="form-control form-control-sm" id="cod_tema_dt" name="cod_tema_dt"
+                            ng-model="temas.tema_dt.cod_tema" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_tema_dt" class="col-sm-10 label-adjust" translate>Etiqueta</label>
+                        <input type="text" class="form-control form-control-sm" id="nom_tema_dt" name="nom_tema_dt"
+                            ng-model="temas.tema_dt.nom_tema" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cod_sector_dt" class="col-sm-10 label-adjust" translate>Sector</label>
+                        <select class="form-control form-control-sm" id="cod_sector_dt" name="cod_sector_dt"
+                            ng-model="temas.tema_dt.cod_sector" disabled
+                            ng-options="item.cod_sector as item.nom_tema for item in temas.sectoresList">
+                        </select>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="cod_clase_dt" class="col-sm-10 label-adjust" translate>Clase <span
+                                class="field-required">*</span></label>
+                        <select class="form-control form-control-sm" id="cod_clase_dt" name="cod_clase_dt"
+                            ng-model="temas.tema_dt.cod_clase" disabled
+                            ng-options="item.cod_clase as item.nom_clase for item in temas.clasesList">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cod_tipo_uso_dt" class="col-sm-10 label-adjust" translate>Tipo Uso</label>
+                        <select class="form-control form-control-sm" id="cod_tipo_uso_dt" name="cod_tipo_uso_dt"
+                            ng-model="temas.tema_dt.cod_tipo_uso" disabled
+                            ng-options="item.id as item.name for item in temas.tipoUsoList">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label for="url_envio_dt" class="col-sm-10 label-adjust" translate>URL Envío</label>
+                        <input type="text" class="form-control form-control-sm" id="url_envi_dt" name="url_envio_dt"
+                            placeholder="URL Envío" ng-model="temas.tema_dt.url_envio" readonly>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="des_ubicacion_dt" class="col-sm-10 label-adjust" translate>Ubicación</label>
+                        <input type="text" class="form-control form-control-sm" id="des_ubicacion_dt"
+                            name="des_ubicacion_dt" ng-model="temas.tema_dt.des_ubicacion" readonly>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="ind_mostrar_en_panel_dt" class="col-sm-10 label-adjust" translate>Mostrar En Panel </label>
+                        <input class="checkbox" type="checkbox" id="ind_mostrar_en_panel_dt"
+                            name="ind_mostrar_en_panel_dt" ng-model="temas.tema_dt.ind_mostrar_en_panel" disabled>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="ind_registra_evento_dt" class="col-sm-10 label-adjust" translate>Registra Evento </label>
+                        <input class="checkbox" type="checkbox" id="ind_registra_evento_dt"
+                            name="ind_registra_evento_dt" ng-model="temas.tema_dt.ind_registra_evento" disabled>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="ind_display_evento_dt" class="col-sm-10 label-adjust" translate>Muestra Evento Display</label>
+                        <input class="checkbox" type="checkbox" id="ind_display_evento_dt" name="ind_display_evento_dt"
+                            ng-model="temas.tema_dt.ind_display_evento" disabled>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="ind_notifica_evento_dt" class="col-sm-10 label-adjust" translate>Notifica Evento</label>
+                        <input class="checkbox" type="checkbox" id="ind_notifica_evento_dt"
+                            name="ind_notifica_evento_dt" ng-model="temas.tema_dt.ind_notifica_evento" disabled>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label for="ind_activo_dt" class="col-sm-10 label-adjust" translate>Activo</label>
+                        <input class="checkbox" type="checkbox" id="ind_activo_dt" name="ind_activo_dt"
+                            ng-model="temas.tema_dt.ind_activo" disabled>
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                    <div class="form-group">
+                        <label for="img_tema_dt" class="col-sm-10 label-adjust" translate>Imagen</label>
+                        <div class="form-control form-control-img"><img id="img_tema_dt"
+                                ng-src="{{temas.tema_dt.img_tema}}" ng-show="temas.tema_dt.img_tema" /></div>
+                    </div>
+                </div>
+            </div>
+            <app-tipo-uso cod-tipo-uso="temas.tema_dt.cod_tipo_uso" readonly="true"
+                ng-model="temas.tema_dt.json_parametros" imagenes="temas.tema_dt.imagenes"></app-tipo-uso>
+            <div class="row justify-content-md-center w-100">
+
+                <div class="col-md-2">
+
+                    <div class="form-group">
+                        <label for="pos_img_class_dt" class="col-sm-10 label-adjust" translate>Figura</label>
+                        <select class="form-control form-control-sm" id="pos_img_class_dt" name="pos_img_class_dt"
+                            ng-model="temas.tema_dt.json_posicion_img.class"
+                            ng-options="item.class as item.nom_icono for item in temas.libreriaIconos" disabled>
+                            <option value="" translate>Sin imagen</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label for="pos_img_x_dt" class="col-sm label-adjust" translate>Pos. X (px)</label>
+                        <input type="text" class="form-control form-control-sm" id="pos_img_x_dt" name="pos_img_x_dt"
+                            placeholder="Posición X" ng-model="temas.tema_dt.json_posicion_img.left" readonly>
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+
+                    <div class="form-group ">
+                        <label for="pos_img_y_dt" class="col-sm label-adjust" translate>Pos. Y (px)</label>
+                        <input type="text" class="form-control form-control-sm" id="pos_img_y_dt" name="pos_img_y_dt"
+                            placeholder="Posición Y" ng-model="temas.tema_dt.json_posicion_img.top" readonly>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
+                    <div class="form-group ">
+                        <label for="pos_img_tam_dt" class="col-sm label-adjust" translate>Tamaño</label>
+                        <input type="text" class="form-control form-control-sm" id="pos_img_tam_dt"
+                            name="pos_img_tam_dt" placeholder="Tamaño" ng-model="temas.tema_dt.json_posicion_img.width"
+                            readonly>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
+                    <div class="form-group ">
+                        <label for="pos_img_rotar_dt" class="col-sm label-adjust" translate>Rotar (°)</label>
+                        <input type="text" class="form-control form-control-sm" id="pos_img_rotar_dt"
+                            name="pos_img_rotar_dt" placeholder="Tamaño"
+                            ng-model="temas.tema_dt.json_posicion_img.rotacion_grados" readonly>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
+                    <div class="form-group ">
+                        <label for="pos_img_rotary_dt" class="col-sm label-adjust" translate>RotarY (°)</label>
+                        <input type="text" class="form-control form-control-sm" id="pos_img_rotary_dt"
+                            name="pos_img_rotary_dt" placeholder="Grados"
+                            ng-model="temas.tema_dt.json_posicion_img.rotaciony_grados" readonly>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center w-100">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="icon_descrip_dt" class="col-sm label-adjust" translate>Descripción</label>
+                            <input type="text" class="form-control form-control-sm" id="icon_descrip_dt"
+                                name="icon_descrip_dt" placeholder="Descripción"
+                                ng-model="temas.tema_dt.json_posicion_img.icon_descrip" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center w-100"
+                    style="height: 60vh; position: relative; background-color: whitesmoke;">
+                    <pan-zoom ng-model="temas.sector_imgdata" class="w-100 h-100 d-block position-relative">
+                        <cs-icon ng-if="temas.tema_dt.json_posicion_img.class" title="{{ temas.tema_dt.nom_tema }}"
+                            symbol="temas.tema_dt.json_posicion_img.class" ng-style="temas.json_posicion_img_style"
+                            ng-class="temas.tema_dt.json_posicion_img.event_class"
+                            animate="temas.tema_dt.json_posicion_img.animate">
+                            <p class="cs-icon-descrip" ng-bind="temas.tema_dt.json_posicion_img.icon_descrip"></p>
+                        </cs-icon>
+                    </pan-zoom>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer p-2">
+            <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+        </div>
+    </uib-tab>
+    <uib-tab index="3" ui-sref=".({action:'sector'})" heading="Sector">
+        <div class="container-fluid">
+
+
+
+            <div class="w-100 p-1" style="height: 60vh; position: relative;background-color: whitesmoke;">
+                <pan-zoom ng-model="temas.sector_imgdata" class="w-100 h-100 d-block position-relative">
+                    <cs-icon ng-repeat="tema in temas.sector_imgiconos" ng-if="tema.class" title="{{ tema.nom_tema }}"
+                        symbol="tema.class" ng-click="temas.temaPopUp(tema.cod_tema)"
+                        ng-touchstart="temas.temaPopUp(tema.cod_tema)" ng-class="tema.event_class"
+                        ng-style="{'position':'absolute', 'line-height':'0', 'left': tema.left+'px', 'top': tema.top+'px', 'font-size': tema.width+'px', 'transform': 'rotate('+tema.rotacion_grados+'deg) rotatey('+tema.rotaciony_grados+'deg)', 'touch-action':'auto'}"
+                        animate="tema.animate">
+                        <p ng-if="tema.icon_descrip" class="cs-icon-descrip" ng-bind="tema.icon_descrip"></p>
+                    </cs-icon>
+                </pan-zoom>
+            </div>
+
+
+
+            <div class="row justify-content-md-center w-100">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
+                        <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt"
+                            name="cant_cod_tema_dt" placeholder="Cantidad" ng-model="temas.sector.cant_cod_tema"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </uib-tab>
+
+    <uib-tab index="2" heading="{{temas.action_title}}" ui-sref=".({action:temas.action})" ng-hide="temas.hide">
+        <div class="container-fluid">
+            <form name="temas.frmTemas" class="form-horizontal" novalidate ng-validator>
+                <div class="row justify-content-md-center w-100">
+
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-warning' : temas.frmTemas.cod_tema.$dirty}">
+                            <label for="cod_tema" class="col-sm-10 label-adjust" translate>Identificación Componente<span
+                                    class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="cod_tema" name="cod_tema"
+                                placeholder="Identificación Componente" ng-model="temas.tema.cod_tema"
+                                ng-required="true" xng-readonly="temas.noteditable">
+                            <span class="help-inline"
+                                ng-show="temas.frmTemas.cod_tema.$invalid && temas.frmTemas.cod_tema.$touched" translate>Debe ingresar una identificación de componente</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nom_tema" class="col-sm-10 label-adjust" translate>Etiqueta <span
+                                    class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="nom_tema" name="nom_tema"
+                                placeholder="Tema" ng-model="temas.tema.nom_tema" ng-required="true">
+                            <span class="help-inline"
+                                ng-show="temas.frmTemas.nom_tema.$invalid && temas.frmTemas.nom_tema.$touched" translate>Debe ingresar una Etiqueta</span>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="cod_sector" class="col-sm-10 label-adjust" translate>Sector <span
+                                    class="field-required">*</span></label>
+                            <select class="form-control form-control-sm" id="cod_sector" name="cod_sector"
+                                ng-model="temas.tema.cod_sector" ng-required="true"
+                                ng-change="temas.loadSectorImg(temas.tema.cod_sector)"
+                                ng-options="item.cod_sector as item.nom_tema for item in temas.sectoresList">
+                            </select>
+                            <span class="help-inline"
+                                ng-show="temas.frmTemas.cod_sector.$invalid && temas.frmTemas.cod_sector.$touched" translate>Debe seleccionar un Sector</span>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="cod_clase" class="col-sm-10 label-adjust" translate>Clase <span
+                                    class="field-required">*</span></label>
+                            <select class="form-control form-control-sm" id="cod_clase" name="cod_clase"
+                                ng-model="temas.tema.cod_clase" ng-required="true"
+                                ng-options="item.cod_clase as item.nom_clase for item in temas.clasesList">
+                            </select>
+                            <span class="help-inline"
+                                ng-show="temas.frmTemas.cod_clase.$invalid && temas.frmTemas.cod_clase.$touched" translate>Debe seleccionar una Clase</span>
+                        </div>
+
+
+                        <div class="form-group ">
+                            <label for="cod_tipo_uso" class="col-sm-10 label-adjust" translate>Tipo Uso <span
+                                    class="field-required">*</span></label>
+                            <select class="form-control form-control-sm" id="cod_tipo_uso" name="cod_tipo_uso"
+                                ng-model="temas.tema.cod_tipo_uso" ng-required="true"
+                                ng-options="item.id as item.name for item in temas.tipoUsoList">
+                            </select>
+                            <span class="help-inline"
+                                ng-show="temas.frmTemas.cod_tipo_uso.$invalid && temas.frmTemas.cod_tipo_uso.$touched" translate>Debe seleccionar un Tipo Uso</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group ">
+                            <label for="url_envio" class="col-sm-10 label-adjust" translate>URL Envío</label>
+                            <input type="text" class="form-control form-control-sm" id="url_envio" name="url_envio"
+                                placeholder="URL Envío" ng-model="temas.tema.url_envio" ng-required="false">
+                            <span class="help-inline"
+                                ng-show="temas.frmTemas.url_envio.$invalid && temas.frmTemas.url_envio.$touched" translate>Debe seleccionar URL envío</span>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="des_ubicacion" class="col-sm-10 label-adjust" translate>Ubicación <span
+                                    class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="des_ubicacion"
+                                name="des_ubicacion" placeholder="Ubicación" ng-model="temas.tema.des_ubicacion"
+                                ng-required="true">
+                            <span class="help-inline"
+                                ng-show="temas.frmTemas.des_ubicacion.$invalid && temas.frmTemas.des_ubicacion.$touched" translate>Debe seleccionar una Ubicación</span>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="ind_mostrar_en_panel" class="col-sm-10 label-adjust" translate>Mostrar En Panel </label>
+                            <input class="checkbox" type="checkbox" id="ind_mostrar_en_panel"
+                                name="ind_mostrar_en_panel" ng-model="temas.tema.ind_mostrar_en_panel">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="ind_registra_evento" class="col-sm-10 label-adjust" translate>Registra Evento </label>
+                            <input class="checkbox" type="checkbox" id="ind_registra_evento" name="ind_registra_evento"
+                                ng-model="temas.tema.ind_registra_evento">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="ind_display_evento" class="col-sm-10 label-adjust" translate>Muestra Evento Display</label>
+                            <input class="checkbox" type="checkbox" id="ind_display_evento" name="ind_display_evento"
+                                ng-model="temas.tema.ind_display_evento">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="ind_notifica_evento" class="col-sm-10 label-adjust" translate>Notifica Evento</label>
+                            <input class="checkbox" type="checkbox" id="ind_notifica_evento" name="ind_notifica_evento"
+                                ng-model="temas.tema.ind_notifica_evento">
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="ind_activo" class="col-sm-10 label-adjust" translate>Activo </label>
+                            <input class="checkbox" type="checkbox" id="ind_activo" name="ind_activo"
+                                ng-model="temas.tema.ind_activo">
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="img_tema" class="col-sm-10 label-adjust" translate>Imagen</label>
+                            <adjuntar-img id="img_tema" class="form-control form-control-sm"
+                                ng-model="temas.tema.img_tema" />
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+                <app-tipo-uso cod-tipo-uso="temas.tema.cod_tipo_uso" readonly="false"
+                    ng-model="temas.tema.json_parametros" imagenes="temas.tema.imagenes"></app-tipo-uso>
+
+                <div class="row justify-content-md-center w-100">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="pos_img_class" class="col-sm-10 label-adjust" translate>Figura</label>
+                            <select class="form-control form-control-sm" id="pos_img_class" name="pos_img_class"
+                                ng-model="temas.tema.json_posicion_img.class"
+                                ng-options="item.class as item.nom_icono for item in temas.libreriaIconos"
+                                ng-change="temas.onChangeIconData(temas.tema)">
+                                <option value="">Sin imagen</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <label for="pos_img_x" class="col-sm-10 label-adjust" translate>Pos. X (px)</label>
+                            <input type="text" class="form-control form-control-sm" id="pos_img_x" name="pos_img_x"
+                                placeholder="Posición X" ng-model="temas.tema.json_posicion_img.left"
+                                ng-change="temas.onChangeIconData(temas.tema)" numbers-only>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <label for="pos_img_y" class="col-sm-10 label-adjust" translate>Pos. Y (px)</label>
+                            <input type="text" class="form-control form-control-sm" id="pos_img_y" name="pos_img_y"
+                                placeholder="Posición Y" ng-model="temas.tema.json_posicion_img.top"
+                                ng-change="temas.onChangeIconData(temas.tema)" numbers-only>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <label for="pos_img_tam" class="col-sm-10 label-adjust" translate>Tamaño (px)</label>
+                            <input type="text" class="form-control form-control-sm" id="pos_img_tam" name="pos_img_tam"
+                                placeholder="Tamaño" ng-model="temas.tema.json_posicion_img.width"
+                                ng-change="temas.onChangeIconData(temas.tema)" numbers-only>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <label for="pos_img_rotar" class="col-sm-10 label-adjust" translate>Rotar (°)</label>
+                            <input type="text" class="form-control form-control-sm" id="pos_img_rotar"
+                                name="pos_img_rotar" placeholder="Grados" numbers-only
+                                ng-model="temas.tema.json_posicion_img.rotacion_grados"
+                                ng-change="temas.onChangeIconData(temas.tema)">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group ">
+                            <label for="pos_img_rotary" class="col-sm label-adjust" translate>RotarY (°)</label>
+                            <input type="text" class="form-control form-control-sm" id="pos_img_rotary"
+                                name="pos_img_rotary" placeholder="Grados" numbers-only
+                                ng-model="temas.tema.json_posicion_img.rotaciony_grados"
+                                ng-change="temas.onChangeIconData(temas.tema)">
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center w-100">
+
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label for="icon_descrip" class="col-sm-10 label-adjust" translate>Descripción</label>
+                                <input type="text" class="form-control form-control-sm" id="icon_descrip"
+                                    name="icon_descrip" placeholder="Descripción"
+                                    ng-model="temas.tema.json_posicion_img.icon_descrip">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center w-100"
+                        style="height: 60vh; position: relative;background-color: whitesmoke;">
+                        <pan-zoom ng-model="temas.sector_imgdata" class="w-100 h-100 d-block position-relative">
+                            <cs-icon ng-if="temas.tema.json_posicion_img.class" title="{{ temas.tema.nom_tema }}"
+                                symbol="temas.tema.json_posicion_img.class" ng-style="temas.json_posicion_img_style"
+                                ng-class="temas.tema.json_posicion_img.event_class" ng-move="temas.onMoveIcon(event)"
+                                allow-move="true">
+                                <p ng-if="temas.tema.json_posicion_img.icon_descrip" class="cs-icon-descrip"
+                                    ng-bind="temas.tema.json_posicion_img.icon_descrip"></p>
+                            </cs-icon>
+                        </pan-zoom>
+
+
+
+                    </div>
+                </div>
+
+
+
+                <div class="modal-footer p-2">
+                    <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+                    <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+                    <button dtcancela hide-tab="temas.hide" type="button"
+                        class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                    <button type="submit" class="btn btn-outline-success btn-sm"
+                        ng-class="{'modal-button-primary': temas.frmTemas.$valid, 'modal-button-primary-disabled': !(temas.frmTemas.$valid && temas.frmTemas.$dirty)}"
+                        ng-disabled="!(temas.frmTemas.$dirty)"
+                        click-and-disable="temas.ok()">&#160;<span translate>Grabar</span>&#160;</button>
+                </div>
+            </form>
+        </div>
+    </uib-tab>
+    <uib-tab index="4" ui-sref=".({action:'comunicacion'})" heading="Comunicación">
+        <div class="col-md-6 col-lg-5">
+            <div class="form-group">
+                <label for="send_cod_tema" class="col-sm-10 label-adjust" translate>Componente</label>
+                <select class="form-control form-control-sm" id="send_cod_tema" ng-model="temas.send.cod_tema"
+                    ng-options="key as value.cod_tema for (key,value) in temas.listaTemas">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="send_bus_id" class="col-sm-10 label-adjust" translate>Identificador</label>
+                <input type="text" class="form-control form-control-sm" id="send_bus_id" ng-model="temas.send.bus_id">
+            </div>
+
+            <div class="form-group">
+                <label for="send_accion" class="col-sm-10 label-adjust" translate>Lee/Escribe<span
+                        class="field-required">*</span></label>
+                <select class="form-control form-control-sm" id="send_accion" ng-model="temas.send.accion"
+                    ng-required="true" value="R">
+                    <option value="R" translate>Lee</option>
+                    <option value="W" translate>Escribe</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="send_param" class="col-sm-10 label-adjust" translate>Parámetro</label>
+                <input type="text" class="form-control form-control-sm" id="send_param" ng-model="temas.send.param">
+            </div>
+
+            <div class="form-group" ng-show="temas.send.accion=='W'">
+                <label for="send_valor" class="col-sm-10 label-adjust" translate>Valor</label>
+                <input type="text" class="form-control form-control-sm" id="send_valor" ng-model="temas.send.valor">
+            </div>
+
+
+            <button class="btn btn-primary btn-xs" ng-click="temas.sendCommand(temas.send)" translate>Ejecuta comando</button>
+
+
+
+        </div>
+    </uib-tab>
+    <uib-tab index="5" ui-sref=".({action:'temas_eventos'})" heading="Evento Manual">
+        <div class="col-md-6 col-lg-5">
+            <div class="form-group">
+                <label for="send_cod_tema" class="col-sm-10 label-adjust" translate>Componente</label>
+                <select class="form-control form-control-sm" id="send_cod_tema" ng-model="temas.send.cod_tema"
+                    ng-change="temas.onChangeTema(temas.send.cod_tema)">
+                    <option ng-repeat="(key,tema) in temas.listaTemas" value="{{tema.cod_tema}}"
+                        title="{{tema.cod_tema}}">
+                        {{tema.nom_tema}}
+                    </option>
+                </select>
+                <div class="form-group">
+                    <label class="col-sm-10 label-adjust" translate>Código componente</label>
+                    <input type="text" class="form-control form-control-sm" ng-model="temas.send.cod_tema" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="send_valor" class="col-sm-10 label-adjust" translate>Valor</label>
+                <input type="text" class="form-control form-control-sm" id="send_valor" ng-model="temas.send.valor">
+            </div>
+            <div class="form-group">
+                <label for="extra_data" class="col-sm-10 label-adjust" translate>Datos extras</label>
+                <textarea type="text" class="form-control form-control-sm" id="extra_data"
+                    ng-model="temas.send.extra_data"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-xs" ng-click="temas.runEvent(temas.send,'')" translate>Ejecuta evento</button>
+                <button ng-if="temas.val_NO" class="btn btn-primary btn-xs"
+                    ng-click="temas.runEvent(temas.send,temas.val_NO)" ><span translate>Ejecuta evento valor Normal:</span> {{ temas.val_NO }}</button>
+                <button ng-if="temas.val_AL" class="btn btn-primary btn-xs"
+                    ng-click="temas.runEvent(temas.send,temas.val_AL)" ><span translate>Ejecuta evento valor Alarma:</span> {{ temas.val_AL }}</button>
+                <button ng-if="temas.valor_omision" class="btn btn-primary btn-xs"
+                    ng-click="temas.runEvent(temas.send,temas.valor_omision)" ><span translate>Ejecuta evento valor Omisión:</span> {{ temas.valor_omision }}</button>
+            </div>
+        </div>
+    </uib-tab>
+    <uib-tab index="6" ui-sref=".({action:'temas_noreg'})" heading="Componentes no registrados">
+        <div class="w-100">
+            <grilla gridoptions="temas.gridOptionsNoRegistrados" onclick-copy="true" copy-sref="'copianr'"
+                onclick-delete="temas.confirmDeleteNoReg()" urlback="temasnr" api="temas.grillaNR=API"
+                class="d-flex flex-column w-100" style="height: 520px;" showfilters="true" />
+        </div>
+    </uib-tab>
+
+</uib-tabset>

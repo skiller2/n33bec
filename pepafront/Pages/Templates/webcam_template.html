@@ -1,0 +1,15 @@
+<div class="alert alert-error ng-scope" ng-show="webcamError" >
+  <span>Sin acceso a la cámara</span>
+</div>
+<div class="d-flex flex-column align-items-center">
+    <img  class="form-input-img img-thumbnail"/>
+</div>
+<div class="d-flex flex-column align-items-center webcam">
+</div>
+<webcamx channel="channel" on-streaming="onSuccess()" on-error="onError(err)" on-stream="onStream(stream)" style="width:100%" ></webcamx>
+<div class="btn-group btn-group-responsive" role="group">
+  <button class="btn btn-sm btn-outline-secondary" ng-click="takeSnapshot()">Tomar foto</button>
+  <button class="btn btn-sm btn-outline-secondary" ng-click="adjuntar()" ng-show="showadjuntar">Adjuntar</button>
+  <button class="btn btn-sm btn-outline-secondary" ng-click="borrarContenido()">Limpiar</button>
+</div>
+<input id="adjunta_imagen" ng-show="false" type="file" accept="image/*"/>

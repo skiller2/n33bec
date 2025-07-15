@@ -1,0 +1,589 @@
+<div class="titulo_menu" translate>Habilitaciones</div>
+
+<uib-tabset active="habilitaciones.active" class="bg-local-black">
+  <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <div class="w-100">
+      <!--  <div>
+                <button type="file" ngf-select="habilitaciones.uploadFiles($file, $invalidFiles)"
+                        accept="" ngf-max-height="1000" ngf-max-size="1MB">
+                    Select File</button>
+                <br><br>
+                File:
+                <div style="font:smaller">{{habilitaciones.f.name}} {{habilitaciones.errFile.name}} {{habilitaciones.errFile.$error}} {{habilitaciones.errFile.$errorParam}}
+                    {{habilitaciones.errorMsg}}
+                    <span class="progress" ng-show="f.progress >= 0">
+                        <div style="width:{{habilitaciones.f.progress}}%"  
+                             ng-bind="habilitaciones.f.progress + '%'"></div>
+                    </span>
+                </div>     
+              </div>-->
+      <grilla gridoptions="habilitaciones.gridOptions" filtroextra="habilitaciones.filtroextra"
+        onclick-edit="habilitaciones.toggle(accion)" onclick-add="habilitaciones.toggle(accion)"
+        onclick-copy="habilitaciones.toggle(accion)" onclick-export="habilitaciones.exportar(tipo)"
+        hide-btn-copy="habilitaciones.ind_visita" hide-btn-edit="habilitaciones.ind_visita"
+        hide-btn-export="habilitaciones.ind_visita" onclick-delete="habilitaciones.confirmDelete()"
+        urlback="habilitaciones" api="habilitaciones.grilla=API" check-ou="true" class="d-flex flex-column w-100"
+        style="height: 520px;" />
+    </div>
+  </uib-tab>
+  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <div class="container-fluid">
+      <div class="row justify-content-md-center w-100">
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label for="cod_ou_contacto_dt" class="col-sm-10 label-adjust" translate>Organización <span
+                class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="cod_ou_contacto_dt" name="cod_ou_contacto_dt" disabled=""
+              ng-model="habilitaciones.habilitacion_dt.cod_ou_contacto"
+              ng-options="item.cod_ou as item.nom_ou for item in habilitaciones.ouList">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cod_credencial_dt" class="col-sm-10 label-adjust" translate>Cód Tarjeta <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="cod_credencial_dt" name="cod_credencial_dt"
+              readonly="" ng-model="habilitaciones.habilitacion_dt.cod_credencial" formatted="ftTarjeta">
+          </div>
+
+          <div class="form-group" ng-show="habilitaciones.ind_muestra_tipocred">
+            <label for="tipo_credencial_dt" class="col-sm-10 label-adjust" translate>Tipo Tarjeta <span
+                class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="tipo_credencial_dt" name="tipo_credencial_dt"
+              ng-model="habilitaciones.habilitacion_dt.tipo_credencial" disabled=""
+              ng-options="item.id as item.name for item in habilitaciones.tipoCredencial">
+            </select>
+          </div>
+
+          <div class="form-group" ng-show="habilitaciones.ind_muestra_tipohab">
+            <label for="tipo_habilitacion_dt" class="col-sm-10 label-adjust" translate>Tipo Habilitación <span
+                class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="tipo_credencial_dt" name="tipo_habilitacion_dt"
+              ng-model="habilitaciones.habilitacion_dt.tipo_habilitacion" disabled=""
+              ng-options="item.id as item.name for item in habilitaciones.tipoHabilitacion">
+            </select>
+          </div>
+
+          <div class="form-group" ng-show="habilitaciones.ind_muestra_grupocred">
+            <label for="cod_grupo_dt" class="col-sm-10 label-adjust" translate>Grupo de Tarjetas </label>
+            <select class="form-control form-control-sm" id="cod_grupo_dt" name="cod_grupo_dt"
+              ng-model="habilitaciones.habilitacion_dt.cod_grupo" disabled=""
+              ng-options="item.cod_grupo as item.des_grupo for item in habilitaciones.grupoCredList">
+            </select>
+          </div>
+
+          <div class="form-group" ng-show="habilitaciones.ind_visita">
+            <label for="des_persona_contacto_dt" class="col-sm-10 label-adjust" translate>Apellido y Nombre Contacto</label>
+            <input type="text" class="form-control form-control-sm" id="des_persona_contacto_dt"
+              name="des_persona_contacto_dt" placeholder="Apellido y Nombre Contacto"
+              ng-model="habilitaciones.habilitacion_dt.des_persona_contacto" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="cod_esquema_acceso_dt" class="col-sm-10 label-adjust" translate>Esquema de Acceso <span
+                class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="cod_esquema_acceso_dt" name="cod_esquema_acceso_dt"
+              ng-model="habilitaciones.habilitacion_dt.cod_esquema_acceso" disabled=""
+              ng-options="item.cod_esquema_acceso as item.des_esquema_acceso for item in habilitaciones.esquemasList">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sel_sectores_dt" class="col-sm-10 label-adjust" translate>Sectores <span
+                class="field-required">*</span></label>
+            <ui-select multiple ng-model="habilitaciones.habilitacion_dt.sectoresSel" append-to-body="true" disabled=""
+              close-on-select="false">
+              <ui-select-match ui-lock-choice="true" placeholder="Sectores">{{$item.nom_sector}}</ui-select-match>
+              <ui-select-choices
+                repeat="sector.cod_sector as sector in habilitaciones.sectoresList | filter: $select.search">
+                <div ng-bind-html="sector.nom_sector | highlight: $select.search"></div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-10 label-adjust" translate>Tarjetas de la persona</label>
+            <ul class="list-group text-muted" style="margin-top: 25px;">
+              <li class="list-group-item" ng-repeat="credencial in habilitaciones.habilitacion.vacredenciales"
+                title="{{credencial.nom_sector}}">
+                {{ credencial.cod_credencial}} - {{credencial.tipo_habilitacion}} - {{ credencial.nom_ou}}
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="col-lg-3 col-md-6">
+
+          <div class="form-group" ng-show="false">
+            <label for="cod_persona_dt" class="col-sm-10 label-adjust" translate>Cód. Persona</label>
+            <input type="text" class="form-control form-control-sm" id="cod_persona_dt" name="cod_persona_dt"
+              placeholder="Cód. Persona" ng-model="habilitaciones.habilitacion_dt.cod_persona" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="cod_tipo_doc_dt" class="col-sm-10 label-adjust" translate>Tipo Doc. <span
+                class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="cod_tipo_doc_dt" name="cod_tipo_doc_dt"
+              ng-model="habilitaciones.habilitacion_dt.cod_tipo_doc" ng-required="true" disabled=""
+              ng-options="item.id as item.name for item in habilitaciones.tipoDocumento">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="nro_documento_dt" class="col-sm-10 label-adjust" translate>DNI Persona <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="nro_documento_dt" name="nro_documento_dt"
+              placeholder="DNI Persona" ng-model="habilitaciones.habilitacion_dt.nro_documento" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="ape_persona_dt" class="col-sm-10 label-adjust" translate>Apellido <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="ape_persona_dt" name="ape_persona_dt"
+              placeholder="Apellido" ng-model="habilitaciones.habilitacion_dt.ape_persona" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="nom_persona_dt" class="col-sm-10 label-adjust" translate>Nombre <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="nom_persona_dt" name="nom_persona_dt"
+              placeholder="Nombre" ng-model="habilitaciones.habilitacion_dt.nom_persona" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="cod_sexo_dt" class="col-sm-10 label-adjust">Sexo <span class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="cod_sexo_dt" name="cod_sexo_dt"
+              ng-model="habilitaciones.habilitacion_dt.cod_sexo" disabled=""
+              ng-options="item.id as item.name for item in habilitaciones.tipoSexo">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="email_dt" class="col-sm-10 label-adjust" translate>E-mail <span class="field-required">*</span></label>
+            <input type="email_dt" class="form-control form-control-sm" id="email_dt" name="email_dt"
+              placeholder="Correo electrónico" ng-model="habilitaciones.habilitacion_dt.email" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="obs_visitas_dt" class="col-sm-10 label-adjust" translate>Observación Visitas </label>
+            <textarea class="form-control form-control-sm" id="obs_visitas_dt" name="obs_visitas_dt" readonly=""
+              placeholder="Observación Visitas" ng-model="habilitaciones.habilitacion_dt.obs_visitas"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="obs_habilitacion_dt" class="col-sm-10 label-adjust" translate>Observaciones Habilitación</label>
+            <textarea class="form-control form-control-sm" id="obs_habilitacion_dt" name="obs_habilitacion_dt"
+              readonly="" placeholder="Observaciones"
+              ng-model="habilitaciones.habilitacion_dt.obs_habilitacion"></textarea>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="form-group">
+            <label for="img_persona_dt" class="col-sm-10 label-adjust" translate>Foto <span
+                class="field-required">*</span></label>
+            <div class="form-control form-control-img"><img id="img_persona_dt"
+                ng-src="{{habilitaciones.habilitacion_dt.img_persona}}"
+                ng-show="habilitaciones.habilitacion_dt.img_persona" /></div>
+          </div>
+          <div class="form-group">
+            <label for="img_documento_dt" class="col-sm-10 label-adjust" translate>Documento <span
+                class="field-required">*</span></label>
+            <div class="form-control form-control-img"><img id="img_documento_dt"
+                ng-src="{{habilitaciones.habilitacion_dt.img_documento}}"
+                ng-show="habilitaciones.habilitacion_dt.img_documento" /></div>
+          </div>
+
+        </div>
+        <div class="col-lg-3 col-md-6">
+
+          <div class="form-group">
+            <label for="img_apto_fisico" class="col-sm-10 label-adjust" translate>Apto Físico </label>
+            <div class="form-control form-control-img"><img id="img_apto_fisico_dt"
+                ng-src="{{habilitaciones.habilitacion_dt.img_apto_fisico}}"
+                ng-show="habilitaciones.habilitacion_dt.img_apto_fisico" /></div>
+          </div>
+
+          <div class="form-group input-append date first-avail">
+            <label for="fec_otorgamiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico </label>
+            <input type="date" class="form-control form-control-sm" id="fec_otorgamiento_af_dt"
+              name="fec_otorgamiento_af_dt" ng-model="habilitaciones.habilitacion_dt.fec_otorgamiento_af" fmtdatetimesql
+              readonly />
+          </div>
+
+          <div class="form-group input-append date first-avail">
+            <label for="fec_vencimiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico </label>
+            <input type="date" class="form-control form-control-sm" id="fec_vencimiento_af_dt"
+              name="fec_vencimiento_af_dt" ng-model="habilitaciones.habilitacion_dt.fec_vencimiento_af" fmtdatetimesql
+              readonly />
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+      </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="2" heading="{{habilitaciones.action_title}}" ui-sref=".({action:habilitaciones.action})"
+    ng-hide="habilitaciones.hide">
+    <div class="container-fluid">
+      <ng-form name="frmHabilitaciones" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+              <label for="cod_ou_contacto" class="col-sm-10 label-adjust" translate>Organización <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_ou_contacto" name="cod_ou_contacto"
+                ng-change="habilitaciones.limpiarContacto()" ng-model="habilitaciones.habilitacion.cod_ou_contacto"
+                ng-required="true" ng-options="item.cod_ou as item.nom_ou for item in habilitaciones.ouList">
+              </select>
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.cod_ou_contacto.$invalid && frmHabilitaciones.cod_ou_contacto.$touched" translate>Debe seleccionar una Unidad Organizacional</span>
+            </div>
+
+            <div class="form-group" ng-class="{'has-warning' : frmHabilitaciones.cod_credencial_nueva.$dirty}">
+              <label for="cod_credencial_nueva" class="col-sm-10 label-adjust" translate>Cód. Tarjeta <span
+                  class="field-required">*</span></label>
+              <input ng-model-options="{updateOn: 'blur'}" ng-change="habilitaciones.fbuscaCredencial()" type="text"
+                class="form-control form-control-sm" id="cod_credencial_nueva" name="cod_credencial_nueva"
+                ng-model="habilitaciones.habilitacion.cod_credencial_nueva" ng-required="true" formatted="ftTarjeta">
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.cod_credencial_nueva.$invalid && frmHabilitaciones.cod_credencial_nueva.$touched" translate>Debe ingresar un Cód. Tarjeta</span>
+            </div>
+            <span class="help-inline" style="color:yellow;"
+              ng-show="frmHabilitaciones.habilitacion.obs_tarjeta != ''">{{habilitaciones.habilitacion.obs_tarjeta}}</span>
+
+            <div class="form-group" ng-show="habilitaciones.ind_muestra_tipocred">
+              <label for="tipo_credencial" class="col-sm-10 label-adjust" translate>Tipo Tarjeta <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="tipo_credencial" name="tipo_credencial"
+                ng-model="habilitaciones.habilitacion.tipo_credencial" ng-required="true"
+                ng-options="item.id as item.name for item in habilitaciones.tipoCredencial">
+              </select>
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.tipo_credencial.$invalid && frmHabilitaciones.tipo_credencial.$touched" translate>Debe seleccionar un Tipo Tarjeta</span>
+            </div>
+
+            <div class="form-group" ng-show="habilitaciones.ind_muestra_tipohab">
+              <label for="tipo_habilitacion" class="col-sm-10 label-adjust" translate>Tipo Habilitación <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="tipo_credencial" name="tipo_habilitacion"
+                ng-model="habilitaciones.habilitacion.tipo_habilitacion" ng-required="true"
+                ng-disabled="habilitaciones.noteditable"
+                ng-options="item.id as item.name for item in habilitaciones.tipoHabilitacion">
+              </select>
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.tipo_habilitacion.$invalid && frmHabilitaciones.tipo_habilitacion.$touched" translate>Debe seleccionar un Tipo Habilitación</span>
+            </div>
+
+            <div class="form-group" ng-show="habilitaciones.ind_muestra_grupocred">
+              <label for="cod_grupo" class="col-sm-10 label-adjust" translate>Grupo de Tarjetas </label>
+              <select class="form-control form-control-sm" id="cod_grupo" name="cod_grupo"
+                ng-model="habilitaciones.habilitacion.cod_grupo"
+                ng-options="item.cod_grupo as item.des_grupo for item in habilitaciones.grupoCredList">
+              </select>
+            </div>
+
+            <div class="form-group" ng-show="habilitaciones.ind_visita">
+              <label for="busq_persona_contacto" class="col-sm-10 label-adjust" translate>Buscar Persona Contacto</label>
+              <input type="text" class="form-control form-control-sm" id="busq_persona_contacto"
+                name="busq_persona_contacto" placeholder="DNI o Apellido Nombre Persona Contacto"
+                ng-model="habilitaciones.habilitacion.busq_persona_contacto" typeahead-append-to-body="true"
+                autocomplete="off" typeahead-on-select="habilitaciones.typeaheadOnSelectContacto($item,$model,$label)"
+                uib-typeahead="obj as obj.des_persona for obj in habilitaciones.getDatosPersonaxOU($viewValue,habilitaciones.habilitacion.cod_ou_contacto) | limitTo:8"
+                typeahead-loading="loading" typeahead-min-length="2" typeahead-wait-ms="300">
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.habilitacion.busq_persona_contacto.$invalid && frmHabilitaciones.habilitacion.busq_persona_contacto.$touched" translate>Debe ingresar un DNI o Apellido Nombre Persona Contacto</span>
+            </div>
+
+            <div class="form-group" ng-show="false">
+              <label for="cod_persona_contacto" class="col-sm-10 label-adjust" translate>Cód. Persona Contacto</label>
+              <input type="text" class="form-control form-control-sm" id="cod_persona_contacto"
+                name="cod_persona_contacto" placeholder="Cód. Persona Contacto"
+                ng-model="habilitaciones.habilitacion.cod_persona_contacto" ng-required="true" readonly="">
+            </div>
+
+            <div class="form-group" ng-show="habilitaciones.ind_visita">
+              <label for="des_persona_contacto" class="col-sm-10 label-adjust" translate>Apellido y Nombre Contacto</label>
+              <input type="text" class="form-control form-control-sm" id="des_persona_contacto"
+                name="des_persona_contacto" placeholder="Apellido y Nombre Contacto"
+                ng-model="habilitaciones.habilitacion.des_persona_contacto" ng-required="true" readonly="">
+            </div>
+            <span class="help-inline" style="color:yellow;"
+              ng-show="frmHabilitaciones.habilitacion.obs_visitas_contacto != ''">{{habilitaciones.habilitacion.obs_visitas_contacto}}</span>
+
+            <div class="form-group">
+              <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" translate>Esquema de Acceso <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_esquema_acceso" name="cod_esquema_acceso"
+                ng-model="habilitaciones.habilitacion.cod_esquema_acceso" ng-required="true"
+                ng-options="item.cod_esquema_acceso as item.des_esquema_acceso for item in habilitaciones.esquemasList">
+              </select>
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.cod_esquema_acceso.$invalid && frmHabilitaciones.cod_esquema_acceso.$touched" translate>Debe seleccionar un Esquema de Acceso</span>
+            </div>
+
+            <div class="form-group">
+              <label for="sel_sectores" class="col-sm-10 label-adjust" translate>Sectores <span
+                  class="field-required">*</span></label>
+              <ui-select multiple ui-hide-choices ng-model="habilitaciones.habilitacion.sectoresSel" id="sel_sectores"
+                name="sel_sectores" append-to-body="false" ng-required="true" close-on-select="false">
+                <ui-select-match ui-lock-choice="$item.estado === 'inactivo'" placeholder="Sectores">
+                  {{$item.nom_sector}}</ui-select-match>
+                <ui-select-choices ui-disable-choice="sector.estado === 'inactivo'" ng-hide="!$select.open"
+                  repeat="sector.cod_sector as sector in habilitaciones.sectoresList | filter: $select.search">
+                  <small ng-bind-html="sector.nom_sector | highlight: $select.search"></small>
+                </ui-select-choices>
+              </ui-select>
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.sel_sectores.$invalid && frmHabilitaciones.sel_sectores.$touched" translate>Debe seleccionar un Sector</span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-10 label-adjust" translate>Tarjetas de la persona</label>
+              <ul class="list-group text-muted" style="margin-top: 25px;">
+                <li class="list-group-item" ng-repeat="credencial in habilitaciones.habilitacion.vacredenciales"
+                  title="{{credencial.nom_sector}}">
+                  {{ credencial.cod_credencial}} - {{credencial.tipo_habilitacion}} - {{ credencial.nom_ou}}
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="col-lg-3 col-md-6">
+
+            <div class="form-group has-search">
+              <label for="busq_persona" class="col-sm-10 label-adjust" translate>Buscar Persona</label>
+              <i class="fa fa-search form-control-feedback"></i>
+              <input type="text" class="form-control form-control-sm" id="busq_persona" name="busq_persona"
+                placeholder="DNI o Apellido Nombre Persona" ng-model="habilitaciones.habilitacion.busq_persona"
+                ng-readonly="habilitaciones.noteditable" typeahead-append-to-body="true" autocomplete="off"
+                typeahead-on-select="habilitaciones.typeaheadOnSelect($item,$model,$label)"
+                uib-typeahead="obj as obj.des_persona for obj in habilitaciones.getDatosPersona($viewValue) | limitTo:8"
+                typeahead-loading="loading" typeahead-min-length="2" typeahead-wait-ms="300">
+
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.habilitacion.busq_persona.$invalid && frmHabilitaciones.habilitacion.busq_persona.$touched" translate>Debe ingresar un DNI o Apellido Nombre Persona</span>
+            </div>
+
+            <div class="form-group" ng-show="false">
+              <label for="cod_persona" class="col-sm-10 label-adjust" translate>Cód. Persona</label>
+              <input type="text" class="form-control form-control-sm" id="cod_persona" name="cod_persona"
+                placeholder="Cód. Persona" ng-model="habilitaciones.habilitacion.cod_persona" ng-required="true"
+                readonly="">
+            </div>
+
+            <div class="form-group">
+              <label for="cod_tipo_doc" class="col-sm-10 label-adjust" translate>Tipo Doc. <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_tipo_doc" name="cod_tipo_doc"
+                ng-model="habilitaciones.habilitacion.cod_tipo_doc" ng-required="true"
+                ng-options="item.id as item.name for item in habilitaciones.tipoDocumento">
+              </select>
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.cod_tipo_doc.$invalid && frmHabilitaciones.cod_tipo_doc.$touched" translate>Debe seleccionar un Tipo Documento</span>
+            </div>
+
+            <div class="form-group">
+              <label for="nro_documento" class="col-sm-10 label-adjust" translate>DNI Persona <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento"
+                placeholder="DNI Persona" ng-model="habilitaciones.habilitacion.nro_documento" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.nro_documento.$invalid && frmHabilitaciones.nro_documento.$touched" translate>Debe ingresar un DNI Persona</span>
+              <span class="help-inline" style="color:yellow;"
+                ng-show="habilitaciones.habilitacion.cod_persona && habilitaciones.habilitacion.nro_documento_ant != habilitaciones.habilitacion.nro_documento" ><span translate>Se modificó el DNI</span> {{habilitaciones.habilitacion.nro_documento_ant}} <span translate>de la persona.</span></span>
+            </div>
+
+            <div class="form-group">
+              <label for="ape_persona" class="col-sm-10 label-adjust" translate>Apellido <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona"
+                placeholder="Apellido" ng-model="habilitaciones.habilitacion.ape_persona" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.ape_persona.$invalid && frmHabilitaciones.ape_persona.$touched" translate>Debe ingresar un Apellido</span>
+            </div>
+
+            <div class="form-group">
+              <label for="nom_persona" class="col-sm-10 label-adjust" translate>Nombre <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona"
+                placeholder="Nombre" ng-model="habilitaciones.habilitacion.nom_persona" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.ape_persona.$invalid && frmHabilitaciones.ape_persona.$touched" translate>Debe ingresar un Apellido</span>
+            </div>
+
+            <div class="form-group">
+              <label for="cod_sexo" class="col-sm-10 label-adjust">Sexo <span class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_sexo" name="cod_sexo"
+                ng-model="habilitaciones.habilitacion.cod_sexo" ng-required="true"
+                ng-options="item.id as item.name for item in habilitaciones.tipoSexo">
+              </select>
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.cod_sexo.$invalid && frmHabilitaciones.cod_sexo.$touched" translate>Debe seleccionar un Sexo</span>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="col-sm-10 label-adjust" translate>E-mail</label>
+              <input type="email" class="form-control form-control-sm" id="email" name="email"
+                placeholder="Correo electrónico" ng-model="habilitaciones.habilitacion.email">
+              <span class="help-inline"
+                ng-show="frmHabilitaciones.email.$invalid && frmHabilitaciones.email.$touched" translate>Debe ingresar un E-mail válido</span>
+            </div>
+
+            <div class="form-group">
+              <label for="obs_visitas" class="col-sm-10 label-adjust" translate>Observación Visitas </label>
+              <textarea class="form-control form-control-sm" id="obs_visitas" name="obs_visitas" maxlength="255"
+                placeholder="Observación Visitas" ng-model="habilitaciones.habilitacion.obs_visitas"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="obs_habilitacion" class="col-sm-10 label-adjust" translate>Observaciones Habilitación</label>
+              <textarea class="form-control form-control-sm" id="obs_habilitacion" name="obs_habilitacion"
+                maxlength="255" placeholder="Observaciones Habilitación"
+                ng-model="habilitaciones.habilitacion.obs_habilitacion"></textarea>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+              <label for="img_persona" class="col-sm-10 label-adjust" translate>Foto <span class="field-required">*</span></label>
+              <capture-image id="img_persona" class="form-control form-control-img"
+                ng-model="habilitaciones.habilitacion.img_persona" showadjuntar="true" showstream="false"
+                device-num="0" />
+            </div>
+            <div class="form-group">
+              <label for="img_documento" class="col-sm-10 label-adjust" translate>Documento <span
+                  class="field-required">*</span></label>
+              <capture-image id="img_documento" class="form-control form-control-img"
+                ng-model="habilitaciones.habilitacion.img_documento" showadjuntar="true" showstream="false"
+                device-num="1" />
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+
+            <div class="form-group">
+              <label for="webcam" class="col-sm-10 label-adjust" translate>Apto Físico </label>
+              <adjuntar-img id="img_apto_fisico" class="form-control form-control-sm"
+                ng-model="habilitaciones.habilitacion.img_apto_fisico" />
+            </div>
+
+            <div class="form-group input-append date first-avail">
+              <label for="fec_otorgamiento_af" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico </label>
+              <input type="date" class="form-control form-control-sm" id="fec_otorgamiento_af"
+                name="fec_otorgamiento_af" ng-model="habilitaciones.habilitacion.fec_otorgamiento_af" fmtdatetimesql />
+            </div>
+
+            <div class="form-group input-append date first-avail">
+              <label for="fec_vencimiento_af" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico </label>
+              <input type="date" class="form-control form-control-sm" id="fec_vencimiento_af" name="fec_vencimiento_af"
+                ng-model="habilitaciones.habilitacion.fec_vencimiento_af" fmtdatetimesql readonly />
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+          <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+          <button dtcancela hide-tab="habilitaciones.hide" id="btn_cancel" type="button"
+            class="btn btn-outline-danger btn-sm"
+            ng-click="habilitaciones.habilitacion = {};frmHabilitaciones.$setPristine();frmHabilitaciones.$setUntouched()" translate>Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmHabilitaciones.$valid, 'modal-button-primary-disabled': !(frmHabilitaciones.$valid && frmHabilitaciones.$dirty)} "
+            ng-disabled="!(frmHabilitaciones.$dirty)"
+            click-and-disable="habilitaciones.ok()">&#160;<span  translate>Grabar</span>&#160;</button>
+        </div>
+      </ng-form>
+    </div>
+  </uib-tab>
+  <uib-tab index="3" ui-sref=".({action:'importa'})" heading="Importa tarjetas">
+    <div class="container-fluid">
+      <ng-form name="frmHabilitacionesImporta" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-lg-3 col-md-3">
+            <div class="form-group">
+              <label for="cod_ou_contacto" class="col-sm-10 label-adjust" translate>Organización <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_ou_contacto" name="cod_ou_contacto"
+                ng-change="habilitaciones.limpiarContacto()" ng-model="habilitaciones.habilitacionimp.cod_ou_contacto"
+                ng-required="true" ng-options="item.cod_ou as item.nom_ou for item in habilitaciones.ouList">
+              </select>
+              <span class="help-inline"
+                ng-show="frmHabilitacionesImporta.cod_ou_contacto.$invalid && frmHabilitacionesImporta.cod_ou_contacto.$touched" translate>Debe seleccionar una Unidad Organizacional</span>
+            </div>
+
+            <div class="form-group" ng-show="habilitaciones.ind_muestra_tipohab">
+              <label for="tipo_habilitacion" class="col-sm-10 label-adjust" translate>Tipo Habilitación <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="tipo_credencial" name="tipo_habilitacion"
+                ng-model="habilitaciones.habilitacionimp.tipo_habilitacion" ng-required="true"
+                ng-disabled="habilitaciones.noteditable"
+                ng-options="item.id as item.name for item in habilitaciones.tipoHabilitacion">
+              </select>
+              <span class="help-inline"
+                ng-show="frmHabilitacionesImporta.tipo_habilitacion.$invalid && frmHabilitacionesImporta.tipo_habilitacion.$touched" translate>Debe seleccionar un Tipo Habilitación</span>
+            </div>
+
+            <div class="form-group" ng-show="habilitaciones.ind_muestra_grupocred">
+              <label for="cod_grupo" class="col-sm-10 label-adjust" translate>Grupo de Tarjetas </label>
+              <select class="form-control form-control-sm" id="cod_grupo" name="cod_grupo"
+                ng-model="habilitaciones.habilitacionimp.cod_grupo"
+                ng-options="item.cod_grupo as item.des_grupo for item in habilitaciones.grupoCredList">
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" translate>Esquema de Acceso <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_esquema_acceso" name="cod_esquema_acceso"
+                ng-model="habilitaciones.habilitacionimp.cod_esquema_acceso" ng-required="true"
+                ng-options="item.cod_esquema_acceso as item.des_esquema_acceso for item in habilitaciones.esquemasList">
+              </select>
+              <span class="help-inline"
+                ng-show="frmHabilitacionesImporta.cod_esquema_acceso.$invalid && frmHabilitacionesImporta.cod_esquema_acceso.$touched" translate>Debe seleccionar un Esquema de Acceso</span>
+            </div>
+
+            <div class="form-group">
+              <label for="sel_sectores" class="col-sm-10 label-adjust" translate>Sectores <span
+                  class="field-required">*</span></label>
+              <ui-select multiple ui-hide-choices ng-model="habilitaciones.habilitacionimp.sectoresSel"
+                id="sel_sectores" name="sel_sectores" append-to-body="false" ng-required="true" close-on-select="false">
+                <ui-select-match ui-lock-choice="$item.estado === 'inactivo'" placeholder="Sectores">
+                  {{$item.nom_sector}}</ui-select-match>
+                <ui-select-choices ui-disable-choice="sector.estado === 'inactivo'" ng-hide="!$select.open"
+                  repeat="sector.cod_sector as sector in habilitaciones.sectoresList | filter: $select.search">
+                  <small ng-bind-html="sector.nom_sector | highlight: $select.search"></small>
+                </ui-select-choices>
+              </ui-select>
+              <span class="help-inline"
+                ng-show="frmHabilitacionesImporta.sel_sectores.$invalid && frmHabilitacionesImporta.sel_sectores.$touched" translate>Debe seleccionar un Sector</span>
+            </div>
+            <div class="form-group">
+              <label for="import_file" class="col-sm-10 label-adjust" translate>Archivo a importar </label>
+              <adjuntar-file view-file="false" class="form-control form-control-sm" id="import_file" name="import_file"
+                ng-model="habilitaciones.habilitacionimp.import_file" ng-required="true" />
+                <span class="help-inline"
+                ng-show="frmHabilitacionesImporta.import_file.$invalid && frmHabilitacionesImporta.import_file.$touched" translate>Debe ingresar un Archivo</span>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
+          <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+          <button dtcancela hide-tab="habilitaciones.hide" id="btn_cancel" type="button"
+            class="btn btn-outline-danger btn-sm"
+            ng-click="habilitaciones.habilitacionimp = {};frmHabilitacionesImporta.$setPristine();frmHabilitacionesImporta.$setUntouched()" translate>Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmHabilitaciones.$valid, 'modal-button-primary-disabled': !(frmHabilitacionesImporta.$valid && frmHabilitacionesImporta.$dirty)} "
+            ng-disabled="!(frmHabilitacionesImporta.$dirty)"
+            click-and-disable="habilitaciones.importa()">&#160;<span translate>Grabar</span>&#160;</button>
+        </div>
+
+      </ng-form>
+  </uib-tab>
+
+
+
+</uib-tabset>

@@ -1,0 +1,82 @@
+<div ng-show="vm.showfilters" class="card filtercard w-100 bg-dark border-light">
+    <div class="card-body">
+      <div class="row form-group">
+        <div class="col-2">Filtros</div>
+        <div class="col-5">
+          <select id="ddlSearchType" class="form-control form-control-sm"
+            ng-class="{'placeholder-color': vm.pfiltro.selected == '0', 'control-color': vm.pfiltro.selected != '0' }"
+            ng-model="vm.pfiltro.selected" ng-options="item.id as item.name for item in vm.filtrosoptions"
+            options-class="{'placeholder-color':'placeholder', 'control-color':'data'} "
+            ng-focus="vm.errorMessage = ''"></select>
+        </div>
+        <div class="col-5">
+          <input id="txtSearchText" type="text" ng-model="vm.pfiltro.text" class="form-control form-control-sm"
+            placeholder="búsqueda" maxlength="25" ng-focus="vm.errorMessage = ''">
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-2">Entre</div>
+        <div class="col-5">
+          <input type="date" ng-model="vm.pfiltro.pAvailableFrom" ng-focus="vm.errorMessage = ''"
+            class="form-control form-control-sm" fmtdatetimesql />
+        </div>
+        <div class="col-5">
+          <input type="date" ng-model="vm.pfiltro.pAvailableTo" ng-focus="vm.errorMessage = ''"
+            class="form-control form-control-sm" fmtdatetimesql />
+        </div>
+      </div>
+    
+      <div class="row form-group" ng-show="vm.showRefreshBtn">
+        <div class="">
+          <label class="m-0">Actualización automática</label>
+          <label class="m-0 switch"><input ng-model="vm.autorefreshint" ng-change="vm.onChangeAutoRefresh(vm.autorefreshint)" type="checkbox">
+            <div class="slider round"></div>
+          </label>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-end">
+        <button type="button" class="btn btn-outline-light btn-sm btn-detail mr-1"
+          ng-click="vm.setDefaultSearchItems()">&#160;Limpiar&#160;</button>
+        <button type="button" class="btn btn-outline-primary btn-sm"
+          click-and-disable="vm.cargaGrilla(1)">&#160;&#160;Buscar&#160;&#160;</button>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-column h-100">
+    <div class="d-flex mt-1 mb-1 justify-content-between">
+      <div class="">
+        <button class="btn btn-outline-primary btn-sm" ng-show="vm.addHasCallback()" ui-sref=".({action:'agrega'})"
+          xng-click="vm.onclickAdd({accion: 'add', selected: selected})">Agregar</button>
+        <button class="btn btn-outline-light btn-sm" ng-show="vm.copyHasCallback() "
+          ng-click="vm.gotoSREF('.',{action: vm.copySref });">Copiar</button>
+        <button class="btn btn-outline-warning btn-sm btn-detail" ng-show="vm.editHasCallback() "
+          ng-click="vm.gotoSREF('.',{action:'edita'});">Modificar</button>
+        <button class="btn btn-outline-danger btn-sm btn-delete" ng-show="vm.deleteHasCallback()"
+          ng-click="vm.onclickDelete({selected: vm.getSelected()})">Eliminar</button>
+        <button class="btn btn-outline-default btn-sm btn-detail" ng-show="vm.detailHasCallback()"
+          ng-click="vm.onclickDetail({selected: vm.getSelected()})">Detalle</button>
+        <div class="btn-group" role="group" uib-dropdown ng-show="vm.exportHasCallback()">
+          <button id="single-button" type="button" class="btn btn-outline-info btn-sm dropdown-toggle"
+            uib-dropdown-toggle>
+            Exportar <span class="caret"></span>
+          </button>
+          <div class="dropdown-menu btn-outline-info" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <a ng-click="vm.onclickExport({tipo: 'xls'})" class="dropdown-item">XLS</a>
+            <a ng-click="vm.onclickExport({tipo: 'csv'})" class="dropdown-item">CSV</a>
+            <!-- a ng-click="onclickExport({tipo: 'pdf'})" class="dropdown-item">PDF</a -->
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <ul uib-pagination total-items="vm.totalItems" items-per-page="vm.pageSize" ng-change="vm.cargaGrilla()" ng-model="vm.pageNumber"
+          max-size="4" class="pagination-sm" boundary-links="true" num-pages="vm.totalPages" force-ellipses="true"
+          last-text="Última" next-text="Siguiente" first-text="Primera" previous-text="Anterior"
+          style="margin-bottom: 0px;"></ul>
+      </div>
+      <div class="m-1 text-right"><span>Total: {{ vm.totalItems}}</span>
+      </div>
+    </div>
+    <div ng-if="vm.loadGrid" class="grid h-100" ui-grid="vm.gridoptions"  ui-grid-resize-columns ui-grid-move-columns
+      ui-grid-selection ></div>
+      <!-- ui-grid-auto-resize  xui-grid-infinite-scroll -->
+</div>

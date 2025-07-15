@@ -1,0 +1,22 @@
+<div id="logViewer">
+    <div id="header">
+        <label  translate>Number of lines</label>
+            <input type="number" ng-model="logviewer.numberOfLines" ng-model-options="{ debounce: 500 }" />
+        <label  translate>Log File</label>
+            <select class="form-control form-control-sm" id="cod_sector" name="log_file" ng-change="logviewer.fselLog()"
+                    ng-model="logviewer.logs.log_file" ng-required="true"
+                    ng-options="item.id as item.name for item in logviewer.logList">
+            </select>
+        <label translate>Filter Regex</label>
+            <input id="regex" expand-on-focus="200" type="text" ng-model="logviewer.filterExpression" ng-model-options="{ debounce: 500 }" ng-change="logviewer.filter(logviewer.filterExpression)" />
+        <label translate>Highlight</label>
+            <input id="highlight" expand-on-focus="200" type="text" ng-model="logviewer.highlightText" ng-model-options="{ debounce: 500 }" ng-change="logviewer.highlight(logviewer.highlightText)" />
+        <label class="switch"><input ng-model="logviewer.switch" type="checkbox" ng-disabled="logviewer.logs.discheck"/><div class="slider round"></div></label>
+    </div>
+    <div class="log-viewer" style="min-height: 400px;">
+        <div class="log-viewer-entry" ng-repeat="logline in logviewer.loglines">
+            <span class="text-{{logline.level_class}}"><i class="{{logline.level_icon}}"></i></span>
+            <span ng-bind-html="logline.HtmlLine"></span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,255 @@
+<div class="titulo_menu">{{aptosfisicos.form_title}}</div>
+<uib-tabset active="aptosfisicos.active" class="bg-local-black">
+    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+        <div class="w-100">
+            <grilla gridoptions="aptosfisicos.gridOptions"
+                    onclick-edit="aptosfisicos.toggle(accion)"
+                    onclick-delete="aptosfisicos.confirmDelete()"
+                    urlback="aptosfisicos"
+                    api="aptosfisicos.grilla=API"
+                    class="d-flex flex-column w-100" style="height: 520px;"                    
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+        <div class="container-fluid">
+            <div class="row justify-content-md-center w-100">
+                <div class="col-lg-3 col-md-6">
+                    <div class="form-group">
+                        <label for="cod_persona_dt" class="col-sm-10 label-adjust" translate>Cod. Persona</label>
+                        <input type="text" class="form-control form-control-sm" id="cod_persona_dt" name="cod_persona_dt" ng-model="aptosfisicos.aptofisico_dt.cod_persona" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_persona_dt" class="col-sm-10 label-adjust" translate>Nombre </label>
+                        <input type="text" class="form-control form-control-sm" id="nom_persona_dt" name="nom_persona_dt" placeholder="Nombre"
+                               ng-model="aptosfisicos.aptofisico_dt.nom_persona" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ape_persona_dt" class="col-sm-10 label-adjust" translate>Apellido </label>
+                        <input type="text" class="form-control form-control-sm" id="ape_persona_dt" name="ape_persona_dt" placeholder="Apellido"
+                               ng-model="aptosfisicos.aptofisico_dt.ape_persona" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cod_sexo_dt" class="col-sm-10 label-adjust" translate>Sexo </label>
+                        <select class="form-control form-control-sm" id="cod_sexo_dt" name="cod_sexo_dt"
+                                ng-model="aptosfisicos.aptofisico_dt.cod_sexo" disabled=""
+                                ng-options="item.id as item.name for item in aptosfisicos.tipoSexo">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cod_tipo_doc_dt" class="col-sm-10 label-adjust" translate>Tipo Documento </label>
+                        <select class="form-control form-control-sm" id="cod_tipo_doc_dt" name="cod_tipo_doc_dt"
+                                ng-model="aptosfisicos.aptofisico_dt.cod_tipo_doc" disabled=""
+                                ng-options="item.id as item.name for item in aptosfisicos.tipoDocumento">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="form-group">
+                        <label for="nro_documento_dt" class="col-sm-10 label-adjust" translate>Nro. Documento </label>
+                        <input type="text" class="form-control form-control-sm" id="nro_documento_dt" name="nro_documento_dt" placeholder="Nro. Documento"
+                               ng-model="aptosfisicos.aptofisico_dt.nro_documento" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_dt" class="col-sm-10 label-adjust" translate>E-mail </label>
+                        <input type="email" class="form-control form-control-sm" id="email_dt" name="email_dt" placeholder="Correo electrónico"
+                               ng-model="aptosfisicos.aptofisico_dt.email" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ind_bloqueo_dt" class="col-sm-10 label-adjust" translate>Persona Bloqueada </label>
+                        <input class="checkbox-inline" type="checkbox" id="ind_bloqueo_dt" name="ind_bloqueo_dt" ng-model="aptosfisicos.aptofisico_dt.ind_bloqueo" disabled="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="des_motivo_bloqueo_dt" class="col-sm-10 label-adjust" translate>Motivo Bloqueo </label>
+                        <textarea  class="form-control form-control-sm" id="des_motivo_bloqueo_dt" name="des_motivo_bloqueo_dt" readonly=""
+                                   placeholder="Motivo Bloqueo" ng-model="aptosfisicos.aptofisico_dt.des_motivo_bloqueo"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="obs_visitas_dt" class="col-sm-10 label-adjust" translate>Observación Visitas </label>
+                        <textarea  class="form-control form-control-sm" id="obs_visitas_dt" name="obs_visitas_dt" readonly=""
+                                   placeholder="Observación Visitas" ng-model="aptosfisicos.aptofisico_dt.obs_visitas"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="obs_habilitacion" class="col-sm-10 label-adjust" translate>Observaciones Última Habilitación</label>
+                        <textarea  class="form-control form-control-sm" id="obs_ult_habilitacion_dt" name="obs_ult_habilitacion_dt" maxlength="255"
+                                   placeholder="Observaciones Última Habilitación" ng-model="aptosfisicos.aptofisico_dt.obs_ult_habilitacion"></textarea>
+                    </div>                    
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="form-group">
+                        <label for="img_persona_dt" class="col-sm-10 label-adjust" translate>Foto </label>
+                        <div class="form-control form-control-img"><img id="img_persona_dt" ng-src="{{aptosfisicos.aptofisico_dt.img_persona}}" ng-show="aptosfisicos.aptofisico_dt.img_persona"/></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-10 label-adjust" translate>Tarjetas de la persona</label>
+                        <ul class="list-group text-muted" style="margin-top: 25px;">
+                            <li class="list-group-item" ng-repeat="credencial in aptosfisicos.aptofisico_dt.vacredenciales" title="{{credencial.nom_sector}}"> 
+                                {{ credencial.cod_credencial}} - {{credencial.tipo_habilitacion}} - {{ credencial.nom_ou}}
+                            </li>
+                        </ul>
+                    </div>   
+                </div>
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="form-group">
+                        <label for="img_apto_fisico" class="col-sm-10 label-adjust" translate>Apto Físico </label>
+                        <div class="form-control form-control-img"><img id="img_apto_fisico_dt" ng-src="{{aptosfisicos.aptofisico_dt.img_apto_fisico}}" ng-show="aptosfisicos.aptofisico_dt.img_apto_fisico"/></div>
+                    </div>
+
+                    <div class="form-group input-append date first-avail">
+                        <label for="fec_otorgamiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico </label>
+                        <input type="date" class="form-control form-control-sm" id="fec_otorgamiento_af_dt" name="fec_otorgamiento_af_dt"
+                               ng-model="aptosfisicos.aptofisico_dt.fec_otorgamiento_af" fmtdatetimesql readonly/>
+                    </div>
+
+                    <div class="form-group input-append date first-avail">
+                        <label for="fec_vencimiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico </label>
+                        <input type="date" class="form-control form-control-sm" id="fec_vencimiento_af_dt" name="fec_vencimiento_af_dt"
+                               ng-model="aptosfisicos.aptofisico_dt.fec_vencimiento_af" fmtdatetimesql readonly/>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer p-2">
+                <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+            </div>
+        </div>
+    </uib-tab>
+    <uib-tab index="2" heading="{{aptosfisicos.action_title}}" ui-sref=".({action:aptosfisicos.action})" ng-hide="aptosfisicos.hide">
+        <div class="container-fluid">
+            <ng-form name="frmaptosfisicos" class="form-horizontal" novalidate ng-validator>
+                <div class="row justify-content-md-center w-100">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="form-group" ng-class="{'has-warning' : frmaptosfisicos.cod_persona.$dirty}">
+                            <label for="cod_persona" class="col-sm-10 label-adjust" translate>Cod. Persona</label>
+                            <input type="text" class="form-control form-control-sm" id="cod_persona" name="cod_persona" ng-model="aptosfisicos.aptofisico.cod_persona" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nom_persona" class="col-sm-10 label-adjust" translate>Nombre</label>
+                            <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona" placeholder="Nombre"
+                                   ng-model="aptosfisicos.aptofisico.nom_persona" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ape_persona" class="col-sm-10 label-adjust" translate>Apellido</label>
+                            <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona" placeholder="Apellido"
+                                   ng-model="aptosfisicos.aptofisico.ape_persona" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cod_sexo" class="col-sm-10 label-adjust" translate>Sexo </label>
+                            <select class="form-control form-control-sm" id="cod_sexo" name="cod_sexo"
+                                    ng-model="aptosfisicos.aptofisico.cod_sexo"
+                                    ng-options="item.id as item.name for item in aptosfisicos.tipoSexo">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cod_tipo_doc" class="col-sm-10 label-adjust" translate>Tipo Documento </label>
+                            <select class="form-control form-control-sm" id="cod_tipo_doc" name="cod_tipo_doc"
+                                    ng-model="aptosfisicos.aptofisico.cod_tipo_doc" disabled
+                                    ng-options="item.id as item.name for item in aptosfisicos.tipoDocumento">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="form-group">
+                            <label for="nro_documento" class="col-sm-10 label-adjust" translate>Nro. Documento </label>
+                            <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento" placeholder="Nro. Documento"
+                                   ng-model="aptosfisicos.aptofisico.nro_documento" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-sm-10 label-adjust" translate>E-mail </label>
+                            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico"
+                                   ng-model="aptosfisicos.aptofisico.email">
+                            <span class="help-inline" ng-show="frmaptosfisicos.email.$invalid && frmaptosfisicos.email.$touched">Debe ingresar un E-mail válido</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ind_bloqueo" class="col-sm-10 label-adjust" translate>Persona Bloqueada </label>
+                            <input class="checkbox-inline" type="checkbox" id="ind_bloqueo" name="ind_bloqueo" ng-model="aptosfisicos.aptofisico.ind_bloqueo" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="des_motivo_bloqueo" class="col-sm-10 label-adjust" translate>Motivo Bloqueo </label>
+                            <textarea  class="form-control form-control-sm" id="des_motivo_bloqueo" name="des_motivo_bloqueo" ng-disabled="!aptosfisicos.aptofisico.ind_bloqueo"
+                                       placeholder="Motivo Bloqueo"  ng-model="aptosfisicos.aptofisico.des_motivo_bloqueo" readonly></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="obs_visitas" class="col-sm-10 label-adjust" translate>Observación Visitas </label>
+                            <textarea  class="form-control form-control-sm" id="obs_visitas" name="obs_visitas" 
+                                       placeholder="Observación Visitas"  ng-model="aptosfisicos.aptofisico.obs_visitas" readonly></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="obs_habilitacion" class="col-sm-10 label-adjust" translate>Observaciones Última Habilitación</label>
+                            <textarea  class="form-control form-control-sm" id="obs_ult_habilitacion" name="obs_ult_habilitacion" maxlength="255"
+                                       placeholder="Observaciones Última Habilitación" ng-model="aptosfisicos.aptofisico.obs_ult_habilitacion" readonly></textarea>
+                        </div>                
+    
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="form-group">
+                            <label for="img_persona" class="col-sm-10 label-adjust" translate>Foto </label>
+                            <div class="form-control form-control-img"><img id="img_persona" ng-src="{{aptosfisicos.aptofisico.img_persona}}" ng-show="aptosfisicos.aptofisico.img_persona"/></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-10 label-adjust" translate>Tarjetas de la persona</label>
+                            <ul class="list-group text-muted" style="margin-top: 25px;">
+                                <li class="list-group-item" ng-repeat="credencial in aptosfisicos.aptofisico.vacredenciales" title="{{credencial.nom_sector}}"> 
+                                    {{ credencial.cod_credencial}} - {{credencial.tipo_habilitacion}} - {{ credencial.nom_ou}}
+                                </li>
+                            </ul>
+                        </div>    
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="form-group">
+                            <label for="webcam" class="col-sm-10 label-adjust" translate>Apto Físico </label>
+                            <adjuntar-img id="img_apto_fisico" class="form-control form-control-sm" ng-model="aptosfisicos.aptofisico.img_apto_fisico" />
+                        </div>
+
+                        <div class="form-group input-append date first-avail">
+                            <label for="fec_otorgamiento_af" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico </label>
+                            <input type="date" class="form-control form-control-sm" id="fec_otorgamiento_af" name="fec_otorgamiento_af"
+                                   ng-model="aptosfisicos.aptofisico.fec_otorgamiento_af" fmtdatetimesql/>
+                        </div>
+
+                        <div class="form-group input-append date first-avail">
+                            <label for="fec_vencimiento_af" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico </label>
+                            <input type="date" class="form-control form-control-sm" id="fec_vencimiento_af" name="fec_vencimiento_af"
+                                   ng-model="aptosfisicos.aptofisico.fec_vencimiento_af" fmtdatetimesql readonly/>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer p-2">
+                    <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+                    <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+                    <button dtcancela hide-tab="aptosfisicos.hide" type="button" class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmaptosfisicos.$valid, 'modal-button-primary-disabled': !(frmaptosfisicos.$valid && frmaptosfisicos.$dirty)} " ng-disabled="!(frmaptosfisicos.$dirty)" click-and-disable="aptosfisicos.ok()">&#160;<span translate>Grabar</span>&#160;</button>
+                </div>
+            </ng-form>
+        </div>
+    </uib-tab>
+</uib-tabset>

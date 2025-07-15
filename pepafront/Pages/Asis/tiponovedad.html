@@ -1,0 +1,87 @@
+<div class="titulo_menu">{{tiponovedad.form_title}}</div>
+<uib-tabset active="tiponovedad.active" class="bg-local-black">
+    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+        <div class="w-100">
+            <grilla gridoptions="tiponovedad.gridOptions"
+                    onclick-edit="tiponovedad.toggle(accion)"
+                    onclick-add="tiponovedad.toggle(accion)"
+                    onclick-copy="tiponovedad.toggle(accion)"
+                    onclick-delete="tiponovedad.confirmDelete()"
+                    urlback="tiponovedad"
+                    api="tiponovedad.grilla=API"
+                    class="d-flex flex-column w-100" style="height: 520px;"
+                    />
+        </div>
+    </uib-tab>
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+        <div class="container-fluid">
+            <div class="row justify-content-md-center w-100">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="tipo_novedad_dt" class="col-sm-10 label-adjust">Tipo Novedad</label>
+                        <input type="text" class="form-control form-control-sm" id="tipo_novedad_dt" name="tipo_novedad_dt" ng-model="tiponovedad.novedad_dt.tipo_novedad" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_novedad_dt" class="col-sm-10 label-adjust">Nombre <span class="field-required">*</span></label>
+                        <input type="text" class="form-control form-control-sm" id="nom_novedad_dt" name="nom_novedad_dt" placeholder="Nombre"
+                               ng-model="tiponovedad.novedad_dt.nom_novedad" readonly="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ind_tipo_novedad_dt" class="col-sm-10 label-adjust">Indicador Tipo Novedad <span
+                            class="field-required">*</span></label>
+                        <select class="form-control form-control-sm" id="ind_tipo_novedad_dt" name="ind_tipo_novedad_dt"
+                          ng-model="tiponovedad.novedad_dt.ind_tipo_novedad" ng-required="true" disabled=""
+                          ng-options="item.id as item.name for item in tiponovedad.tipoNovedad">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-2">
+                <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+            </div>
+        </div>
+    </uib-tab>
+    <uib-tab index="2" heading="{{tiponovedad.action_title}}" ui-sref=".({action:tiponovedad.action})" ng-hide="tiponovedad.hide">
+        <div class="container-fluid">
+            <ng-form name="frmTipoNovedad" class="form-horizontal" novalidate ng-validator>
+                <div class="row justify-content-md-center w-100">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-warning' : frmTipoNovedad.tipo_novedad.$dirty}">
+                            <label for="tipo_novedad" class="col-sm-10 label-adjust">Tipo Novedad <span class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="tipo_novedad" name="tipo_novedad" placeholder="Tipo Novedad"
+                                ng-model="tiponovedad.novedad.tipo_novedad" ng-readonly="tiponovedad.noteditable" ng-required="true">
+                            <span class="help-inline" ng-show="frmTipoNovedad.tipo_novedad.$invalid && frmTipoNovedad.tipo_novedad.$touched">Debe ingresar un Tipo Novedad</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nom_novedad" class="col-sm-10 label-adjust">Nombre <span class="field-required">*</span></label>
+                            <input type="text" class="form-control form-control-sm" id="nom_novedad" name="nom_novedad" placeholder="Nombre"
+                                   ng-model="tiponovedad.novedad.nom_novedad" ng-required="true">
+                            <span class="help-inline" ng-show="frmTipoNovedad.nom_novedad.$invalid && frmTipoNovedad.nom_novedad.$touched">Debe ingresar un Nombre</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ind_tipo_novedad" class="col-sm-10 label-adjust">Indicador Tipo Novedad <span
+                                class="field-required">*</span></label>
+                            <select class="form-control form-control-sm" id="ind_tipo_novedad" name="ind_tipo_novedad"
+                              ng-model="tiponovedad.novedad.ind_tipo_novedad" ng-required="true"
+                              ng-options="item.id as item.name for item in tiponovedad.tipoNovedad">
+                            </select>
+                            <span class="help-inline"
+                              ng-show="frmTipoNovedad.ind_tipo_novedad.$invalid && frmTipoNovedad.ind_tipo_novedad.$touched">Debe seleccionar un Indicador Tipo Novedad</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer p-2">
+                    <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+                    <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+                    <button dtcancela hide-tab="tiponovedad.hide" type="button" class="btn btn-outline-danger btn-sm">Cancelar</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmTipoNovedad.$valid, 'modal-button-primary-disabled': !(frmTipoNovedad.$valid && frmTipoNovedad.$dirty)} " ng-disabled="!(frmTipoNovedad.$dirty)" click-and-disable="tiponovedad.ok()">&#160;Grabar&#160;</button>
+                </div>
+            </ng-form>
+        </div>
+    </uib-tab>
+</uib-tabset>

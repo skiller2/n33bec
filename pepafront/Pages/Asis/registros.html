@@ -1,0 +1,370 @@
+<div class="titulo_menu">{{registros.form_title}}</div>
+<uib-tabset active="registros.active" class="bg-local-black">
+  <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <div class="w-100">
+      <grilla gridoptions="registros.gridOptions" 
+        onclick-edit="registros.toggle(accion)" onclick-add="registros.toggle(accion)"
+        onclick-delete="registros.confirmDelete()" urlback="registros"
+        onclick-export="registros.exportar(tipo)" api="registros.grilla=API"
+        class="d-flex flex-column w-100" style="height: 520px;"
+        />
+    </div>
+  </uib-tab>
+  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <div class="container-fluid">
+      <div class="row justify-content-md-center w-100">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="cod_empresa_dt" class="col-sm-10 label-adjust">Organización <span
+                class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="cod_empresa_dt" name="cod_empresa_dt"
+              ng-model="registros.registro_dt.cod_empresa" ng-required="true" disabled
+              ng-options="item.cod_empresa as item.nom_empresa for item in registros.ouList">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="des_empleado_dt" class="col-sm-10 label-adjust">Empleado <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="des_empleado_dt" name="des_empleado_dt"
+              placeholder="Empleado" ng-model="registros.registro_dt.des_empleado" readonly>
+          </div>
+
+          <div class="form-group input-append date first-avail">
+            <label for="fec_registro_dt" class="col-sm-10 label-adjust">Fecha Registro <span
+                class="field-required">*</span></label>
+            <input type="date" class="form-control form-control-sm" id="fec_registro_dt" name="fec_registro_dt" ng-required="true"
+              readonly ng-model="registros.registro_dt.fec_registro" fmtdatetimesql/>
+          </div>
+
+          <div class="form-group">
+            <label for="nom_novedad_dt" class="col-sm-10 label-adjust">Novedad</label>
+            <input type="text" class="form-control form-control-sm" id="nom_novedad_dt" name="nom_novedad_dt"
+                placeholder="Novedad" ng-model="registros.registro_dt.nom_novedad" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="des_novedad_dt" class="col-sm-10 label-adjust">Descripción Novedad </label>
+            <input type="text" class="form-control form-control-sm" id="des_novedad_dt" name="des_novedad_dt"
+                placeholder="Novedad" ng-model="registros.registro_dt.des_novedad" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="nom_novedad_trabajo_dt" class="col-sm-10 label-adjust">Novedad Trabajo</label>
+            <input type="text" class="form-control form-control-sm" id="nom_novedad_trabajo_dt" name="nom_novedad_trabajo_dt"
+                placeholder="Novedad" ng-model="registros.registro_dt.nom_novedad_trabajo" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="des_novedad_trabajo_dt" class="col-sm-10 label-adjust">Descripción Novedad Trabajo</label>
+            <input type="text" class="form-control form-control-sm" id="des_novedad_trabajo_dt" name="des_novedad_trabajo_dt"
+                placeholder="Novedad" ng-model="registros.registro_dt.des_novedad_trabajo" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="ind_feriado_dt" class="col-sm-10 label-adjust">Feriado</label>
+            <input class="checkbox-inline" type="checkbox" id="ind_feriado_dt" name="ind_feriado_dt"
+              ng-model="registros.registro_dt.ind_feriado" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="ind_dia_laborable_dt" class="col-sm-10 label-adjust">Día Laborable</label>
+            <input class="checkbox-inline" type="checkbox" id="ind_dia_laborable_dt" name="ind_dia_laborable_dt"
+              ng-model="registros.registro_dt.ind_dia_laborable" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="ind_modif_novedad_dt" class="col-sm-10 label-adjust">Novedad Modificada Manualmente</label>
+            <input class="checkbox-inline" type="checkbox" id="ind_modif_novedad_dt" name="ind_modif_novedad_dt"
+              ng-model="registros.registro_dt.ind_modif_novedad" disabled>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <label for="hora_ingreso_esperado_dt" class="col-sm-10 label-adjust">Hora Ingreso Esperado</label>
+            <input type="text" class="form-control form-control-sm" id="hora_ingreso_esperado_dt"
+              name="hora_ingreso_esperado_dt" placeholder="HH:MM" ng-model="registros.registro_dt.hora_ingreso_esperado"
+              readonly formatted="ftHora">
+          </div>
+
+          <div class="form-group">
+            <label for="hora_egreso_esperado_dt" class="col-sm-10 label-adjust">Hora Egreso Esperado</label>
+            <input type="text" class="form-control form-control-sm" id="hora_egreso_esperado_dt"
+              name="hora_egreso_esperado_dt" placeholder="HH:MM" ng-model="registros.registro_dt.hora_egreso_esperado"
+              readonly formatted="ftHora">
+          </div>
+
+          <div class="form-group">
+            <label for="hora_ingreso_dt" class="col-sm-10 label-adjust">Hora Ingreso</label>
+            <input type="text" class="form-control form-control-sm" id="hora_ingreso_dt" name="hora_ingreso_dt"
+              placeholder="HH:MM" ng-model="registros.registro_dt.hora_ingreso" readonly formatted="ftHora">
+          </div>
+
+          <div class="form-group">
+            <label for="hora_egreso_dt" class="col-sm-10 label-adjust">Hora Egreso</label>
+            <input type="text" class="form-control form-control-sm" id="hora_egreso_dt" name="hora_egreso_dt"
+              placeholder="HH:MM" ng-model="registros.registro_dt.hora_egreso" readonly formatted="ftHora">
+          </div>
+
+          <div class="form-group">
+            <label for="tm_trabajado_dt" class="col-sm-10 label-adjust">Tiempo Trabajado</label>
+            <input type="text" class="form-control form-control-sm" id="tm_trabajado_dt" name="tm_trabajado_dt"
+              placeholder="HH:MM" ng-model="registros.registro_dt.tm_trabajado" readonly formatted="ftHora">
+          </div>
+
+          <div class="form-group">
+            <label for="tm_tardanza_dt" class="col-sm-10 label-adjust">Tiempo Tardanza</label>
+            <input type="text" class="form-control form-control-sm" id="tm_tardanza_dt" name="tm_tardanza_dt"
+              placeholder="HH:MM" ng-model="registros.registro_dt.tm_tardanza" readonly formatted="ftHora">
+          </div>
+
+          <div class="form-group">
+            <label for="tm_extra_dt" class="col-sm-10 label-adjust">Tiempo Extra</label>
+            <input type="text" class="form-control form-control-sm" id="tm_extra_dt" name="tm_extra_dt"
+              placeholder="HH:MM" ng-model="registros.registro_dt.tm_extra" readonly formatted="ftHora">
+          </div>
+          
+          <div class="form-group">
+            <label for="json_detalle_ingreso_dt" class="col-sm-10 label-adjust">Detalle Ingresos / Egresos</label>
+            <textarea  class="form-control form-control-sm" id="json_detalle_ingreso_dt" name="json_detalle_ingreso_dt" readonly=""
+                       placeholder="Detalle Ingresos / Egresos" ng-model="registros.registro_dt.json_detalle_ingreso"></textarea>                       
+          </div>
+
+          <div class="form-group">
+            <label for="ind_modif_horarios_dt" class="col-sm-10 label-adjust">Horarios Modificados Manualmente</label>
+            <input class="checkbox-inline" type="checkbox" id="ind_modif_horarios_dt" name="ind_modif_horarios_dt"
+              ng-model="registros.registro_dt.ind_modif_horarios" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="ind_tarde_dt" class="col-sm-10 label-adjust">Tarde</label>
+            <input class="checkbox-inline" type="checkbox" id="ind_tarde_dt" name="ind_tarde_dt"
+              ng-model="registros.registro_dt.ind_tarde" disabled>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+      </div>
+    </div>
+  </uib-tab>
+
+  <uib-tab index="2" heading="{{registros.action_title}}" ui-sref=".({action:registros.action})"
+    ng-hide="registros.hide">
+    <div class="container-fluid">
+      <ng-form name="frmRegistros" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-md-6">
+
+            <div class="form-group">
+              <label for="cod_empresa" class="col-sm-10 label-adjust">Organización <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_empresa" name="cod_empresa"
+                ng-model="registros.registro.cod_empresa" ng-required="true" ng-disabled="registros.noteditable"
+                ng-options="item.cod_empresa as item.nom_empresa for item in registros.ouList"
+                ng-change="registros.getEmpleados()">
+              </select>
+              <span class="help-inline"
+                ng-show="frmRegistros.cod_empresa.$invalid && frmRegistros.cod_empresa.$touched">Debe seleccionar una
+                Organización</span>
+            </div>
+
+            <div class="form-group" ng-show="registros.action == 'agrega'">
+              <label for="sel_empleado" class="col-sm-10 label-adjust">Empleados <span
+                  class="field-required">*</span></label>
+              <ui-select multiple ui-hide-choices ng-model="registros.registro.empleadosSel" id="sel_empleado"
+                name="sel_empleado" append-to-body="false" ng-required="true" close-on-select="false">
+                <ui-select-match placeholder="Empleados">{{$item.des_empleado}}</ui-select-match>
+                <ui-select-choices ng-hide="!$select.open"
+                  repeat="empleado.cod_empleado as empleado in registros.empleadosList | filter: $select.search">
+                  <small ng-bind-html="empleado.des_empleado | highlight: $select.search"></small>
+                </ui-select-choices>
+              </ui-select>
+              <span class="help-inline"
+                ng-show="frmRegistros.sel_empleado.$invalid && frmRegistros.sel_empleado.$touched">Debe seleccionar un Empleado</span>
+            </div>
+
+            <div class="form-group" ng-show="registros.action != 'agrega'">
+              <label for="des_empleado" class="col-sm-10 label-adjust">Empleado <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="des_empleado" name="des_empleado"
+                placeholder="Empleado" ng-model="registros.registro.des_empleado" readonly>
+            </div>
+
+            <div class="form-group input-append date first-avail"
+              ng-class="{'has-warning' : frmRegistros.fec_registro.$dirty}">
+              <label for="fec_registro" class="col-sm-10 label-adjust">Fecha Registro <span
+                  class="field-required">*</span></label>
+              <input type="date" class="form-control form-control-sm" id="fec_registro" name="fec_registro"
+                ng-required="true" ng-readonly="registros.noteditable" ng-model="registros.registro.fec_registro" fmtdatetimesql/>
+              <span class="help-inline"
+                ng-show="frmRegistros.fec_registro.$invalid && frmRegistros.fec_registro.$touched">Debe ingresar Fecha Alta</span>
+            </div>
+
+            <div class="form-group">
+              <label for="tipo_novedad" class="col-sm-10 label-adjust">Tipo Novedad</label>
+              <select class="form-control form-control-sm" id="tipo_novedad" name="tipo_novedad"
+                ng-model="registros.registro.tipo_novedad" ng-change="registros.fchangeTipoNovedad()"
+                ng-options="item.tipo_novedad as item.nom_novedad for item in registros.tiposNovedades | filter: {ind_tipo_novedad : 'N'}">
+                <option ng-show="registros.registro.tipo_novedad != ''" value=""></option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="des_novedad" class="col-sm-10 label-adjust">Descripción Novedad</label>
+              <input type="text" class="form-control form-control-sm" id="des_novedad" name="des_novedad"
+                placeholder="Descripción Novedad" ng-model="registros.registro.des_novedad" ng-readonly="registros.readonlytn">
+            </div>
+
+            <div class="form-group">
+                <label for="tipo_novedad_trabajo" class="col-sm-10 label-adjust">Tipo Novedad Trabajo</label>
+                <select class="form-control form-control-sm" id="tipo_novedad_trabajo" name="tipo_novedad_trabajo"
+                  ng-model="registros.registro.tipo_novedad_trabajo" ng-change="registros.fchangeTipoNovedadTrabajo()"
+                  ng-options="item.tipo_novedad as item.nom_novedad for item in registros.tiposNovedades | filter: {ind_tipo_novedad : 'T'}">
+                  <option ng-show="registros.registro.tipo_novedad_trabajo != ''" value=""></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+              <label for="des_novedad_trabajo" class="col-sm-10 label-adjust">Descripción Novedad Trabajo</label>
+              <input type="text" class="form-control form-control-sm" id="des_novedad_trabajo" name="des_novedad_trabajo"
+                placeholder="Descripción Novedad Trabajo" ng-model="registros.registro.des_novedad_trabajo"
+                ng-readonly="registros.readonlytnt">
+            </div>
+
+            <div class="form-group">
+              <label for="ind_feriado" class="col-sm-10 label-adjust">Feriado</label>
+              <input class="checkbox-inline" type="checkbox" id="ind_feriado" name="ind_feriado"
+                ng-model="registros.registro.ind_feriado">
+            </div>
+
+            <div class="form-group">
+              <label for="ind_dia_laborable" class="col-sm-10 label-adjust">Día Laborable</label>
+              <input class="checkbox-inline" type="checkbox" id="ind_dia_laborable" name="ind_dia_laborable"
+                ng-model="registros.registro.ind_dia_laborable">
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <div class="form-group">
+              <label for="hora_ingreso_esperado" class="col-sm-10 label-adjust">Hora Ingreso Esperado</label>
+              <input type="text" class="form-control form-control-sm" id="hora_ingreso_esperado" formatted="ftHora"
+                name="hora_ingreso_esperado" placeholder="HH:MM" ng-model="registros.registro.hora_ingreso_esperado">
+            </div>
+
+            <div class="form-group">
+              <label for="hora_egreso_esperado" class="col-sm-10 label-adjust">Hora Egreso Esperado</label>
+              <input type="text" class="form-control form-control-sm" id="hora_egreso_esperado" formatted="ftHora"
+                name="hora_egreso_esperado" placeholder="HH:MM" ng-model="registros.registro.hora_egreso_esperado">
+            </div>
+
+            <div class="form-group">
+              <label for="hora_ingreso" class="col-sm-10 label-adjust">Hora Ingreso</label>
+              <input type="text" class="form-control form-control-sm" id="hora_ingreso" name="hora_ingreso"
+                placeholder="HH:MM" ng-model="registros.registro.hora_ingreso" formatted="ftHora">              
+            </div>
+
+            <div class="form-group">
+              <label for="hora_egreso" class="col-sm-10 label-adjust">Hora Egreso</label>
+              <input type="text" class="form-control form-control-sm" id="hora_egreso" name="hora_egreso"
+                placeholder="HH:MM" ng-model="registros.registro.hora_egreso" formatted="ftHora">              
+            </div>
+
+            <div class="form-group">
+              <label for="tm_trabajado" class="col-sm-10 label-adjust">Tiempo Trabajado</label>
+              <input type="text" class="form-control form-control-sm" id="tm_trabajado" name="tm_trabajado"
+                placeholder="HH:MM" ng-model="registros.registro.tm_trabajado" formatted="ftHora">
+            </div>
+  
+            <div class="form-group">
+              <label for="tm_tardanza" class="col-sm-10 label-adjust">Tiempo Tardanza</label>
+              <input type="text" class="form-control form-control-sm" id="tm_tardanza" name="tm_tardanza"
+                placeholder="HH:MM" ng-model="registros.registro.tm_tardanza" formatted="ftHora">
+            </div>
+  
+            <div class="form-group">
+              <label for="tm_extra" class="col-sm-10 label-adjust">Tiempo Extra</label>
+              <input type="text" class="form-control form-control-sm" id="tm_extra" name="tm_extra"
+                placeholder="HH:MM" ng-model="registros.registro.tm_extra" formatted="ftHora">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+          <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+          <button dtcancela hide-tab="registros.hide" type="button"
+            class="btn btn-outline-danger btn-sm">Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmRegistros.$valid, 'modal-button-primary-disabled': !(frmRegistros.$valid && frmRegistros.$dirty)} "
+            ng-disabled="!(frmRegistros.$dirty)" click-and-disable="registros.ok()">&#160;Grabar&#160;</button>
+        </div>
+      </ng-form>
+    </div>
+  </uib-tab>
+
+  <uib-tab index="3" ui-sref=".({action:'update_reg'})" heading="Actualiza Registros">
+    <div class="container-fluid">
+      <ng-form name="frmUpdateReg" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-md-6">
+
+            <div class="form-group">
+              <label for="cod_empresa_ur" class="col-sm-10 label-adjust">Organización <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_empresa_ur" name="cod_empresa_ur"
+                ng-model="registros.update_reg.cod_empresa" ng-required="true"
+                ng-options="item.cod_empresa as item.nom_empresa for item in registros.ouList">
+              </select>
+              <span class="help-inline"
+                ng-show="frmUpdateReg.cod_empresa_ur.$invalid && frmUpdateReg.cod_empresa_ur.$touched">Debe seleccionar una Organización
+              </span>
+            </div>
+
+            <div class="form-group input-append date first-avail"
+              ng-class="{'has-warning' : frmUpdateReg.fec_desde_ur.$dirty}">
+              <label for="fec_desde_ur" class="col-sm-10 label-adjust">Fecha Desde <span
+                  class="field-required">*</span></label>
+              <input type="date" class="form-control form-control-sm" id="fec_desde_ur" name="fec_desde_ur"
+                ng-required="true" ng-model="registros.update_reg.fec_desde" fmtdatetimesql/>
+                <span class="help-inline"
+                  ng-show="frmUpdateReg.fec_desde_ur.$invalid && frmUpdateReg.fec_desde_ur.$touched">Debe ingresar Fecha Desde
+                </span>
+            </div>
+
+            <div class="form-group input-append date first-avail"
+              ng-class="{'has-warning' : frmUpdateReg.fec_hasta_ur.$dirty}">
+              <label for="fec_hasta_ur" class="col-sm-10 label-adjust">Fecha Hasta <span
+                  class="field-required">*</span></label>
+              <input type="date" class="form-control form-control-sm" id="fec_hasta_ur" name="fec_hasta_ur"
+                ng-required="true" ng-model="registros.update_reg.fec_hasta" fmtdatetimesql/>
+                <span class="help-inline"
+                  ng-show="frmUpdateReg.fec_hasta_ur.$invalid && frmUpdateReg.fec_hasta_ur.$touched">Debe ingresar Fecha Hasta
+                </span>
+            </div>
+
+            <div class="form-group">
+              <label for="procesos" class="col-sm-10 label-adjust">Procesos <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="procesos" name="procesos"
+                  ng-model="registros.registro.proceso" ng-required="true"
+                  ng-options="item.id as item.name for item in registros.procesos">
+              </select>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+          <button dtcancela type="button" class="btn btn-outline-danger btn-sm">Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmUpdateReg.$valid, 'modal-button-primary-disabled': !(frmUpdateReg.$valid && frmUpdateReg.$dirty)} "
+            ng-disabled="!(frmUpdateReg.$dirty)"
+            click-and-disable="registros.updateRegistros()">&#160;Grabar&#160;</button>
+        </div>
+      </ng-form>
+    </div>
+  </uib-tab>
+</uib-tabset>

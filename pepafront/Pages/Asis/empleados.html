@@ -1,0 +1,297 @@
+<div class="titulo_menu">{{empleados.form_title}}</div>
+<uib-tabset active="empleados.active" class="bg-local-black">
+  <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <div class="w-100">
+      <grilla gridoptions="empleados.gridOptions"
+        onclick-edit="empleados.toggle(accion)" onclick-add="empleados.toggle(accion)"
+        onclick-export="empleados.exportar(tipo)" onclick-copy="empleados.toggle(accion)" onclick-delete="empleados.confirmDelete()" urlback="empleados"
+        api="empleados.grilla=API" 
+        class="d-flex flex-column w-100" style="height: 520px;"
+        />
+    </div>
+  </uib-tab>
+  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <div class="container-fluid">
+      <div class="row justify-content-md-center w-100">
+        <div class="col-5">
+          <div class="form-group">
+            <label for="cod_empresa_dt" class="col-sm-10 label-adjust">Organización <span
+                class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="cod_empresa_dt" name="cod_empresa_dt" disabled=""
+              ng-model="empleados.empleado_dt.cod_empresa"
+              ng-options="item.cod_empresa as item.nom_empresa for item in empleados.ouList">
+            </select>
+          </div>
+
+          <div class="form-group" ng-show="false">
+            <label for="cod_empleado_dt" class="col-sm-10 label-adjust">Cód. Empleado</label>
+            <input type="text" class="form-control form-control-sm" id="cod_empleado_dt" name="cod_empleado_dt"
+              placeholder="Cód. Empleado" ng-model="empleados.empleado_dt.cod_empleado" readonly="">
+          </div>
+
+          <div class="form-group" ng-show="false">
+            <label for="cod_persona_dt" class="col-sm-10 label-adjust">Cód. Persona</label>
+            <input type="text" class="form-control form-control-sm" id="cod_persona_dt" name="cod_persona_dt"
+              placeholder="Cód. Persona" ng-model="empleados.empleado_dt.cod_persona" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="cod_tipo_doc_dt" class="col-sm-10 label-adjust">Tipo Doc. <span
+                class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="cod_tipo_doc_dt" name="cod_tipo_doc_dt"
+              ng-model="empleados.empleado_dt.cod_tipo_doc" ng-required="true" disabled=""
+              ng-options="item.id as item.name for item in empleados.tipoDocumento">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="nro_documento_dt" class="col-sm-10 label-adjust">DNI Persona <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="nro_documento_dt" name="nro_documento_dt"
+              placeholder="DNI Persona" ng-model="empleados.empleado_dt.nro_documento" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="ape_persona_dt" class="col-sm-10 label-adjust">Apellido <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="ape_persona_dt" name="ape_persona_dt"
+              placeholder="Apellido" ng-model="empleados.empleado_dt.ape_persona" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="nom_persona_dt" class="col-sm-10 label-adjust">Nombre <span
+                class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="nom_persona_dt" name="nom_persona_dt"
+              placeholder="Nombre" ng-model="empleados.empleado_dt.nom_persona" readonly="">
+          </div>
+
+          <div class="form-group">
+            <label for="cod_sexo_dt" class="col-sm-10 label-adjust">Sexo <span class="field-required">*</span></label>
+            <select class="form-control form-control-sm" id="cod_sexo_dt" name="cod_sexo_dt"
+              ng-model="empleados.empleado_dt.cod_sexo" disabled=""
+              ng-options="item.id as item.name for item in empleados.tipoSexo">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="email_dt" class="col-sm-10 label-adjust">E-mail <span class="field-required">*</span></label>
+            <input type="email_dt" class="form-control form-control-sm" id="email_dt" name="email_dt"
+              placeholder="Correo electrónico" ng-model="empleados.empleado_dt.email" readonly="">
+          </div>
+
+          <div class="form-group input-append date first-avail">
+            <label for="fec_alta_dt" class="col-sm-10 label-adjust">Fecha Alta <span
+                class="field-required">*</span></label>
+            <input type="date" class="form-control form-control-sm" id="fec_alta_dt" name="fec_alta_dt" ng-required="true"
+              readonly 
+              ng-model="empleados.empleado_dt.fec_alta" fmtdatetimesql/>
+          </div>
+
+          <div class="form-group">
+            <label for="ind_estado_dt" class="col-sm-10 label-adjust">Activo </label>
+            <input class="checkbox-inline" type="checkbox" id="ind_estado_dt" name="ind_estado_dt"
+              ng-model="empleados.empleado_dt.ind_activo" disabled="">
+          </div>
+
+        </div>
+        <div class="col-5">
+          <div class="form-group">
+            <label class="col-sm-10 label-adjust">Días / Horarios</label>
+            <dia-hora-empleado ng-model="empleados.empleado_dt.obj_dias_horarios" readonly="readonly"></dia-hora-empleado>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-2">
+        <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+      </div>
+    </div>
+  </uib-tab>
+  <uib-tab index="2" heading="{{empleados.action_title}}" ui-sref=".({action:empleados.action})"
+    ng-hide="empleados.hide">
+    <div class="container-fluid">
+      <ng-form name="frmEmpleados" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-5">
+
+            <div class="form-group has-search">
+              <label for="busq_persona" class="col-sm-10 label-adjust">Buscar Persona</label>
+              <i class="fa fa-search form-control-feedback"></i>
+              <input type="text" class="form-control form-control-sm" id="busq_persona" name="busq_persona"
+                placeholder="DNI o Apellido Nombre Persona" ng-model="empleados.empleado.busq_persona"
+                ng-readonly="empleados.noteditable" typeahead-append-to-body="true" autocomplete="off"
+                typeahead-on-select="empleados.typeaheadOnSelect($item,$model,$label)"
+                uib-typeahead="obj as obj.des_persona for obj in empleados.getDatosPersona($viewValue) | limitTo:8"
+                typeahead-loading="loading" typeahead-min-length="2" typeahead-wait-ms="300">
+
+              <span class="help-inline"
+                ng-show="frmEmpleados.habilitacion.busq_persona.$invalid && frmEmpleados.habilitacion.busq_persona.$touched">Debe ingresar un DNI o Apellido Nombre Persona</span>
+            </div>
+
+            <div class="form-group">
+              <label for="cod_empresa" class="col-sm-10 label-adjust" translate>Organización <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_empresa" name="cod_empresa"
+                ng-model="empleados.empleado.cod_empresa" ng-required="true" ng-disabled="empleados.noteditable"
+                ng-options="item.cod_empresa as item.nom_empresa for item in empleados.ouList">
+              </select>
+              <span class="help-inline"
+                ng-show="frmEmpleados.cod_empresa.$invalid && frmEmpleados.cod_empresa.$touched" translate>Debe seleccionar una Organización</span>
+            </div>
+
+            <div class="form-group" ng-show="false">
+              <label for="cod_persona" class="col-sm-10 label-adjust">Cód. Persona</label>
+              <input type="text" class="form-control form-control-sm" id="cod_persona" name="cod_persona"
+                placeholder="Cód. Persona" ng-model="empleados.empleado.cod_persona" ng-required="true" readonly="">
+            </div>
+
+            <div class="form-group">
+              <label for="cod_empleado" class="col-sm-10 label-adjust">Cód. Empleado</label>
+              <input type="text" class="form-control form-control-sm" id="cod_empleado" name="cod_empleado" ng-readonly="empleados.noteditable"
+                placeholder="Cód. Empleado" ng-model="empleados.empleado.cod_empleado" ng-required="true">
+            </div>
+
+            <div class="form-group">
+              <label for="cod_tipo_doc" class="col-sm-10 label-adjust">Tipo Doc. <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_tipo_doc" name="cod_tipo_doc"
+                ng-model="empleados.empleado.cod_tipo_doc" ng-required="true"
+                ng-options="item.id as item.name for item in empleados.tipoDocumento">
+              </select>
+              <span class="help-inline"
+                ng-show="frmEmpleados.cod_tipo_doc.$invalid && frmEmpleados.cod_tipo_doc.$touched">Debe seleccionar un Tipo Documento</span>
+            </div>
+
+            <div class="form-group">
+              <label for="nro_documento" class="col-sm-10 label-adjust">DNI Persona <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento"
+                placeholder="DNI Persona" ng-model="empleados.empleado.nro_documento" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmEmpleados.nro_documento.$invalid && frmEmpleados.nro_documento.$touched">Debe ingresar un DNI Persona</span>
+              <span class="help-inline" style="color:yellow;"
+                ng-show="empleados.empleado.cod_persona && empleados.empleado.nro_documento_ant != empleados.empleado.nro_documento"><span translate>Se modificó el DNI</span> {{empleados.empleado.nro_documento_ant}} <span translate>de la persona.</span></span>
+            </div>
+
+            <div class="form-group">
+              <label for="ape_persona" class="col-sm-10 label-adjust">Apellido <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona"
+                placeholder="Apellido" ng-model="empleados.empleado.ape_persona" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmEmpleados.ape_persona.$invalid && frmEmpleados.ape_persona.$touched">Debe ingresar un Apellido</span>
+            </div>
+
+            <div class="form-group">
+              <label for="nom_persona" class="col-sm-10 label-adjust">Nombre <span
+                  class="field-required">*</span></label>
+              <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona"
+                placeholder="Nombre" ng-model="empleados.empleado.nom_persona" ng-required="true">
+              <span class="help-inline"
+                ng-show="frmEmpleados.ape_persona.$invalid && frmEmpleados.ape_persona.$touched">Debe ingresar un Apellido</span>
+            </div>
+
+            <div class="form-group">
+              <label for="cod_sexo" class="col-sm-10 label-adjust">Sexo <span class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_sexo" name="cod_sexo"
+                ng-model="empleados.empleado.cod_sexo" ng-required="true"
+                ng-options="item.id as item.name for item in empleados.tipoSexo">
+              </select>
+              <span class="help-inline" ng-show="frmEmpleados.cod_sexo.$invalid && frmEmpleados.cod_sexo.$touched">Debe seleccionar un Sexo</span>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="col-sm-10 label-adjust">E-mail</label>
+              <input type="email" class="form-control form-control-sm" id="email" name="email"
+                placeholder="Correo electrónico" ng-model="empleados.empleado.email">
+              <span class="help-inline" ng-show="frmEmpleados.email.$invalid && frmEmpleados.email.$touched">Debe ingresar un E-mail válido</span>
+            </div>
+
+            <div class="form-group input-append date first-avail"
+              ng-class="{'has-warning' : frmEmpleados.fec_alta.$dirty}">
+              <label for="fec_alta" class="col-sm-10 label-adjust">Fecha Alta <span
+                  class="field-required">*</span></label>
+              <input type="date" class="form-control form-control-sm" id="fec_alta" name="fec_alta"
+                ng-required="true" ng-model="empleados.empleado.fec_alta" fmtdatetimesql/>
+              <span class="help-inline"
+                ng-show="frmEmpleados.fec_alta.$invalid && frmEmpleados.fec_alta.$touched" translate>Debe ingresar Fecha Alta</span>
+            </div>
+
+            <div class="form-group">
+              <label for="ind_activo" class="col-sm-10 label-adjust">Activo </label>
+              <input class="checkbox-inline" type="checkbox" id="ind_activo" name="ind_activo"
+                ng-checked="empleados.checked" ng-model="empleados.empleado.ind_activo">
+            </div>
+
+          </div>
+          <div class="col-5">
+            <div class="form-group">
+              <label class="col-sm-10 label-adjust">Días / Horarios</label>
+              <dia-hora-empleado ng-model="empleados.empleado.obj_dias_horarios"></dia-hora-empleado>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+          <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+          <button dtcancela hide-tab="empleados.hide" type="button"
+            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmEmpleados.$valid, 'modal-button-primary-disabled': !(frmEmpleados.$valid && frmEmpleados.$dirty)} "
+            ng-disabled="!(frmEmpleados.$dirty)" click-and-disable="empleados.ok()">&#160;<span translate>Grabar</span>&#160;</button>
+        </div>
+      </ng-form>
+    </div>
+  </uib-tab>
+  <uib-tab index="3" ui-sref=".({action:'horarios'})" heading="Horarios">
+    <div class="container-fluid">
+      <ng-form name="frmEmpleados2" class="form-horizontal" novalidate ng-validator>
+        <div class="row justify-content-md-center w-100">
+          <div class="col-5">
+            <div class="form-group">
+              <label for="cod_empresa2" class="col-sm-10 label-adjust">Organización <span
+                  class="field-required">*</span></label>
+              <select class="form-control form-control-sm" id="cod_empresa2" name="cod_empresa2"
+                ng-model="empleados.empleado2.cod_empresa" ng-required="true"
+                ng-options="item.cod_empresa as item.nom_empresa for item in empleados.ouList"
+                ng-change="empleados.getEmpleados()">
+              </select>
+              <span class="help-inline"
+                ng-show="frmEmpleados2.cod_empresa2.$invalid && frmEmpleados2.cod_empresa2.$touched">Debe seleccionar una Organización</span>
+            </div>
+
+            <div class="form-group">
+              <label for="sel_empleado2" class="col-sm-10 label-adjust">Empleados <span
+                  class="field-required">*</span></label>
+              <ui-select multiple ui-hide-choices ng-model="empleados.empleado2.empleadosSel" id="sel_empleado2"
+                name="sel_empleado2" append-to-body="false" ng-required="true" close-on-select="false">
+                <ui-select-match placeholder="Empleados">{{$item.des_empleado}}</ui-select-match>
+                <ui-select-choices ng-hide="!$select.open"
+                  repeat="empleado.cod_empleado as empleado in empleados.empleadosList | filter: $select.search">
+                  <small ng-bind-html="empleado.des_empleado | highlight: $select.search"></small>
+                </ui-select-choices>
+              </ui-select>
+              <span class="help-inline"
+                ng-show="frmEmpleados2.sel_empleado2.$invalid && frmEmpleados2.sel_empleado2.$touched">Debe seleccionar
+                un
+                Empleado</span>
+            </div>
+          </div>
+          <div class="col-5">
+            <div class="form-group">
+              <label class="col-sm-10 label-adjust">Días / Horarios</label>
+              <dia-hora-empleado ng-model="empleados.empleado2.obj_dias_horarios"></dia-hora-empleado>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-2">
+          <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+          <button dtcancela type="button" class="btn btn-outline-danger btn-sm">Cancelar</button>
+          <button type="button" class="btn btn-outline-success btn-sm"
+            ng-class="{'modal-button-primary': frmEmpleados2.$valid, 'modal-button-primary-disabled': !(frmEmpleados2.$valid && frmEmpleados2.$dirty)} "
+            ng-disabled="!(frmEmpleados2.$dirty)" click-and-disable="empleados.ok2()">&#160;Grabar&#160;</button>
+        </div>
+      </ng-form>
+    </div>
+  </uib-tab>
+
+</uib-tabset>

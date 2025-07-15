@@ -1,0 +1,97 @@
+<!doctype html>
+
+<html ng-app="N33BEC" lang="es-AR">
+    <head>
+        <title>N33-BEC</title>
+        <meta charset="utf-8">
+
+        <meta http-equiv="Cache-control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta id="viewport" name='viewport' content='width=device-width' />
+        <meta id="viewport" name='viewport' content='width=device-width' />
+
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <!-- link rel="apple-touch-startup-image" href="img/loading.png" -->
+        <!-- link rel="manifest" href="../src/manifest.json" -->
+
+        <!-- script src="dash.all.min.js"></script -->
+        <base href="/">
+    </head>
+    <div ng-if="false" >
+        <div class="m-app-loading" ng-animate-children>
+
+            <!--
+                HACKY CODE WARNING: I'm putting Style block inside directive so that it 
+                will be removed from the DOM when we remove the directive container.
+            -->
+            <style type="text/css">
+    
+                div.m-app-loading {
+                    position: fixed ;
+                }
+    
+                div.m-app-loading div.animated-container {
+                    background-color: #706d5d;
+                    bottom: 0px ;
+                    left: 0px ;
+                    opacity: 1.0 ;
+                    position: fixed ;
+                    right: 0px ;
+                    top: 0px ;
+                    z-index: 999999 ;
+                }
+    
+                /* Used to initialize the ng-leave animation state. */
+                div.m-app-loading div.animated-container.ng-leave {
+                    opacity: 1.0 ;
+                    transition: all linear 200ms ;
+                        -webkit-transition: all linear 200ms ;
+                }
+    
+                /* Used to set the end properties of the ng-leave animation state. */
+                div.m-app-loading div.animated-container.ng-leave-active {
+                    opacity: 0 ;
+                }
+    
+                div.m-app-loading div.messaging {
+                    color: #FFFFFF ;
+                    font-family: monospace ;
+                    left: 0px ;
+                    margin-top: -37px ;
+                    position: absolute ;
+                    right: 0px ;
+                    text-align: center ;
+                    top: 50% ;
+                }
+    
+                div.m-app-loading h1 {
+                    font-size: 26px ;
+                    line-height: 35px ;
+                    margin: 0px 0px 20px 0px ;
+                }
+    
+                div.m-app-loading p {
+                    font-size: 18px ;
+                    line-height: 14px ;
+                    margin: 0px 0px 0px 0px ;
+                }
+    
+            </style>
+            
+    
+            <!-- BEGIN: Actual animated container. -->
+            <div class="animated-container">
+                <div class="messaging">
+                    <h1 translate>Cargando...</h1>
+                </div>
+            </div>
+            <!-- END: Actual animated container. -->
+        </div>
+    </div>
+    <span us-spinner="{radius:30, width:10, length: 16, color:'red' }" spinner-key="spinner-1" style="position: fixed; left: 50%; top: 50%; z-index: 2000;"></span>
+
+    <ui-view class="d-flex flex-column text-white" style="min-height: 100vh;"></ui-view>
+
+    <!-- Probar con min-height o height en chromium 72 de raspberry -->
+</html>

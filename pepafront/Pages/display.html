@@ -1,0 +1,70 @@
+<style>
+    .display-split {
+        position: fixed;
+        left: 0;
+        right: 0;
+        height: 50%;
+    }
+
+    /* Control the left side */
+    .display-top {
+        top: 0;
+        width: 80%;
+				background-color:black;
+
+    }
+    
+    .display-top-right {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 20%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+	
+
+@-webkit-keyframes bg-color {
+  0% { background-color: red; }
+  100% { background-color: black; }
+}
+
+@keyframes bg-color {
+  0% { background-color: red; }
+  100% { background-color: black; }
+}
+
+
+    /* Control the right side */
+
+	
+	.flashingbackground{
+		animation: bg-color 3s infinite;
+		-webkit-animation: bg-color 3s infinite;
+	}
+	
+	
+	.big-button{
+	    width: 100%;
+		height: 100%;
+	}
+	
+</style>
+<div class="body-content display-split display-top d-flex align-items-center" ng-class="display.button=='btn-danger' ? 'flashingbackground':''"  >
+    <div class="display-messages">
+    <span>{{display.linea1}}</span>
+    <span>{{display.linea2}}</span>
+    <span>{{display.linea3}}</span>
+    <span>{{display.linea4}}</span>
+	</div>
+</div>
+<div class="display-top-right">
+    <button type="button" class="big-button btn {{display.button}}" ng-click="display.stopAlarm()">{{display.des_valor}}</button>
+</div>
+
+
+<div class="display-split display-bottom h-50 consola-sucesos">
+    <app-console></app-console>
+</div>

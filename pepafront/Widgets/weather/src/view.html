@@ -1,0 +1,10 @@
+<div class="text-center w-100">
+  <div class="alert alert-info" ng-if="!vm.data">
+    Seleccione ubicación
+  </div>
+  <div class="weather" ng-if="vm.data">
+    <h4>Temperatura: {{vm.data.main.temp | number:2}} °C</h4>
+    <h4>{{vm.data.name}} ({{vm.data.sys.country}})</h4>
+
+  </div>
+</div>

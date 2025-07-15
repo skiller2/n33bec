@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+//  "baseUrl": ".",
+
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "target": "ESNEXT",
+    "module":"esnext",    
+//  "paths": { "*" : ["src/@custom_types/*"],},
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "plugins": [
+      { "name": "tslint-language-service"}
+    ]
+  }
+}

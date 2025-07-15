@@ -1,0 +1,21 @@
+{
+  "name": "helloworld",
+  "main1": "http://localhost:9000/#!/test",
+  "main": "http://localhost:9000/",
+  "frame":false,
+  "nodejs":true,
+  "node-remote" : "<all_urls>",
+ "window": {
+    "kiosk1": true
+  },
+  "webview": {
+  "partitions": [
+     {
+       "name": "trusted",
+       "accessible_resources": [
+          "<all_urls>"
+       ]
+     }
+  ]
+}
+}

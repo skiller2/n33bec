@@ -1,0 +1,85 @@
+<hr style="border-color:white;"/>
+<div class="row justify-content-md-center w-100">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="col-sm-10 label-adjust">Acciones Alarma</label>
+            <textarea ng-model="suceso.json_parametros.acciones_alarma" class="form-control form-control-sm" maxlength="100024"></textarea>
+        </div>
+        <div class="form-group">
+                <label class="col-sm-10 label-adjust">Acciones Pre Alarma</label>
+                <textarea ng-model="suceso.json_parametros.acciones_prealarma" class="form-control form-control-sm" maxlength="100024"></textarea>
+        </div>
+        <div class="form-group">
+                <label class="col-sm-10 label-adjust">Acciones Alarma Técnica</label>
+                <textarea ng-model="suceso.json_parametros.acciones_alarmatec" class="form-control form-control-sm" maxlength="10024"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-10 label-adjust">Acciones Falla</label>
+            <textarea ng-model="suceso.json_parametros.acciones_falla" class="form-control form-control-sm" maxlength="10024"></textarea>
+        </div>        
+        <div class="form-group">
+                <label class="col-sm-10 label-adjust">Acciones Normal</label>
+                <textarea ng-model="suceso.json_parametros.acciones_normal" class="form-control form-control-sm" maxlength="10024"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="suc_des_destinatarios" class="col-sm-10 label-adjust">Destinatarios Mail</label>
+            <input  class="form-control form-control-sm" id="suc_des_destinatarios" name="suc_des_destinatarios" placeholder="Destinatarios"
+                    ng-model="suceso.json_parametros.des_destinatarios" ng-list=", ">
+        </div>
+        <div class="form-group">
+            <label for="suc_des_template_mail" class="col-sm-10 label-adjust">Plantilla Mail</label>
+            <input  class="form-control form-control-sm" id="suc_des_template_mail" name="suc_des_template_mail" placeholder="Plantilla Mail"
+                    ng-model="suceso.json_parametros.des_template_mail">
+        </div>
+        <div class="input-group">
+            <label class="col-sm-10 label-adjust">Activa Audio Alarma</label>
+            <input class="checkbox" type="checkbox" ng-model="suceso.json_parametros.ind_activa_audio_alarma">
+        </div>
+        <div class="input-group">
+            <label class="col-sm-10 label-adjust">Activa Audio Pre Alarma</label>
+            <input class="checkbox" type="checkbox" ng-model="suceso.json_parametros.ind_activa_audio_prealarma">
+        </div>
+        <div class="input-group">
+            <label class="col-sm-10 label-adjust">Activa Audio Alarma Técnica</label>
+            <input class="checkbox" type="checkbox" ng-model="suceso.json_parametros.ind_activa_audio_alarmatec">
+        </div>
+        <div class="input-group">
+            <label class="col-sm-10 label-adjust">Activa Audio Falla</label>
+            <input class="checkbox" type="checkbox" ng-model="suceso.json_parametros.ind_activa_audio_falla">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="col-sm-10 label-adjust">Intervalos hábiles</label>
+            <range-select ng-model="suceso.json_parametros.obj_intervalos_habiles"></range-select>                    
+        </div>
+        <div class="form-group">
+            <label class="col-sm-10 label-adjust">Intervalos no hábiles</label>
+            <range-select ng-model="suceso.json_parametros.obj_intervalos_nohabiles"></range-select>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-10 label-adjust">Intervalos mixtos</label>
+            <range-select ng-model="suceso.json_parametros.obj_intervalos_mixtos"></range-select>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-10 label-adjust">Condiciones Alarma</label>
+            <textarea ng-model="suceso.json_parametros.cond_alarma" class="form-control form-control-sm" maxlength="10024"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-10 label-adjust">Condiciones Pre Alarma</label>
+            <textarea ng-model="suceso.json_parametros.cond_prealarma" class="form-control form-control-sm" maxlength="10024"></textarea>
+        </div>
+        <div class="form-group">
+                <label class="col-sm-10 label-adjust">Condiciones Alarma Técnica</label>
+                <textarea ng-model="suceso.json_parametros.cond_alarmatec" class="form-control form-control-sm" maxlength="10024"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-10 label-adjust">Condiciones Falla</label>
+            <textarea ng-model="suceso.json_parametros.cond_falla" class="form-control form-control-sm" maxlength="10024"></textarea>
+        </div>
+        <div class="form-group">
+                <label class="col-sm-10 label-adjust">Condiciones Normal</label>
+                <textarea ng-model="suceso.json_parametros.cond_normal" class="form-control form-control-sm" maxlength="10024"></textarea>
+        </div>
+    </div>
+</div>
