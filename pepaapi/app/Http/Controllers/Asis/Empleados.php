@@ -143,42 +143,42 @@ class Empleados extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"cod_empleado", "name" => "Cod. Empleado", "key" => "cod_empleado");
-                    $columnDefs[] = array("prop"=>"cod_empresa", "name" => "Cod. Empresa", "key" => "cod_empresa", "visible" => false);
-                    $columnDefs[] = array("prop"=>"nom_empresa", "name" => "Empresa");
-                    $columnDefs[] = array("prop"=>"cod_persona", "name" => "Cod. Persona");
-                    $columnDefs[] = array("prop"=>"ape_persona", "name" => "Apellido");
-                    $columnDefs[] = array("prop"=>"nom_persona", "name" => "Nombre");
-                    $columnDefs[] = array("prop"=>"cod_sexo", "name" => "Sexo");
-                    $columnDefs[] = array("prop"=>"cod_tipo_doc", "name" => "Tipo Doc.");
-                    $columnDefs[] = array("prop"=>"nro_documento", "name" => "Nro. Doc.");
-                    $columnDefs[] = array("prop"=>"email", "name" => "Email");
-                    //$columnDefs[] = array("prop"=>"obj_dias_horarios", "name" => "Días/Horarios");
-                    $columnDefs[] = array("prop"=>"ind_activo", "name" => "Activo");
-                    $columnDefs[] = array("prop"=>"fec_alta", "name" => "Fecha Alta");
+                    $columnDefs[] = array("prop"=>"cod_empleado", "name"=> __("Cod. Empleado"), "key" => "cod_empleado");
+                    $columnDefs[] = array("prop"=>"cod_empresa", "name"=> __("Cod. Empresa"), "key" => "cod_empresa", "visible" => false);
+                    $columnDefs[] = array("prop"=>"nom_empresa", "name"=> __("Empresa"));
+                    $columnDefs[] = array("prop"=>"cod_persona", "name"=> __("Cod. Persona"));
+                    $columnDefs[] = array("prop"=>"ape_persona", "name"=> __("Apellido"));
+                    $columnDefs[] = array("prop"=>"nom_persona", "name"=> __("Nombre"));
+                    $columnDefs[] = array("prop"=>"cod_sexo", "name"=> __("Sexo"));
+                    $columnDefs[] = array("prop"=>"cod_tipo_doc", "name"=> __("Tipo Doc."));
+                    $columnDefs[] = array("prop"=>"nro_documento", "name"=> __("Nro. Doc."));
+                    $columnDefs[] = array("prop"=>"email", "name"=> __("Email"));
+                    //$columnDefs[] = array("prop"=>"obj_dias_horarios", "name"=> __("Días/Horarios"));
+                    $columnDefs[] = array("prop"=>"ind_activo", "name"=> __("Activo"));
+                    $columnDefs[] = array("prop"=>"fec_alta", "name"=> __("Fecha Alta"));
             break;
             default:
-                    $columnDefs[] = array("field"=>"cod_empleado", "displayName" => "Cod. Empleado");
-                    $columnDefs[] = array("field"=>"cod_empresa", "displayName" => "Cod. Empresa", "visible" => false);
-                    $columnDefs[] = array("field"=>"nom_empresa", "displayName" => "Empresa");
-                    $columnDefs[] = array("field"=>"cod_persona", "displayName" => "Cod. Persona");
-                    $columnDefs[] = array("field"=>"ape_persona", "displayName" => "Apellido");
-                    $columnDefs[] = array("field"=>"nom_persona", "displayName" => "Nombre");
-                    $columnDefs[] = array("field"=>"cod_sexo", "displayName" => "Sexo");
-                    $columnDefs[] = array("field"=>"cod_tipo_doc", "displayName" => "Tipo Doc.");
-                    $columnDefs[] = array("field"=>"nro_documento", "displayName" => "Nro. Doc.");
-                    $columnDefs[] = array("field"=>"email", "displayName" => "Email");
-                    //$columnDefs[] = array("field"=>"obj_dias_horarios", "displayName" => "Días/Horarios");
-                    $columnDefs[] = array("field"=>"ind_activo", "displayName" => "Activo","cellFilter"=>"ftBoolean");
-                    $columnDefs[] = array("field"=>"fec_alta","displayName"=>"Fecha Alta","type"=>"date","cellFilter"=>"ftDate");
+                    $columnDefs[] = array("field"=>"cod_empleado", "displayName"=> __("Cod. Empleado"));
+                    $columnDefs[] = array("field"=>"cod_empresa", "displayName"=> __("Cod. Empresa"), "visible" => false);
+                    $columnDefs[] = array("field"=>"nom_empresa", "displayName"=> __("Empresa"));
+                    $columnDefs[] = array("field"=>"cod_persona", "displayName"=> __("Cod. Persona"));
+                    $columnDefs[] = array("field"=>"ape_persona", "displayName"=> __("Apellido"));
+                    $columnDefs[] = array("field"=>"nom_persona", "displayName"=> __("Nombre"));
+                    $columnDefs[] = array("field"=>"cod_sexo", "displayName"=> __("Sexo"));
+                    $columnDefs[] = array("field"=>"cod_tipo_doc", "displayName"=> __("Tipo Doc."));
+                    $columnDefs[] = array("field"=>"nro_documento", "displayName"=> __("Nro. Doc."));
+                    $columnDefs[] = array("field"=>"email", "displayName"=> __("Email"));
+                    //$columnDefs[] = array("field"=>"obj_dias_horarios", "displayName"=> __("Días/Horarios"));
+                    $columnDefs[] = array("field"=>"ind_activo", "displayName"=> __("Activo"),"cellFilter"=>"ftBoolean");
+                    $columnDefs[] = array("field"=>"fec_alta","displayName"=> __("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDate");
         }
         $columnKeys = ['cod_empleado', 'cod_empresa'];
         
-        $filtros[] = array('id' => 'cod_empleado', 'name' => 'Cod. Empleado');
-        $filtros[] = array('id' => 'nom_empresa', 'name' => 'Empresa');
-        $filtros[] = array('id' => 'cod_persona', 'name' => 'Cod. Persona');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
-        $filtros[] = array('id' => 'nro_documento', 'name' => 'Nombre');
+        $filtros[] = array('id' => 'cod_empleado', 'name'=> __("Cod. Empleado"));
+        $filtros[] = array('id' => 'nom_empresa', 'name'=> __("Empresa"));
+        $filtros[] = array('id' => 'cod_persona', 'name'=> __("Cod. Persona"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
+        $filtros[] = array('id' => 'nro_documento', 'name'=> __("Nombre"));
 
         $rango['desde'] = array('id' => 'fec_alta', 'tipo' => 'date');
         $rango['hasta'] = $rango['desde'];
@@ -190,7 +190,7 @@ class Empleados extends Controller
     {
         $clave = json_decode(base64_decode($clave), true); 
 		if (empty($clave[0]))
-            return response(['error' => "Debe seleccionar registro"], Response::HTTP_CONFLICT); 
+            return response(['error'=> __("Debe seleccionar registro")], Response::HTTP_CONFLICT); 
         $cod_empleado = $clave[0][0];
         $cod_empresa = $clave[0][1];
         
@@ -260,7 +260,7 @@ class Empleados extends Controller
         Empleado::addAuditoria($empleado, "A");
         $empleado->save();
 
-        return response(['ok' => 'El empleado fue creado satisfactoriamente con id: '.  $empleado->cod_empleado], Response::HTTP_OK);
+        return response(['ok' => __('El empleado fue creado satisfactoriamente con identificador :COD_EMPLEADO',['COD_EMPLEADO'=>$empleado->cod_empleado])], Response::HTTP_OK);
     }
 
     //Alta de usuario
@@ -291,7 +291,7 @@ class Empleados extends Controller
             $empleado->save();
         }
 
-        return response(['ok' => 'Horarios actualizados'], Response::HTTP_OK);
+        return response(['ok'=>__('Actualización existosa')], Response::HTTP_OK);
     }
 
     public function update(Request $request)
@@ -353,13 +353,13 @@ class Empleados extends Controller
         $empleado = Empleado::where("cod_empresa","=",$cod_empresa)->where("cod_empleado","=",$cod_empleado)->first();
         $empleado->delete();
         
-        return response(['ok' => 'Se eliminó satisfactoriamente el empleado #' . $cod_empleado. ' de la empresa #' . $cod_empresa], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente el empleado :COD_EMPLEADO de la empresa :COD_EMPRESA',['COD_EMPLEADO'=>$cod_empleado,'COD_EMPRESA'=>$cod_empresa] ) ], Response::HTTP_OK);
     }
 
     public function getEmpleados($cod_empresa)
     {
         if($cod_empresa=="")
-            return response(['error' => "Debe selecciona Empresa"], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe selecciona Empresa")], Response::HTTP_CONFLICT);
 
         $resultado = Empleado::select('ape_persona','nom_persona','cod_empleado')
                     ->where('cod_empresa', '=', $cod_empresa)

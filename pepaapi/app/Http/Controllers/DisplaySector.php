@@ -30,7 +30,7 @@ class DisplaySector extends Controller {
        
         $sector = Sector::find($cod_sector);
         if(!$sector) {
-            return response(['error' => 'Sector inexistente'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Sector inexistente')], Response::HTTP_CONFLICT);
         }
 
         $nom_sector = $sector->nom_sector;
@@ -64,7 +64,7 @@ class DisplaySector extends Controller {
 
     public function getPersona($cod_credencial) {
 
-        $ape_persona = ""; $nom_persona = ""; $cod_persona = ""; $nom_ou = ""; $vencimiento = "No disponible"; $tipo_habilitacion = "";
+        $ape_persona = ""; $nom_persona = ""; $cod_persona = ""; $nom_ou = ""; $vencimiento = __("No disponible"); $tipo_habilitacion = "";
         Carbon::setLocale('es');
         $query = HabiCredPersona::select('habiCredPersona.cod_persona', 'habiCredPersona.tipo_habilitacion',
         'maesPersonas.ape_persona', 'maesPersonas.nom_persona', 'maesUnidadesOrganiz.nom_ou','maesPersAptoF.fec_vencimiento_af')

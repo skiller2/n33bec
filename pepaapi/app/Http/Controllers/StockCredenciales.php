@@ -69,25 +69,25 @@ class StockCredenciales extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"cod_credencial", "name" => "Cód. Tarjeta", "key" => "cod_credencial");
-                    $columnDefs[] = array("prop"=>"ref_credencial", "name" => "Ref. Tarjeta");
-                    $columnDefs[] = array("prop"=>"tipo_credencial", "name" => "Tipo Tarjeta", "pipe" => "ftTipoCred");
-                    $columnDefs[] = array("prop"=>"tipo_habilitacion", "name" => "Tipo Habilitacion", "pipe" => "ftTipoHab");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta", "pipe" => "ftDateTime");
+                    $columnDefs[] = array("prop"=>"cod_credencial", "name"=> __("Cód. Tarjeta"), "key" => "cod_credencial");
+                    $columnDefs[] = array("prop"=>"ref_credencial", "name"=> __("Ref. Tarjeta"));
+                    $columnDefs[] = array("prop"=>"tipo_credencial", "name"=> __("Tipo Tarjeta"), "pipe" => "ftTipoCred");
+                    $columnDefs[] = array("prop"=>"tipo_habilitacion", "name"=> __("Tipo Habilitacion"), "pipe" => "ftTipoHab");
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name"=> __("Fecha Alta"), "pipe" => "ftDateTime");
             break;
             default:
-                    $columnDefs[] = array("field"=>"cod_credencial","displayName"=>"Cód. Tarjeta","cellFilter"=>"ftTarjeta");
-                    $columnDefs[] = array("field"=>"ref_credencial","displayName"=>"Ref. Tarjeta");
-                    $columnDefs[] = array("field"=>"tipo_credencial","displayName"=>"Tipo Tarjeta");
-                    $columnDefs[] = array("field"=>"tipo_habilitacion","displayName"=>"Tipo Habilitación","cellFilter"=>"ftTipoHab");
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>"Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"cod_credencial","displayName"=> __("Cód. Tarjeta"),"cellFilter"=>"ftTarjeta");
+                    $columnDefs[] = array("field"=>"ref_credencial","displayName"=> __("Ref. Tarjeta"));
+                    $columnDefs[] = array("field"=>"tipo_credencial","displayName"=> __("Tipo Tarjeta"));
+                    $columnDefs[] = array("field"=>"tipo_habilitacion","displayName"=> __("Tipo Habilitación"),"cellFilter"=>"ftTipoHab");
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=> __("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime");
         }
         $columnKeys = ['cod_credencial'];
         
-        $filtros[] = array('id' => 'cod_credencial', 'name' => 'Cód. Tarjeta');
-        $filtros[] = array('id' => 'ref_credencial', 'name' => 'Ref. Tarjeta');
-        $filtros[] = array('id' => 'tipo_credencial', 'name' => 'Tipo Tarjeta');
-        $filtros[] = array('id' => 'tipo_habilitacion', 'name' => 'Tipo Habilitación');
+        $filtros[] = array('id' => 'cod_credencial', 'name'=> __("Cód. Tarjeta"));
+        $filtros[] = array('id' => 'ref_credencial', 'name'=> __("Ref. Tarjeta"));
+        $filtros[] = array('id' => 'tipo_credencial', 'name'=> __("Tipo Tarjeta"));
+        $filtros[] = array('id' => 'tipo_habilitacion', 'name'=> __("Tipo Habilitación"));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -111,13 +111,13 @@ class StockCredenciales extends Controller
         $tipo_habilitacion = $request->input('tipo_habilitacion');
 
         if(!$cod_credencial || $cod_credencial == "")
-            return response(['error' => 'Debe ingresar Cód. Tarjeta'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe ingresar Cód. Tarjeta")], Response::HTTP_CONFLICT);
         if(!$ref_credencial || $ref_credencial == "")
-            return response(['error' => 'Debe ingresar Ref. Tarjeta'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe ingresar Ref. Tarjeta")], Response::HTTP_CONFLICT);
         if(!$tipo_credencial || $tipo_credencial == "")
-            return response(['error' => 'Debe ingresar Tipo Tarjeta'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe ingresar Tipo Tarjeta")], Response::HTTP_CONFLICT);
         if(!$tipo_habilitacion || $tipo_habilitacion == "")
-            return response(['error' => 'Debe ingresar Tipo Habilitación'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe ingresar Tipo Habilitación")], Response::HTTP_CONFLICT);
         
         if(is_numeric($ref_credencial))
             $ref_credencial = (int)$ref_credencial;
@@ -131,7 +131,7 @@ class StockCredenciales extends Controller
 
         $credencial->save();
 
-        return response(['ok' => 'La Tarjeta fue creada satisfactoriamente con id: '.$cod_credencial], Response::HTTP_OK);
+        return response(['ok'=> __("La Tarjeta fue creada satisfactoriamente con identificador :COD_CREDENCIAL",['COD_CREDENCIAL'=>$cod_credencial])], Response::HTTP_OK);
     }
 
     public function update(Request $request)
@@ -142,13 +142,13 @@ class StockCredenciales extends Controller
         $tipo_habilitacion = $request->input('tipo_habilitacion');
 
         if(!$cod_credencial || $cod_credencial == "")
-            return response(['error' => 'Debe ingresar Tarjeta'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe ingresar Tarjeta")], Response::HTTP_CONFLICT);
         if(!$ref_credencial || $ref_credencial == "")
-            return response(['error' => 'Debe ingresar Ref. Tarjeta'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe ingresar Ref. Tarjeta")], Response::HTTP_CONFLICT);
         if(!$tipo_credencial || $tipo_credencial == "")
-            return response(['error' => 'Debe ingresar Tipo Tarjeta'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe ingresar Tipo Tarjeta")], Response::HTTP_CONFLICT);
         if(!$tipo_habilitacion || $tipo_habilitacion == "")
-            return response(['error' => 'Debe ingresar Tipo Habilitación'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe ingresar Tipo Habilitación")], Response::HTTP_CONFLICT);
         
         if(is_numeric($ref_credencial))
             $ref_credencial = (int)$ref_credencial;
@@ -164,10 +164,10 @@ class StockCredenciales extends Controller
         }
         catch (Exception $e)
         {
-            return response(['error' => 'Error grabando Tarjeta'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Error grabando Tarjeta")], Response::HTTP_CONFLICT);
         }
 
-        return response(['ok' => 'Actualización exitosa #'.$cod_credencial], Response::HTTP_OK);
+        return response(['ok'=> __("Actualización exitosa :COD_CREDENCIAL",['COD_CREDENCIAL'=>$cod_credencial])], Response::HTTP_OK);
     }
 
 
@@ -178,7 +178,6 @@ class StockCredenciales extends Controller
         
         $credencial = Credencial::find($cod_credencial);
         $credencial->delete();
-        return response(['ok' => 'Se eliminó satisfactoriamente la Tarjeta #'.$cod_credencial], Response::HTTP_OK);
+        return response(['ok'=> __("Se eliminó satisfactoriamente la Tarjeta :COD_CREDENCIAL",['COD_CREDENCIAL'=>$cod_credencial])], Response::HTTP_OK);
     }
-
 }

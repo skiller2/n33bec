@@ -45,7 +45,7 @@ module.exports = {
             'Access-Control-Allow-Origin': 'https://drive.google.com',
         },
         proxy: {
-            '/apiloca': {
+            '/api': {
                 target: 'http://localhost:8091/public',
                 //                target: 'http://localhost:9002',
                 headers: {
@@ -58,7 +58,7 @@ module.exports = {
                 secure: true,
                 changeOrigin: true,
             },
-            '/api': {   //Bomberos
+            '/apiSide': {   //Bomberos
                 target: 'http://10.8.0.3/',
                 secure: true,
                 changeOrigin: true,

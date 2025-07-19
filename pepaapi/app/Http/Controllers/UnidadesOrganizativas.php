@@ -60,27 +60,27 @@ class UnidadesOrganizativas extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"cod_ou", "name" => "Cod. Organización", "key" => "cod_ou");
-                    $columnDefs[] = array("prop"=>"nom_ou", "name" => "Nombre");
-                    $columnDefs[] = array("prop"=>"des_ou", "name" => "Descripción");
-                    $columnDefs[] = array("prop"=>"centro_emergencias", "name" => "Centro Emergencias");
-                    $columnDefs[] = array("prop"=>"tel_centro_emergencias", "name" => "Teléfono");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta", "pipe" => "ftDateTime", "searchtype" => "date");
+                    $columnDefs[] = array("prop"=>"cod_ou", "name"=> __("Cod. Organización"), "key" => "cod_ou");
+                    $columnDefs[] = array("prop"=>"nom_ou", "name"=> __("Nombre"));
+                    $columnDefs[] = array("prop"=>"des_ou", "name"=> __("Descripción"));
+                    $columnDefs[] = array("prop"=>"centro_emergencias", "name"=> __("Centro Emergencias"));
+                    $columnDefs[] = array("prop"=>"tel_centro_emergencias", "name"=> __("Teléfono"));
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name"=> __("Fecha Alta"), "pipe" => "ftDateTime", "searchtype" => "date");
             break;
             default:
-                    $columnDefs[] = array("field"=>"cod_ou","displayName"=>"Cod. Organización");
-                    $columnDefs[] = array("field"=>"nom_ou","displayName"=>"Nombre");
-                    $columnDefs[] = array("field"=>"des_ou","displayName"=>"Descripción");
-                    $columnDefs[] = array("field"=>"centro_emergencias","displayName"=>"Centro Emergencias");
-                    $columnDefs[] = array("field"=>"tel_centro_emergencias","displayName"=>"Teléfono");
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>"Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"cod_ou","displayName"=> __("Cod. Organización"));
+                    $columnDefs[] = array("field"=>"nom_ou","displayName"=> __("Nombre"));
+                    $columnDefs[] = array("field"=>"des_ou","displayName"=> __("Descripción"));
+                    $columnDefs[] = array("field"=>"centro_emergencias","displayName"=> __("Centro Emergencias"));
+                    $columnDefs[] = array("field"=>"tel_centro_emergencias","displayName"=> __("Teléfono"));
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=> __("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime");
         }
         $columnKeys = ['cod_ou'];
         
-        $filtros[] = array('id' => 'cod_ou', 'name' => 'Cód. Organización');
-        $filtros[] = array('id' => 'nom_ou', 'name' => 'Nombre');
-        $filtros[] = array('id' => 'des_ou', 'name' => 'Descripción');
-        $filtros[] = array('id' => 'centro_emergencias', 'name' => 'Centro Emergencias');
+        $filtros[] = array('id' => 'cod_ou', 'name'=> __("Cód. Organización"));
+        $filtros[] = array('id' => 'nom_ou', 'name'=> __("Nombre"));
+        $filtros[] = array('id' => 'des_ou', 'name'=> __("Descripción"));
+        $filtros[] = array('id' => 'centro_emergencias', 'name'=> __("Centro Emergencias"));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -177,7 +177,7 @@ class UnidadesOrganizativas extends Controller
             Cache::forget("sectores");
         }
 
-        return response(['ok' => 'La organización fue creada satisfactoriamente con código: '.$cod_ou], Response::HTTP_OK);
+        return response(['ok' => __('La organización fue creada satisfactoriamente con código :COD_OU',['COD_OU'=>$cod_ou])], Response::HTTP_OK);
     }
 
 
@@ -244,7 +244,7 @@ class UnidadesOrganizativas extends Controller
         
         Cache::forget("sectores");
         
-        return response(['ok' => 'Se eliminó satisfactoriamente la organización código '.$cod_ou], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente la organización código :COD_OU',['COD_OU'=>$cod_ou])], Response::HTTP_OK);
     }
 
     public function getOUSync() {

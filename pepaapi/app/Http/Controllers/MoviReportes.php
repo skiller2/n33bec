@@ -109,16 +109,16 @@ class MoviReportes extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"id_disp_origen", "name" => "ID Origen", "key" => "id_disp_origen");
-                    $columnDefs[] = array("prop"=>"stm_ult_reporte", "name" => "Fecha Último Reporte");
+                    $columnDefs[] = array("prop"=>"id_disp_origen", "name"=> __("ID Origen"), "key" => "id_disp_origen");
+                    $columnDefs[] = array("prop"=>"stm_ult_reporte", "name"=> __("Fecha Último Reporte"));
             break;
             default:
-                    $columnDefs[] = array("field"=>"id_disp_origen","displayName"=>"ID Origen");
-                    $columnDefs[] = array("field"=>"stm_ult_reporte","displayName"=>"Fecha Último Reporte","type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"id_disp_origen","displayName"=> __("ID Origen"));
+                    $columnDefs[] = array("field"=>"stm_ult_reporte","displayName"=> __("Fecha Último Reporte"),"type"=>"date","cellFilter"=>"ftDateTime");
         }
         $columnKeys = ['id_disp_origen'];
         
-        $filtros[] = array('id' => 'id_disp_origen', 'name' => 'ID Origen');
+        $filtros[] = array('id' => 'id_disp_origen', 'name'=> __("ID Origen"));
 
         $rango['desde'] = array('id' => 'stm_ult_reporte', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -139,7 +139,7 @@ class MoviReportes extends Controller
         $reporte->stm_ult_reporte = $reporte->aud_stm_ingreso;
         $reporte->save();
 
-        return response(['ok' => 'Componente '.$reporte->id_disp_origen .' Fecha: '.$reporte->stm_evento], Response::HTTP_OK);
+        return response(['ok' => __('Componente :ID_DISP_ORIGEN fecha :STM_EVENTO',['ID_DISP_ORIGEN'=>$reporte->id_disp_origen,'STM_EVENTO'=>$reporte->stm_evento])], Response::HTTP_OK);
     }
 
 }

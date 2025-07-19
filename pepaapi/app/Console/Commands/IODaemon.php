@@ -106,7 +106,7 @@ class IODaemon extends Command {
         if (Cache::get(self::confVersion) != $this->daemon_conf_ver) {
             if ($this->loadConfigData()) {
                 $context = array(
-                    'msgtext' => "Proceso GPIOs actualizando configuración"
+                    'msgtext' => __("Proceso GPIOs actualizando configuración")
                 );
 
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
@@ -228,7 +228,7 @@ class IODaemon extends Command {
                     continue;
 
                 $cod_tema_origen= $this->ios_conf[$io_nro]['cod_tema'];
-                $this->printDebugInfo("Inicializo gpio: $io_nro ");
+                $this->printDebugInfo(__("Inicializo gpio :IO_NRO",['IO_NRO' =>$io_nro]));
                 $pin_counter = 100;
                 $pin_initialized = false;
                 $io_value = 0;

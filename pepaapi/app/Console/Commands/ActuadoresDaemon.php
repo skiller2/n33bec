@@ -85,7 +85,7 @@ class ActuadoresDaemon extends Command
         if (Cache::get(self::confVersion) != $this->daemon_conf_ver) {
             if ($this->loadConfigData()) {
                 $context = array(
-                    'msgtext' => "Actuadores, actualizando configuración"
+                    'msgtext' => __("Actuadores, actualizando configuración")
                 );
 
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
@@ -105,17 +105,17 @@ class ActuadoresDaemon extends Command
         $this->cod_tema_rele_estrobo = (isset($actuadores['cod_tema_rele_estrobo'])) ? $actuadores['cod_tema_rele_estrobo'] : "";
 
         if ($this->cod_tema_rele_alarma &&  !isset($this->temas[$this->cod_tema_rele_alarma])) {
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert',  array("msgtext" => "Parámetro ACTUADORES tema " . $this->cod_tema_rele_alarma . " no registrado"));
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert',  array("msgtext" => __("Parámetro ACTUADORES tema :COD_TEMA_RELE_ALARMA no registrado",['COD_TEMA_RELE_ALARMA'=>$this->cod_tema_rele_alarma])));
             $this->cod_tema_rele_alarma = "";
         }
 
         if ($this->cod_tema_rele_falla && !isset($this->temas[$this->cod_tema_rele_falla])) {
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert',  array("msgtext" => "Parámetro ACTUADORES tema " . $this->cod_tema_rele_falla . " no registrado"));
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert',  array("msgtext" => __("Parámetro ACTUADORES tema :COD_TEMA_RELE_FALLA no registrado",['COD_TEMA_RELE_FALLA'=> $this->cod_tema_rele_falla])));
             $this->cod_tema_rele_falla = "";
         }
 
         if ($this->cod_tema_rele_estrobo && !isset($this->temas[$this->cod_tema_rele_estrobo])) {
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert',  array("msgtext" => "Parámetro ACTUADORES tema " . $this->cod_tema_rele_estrobo . " no registrado"));
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert',  array("msgtext" => __("Parámetro ACTUADORES tema :COD_TEMA_RELE_ESTROBO no registrado",['COD_TEMA_RELE_ESTROBO'=>$this->cod_tema_rele_estrobo])));
             $this->cod_tema_rele_estrobo = "";
         }
 
@@ -138,7 +138,7 @@ class ActuadoresDaemon extends Command
     {
         $cod_daemon = basename(__FILE__, ".php");
 
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => "Inicio proceso " . $cod_daemon));
+        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon])));
 
         $context = array(
             'msgtext' => "",
@@ -195,7 +195,7 @@ class ActuadoresDaemon extends Command
     {
         $cod_daemon = basename(__FILE__, ".php");
 
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => "Inicio proceso " . $cod_daemon));
+        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon]) ));
 
         $context = array(
             'msgtext' => "",

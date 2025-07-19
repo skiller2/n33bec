@@ -85,7 +85,7 @@ class Area54Daemon extends Command
         if (Cache::get(self::confVersion) != $this->daemon_conf_ver) {
             if ($this->loadConfigData()) {
                 $context = array(
-                    'msgtext' => "Proceso BUS485AREA actualizando configuración"
+                    'msgtext' => __("Proceso BUS485AREA actualizando configuración")
                 );
 
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
@@ -114,7 +114,7 @@ class Area54Daemon extends Command
                 break;
 
             $context = array(
-                'msgtext' => "Conexión exitosa con " . $command_short . " PID:" . $process->getPid()
+                'msgtext' => __("Conexión exitosa con :COMMAND_SHORT PID :PID" ,['COMMAND_SHORT'=>$command_short,'PID'=>$process->getPid()])
             );
             Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
             $this->printDebugInfo($context['msgtext']);
@@ -145,7 +145,7 @@ class Area54Daemon extends Command
             $code =  $process->join();
 //            $process->__destruct();
             $context = array(
-                'msgtext' => "Se cerró el proceso " . $command_short . " con código $code"
+                'msgtext' => __("Se cerró el proceso :COMMAND_SHORT con código :CODE",['COMMAND_SHORT'=>$command_short,'CODE'=>$code])
             );
             Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
             $this->printDebugInfo($context['msgtext']);
@@ -171,7 +171,7 @@ class Area54Daemon extends Command
 
         if ($this->proc === false) {
             $context = array(
-                'msgtext' => "Error iniciando proceso BUS485AREA "
+                'msgtext' => __("Error iniciando proceso BUS485AREA")
             );
             Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
             $this->printDebugInfo($context['msgtext']);
@@ -184,7 +184,7 @@ class Area54Daemon extends Command
         $except = array();
 
         $context = array(
-            'msgtext' => "Conexión exitosa con BUS485AREA "
+            'msgtext' => __("Conexión exitosa con BUS485AREA")
         );
 
         Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
@@ -195,7 +195,7 @@ class Area54Daemon extends Command
                 if ($stream === $this->pipes[1]) {
                     if (feof($stream)) {
                         $context = array(
-                            'msgtext' => "Se cerró el proceso BUS485AREA"
+                            'msgtext' => __("Se cerró el proceso BUS485AREA")
                         );
                         Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
                         $this->printDebugInfo($context['msgtext']);
@@ -305,7 +305,7 @@ class Area54Daemon extends Command
                                 }
                                 if ($notifica) {
                                     $context = array(
-                                        'msgtext' => "Comando envido $subcommand",
+                                        'msgtext' => __("Comando envido :SUBCOMMAND",['SUBCOMMAND'=>$subcommand]),
                                         'cod_tema' => "",
                                         'cod_daemon' => $cod_daemon,
                                         //'command' => 'start'
@@ -420,7 +420,7 @@ class Area54Daemon extends Command
                     function () use ($signal) {
                         /*      
                         $context = array(
-                            'msgtext' => "Deteniendo procesos AREA54"
+                            'msgtext' => __("Deteniendo procesos AREA54")
                         );
                         Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'warning',  $context);
                         $this->printDebugInfo($context['msgtext']);

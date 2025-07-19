@@ -170,7 +170,7 @@ class MoviDisplayTemas extends Controller
         }
         $evento->save();
 
-        return response(['ok' => 'El evento ' . $evento->stm_evento . ' fue creado satisfactoriamente'], Response::HTTP_OK);
+        return response(['ok' => __('El evento :STM_EVENTO fue creado satisfactoriamente',['STM_EVENTO'=>$evento->stm_evento])], Response::HTTP_OK);
     }
 
     public function delete($cod_tema)
@@ -193,9 +193,9 @@ class MoviDisplayTemas extends Controller
 */
 //            MoviDisplayTemas::sendMoviDisplayTemasSync();
 
-            return response(['ok' => 'Se eliminó satisfactoriamente el movimiento'], Response::HTTP_OK);
+            return response(['ok' => __('Se eliminó satisfactoriamente el movimiento')], Response::HTTP_OK);
         } else {
-            return response(['ok' => 'Sin registros para eliminar'], Response::HTTP_OK);
+            return response(['ok' => __('Sin registros para eliminar')], Response::HTTP_OK);
         }
     }
 
@@ -213,7 +213,7 @@ class MoviDisplayTemas extends Controller
         $des_observaciones = "Cambio manual, " . $user['ape_persona'] . ", " . $user['nom_persona'] . " ($cod_usuario@$cod_tema_origen)";
         $temas = ConfigParametro::getTemas();
         if (!isset($temas[$cod_tema])) {
-            return response(['error' => "No se encontro el código $cod_tema"], Response::HTTP_CONFLICT);
+            return response(['error' => __("No se encontro el código :COD_TEMA",['COD_TEMA'=>$cod_tema])], Response::HTTP_CONFLICT);
         }
 
         $tema = $temas[$cod_tema];
@@ -228,7 +228,7 @@ class MoviDisplayTemas extends Controller
             event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
             return response(['ok' => ''], Response::HTTP_OK);
         } else {
-            return response(['error' => 'No se encuentra habilitada la opción de modificación manual'], Response::HTTP_CONFLICT);
+            return response(['error' => __('No se encuentra habilitada la opción de modificación manual')], Response::HTTP_CONFLICT);
         }
     }
 
@@ -258,7 +258,7 @@ class MoviDisplayTemas extends Controller
                 }
             }
 
-            return response(['error' => "No se encontro el código $cod_tema"], Response::HTTP_CONFLICT);
+            return response(['error' => __("No se encontro el código :COD_TEMA",['COD_TEMA'=>$cod_tema])], Response::HTTP_CONFLICT);
         }
 
         $tema = $temas[$cod_tema];
@@ -273,7 +273,7 @@ class MoviDisplayTemas extends Controller
             event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
             return response(['ok' => ''], Response::HTTP_OK);
         } else {
-            return response(['error' => 'No se encuentra habilitada la opción de modificación manual'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("No se encuentra habilitada la opción de modificación manual")], Response::HTTP_CONFLICT);
         }
     }
 
@@ -294,14 +294,14 @@ class MoviDisplayTemas extends Controller
         $cmd = $request->input('cmd');
         $temas = ConfigParametro::getTemas();
         if (!isset($temas[$cod_tema])) {
-            return response(['error' => "No se encontro el código $cod_tema"], Response::HTTP_CONFLICT);
+            return response(['error' => __("No se encontro el código :COD_TEMA",['COD_TEMA'=>$cod_tema])], Response::HTTP_CONFLICT);
         }
 
         $tema = $temas[$cod_tema];
         $bus_id = (isset($tema['bus_id']))?$tema['bus_id']:"";
 
         if ($bus_id=="") {
-            return response(['error' => "No se encuentra configurado el bus_id para enviar comandos"], Response::HTTP_CONFLICT);
+            return response(['error'=> __("No se encuentra configurado el bus_id para enviar comandos")], Response::HTTP_CONFLICT);
         }
 
 
@@ -317,7 +317,7 @@ class MoviDisplayTemas extends Controller
         Broadcast::driver('fast-web-socket')->broadcast(["procesos"], "info",  $context);
 
         sleep(2);
-        return response(['ok' => 'Orden enviada'], Response::HTTP_OK);
+        return response(['ok'=> __("Orden enviada")], Response::HTTP_OK);
     }
 
 

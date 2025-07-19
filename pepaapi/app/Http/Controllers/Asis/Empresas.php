@@ -55,22 +55,22 @@ class Empresas extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"cod_empresa", "name" => "Cód. Empresa", "key" => "cod_empresa");
-                    $columnDefs[] = array("prop"=>"nom_empresa", "name" => "Nombre");
-                    $columnDefs[] = array("prop"=>"des_empresa", "name" => "Descripción");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta");
+                    $columnDefs[] = array("prop"=>"cod_empresa", "name"=> __("Cód. Empresa"), "key" => "cod_empresa");
+                    $columnDefs[] = array("prop"=>"nom_empresa", "name"=> __("Nombre"));
+                    $columnDefs[] = array("prop"=>"des_empresa", "name"=> __("Descripción"));
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name"=> __("Fecha Alta"));
             break;
             default:
-                    $columnDefs[] = array("field"=>"cod_empresa","displayName"=>"Cód. Empresa");
-                    $columnDefs[] = array("field"=>"nom_empresa","displayName"=>"Nombre");
-                    $columnDefs[] = array("field"=>"des_empresa","displayName"=>"Descripción");
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>"Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"cod_empresa","displayName"=> __("Cód. Empresa"));
+                    $columnDefs[] = array("field"=>"nom_empresa","displayName"=> __("Nombre"));
+                    $columnDefs[] = array("field"=>"des_empresa","displayName"=> __("Descripción"));
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=> __("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime");
         }
         $columnKeys = ['cod_empresa'];
         
-        $filtros[] = array('id' => 'cod_empresa', 'name' => 'Cód. Empresa');
-        $filtros[] = array('id' => 'nom_empresa', 'name' => 'Nombre');
-        $filtros[] = array('id' => 'des_empresa', 'name' => 'Descripción');
+        $filtros[] = array('id' => 'cod_empresa', 'name'=> __("Cód. Empresa"));
+        $filtros[] = array('id' => 'nom_empresa', 'name'=> __("Nombre"));
+        $filtros[] = array('id' => 'des_empresa', 'name'=> __("Descripción"));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -118,8 +118,8 @@ class Empresas extends Controller
             Empresa::addAuditoria($empresa, $audit);
             $empresa->save();
         }
-        //return response(['error' => 'update empresas'], Response::HTTP_CONFLICT);
-        return response(['ok' => 'Organizaciones actualizadas'], Response::HTTP_OK);
+        //return response(['error'=> __("update empresas")], Response::HTTP_CONFLICT);
+        return response(['ok'=>'Actualización exitosa'], Response::HTTP_OK);
     }
 
     /**
@@ -150,7 +150,7 @@ class Empresas extends Controller
         Empresa::addAuditoria($empresa, "A");
         $empresa->save();
 
-        return response(['ok' => 'La Organización fue creada satisfactoriamente con id: '.$cod_empresa], Response::HTTP_OK);
+        return response(['ok' => __('La Organización fue creada satisfactoriamente con identificador :COD_EMPRESA',['COD_EMPRESA'=>$cod_empresa])], Response::HTTP_OK);
         */
     }
 
@@ -205,7 +205,7 @@ class Empresas extends Controller
 
         Empresa::find($cod_empresa)->delete();
         
-        return response(['ok' => 'Se eliminó satisfactoriamente la empresa #' . $cod_empresa], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente la empresa :COD_EMPRESA',['COD_EMPRESA'=>$cod_empresa])], Response::HTTP_OK);
         */
     }
 

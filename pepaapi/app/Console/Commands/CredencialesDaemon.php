@@ -78,7 +78,7 @@ class CredencialesDaemon extends Command
         if (Cache::get(self::confVersion) != $this->daemon_conf_ver) {
             if ($this->loadConfigData()) {
                 $context = array(
-                    'msgtext' => "Proceso Credenciales actualizando configuración"
+                    'msgtext' => __("Proceso Credenciales actualizando configuración")
                 );
 
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);

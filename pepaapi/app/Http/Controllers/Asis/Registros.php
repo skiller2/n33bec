@@ -179,57 +179,57 @@ class Registros extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"fec_registro", "name" => "Fecha", "key" => "fec_registro");
-                    $columnDefs[] = array("prop"=>"cod_empleado", "name" => "Cód. Empleado", "key" => "cod_empleado");
-                    $columnDefs[] = array("prop"=>"ape_persona", "name" => "Apellido Empleado");
-                    $columnDefs[] = array("prop"=>"nom_persona", "name" => "Nombre Empleado");
-                    $columnDefs[] = array("prop"=>"nom_novedad", "name" => "Novedad");
-                    $columnDefs[] = array("prop"=>"nom_novedad_trabajo", "name" => "Novedad Trabajo", "visible" => false);
-                    $columnDefs[] = array("prop"=>"ind_feriado", "name" => "Feriado");
-                    $columnDefs[] = array("prop"=>"ind_tarde", "name" => "Tarde");
-                    $columnDefs[] = array("prop"=>"ind_dia_laborable", "name" => "Día Laborable");
-                    $columnDefs[] = array("prop"=>"hora_ingreso_esperado", "name" => "Hora Ingreso Esperado");
-                    $columnDefs[] = array("prop"=>"hora_egreso_esperado", "name" => "Hora Egreso Esperado");
-                    $columnDefs[] = array("prop"=>"hora_ingreso", "name" => "Hora Ingreso");
-                    $columnDefs[] = array("prop"=>"hora_egreso", "name" => "Hora Egreso");
-                    $columnDefs[] = array("prop"=>"tm_trabajado", "name" => "Trabajado");
-                    $columnDefs[] = array("prop"=>"tm_tardanza", "name" => "Tardanza");
-                    $columnDefs[] = array("prop"=>"tm_extra", "name" => "Extra");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta", "visible" => false);
-                    $columnDefs[] = array("prop"=>"cod_empresa", "name" => "Cód. Organización", "key" => "cod_empresa", "visible" => false);
-                    $columnDefs[] = array("prop"=>"tipo_novedad", "name" => "Tipo Novedad", "visible" => false);
-                    $columnDefs[] = array("prop"=>"nom_empresa", "name" => "Organización", "visible" => false);
+                    $columnDefs[] = array("prop"=>"fec_registro", "name"=> __("Fecha"), "key" => "fec_registro");
+                    $columnDefs[] = array("prop"=>"cod_empleado", "name"=> __("Cód. Empleado"), "key" => "cod_empleado");
+                    $columnDefs[] = array("prop"=>"ape_persona", "name"=> __("Apellido Empleado"));
+                    $columnDefs[] = array("prop"=>"nom_persona", "name"=> __("Nombre Empleado"));
+                    $columnDefs[] = array("prop"=>"nom_novedad", "name"=> __("Novedad"));
+                    $columnDefs[] = array("prop"=>"nom_novedad_trabajo", "name"=> __("Novedad Trabajo"), "visible" => false);
+                    $columnDefs[] = array("prop"=>"ind_feriado", "name"=> __("Feriado"));
+                    $columnDefs[] = array("prop"=>"ind_tarde", "name"=> __("Tarde"));
+                    $columnDefs[] = array("prop"=>"ind_dia_laborable", "name"=> __("Día Laborable"));
+                    $columnDefs[] = array("prop"=>"hora_ingreso_esperado", "name"=> __("Hora Ingreso Esperado"));
+                    $columnDefs[] = array("prop"=>"hora_egreso_esperado", "name"=> __("Hora Egreso Esperado"));
+                    $columnDefs[] = array("prop"=>"hora_ingreso", "name"=> __("Hora Ingreso"));
+                    $columnDefs[] = array("prop"=>"hora_egreso", "name"=> __("Hora Egreso"));
+                    $columnDefs[] = array("prop"=>"tm_trabajado", "name"=> __("Trabajado"));
+                    $columnDefs[] = array("prop"=>"tm_tardanza", "name"=> __("Tardanza"));
+                    $columnDefs[] = array("prop"=>"tm_extra", "name"=> __("Extra"));
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name"=> __("Fecha Alta"), "visible" => false);
+                    $columnDefs[] = array("prop"=>"cod_empresa", "name"=> __("Cód. Organización"), "key" => "cod_empresa", "visible" => false);
+                    $columnDefs[] = array("prop"=>"tipo_novedad", "name"=> __("Tipo Novedad"), "visible" => false);
+                    $columnDefs[] = array("prop"=>"nom_empresa", "name"=> __("Organización"), "visible" => false);
             break;
             default:
-                    $columnDefs[] = array("field"=>"fec_registro", "displayName" => "Fecha", "type"=>"date", "cellFilter"=>"ftDate");
-                    $columnDefs[] = array("field"=>"cod_empleado", "displayName" => "Cód. Empleado");
-                    $columnDefs[] = array("field"=>"ape_persona", "displayName" => "Apellido Empleado");
-                    $columnDefs[] = array("field"=>"nom_persona", "displayName" => "Nombre Empleado");
-                    $columnDefs[] = array("field"=>"nom_novedad", "displayName" => "Novedad");
-                    $columnDefs[] = array("field"=>"nom_novedad_trabajo", "displayName" => "Novedad Trabajo", "visible" => false);
-                    $columnDefs[] = array("field"=>"ind_feriado", "displayName" => "Feriado", "cellFilter"=>"ftBoolean");
-                    $columnDefs[] = array("field"=>"ind_tarde", "displayName" => "Tarde", "cellFilter"=>"ftBoolean");
-                    $columnDefs[] = array("field"=>"ind_dia_laborable", "displayName" => "Día Laborable", "cellFilter"=>"ftBoolean");
-                    $columnDefs[] = array("field"=>"hora_ingreso_esperado", "displayName" => "Hora Ingreso Esperado", "cellFilter"=>"ftHorarios");
-                    $columnDefs[] = array("field"=>"hora_egreso_esperado", "displayName" => "Hora Egreso Esperado", "cellFilter"=>"ftHorarios");
-                    $columnDefs[] = array("field"=>"hora_ingreso", "displayName" => "Hora Ingreso", "cellFilter"=>"ftHorarios");
-                    $columnDefs[] = array("field"=>"hora_egreso", "displayName" => "Hora Egreso", "cellFilter"=>"ftHorarios");
-                    $columnDefs[] = array("field"=>"tm_trabajado", "displayName" => "Trabajado", "cellFilter"=>"ftHorarios");
-                    $columnDefs[] = array("field"=>"tm_tardanza", "displayName" => "Tardanza", "cellFilter"=>"ftHorarios");
-                    $columnDefs[] = array("field"=>"tm_extra", "displayName" => "Extra", "cellFilter"=>"ftHorarios");
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso", "displayName" => "Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime", "visible" => false);
-                    $columnDefs[] = array("field"=>"cod_empresa", "displayName" => "Cód. Organización", "visible" => false);
-                    //$columnDefs[] = array("field"=>"tipo_novedad", "displayName" => "Tipo Novedad", "visible" => false);
-                    //$columnDefs[] = array("field"=>"nom_empresa", "displayName" => "Organización", "visible" => false);
+                    $columnDefs[] = array("field"=>"fec_registro", "displayName"=> __("Fecha"), "type"=>"date", "cellFilter"=>"ftDate");
+                    $columnDefs[] = array("field"=>"cod_empleado", "displayName"=> __("Cód. Empleado"));
+                    $columnDefs[] = array("field"=>"ape_persona", "displayName"=> __("Apellido Empleado"));
+                    $columnDefs[] = array("field"=>"nom_persona", "displayName"=> __("Nombre Empleado"));
+                    $columnDefs[] = array("field"=>"nom_novedad", "displayName"=> __("Novedad"));
+                    $columnDefs[] = array("field"=>"nom_novedad_trabajo", "displayName"=> __("Novedad Trabajo"), "visible" => false);
+                    $columnDefs[] = array("field"=>"ind_feriado", "displayName"=> __("Feriado"), "cellFilter"=>"ftBoolean");
+                    $columnDefs[] = array("field"=>"ind_tarde", "displayName"=> __("Tarde"), "cellFilter"=>"ftBoolean");
+                    $columnDefs[] = array("field"=>"ind_dia_laborable", "displayName"=> __("Día Laborable"), "cellFilter"=>"ftBoolean");
+                    $columnDefs[] = array("field"=>"hora_ingreso_esperado", "displayName"=> __("Hora Ingreso Esperado"), "cellFilter"=>"ftHorarios");
+                    $columnDefs[] = array("field"=>"hora_egreso_esperado", "displayName"=> __("Hora Egreso Esperado"), "cellFilter"=>"ftHorarios");
+                    $columnDefs[] = array("field"=>"hora_ingreso", "displayName"=> __("Hora Ingreso"), "cellFilter"=>"ftHorarios");
+                    $columnDefs[] = array("field"=>"hora_egreso", "displayName"=> __("Hora Egreso"), "cellFilter"=>"ftHorarios");
+                    $columnDefs[] = array("field"=>"tm_trabajado", "displayName"=> __("Trabajado"), "cellFilter"=>"ftHorarios");
+                    $columnDefs[] = array("field"=>"tm_tardanza", "displayName"=> __("Tardanza"), "cellFilter"=>"ftHorarios");
+                    $columnDefs[] = array("field"=>"tm_extra", "displayName"=> __("Extra"), "cellFilter"=>"ftHorarios");
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso", "displayName"=> __("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime", "visible" => false);
+                    $columnDefs[] = array("field"=>"cod_empresa", "displayName"=> __("Cód. Organización"), "visible" => false);
+                    //$columnDefs[] = array("field"=>"tipo_novedad", "displayName"=> __("Tipo Novedad"), "visible" => false);
+                    //$columnDefs[] = array("field"=>"nom_empresa", "displayName"=> __("Organización"), "visible" => false);
         }
 
         $columnKeys = ['cod_empleado','cod_empresa','fec_registro'];   
         
-        $filtros[] = array('id' => 'cod_empleado', 'name' => 'Cód. Empleado');
-        $filtros[] = array('id' => 'des_empleado', 'name' => 'Apellido y Nombre');
-        $filtros[] = array('id' => 'nom_empresa', 'name' => 'Organización');
-        $filtros[] = array('id' => 'nom_novedad', 'name' => 'Novedad');
-        $filtros[] = array('id' => 'nom_novedad_trabajo', 'name' => 'Novedad Trabajo');
+        $filtros[] = array('id' => 'cod_empleado', 'name'=> __("Cód. Empleado"));
+        $filtros[] = array('id' => 'des_empleado', 'name'=> __("Apellido y Nombre"));
+        $filtros[] = array('id' => 'nom_empresa', 'name'=> __("Organización"));
+        $filtros[] = array('id' => 'nom_novedad', 'name'=> __("Novedad"));
+        $filtros[] = array('id' => 'nom_novedad_trabajo', 'name'=> __("Novedad Trabajo"));
 
         $rango['desde'] = array('id' => 'fec_registro', 'tipo' => 'date');
         $rango['hasta'] = $rango['desde'];
@@ -372,7 +372,7 @@ class Registros extends Controller
         }
         
 
-        return response(['ok' => 'El registro '. $fec_registro.' fue creado satisfactoriamente'], Response::HTTP_OK);
+        return response(['ok'=> __("El registro :FEC_REGISTRO fue creado satisfactoriamente",['FEC_REGISTRO'=>$fec_registro])], Response::HTTP_OK);
     }
 
     public function update(Request $request)
@@ -468,7 +468,7 @@ class Registros extends Controller
                     ->where("fec_registro","=",$fec_registro)->first();
         $registro->delete();
         
-        return response(['ok' => 'Se eliminó satisfactoriamente el registro'], Response::HTTP_OK);
+        return response(['ok'=> __("Se eliminó satisfactoriamente el registro")], Response::HTTP_OK);
     }
 
     public function updateEmpleados(Request $request)
@@ -508,7 +508,7 @@ class Registros extends Controller
         }
 
         //file_put_contents('C:/temp/archivo.txt', var_export($empleado, true));  
-        //return response(['error' => "Actualización Registros"], Response::HTTP_CONFLICT);
+        //return response(['error'=> __("Actualización Registros")], Response::HTTP_CONFLICT);
 
         foreach($fechas as $fecha){
             $ind_feriado = $fecha['ind_feriado'];
@@ -616,7 +616,7 @@ class Registros extends Controller
                         ->update(['tipo_novedad' => $tipo_novedad, 'des_novedad' => $des_novedad]);
                     break;
                 default:
-                    return response(['error' => 'Sin Indicador Tipo Novedad'], Response::HTTP_CONFLICT);
+                    return response(['error'=> __("Sin Indicador Tipo Novedad")], Response::HTTP_CONFLICT);
                     break;
             }
         }
@@ -696,7 +696,7 @@ class Registros extends Controller
     private function getEmpleados($cod_empresa)
     {
         if($cod_empresa=="")
-            return response(['error' => "Debe selecciona Organización"], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe selecciona Organización")], Response::HTTP_CONFLICT);
 
         $resultado = Empleado::select('cod_empleado','obj_dias_horarios', 'fec_alta')
                     ->where('cod_empresa', '=', $cod_empresa)

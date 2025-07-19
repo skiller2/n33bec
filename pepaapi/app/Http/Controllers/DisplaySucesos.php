@@ -71,7 +71,7 @@ class DisplaySucesos extends Controller
 
             if (Cache::get("LISTASEC_REMOTO","")!=$hashsecremoto){
                 $context = array(
-                    'msgtext' => "Configuración sectores remotos actualizada",
+                    'msgtext' => __("Configuración sectores remotos actualizada"),
                     "EstadoVal" => true, 
                     "EstadoDen" => "Sectores", 
                     "EstadoColor" => "green"
@@ -208,7 +208,7 @@ class DisplaySucesos extends Controller
         $cod_tema = base64_decode($cod_tema);
         $vatemas = ConfigParametro::getTemas("");
         if (!isset($vatemas[$cod_tema]))
-            return response(['error' => 'Tema no existe'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Tema no existe')], Response::HTTP_CONFLICT);
 
         $vadetalle = Cache::get("iolast_" . $cod_tema . "/A");
         $stm_event_alarma = (isset($vadetalle['stm_event'])) ? $vadetalle['stm_event'] : "";
@@ -313,7 +313,7 @@ class DisplaySucesos extends Controller
         $ind_alarmatec = 0;
 
         if (!isset($vatemas[$cod_tema]))
-            return response(['error' => 'Tema no existe'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Tema no existe')], Response::HTTP_CONFLICT);
 
         $nom_tema = $vatemas[$cod_tema]['nom_tema'];
 

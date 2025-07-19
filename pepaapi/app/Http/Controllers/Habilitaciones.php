@@ -68,7 +68,7 @@ class Habilitaciones extends Controller
             $tipo_habilitacion = $query[0]['tipo_habilitacion'];
             $ref_credencial = $query[0]['ref_credencial'];
             if ($tipo_habilitacion != $tipo_habilitacion_bus) {
-                return response(['error' => 'Cód. Tarjeta ' . $cod_credencial . ' (' . $ref_credencial . ') existente en stock con tipo de habilitación distinta a la solicitada'], Response::HTTP_CONFLICT);
+                return response(['error' => __('Cód. Tarjeta :COD_CREDENCIAL (:REF_CREDENCIAL) existente en stock con tipo de habilitación distinta a la solicitada',['COD_CREDENCIAL'=>$cod_credencial,'REF_CREDENCIAL'=> $ref_credencial])], Response::HTTP_CONFLICT);
             }
         } else
             $cod_credencial = $cod_credencial_bus;
@@ -97,16 +97,16 @@ class Habilitaciones extends Controller
         if (!empty($query[0])) {
             if ($ref_credencial != "")
                 $des_ref_credencial .= ' (' . $ref_credencial . ')';
-            return response(['error' => "Cód. Tarjeta $cod_credencial $des_ref_credencial ya asignada"], Response::HTTP_CONFLICT);
+            return response(['error' => __("Cód. Tarjeta :COD_CREDENCIAL :DES_REF_CREDENCIAL ya asignada",['COD_CREDENCIAL'=>$cod_credencial,'DES_REF_CREDENCIAL'=> $des_ref_credencial])], Response::HTTP_CONFLICT);
         }
-        return response(array("ok" => "Credencial disponible", "cod_credencial" => $cod_credencial, "ref_credencial" => $ref_credencial), Response::HTTP_ACCEPTED);
+        return response(array("ok" => __("Credencial disponible"), "cod_credencial" => $cod_credencial, "ref_credencial" => $ref_credencial), Response::HTTP_ACCEPTED);
     }
 
 
     public function valida(Request $request, $campo, $valor, $cod_ou)
     {
         if (!$cod_ou || $cod_ou == "" || $cod_ou == "false")
-            return response(['error' => 'Debe seleccionar Unidad Organizacional'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Debe seleccionar Unidad Organizacional')], Response::HTTP_CONFLICT);
         $clave = json_decode(base64_decode($valor, true), true);
         if ($campo == "cod_credencial") {
             $es_referencia = false;
@@ -152,14 +152,14 @@ class Habilitaciones extends Controller
                 $ref_credencial = $stock[0]['ref_credencial'];
 
                 if ($ind_hab == 'P' && $stock[0]['tipo_habilitacion'] == 'T') {
-                    return response(['error' => 'Cód. Tarjeta ' . $cod_credencial . ' (' . $ref_credencial . ') existente en stock con habilitación temporal'], Response::HTTP_CONFLICT);
+                    return response(['error' => __('Cód. Tarjeta :COD_CREDENCIAL :REF_CREDENCIAL existente en stock con habilitación temporal',['COD_CREDENCIAL'=>$cod_credencial , 'REF_CREDENCIAL'=>$ref_credencial])], Response::HTTP_CONFLICT);
                 }
                 if ($ind_hab == 'T' && $stock[0]['tipo_habilitacion'] == 'P') {
-                    return response(['error' => 'Cód. Tarjeta temporal ' . $cod_credencial . ' (' . $ref_credencial . ') inexistente en stock'], Response::HTTP_CONFLICT);
+                    return response(['error' => __('Cód. Tarjeta temporal :COD_CREDENCIAL :REF_CREDENCIAL inexistente en stock',['COD_CREDENCIAL'=>$cod_credencial , 'REF_CREDENCIAL'=>$ref_credencial])], Response::HTTP_CONFLICT);
                 }
                 $stockcred = true;
             } else if ($ind_hab == "T") {
-                return response(['error' => 'Cód. Tarjeta ' . $cod_credencial . ' (' . $ref_credencial . ') inexistente en stock para habilitación temporal'], Response::HTTP_CONFLICT);
+                return response(['error' => __('Cód. Tarjeta :COD_CREDENCIAL :REF_CREDENCIAL inexistente en stock para habilitación temporal',['COD_CREDENCIAL'=>$cod_credencial , 'REF_CREDENCIAL'=>$ref_credencial])], Response::HTTP_CONFLICT);
             }
 
             $query = HabiCredPersona::select(
@@ -187,7 +187,7 @@ class Habilitaciones extends Controller
                 $des_error = $cod_credencial;
                 if ($ref_credencial != "")
                     $des_error .= ' (' . $ref_credencial . ')';
-                return response(['error' => 'Cód. Tarjeta ' . $des_error . ' ya asignada'], Response::HTTP_CONFLICT);
+                return response(['error' => __('Cód. Tarjeta :DES_ERROR ya asignada',['DES_ERROR'=>$des_error])], Response::HTTP_CONFLICT);
 
 
                 $row = $query[0];
@@ -227,7 +227,7 @@ class Habilitaciones extends Controller
                 ->where('maesPersonas.cod_persona', '=', $cod_persona)
                 ->get();
             if (empty($query[0])) {
-                return response(array("error" => "Persona no localizada $cod_persona"), Response::HTTP_NOT_FOUND);
+                return response(array("error" => __("Persona no localizada :cod_persona",['cod_persona'=>$cod_persona])), Response::HTTP_NOT_FOUND);
             }
             $row = $query[0];
             $datosPersona = array(
@@ -245,7 +245,7 @@ class Habilitaciones extends Controller
                 $vacredenciales[] = $cred['cod_credencial'];
             }
             if (!empty($vacredenciales)) {
-                $vccredenciales = "La persona posee credenciales para devolver: " . implode(", ", $vacredenciales);
+                $vccredenciales = __("La persona posee credenciales para devolver :credenciales",['credenciales'=>implode(", ", $vacredenciales)]);
             }
 
 
@@ -361,7 +361,7 @@ class Habilitaciones extends Controller
                     $typeExp = Type::XLSX;
                     break;
             }
-            $fileName = "Habilitaciones_Permanentes.$typeExp";
+            $fileName = __("Habilitaciones_Permanentes.:TYPEEXP",['TYPEEXP'=>$typeExp]);
             $writer = WriterFactory::create($typeExp); // for XLSX files
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
@@ -430,37 +430,37 @@ class Habilitaciones extends Controller
     {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "cod_credencial", "name" => "Cód. Tarjeta", "key" => "cod_credencial");
-                $columnDefs[] = array("prop" => "ref_credencial", "name" => "Ref. Tarjeta");
-                $columnDefs[] = array("prop" => "nom_ou", "name" => "Organización");
-                $columnDefs[] = array("prop" => "cod_ou", "name" => "OU", "visible" => false);
-                $columnDefs[] = array("prop" => "nom_sector", "name" => "Sectores");
-                $columnDefs[] = array("prop" => "nro_documento", "name" => "DNI");
-                $columnDefs[] = array("prop" => "ape_persona", "name" => "Apellido");
-                $columnDefs[] = array("prop" => "nom_persona", "name" => "Nombre");
-                $columnDefs[] = array("prop" => "stm_habilitacion_desde", "name" => "Fecha Desde");
-                $columnDefs[] = array("prop" => "stm_habilitacion_hasta", "name" => "Fecha Hasta");
+                $columnDefs[] = array("prop" => "cod_credencial", "name" => __("Cód. Tarjeta"), "key" => "cod_credencial");
+                $columnDefs[] = array("prop" => "ref_credencial", "name" => __("Ref. Tarjeta"));
+                $columnDefs[] = array("prop" => "nom_ou", "name" => __("Organización"));
+                $columnDefs[] = array("prop" => "cod_ou", "name" => __("OU"), "visible" => false);
+                $columnDefs[] = array("prop" => "nom_sector", "name" => __("Sectores"));
+                $columnDefs[] = array("prop" => "nro_documento", "name" => __("DNI"));
+                $columnDefs[] = array("prop" => "ape_persona", "name" => __("Apellido"));
+                $columnDefs[] = array("prop" => "nom_persona", "name" => __("Nombre"));
+                $columnDefs[] = array("prop" => "stm_habilitacion_desde", "name" => __("Fecha Desde"));
+                $columnDefs[] = array("prop" => "stm_habilitacion_hasta", "name" => __("Fecha Hasta"));
                 break;
             default:
-                $columnDefs[] = array("field" => "cod_credencial", "displayName" => "Cód. Tarjeta", "cellFilter" => "ftTarjeta");
-                $columnDefs[] = array("field" => "ref_credencial", "displayName" => "Ref. Tarjeta");
-                $columnDefs[] = array("field" => "nom_ou", "displayName" => "Organización");
-                $columnDefs[] = array("field" => "cod_ou", "displayName" => "cod_ou", "visible" => false);
-                $columnDefs[] = array("field" => "nom_sector", "displayName" => "Sectores");
-                $columnDefs[] = array("field" => "nro_documento", "displayName" => "DNI");
-                $columnDefs[] = array("field" => "ape_persona", "displayName" => "Apellido");
-                $columnDefs[] = array("field" => "nom_persona", "displayName" => "Nombre");
-                $columnDefs[] = array("field" => "stm_habilitacion_desde", "displayName" => "Fecha Desde", "type" => "date", "cellFilter" => "ftDateTime");
-                $columnDefs[] = array("field" => "stm_habilitacion_hasta", "displayName" => "Fecha Hasta", "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "cod_credencial", "displayName"=> __("Cód. Tarjeta"), "cellFilter" => "ftTarjeta");
+                $columnDefs[] = array("field" => "ref_credencial", "displayName"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("field" => "nom_ou", "displayName"=> __("Organización"));
+                $columnDefs[] = array("field" => "cod_ou", "displayName"=> __("Codigo Organización"), "visible" => false);
+                $columnDefs[] = array("field" => "nom_sector", "displayName"=> __("Sectores"));
+                $columnDefs[] = array("field" => "nro_documento", "displayName"=> __("DNI"));
+                $columnDefs[] = array("field" => "ape_persona", "displayName"=> __("Apellido"));
+                $columnDefs[] = array("field" => "nom_persona", "displayName"=> __("Nombre"));
+                $columnDefs[] = array("field" => "stm_habilitacion_desde", "displayName"=> __("Fecha Desde"), "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "stm_habilitacion_hasta", "displayName"=> __("Fecha Hasta"), "type" => "date", "cellFilter" => "ftDateTime");
         }
         $columnKeys = ['cod_credencial', 'cod_ou'];
 
-        $filtros[] = array('id' => 'cod_credencial', 'name' => 'Cód. Tarjeta');
-        $filtros[] = array('id' => 'ref_credencial', 'name' => 'Ref. Tarjeta');
-        $filtros[] = array('id' => 'nom_ou', 'name' => 'Organización');
-        $filtros[] = array('id' => 'nom_sector', 'name' => 'Sectores');
-        $filtros[] = array('id' => 'nro_documento', 'name' => 'Nro. Documento');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
+        $filtros[] = array('id' => 'cod_credencial', 'name'=> __("Cód. Tarjeta"));
+        $filtros[] = array('id' => 'ref_credencial', 'name'=> __("Ref. Tarjeta"));
+        $filtros[] = array('id' => 'nom_ou', 'name'=> __("Organización"));
+        $filtros[] = array('id' => 'nom_sector', 'name'=> __("Sectores"));
+        $filtros[] = array('id' => 'nro_documento', 'name'=> __("Nro. Documento"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
 
         $rango['desde'] = array('id' => 'stm_habilitacion_desde', 'tipo' => 'datetime');
         $rango['hasta'] = array('id' => 'stm_habilitacion_hasta', 'tipo' => 'datetime');
@@ -480,7 +480,7 @@ class Habilitaciones extends Controller
         $cod_credencial = $clave[0][0];
 
         if ($cod_ou == "false")
-            return response(['error' => 'Debe seleccionar Unidad Organizacional'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Debe seleccionar Unidad Organizacional')], Response::HTTP_CONFLICT);
 
         $vccod_res = 1; //OK
 
@@ -570,11 +570,11 @@ class Habilitaciones extends Controller
         $voDatosHab->email = $request->input('email');
 
         if ($voDatosHab->ape_persona == "")
-            return response(['error' => 'Debe cargar apellido'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Debe cargar apellido')], Response::HTTP_CONFLICT);
         if ($voDatosHab->nom_persona == "")
-            return response(['error' => 'Debe cargar nombre'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Debe cargar nombre')], Response::HTTP_CONFLICT);
         if ($voDatosHab->nro_documento == "")
-            return response(['error' => 'Debe cargar número de documento'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Debe cargar número de documento')], Response::HTTP_CONFLICT);
 
 
 
@@ -643,11 +643,11 @@ class Habilitaciones extends Controller
             'cod_esquema_acceso' => 'required',
             'sectoresSel' => 'required'
         ], [
-            'cod_credencial.required' => "Debe ingresar Tarjeta",
-            'cod_ou.required' => "Debe seleccionar Organización",
-            'tipo_habilitacion.required' => "Debe seleccionar Tipo Habilitación",
-            'cod_esquema_acceso.required' => "Debe seleccionar Esquema de Acceso",
-            'sectoresSel.required' => "Debe seleccionar Sectores"
+            'cod_credencial.required' => __("Debe ingresar Tarjeta"),
+            'cod_ou.required' => __("Debe seleccionar Organización"),
+            'tipo_habilitacion.required' => __("Debe seleccionar Tipo Habilitación"),
+            'cod_esquema_acceso.required' => __("Debe seleccionar Esquema de Acceso"),
+            'sectoresSel.required' => __("Debe seleccionar Sectores")
         ]);
 
 
@@ -657,13 +657,13 @@ class Habilitaciones extends Controller
             return response(['error' => implode(", ", $errors->all())], Response::HTTP_CONFLICT);
         }
         if (!$cod_ou_contacto)
-            return response(['error' => 'Debe ingresar una Organización de contacto'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Debe ingresar una Organización de contacto')], Response::HTTP_CONFLICT);
 
         $img_apto_fisico = $request->input('img_apto_fisico');
         $fec_otorgamiento_af = $request->input('fec_otorgamiento_af');
 
         if ($img_apto_fisico && !$fec_otorgamiento_af) {
-            return response(['error' => 'Debe ingresar Fecha Otorgamiento Apto Físico'], Response::HTTP_CONFLICT);
+            return response(['error' => __('Debe ingresar Fecha Otorgamiento Apto Físico')], Response::HTTP_CONFLICT);
         }
 
         DB::beginTransaction();
@@ -678,7 +678,7 @@ class Habilitaciones extends Controller
         if ($stockcred) {
             $ref_credencial = $stockcred['ref_credencial'];
             if ($stockcred['tipo_habilitacion'] != $tipo_habilitacion)
-                return response(['error' => "Tarjeta en stock con tipo de habilitación distinta a la seleccionada"], Response::HTTP_CONFLICT);
+                return response(['error' => __("Tarjeta en stock con tipo de habilitación distinta a la seleccionada")], Response::HTTP_CONFLICT);
         }
 
         $esq = Esquema::select()->where('cod_esquema_acceso', $cod_esquema_acceso)->first();
@@ -686,7 +686,7 @@ class Habilitaciones extends Controller
             $fec_habilitacion_hasta = $esq['fec_habilitacion_hasta'];
             $stm_actual = Carbon::now()->format('Y-m-d H:i:s');
             if ($fec_habilitacion_hasta < $stm_actual && (int) $fec_habilitacion_hasta != 0) {
-                return response(['error' => "Esquema habilitado hasta $fec_habilitacion_hasta"], Response::HTTP_CONFLICT);
+                return response(['error' => __("Esquema habilitado hasta :fec_habilitacion_hasta",['fec_habilitacion_hasta'=>$fec_habilitacion_hasta])], Response::HTTP_CONFLICT);
             }
         }
 
@@ -694,15 +694,15 @@ class Habilitaciones extends Controller
 
             $stockcred = Credencial::select('tipo_habilitacion')->where('cod_credencial', $cod_credencial)->first();
             if (!$stockcred) {
-                return response(['error' => "Tarjeta inexistente en Stock Tarjetas"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Tarjeta inexistente en Stock Tarjetas")], Response::HTTP_CONFLICT);
             } else if ($stockcred['tipo_habilitacion'] != "T") {
-                return response(['error' => "La tarjeta ingresada debe ser de tipo Temporal/Visita"], Response::HTTP_CONFLICT);
+                return response(['error' => __("La tarjeta ingresada debe ser de tipo Temporal/Visita")], Response::HTTP_CONFLICT);
             }
 
             $tipo_credencial = "RFID";
             $cod_persona_contacto = $request->input('cod_persona_contacto');
             if (!$cod_persona_contacto)
-                return response(['error' => 'Debe ingresar Persona Contacto'], Response::HTTP_CONFLICT);
+                return response(['error' => __('Debe ingresar Persona Contacto')], Response::HTTP_CONFLICT);
 
             $valida_nrodoc_visitas_unico = ConfigParametro::get('VALIDA_NRODOC_VISITAS_UNICO', false);
             if ($valida_nrodoc_visitas_unico) {
@@ -712,7 +712,7 @@ class Habilitaciones extends Controller
                     ->where('maesPersonas.nro_documento', $request->input('nro_documento'))->first();
 
                 if ($existe) {
-                    return response(['error' => 'Ya existe una habilitación temporal con el número de DNI indicado'], Response::HTTP_CONFLICT);
+                    return response(['error' => __('Ya existe una habilitación temporal con el número de DNI indicado')], Response::HTTP_CONFLICT);
                 }
             }
         } else {
@@ -738,7 +738,7 @@ class Habilitaciones extends Controller
         }
 
         if ($persona->ind_bloqueo == "1") {
-            return response(['error' => 'DNI bloqueado. Motivo: ' . $persona->des_motivo_bloqueo], Response::HTTP_CONFLICT);
+            return response(['error' => __('DNI bloqueado. Motivo :DES_MOTIVO_BLOQUEO',['DES_MOTIVO_BLOQUEO'=>$persona->des_motivo_bloqueo]) ], Response::HTTP_CONFLICT);
         }
 
         $persona->nom_persona = $nom_persona;
@@ -899,7 +899,7 @@ class Habilitaciones extends Controller
             }
         }
 
-        return response(['ok' => 'La tarjeta ' . $cod_credencial . ' fue asignada a la persona: ' . $cod_persona], Response::HTTP_OK);
+        return response(['ok' => __('La tarjeta :COD_CREDENCIAL fue asignada a la persona :COD_PERSONA',['COD_CREDENCIAL'=>$cod_credencial,'COD_PERSONA'=>$cod_persona]) ], Response::HTTP_OK);
     }
 
     /**
@@ -945,14 +945,14 @@ class Habilitaciones extends Controller
             'cod_esquema_acceso' => 'required',
             'sectoresSel' => 'required'
         ], [
-            'cod_credencial.required' => "Debe ingresar Cód. Tarjeta",
-            'cod_ou.required' => "Debe seleccionar Organización",
-            'tipo_habilitacion.required' => "Debe seleccionar Tipo Habilitación",
-            'cod_esquema_acceso.required' => "Debe seleccionar Esquema de Acceso",
-            'sectoresSel.required' => "Debe seleccionar Sectores"
+            'cod_credencial.required'=> __("Debe ingresar Cód. Tarjeta"),
+            'cod_ou.required'=> __("Debe seleccionar Organización"),
+            'tipo_habilitacion.required'=> __("Debe seleccionar Tipo Habilitación"),
+            'cod_esquema_acceso.required'=> __("Debe seleccionar Esquema de Acceso"),
+            'sectoresSel.required'=> __("Debe seleccionar Sectores")
         ]);
         if (!$cod_ou_contacto)
-            return response(['error' => 'Debe ingresar una Organización'], Response::HTTP_CONFLICT);
+            return response(['error' => __("Debe ingresar una Organización")], Response::HTTP_CONFLICT);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -963,14 +963,14 @@ class Habilitaciones extends Controller
         $fec_otorgamiento_af = $request->input('fec_otorgamiento_af');
 
         if ($img_apto_fisico && !$fec_otorgamiento_af) {
-            return response(['error' => 'Debe ingresar Fecha Otorgamiento Apto Físico'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe ingresar Fecha Otorgamiento Apto Físico")], Response::HTTP_CONFLICT);
         }
 
         $stockcred = Credencial::select('tipo_habilitacion', 'ref_credencial')->where('cod_credencial', $cod_credencial)->first();
         if ($stockcred) {
             $ref_credencial = $stockcred['ref_credencial'];
             if ($stockcred['tipo_habilitacion'] != $tipo_habilitacion)
-                return response(['error' => "Tarjeta en stock con tipo de habilitación distinta a la seleccionada"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Tarjeta en stock con tipo de habilitación distinta a la seleccionada")], Response::HTTP_CONFLICT);
         }
 
         $esq = Esquema::select()->where('cod_esquema_acceso', $cod_esquema_acceso)->first();
@@ -978,7 +978,7 @@ class Habilitaciones extends Controller
             $fec_habilitacion_hasta = $esq['fec_habilitacion_hasta'];
             $stm_actual = Carbon::now()->format('Y-m-d H:i:s');
             if ($fec_habilitacion_hasta < $stm_actual && (int) $fec_habilitacion_hasta != 0) {
-                return response(['error' => "Esquema habilitado hasta $fec_habilitacion_hasta"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Esquema habilitado hasta :FEC_HABILITACION_HASTA",['FEC_HABILITACION_HASTA'=>$fec_habilitacion_hasta])], Response::HTTP_CONFLICT);
             }
         }
 
@@ -986,15 +986,15 @@ class Habilitaciones extends Controller
 
             $stockcred = Credencial::select('tipo_habilitacion')->where('cod_credencial', $cod_credencial)->first();
             if (!$stockcred) {
-                return response(['error' => "Tarjeta inexistente en Stock Tarjetas"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Tarjeta inexistente en Stock Tarjetas")], Response::HTTP_CONFLICT);
             } else if ($stockcred['tipo_habilitacion'] != "T") {
-                return response(['error' => "La tarjeta ingresada debe ser de tipo Temporal/Visita"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("La tarjeta ingresada debe ser de tipo Temporal/Visita")], Response::HTTP_CONFLICT);
             }
 
             $tipo_credencial = "RFID";
             $cod_persona_contacto = $request->input('cod_persona_contacto');
             if (!$cod_persona_contacto)
-                return response(['error' => 'Debe ingresar Persona Contacto'], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Debe ingresar Persona Contacto")], Response::HTTP_CONFLICT);
 
             $valida_nrodoc_visitas_unico = ConfigParametro::get('VALIDA_NRODOC_VISITAS_UNICO', false);
             if ($valida_nrodoc_visitas_unico) {
@@ -1004,7 +1004,7 @@ class Habilitaciones extends Controller
                     ->where('maesPersonas.nro_documento', $request->input('nro_documento'))->first();
 
                 if ($existe) {
-                    return response(['error' => 'Ya existe una habilitación temporal con el número de DNI indicado'], Response::HTTP_CONFLICT);
+                    return response(['error'=> __("Ya existe una habilitación temporal con el número de DNI indicado")], Response::HTTP_CONFLICT);
                 }
             }
         } else {
@@ -1030,7 +1030,7 @@ class Habilitaciones extends Controller
         }
 
         if ($persona->ind_bloqueo == "1") {
-            return response(['error' => 'DNI bloqueado. Motivo: ' . $persona->des_motivo_bloqueo], Response::HTTP_CONFLICT);
+            return response(['error'=> __("DNI bloqueado. Motivo :DES_MOVIVO_BLOQUEO",['DES_MOVIVO_BLOQUEO'=> $persona->des_motivo_bloqueo])], Response::HTTP_CONFLICT);
         }
 
         $persona->nom_persona = $nom_persona;
@@ -1174,7 +1174,7 @@ class Habilitaciones extends Controller
         Cache::forever("HabiAccesoLastUpdate", Carbon::now()->format('Y-m-d H:i:s'));
 
 
-        return response(['ok' => 'La tarjeta ' . $cod_credencial . ' fue asignada a la persona: ' . $cod_persona], Response::HTTP_OK);
+        return response(['ok' => __('La tarjeta :COD_CREDENCIAL fue asignada a la persona :COD_PERSONA',['COD_CREDENCIAL'=>$cod_credencial,'COD_PERSONA'=>$cod_persona])], Response::HTTP_OK);
     }
 
     /**
@@ -1184,7 +1184,7 @@ class Habilitaciones extends Controller
     {
         $habilitacion_persona = HabiCredPersona::find($cod_credencial_nueva);
         if ($habilitacion_persona)
-            return response(['error' => 'La tarjeta ' . $cod_credencial_nueva . ' corresponde a otra persona '], Response::HTTP_CONFLICT);
+            return response(['error' => __('La tarjeta :COD_CREDENCIAL_NUEVA corresponde a otra persona',['COD_CREDENCIAL_NUEVA'=>$cod_credencial_nueva])], Response::HTTP_CONFLICT);
 
         $habiCredPersona = HabiCredPersona::find($cod_credencial);
         if ($habiCredPersona) {
@@ -1200,7 +1200,7 @@ class Habilitaciones extends Controller
 
         HabiAcceso::where('cod_credencial', $cod_credencial)->delete();
 
-        return response(['ok' => 'Cód. Tarjeta reasignado: ' . $cod_credencial_nueva], Response::HTTP_OK);
+        return response(['ok'=> __("Cód. Tarjeta reasignado :COD_CREDENCIAL_NUEVA",['COD_CREDENCIAL_NUEVA'=>$cod_credencial_nueva]) . $cod_credencial_nueva], Response::HTTP_OK);
     }
 
     /**
@@ -1225,7 +1225,7 @@ class Habilitaciones extends Controller
 
         Cache::forever("HabiAccesoLastUpdate", Carbon::now()->format('Y-m-d H:i:s'));
 
-        return response(['ok' => 'Se eliminó satisfactoriamente la tarjeta #' . $cod_credencial], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente la tarjeta :COD_CREDENCIAL',['COD_CREDENCIAL'=>$cod_credencial])], Response::HTTP_OK);
     }
 
     public function upload()
@@ -1235,19 +1235,19 @@ class Habilitaciones extends Controller
         $filePath = storage_path('files'); //crear carpeta file
         if (!is_dir($filePath)) {
             if (!mkdir($filePath, 0777, true)) {
-                return response(['error' => 'No se pudo adjuntar archivo'], Response::HTTP_CONFLICT);
+                return response(['error'=> __("No se pudo adjuntar archivo")], Response::HTTP_CONFLICT);
             }
         }
 
         if (empty($_FILES['file'])) {
-            return response(['error' => 'No se pudo adjuntar archivo '], Response::HTTP_CONFLICT);
+            return response(['error'=> __("No se pudo adjuntar archivo")], Response::HTTP_CONFLICT);
         }
 
         $import_hash = hash_file("sha256", $_FILES['file']['tmp_name']);
         $destination = $filePath . DIRECTORY_SEPARATOR . $import_hash;
         move_uploaded_file($_FILES['file']['tmp_name'], $destination);
 
-        return response(['ok' => 'Se importó satisfactoriamente el archivo', 'import_hash' => $import_hash], Response::HTTP_OK);
+        return response(['ok'=> __("Se importó satisfactoriamente el archivo"), 'import_hash' => $import_hash], Response::HTTP_OK);
     }
 
     public function getSexo($sexo)
@@ -1291,10 +1291,10 @@ class Habilitaciones extends Controller
         $filetoImport = $filePath . "/" . $import_hash;
 
         if ($import_hash == "")
-            return response(['error' => 'No se seleccionó archivo'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("No se seleccionó archivo")], Response::HTTP_CONFLICT);
 
         if (!file_exists($filetoImport)) {
-            return response(['error' => 'No se pudo adjuntar archivo'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("No se pudo adjuntar archivo")], Response::HTTP_CONFLICT);
         }
 
         $nro_documento_contador = Persona::max('nro_documento');
@@ -1358,9 +1358,9 @@ class Habilitaciones extends Controller
         }
 
 
-        //        return response(['error' => "Debug $tipo_credencial " ], Response::HTTP_CONFLICT);
+        //        return response(['error'=> __("Debug $tipo_credencial") ], Response::HTTP_CONFLICT);
 
-        return response(['ok' => 'Se importó satisfactoriamente el archivo'], Response::HTTP_OK);
+        return response(['ok'=> __("Se importó satisfactoriamente el archivo")], Response::HTTP_OK);
     }
 
     public function storeOU(Request $request)
@@ -1383,7 +1383,7 @@ class Habilitaciones extends Controller
 
         $habilitacion_persona = HabiCredPersona::find($cod_credencial);
         if ($habilitacion_persona) {
-            return response(['ok' => 'Credencial ya habilitada'], Response::HTTP_OK);
+            return response(['ok'=> __("Credencial ya habilitada")], Response::HTTP_OK);
         }
 
         $existe = Persona::select('maesPersonas.cod_persona', 'maesPersonas.nom_persona', 'maesPersonas.ape_persona', 'maesPersonas.cod_sexo', 'maesPersonas.email')

@@ -41,6 +41,6 @@ class LoginController extends Controller
 
     public function websocketAuth(Request $request){
         //file_put_contents("/tmp/salida.txt",var_export($request,true));
-        return response(['ok' => 'ok'], Response::HTTP_OK);
+        return response(['ok'=> __("ok")], Response::HTTP_OK);
     }
 }

@@ -105,19 +105,19 @@ class FeriadosAsis extends Controller {
     public function gridOptions($version = "") {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "fec_feriado", "name" => "Fecha", "key" => "fec_feriado", "pipe" => "ftDate");
-                $columnDefs[] = array("prop" => "des_feriado", "name" => "Descripción");
-                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name" => "Fecha Alta", "pipe" => "ftDateTime");
+                $columnDefs[] = array("prop" => "fec_feriado", "name"=> __("Fecha"), "key" => "fec_feriado", "pipe" => "ftDate");
+                $columnDefs[] = array("prop" => "des_feriado", "name"=> __("Descripción"));
+                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name"=> __("Fecha Alta"), "pipe" => "ftDateTime");
                 break;
             default:
-                $columnDefs[] = array("field" => "fec_feriado", "displayName" => "Fecha", "type" => "date", "cellFilter" => "ftDate");
-                $columnDefs[] = array("field" => "des_feriado", "displayName" => "Descripción");
-                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName" => "Fecha Alta", "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "fec_feriado", "displayName"=> __("Fecha"), "type" => "date", "cellFilter" => "ftDate");
+                $columnDefs[] = array("field" => "des_feriado", "displayName"=> __("Descripción"));
+                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName"=> __("Fecha Alta"), "type" => "date", "cellFilter" => "ftDateTime");
         }
         $columnKeys = ['fec_feriado'];
         
-        $filtros[] = array('id' => 'fec_feriado', 'name' => 'Fecha');
-        $filtros[] = array('id' => 'des_feriado', 'name' => 'Descripción');
+        $filtros[] = array('id' => 'fec_feriado', 'name'=> __("Fecha"));
+        $filtros[] = array('id' => 'des_feriado', 'name'=> __("Descripción"));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -167,7 +167,7 @@ class FeriadosAsis extends Controller {
         FeriadoAsis::addAuditoria($feriado, "A");
         $feriado->save();
 
-        return response(['ok' => 'El feriado fue creado satisfactoriamente con fecha: ' . $feriado->fec_feriado], Response::HTTP_OK);
+        return response(['ok' => __('El feriado fue creado satisfactoriamente con fecha :FEC_FERIADO',['FEC_FERIADO'=>$feriado->fec_feriado])], Response::HTTP_OK);
     }
 
     /**
@@ -203,7 +203,7 @@ class FeriadosAsis extends Controller {
         FeriadoAsis::addAuditoria($feriado, "M");
         $feriado->save();
 
-        return response(['ok' => 'Actualización exitosa: ' . $fec_feriado], Response::HTTP_OK);
+        return response(['ok'=> __("Actualización exitosa :FEC_FERIADO",['FEC_FERIADO'=>$fec_feriado])], Response::HTTP_OK);
     }
 
     public function updateFeriados()
@@ -222,7 +222,7 @@ class FeriadosAsis extends Controller {
             FeriadoAsis::addAuditoria($feriadoAsis, $audit);
             $feriadoAsis->save();
         }
-        return response(['ok' => 'Feriados actualizadas'], Response::HTTP_OK);
+        return response(['ok'=> __("Feriados actualizadas")], Response::HTTP_OK);
     }
 
     /**
@@ -238,7 +238,7 @@ class FeriadosAsis extends Controller {
         Cache::forget("FECHA_FERIADO");
         $feriado = FeriadoAsis::find($fec_feriado);
         $feriado->delete();
-        return response(['ok' => 'Se eliminó satisfactoriamente el feriado: ' . $fec_feriado], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente el feriado :FEC_FERIADO',['FEC_FERIADO'=>$fec_feriado])], Response::HTTP_OK);
     }
 
     public static function isFeriado($stm_fecha) {

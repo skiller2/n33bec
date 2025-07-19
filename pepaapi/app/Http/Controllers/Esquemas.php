@@ -153,34 +153,34 @@ class Esquemas extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"cod_esquema_acceso", "name" => "Cód. Esquema Acceso", "key" => "cod_esquema_acceso");
-                    //$columnDefs[] = array("prop"=>"nom_ou", "name" => "Organización");
-                    $columnDefs[] = array("prop"=>"des_esquema_acceso", "name" => "Descripción");
-                    $columnDefs[] = array("prop"=>"obj_intervalos_habiles", "name" => "Intervalos Hábiles","pipe" => "ftInterval");
-                    $columnDefs[] = array("prop"=>"obj_intervalos_nohabiles", "name" => "Intervalos No Hábiles","pipe" => "ftInterval");
-                    $columnDefs[] = array("prop"=>"obj_intervalos_mixtos", "name" => "Intervalos Mixtos","pipe" => "ftInterval");
-                    $columnDefs[] = array("prop"=>"ind_estado", "name" => "Esquema Activo","pipe" => "ftBoolean");
-                    $columnDefs[] = array("prop"=>"fec_habilitacion_hasta", "name" => "Fecha Hasta Hab.", "pipe" => "ftDate", "searchtype" => "date");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta", "pipe" => "ftDateTime", "searchtype" => "date");
-                    $columnDefs[] = array("prop"=>"cod_ou", "name" => "Organización", "key" => "cod_ou", "pipe" => "ftOU");
+                    $columnDefs[] = array("prop"=>"cod_esquema_acceso", "name"=> __("Cód. Esquema Acceso"), "key" => "cod_esquema_acceso");
+                    //$columnDefs[] = array("prop"=>"nom_ou", "name"=> __("Organización"));
+                    $columnDefs[] = array("prop"=>"des_esquema_acceso", "name" => __("Descripción"));
+                    $columnDefs[] = array("prop"=>"obj_intervalos_habiles", "name" => __("Intervalos Hábiles"),"pipe" => "ftInterval");
+                    $columnDefs[] = array("prop"=>"obj_intervalos_nohabiles", "name" => __("Intervalos No Hábiles"),"pipe" => "ftInterval");
+                    $columnDefs[] = array("prop"=>"obj_intervalos_mixtos", "name" => __("Intervalos Mixtos"),"pipe" => "ftInterval");
+                    $columnDefs[] = array("prop"=>"ind_estado", "name" => __("Esquema Activo"),"pipe" => "ftBoolean");
+                    $columnDefs[] = array("prop"=>"fec_habilitacion_hasta", "name" => __("Fecha Hasta Hab."), "pipe" => "ftDate", "searchtype" => "date");
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => __("Fecha Alta"), "pipe" => "ftDateTime", "searchtype" => "date");
+                    $columnDefs[] = array("prop"=>"cod_ou", "name" => __("Organización"), "key" => "cod_ou", "pipe" => "ftOU");
             break;
             default:
-                    $columnDefs[] = array("field"=>"cod_esquema_acceso","displayName"=>"Cód. Esquema Acceso");        
-                    $columnDefs[] = array("field"=>"nom_ou","displayName"=>"Organización");
-                    $columnDefs[] = array("field"=>"des_esquema_acceso","displayName"=>"Descripción");
-                    $columnDefs[] = array("field"=>"obj_intervalos_habiles","displayName"=>"Intervalos Hábiles","cellFilter"=>"ftDesdeHasta");
-                    $columnDefs[] = array("field"=>"obj_intervalos_nohabiles","displayName"=>"Intervalos No Hábiles","cellFilter"=>"ftDesdeHasta");
-                    $columnDefs[] = array("field"=>"obj_intervalos_mixtos","displayName"=>"Intervalos Mixtos","cellFilter"=>"ftDesdeHasta");
-                    $columnDefs[] = array("field"=>"ind_estado","displayName"=>"Esquema Activo","cellFilter"=>"ftBoolean");
-                    $columnDefs[] = array("field"=>"fec_habilitacion_hasta","displayName"=>"Fecha Hasta Hab.","type"=>"date","cellFilter"=>"ftDateTime" );
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>"Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime" );
-                    $columnDefs[] = array("field"=>"cod_ou","displayName"=>"Organización","visible"=>false);
+                    $columnDefs[] = array("field"=>"cod_esquema_acceso","displayName"=>__("Cód. Esquema Acceso"));        
+                    $columnDefs[] = array("field"=>"nom_ou","displayName"=>__("Organización"));
+                    $columnDefs[] = array("field"=>"des_esquema_acceso","displayName"=>__("Descripción"));
+                    $columnDefs[] = array("field"=>"obj_intervalos_habiles","displayName"=>__("Intervalos Hábiles"),"cellFilter"=>"ftDesdeHasta");
+                    $columnDefs[] = array("field"=>"obj_intervalos_nohabiles","displayName"=>__("Intervalos No Hábiles"),"cellFilter"=>"ftDesdeHasta");
+                    $columnDefs[] = array("field"=>"obj_intervalos_mixtos","displayName"=>__("Intervalos Mixtos"),"cellFilter"=>"ftDesdeHasta");
+                    $columnDefs[] = array("field"=>"ind_estado","displayName"=>__("Esquema Activo"),"cellFilter"=>"ftBoolean");
+                    $columnDefs[] = array("field"=>"fec_habilitacion_hasta","displayName"=>__("Fecha Hasta Hab."),"type"=>"date","cellFilter"=>"ftDateTime" );
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>__("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime" );
+                    $columnDefs[] = array("field"=>"cod_ou","displayName"=>__("Organización"),"visible"=>false);
         }
         $columnKeys = ['cod_esquema_acceso','cod_ou'];
         
-        $filtros[] = array('id' => 'cod_esquema_acceso', 'name' => 'Cód. Esquema Acceso');
-        $filtros[] = array('id' => 'nom_ou', 'name' => 'Organización');
-        $filtros[] = array('id' => 'des_esquema_acceso', 'name' => 'Descripción');
+        $filtros[] = array('id' => 'cod_esquema_acceso', 'name' => __('Cód. Esquema Acceso'));
+        $filtros[] = array('id' => 'nom_ou', 'name' => __('Organización'));
+        $filtros[] = array('id' => 'des_esquema_acceso', 'name' => __('Descripción'));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -227,13 +227,13 @@ class Esquemas extends Controller
             'obj_intervalos_mixtos' => 'required',
 			'fec_habilitacion_hasta' => 'required'
         ],
-        [   'cod_esquema_acceso.required' => 'Debe ingresar un Cód. Esquema Acceso',
-            'cod_ou.required' => 'Debe seleccionar una Organización',
-            'des_esquema_acceso.required' => 'Debe ingresar una descripción',
-            'obj_intervalos_habiles.required' => "Debe ingresar intervalos hábiles",
-            'obj_intervalos_nohabiles.required' => "Debe ingresar intervalos no hábiles",
-            'obj_intervalos_mixtos.required' => "Debe ingresar intervalos mixtos",
-			'fec_habilitacion_hasta.required' => "Debe ingresar fecha/hora hasta habilitación completa"
+        [   'cod_esquema_acceso.required' => __('Debe ingresar un Cód. Esquema Acceso'),
+            'cod_ou.required' => __('Debe seleccionar una Organización'),
+            'des_esquema_acceso.required' => __('Debe ingresar una descripción'),
+            'obj_intervalos_habiles.required' => __("Debe ingresar intervalos hábiles"),
+            'obj_intervalos_nohabiles.required' => __("Debe ingresar intervalos no hábiles"),
+            'obj_intervalos_mixtos.required' => __("Debe ingresar intervalos mixtos"),
+			'fec_habilitacion_hasta.required' => __("Debe ingresar fecha/hora hasta habilitación completa")
 			
 		]);
         
@@ -255,7 +255,7 @@ class Esquemas extends Controller
         Esquema::addAuditoria($esquema,"A");
         $esquema->save();
         $this->cleanCaches();
-        return response(['ok' => 'El esquema '.$esquema->cod_esquema_acceso.' fue creado satisfactoriamente'], Response::HTTP_OK);
+        return response(['ok' => __('El esquema :COD_ESQUEMA_ACCESO fue creado satisfactoriamente',['COD_ESQUEMA_ACCESO'=>$esquema->cod_esquema_acceso])], Response::HTTP_OK);
     }
 
     /**
@@ -282,15 +282,15 @@ class Esquemas extends Controller
 			'fec_habilitacion_hasta' => 'required'
 			
         ],
-        [   'cod_esquema_acceso.required' => 'Debe ingresar un Cód. Esquema Acceso',
-            'cod_ou.required' => 'Debe seleccionar una Organización',
-            'des_esquema_acceso.required' => 'Debe ingresar una descripción',  
-            'cod_esquema_acceso' => "Debe ingresar Cód. Esquema Acceso",
-            'cod_ou' => "Debe seleccionar Organización",
-            'obj_intervalos_habiles.required' => "Debe ingresar Intervalos Hábiles",
-            'obj_intervalos_nohabiles.required' => "Debe ingresar Intervalos no hábiles",
-            'obj_intervalos_mixtos.required' => "Debe ingresar Intervalos mixtos",
-			'fec_habilitacion_hasta.required' => "Debe ingresar fecha hasta habilitación"
+        [   'cod_esquema_acceso.required' => __('Debe ingresar un Cód. Esquema Acceso'),
+            'cod_ou.required' => __('Debe seleccionar una Organización'),
+            'des_esquema_acceso.required' => __('Debe ingresar una descripción'),  
+            'cod_esquema_acceso' => __("Debe ingresar Cód. Esquema Acceso"),
+            'cod_ou' => __("Debe seleccionar Organización"),
+            'obj_intervalos_habiles.required' => __("Debe ingresar Intervalos Hábiles"),
+            'obj_intervalos_nohabiles.required' => __("Debe ingresar Intervalos no hábiles"),
+            'obj_intervalos_mixtos.required' => __("Debe ingresar Intervalos mixtos"),
+			'fec_habilitacion_hasta.required' => __("Debe ingresar fecha hasta habilitación")
         ]);
         
         if($validator->fails()){
@@ -309,7 +309,7 @@ class Esquemas extends Controller
         Esquema::addAuditoria($esquema,"M");
         $esquema->save();
         $this->cleanCaches();
-        return response(['ok' => "Actualización exitosa #".$cod_esquema_acceso], Response::HTTP_OK);
+        return response(['ok' => __("Actualización exitosa :COD_ESQUEMA_ACCESO",['COD_ESQUEMA_ACCESO'=>$cod_esquema_acceso])], Response::HTTP_OK);
     }
 
     /**
@@ -327,7 +327,7 @@ class Esquemas extends Controller
         $esquema = Esquema::where("cod_esquema_acceso","=",$cod_esquema_acceso)->where("cod_ou","=",$cod_ou)->first();
         $esquema->delete();
         $this->cleanCaches();
-        return response(['ok' => 'Se eliminó satisfactoriamente el esquema '.$cod_esquema_acceso], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente el esquema :COD_ESQUEMA_ACCESO',['COD_ESQUEMA_ACCESO'=>$cod_esquema_acceso])], Response::HTTP_OK);
     }
 
     public function getEsquemasSync() {

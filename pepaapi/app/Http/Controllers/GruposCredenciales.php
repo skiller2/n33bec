@@ -54,23 +54,23 @@ class GruposCredenciales extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"cod_grupo", "name" => "Cód. Grupo", "key" => "cod_grupo");
-                    $columnDefs[] = array("prop"=>"des_grupo", "name" => "Descripción");
-                    $columnDefs[] = array("prop"=>"cant_max_ingresos", "name" => "Cant. Máx. Ingresos Simultáneos");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta", "pipe" => "ftDateTime" );
+                    $columnDefs[] = array("prop"=>"cod_grupo", "name" => __("Cód. Grupo"), "key" => "cod_grupo");
+                    $columnDefs[] = array("prop"=>"des_grupo", "name" => __("Descripción"));
+                    $columnDefs[] = array("prop"=>"cant_max_ingresos", "name" => __("Cant. Máx. Ingresos Simultáneos"));
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => __("Fecha Alta"), "pipe" => "ftDateTime" );
             break;
             default:
-                    $columnDefs[] = array("field"=>"cod_grupo","displayName"=>"Cód. Grupo");
-                    $columnDefs[] = array("field"=>"des_grupo","displayName"=>"Descripción");
-                    $columnDefs[] = array("field"=>"cant_max_ingresos","displayName"=>"Cant. Máx. Ingresos Simultáneos");
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>"Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"cod_grupo","displayName"=>__("Cód. Grupo"));
+                    $columnDefs[] = array("field"=>"des_grupo","displayName"=>__("Descripción"));
+                    $columnDefs[] = array("field"=>"cant_max_ingresos","displayName"=>__("Cant. Máx. Ingresos Simultáneos"));
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>__("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime");
         }
 
         $columnKeys = ['cod_grupo'];
         
-        $filtros[] = array('id' => 'cod_grupo', 'name' => 'Cód. Grupo');
-        $filtros[] = array('id' => 'des_grupo', 'name' => 'Descripción');
-        $filtros[] = array('id' => 'cant_max_ingresos', 'name' => 'Cant. Máx. Ingresos Simultáneos');
+        $filtros[] = array('id' => 'cod_grupo', 'name' => __('Cód. Grupo'));
+        $filtros[] = array('id' => 'des_grupo', 'name' => __('Descripción'));
+        $filtros[] = array('id' => 'cant_max_ingresos', 'name' => __('Cant. Máx. Ingresos Simultáneos'));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -132,7 +132,7 @@ class GruposCredenciales extends Controller
         ConfGrupoCred::addAuditoria($confGrupoCred,"A");
         $confGrupoCred->save();
 
-        return response(['ok' => 'El Grupo de Tarjetas fue creado satisfactoriamente con id: '.$cod_grupo], Response::HTTP_OK);
+        return response(['ok' => __('El Grupo de Tarjetas fue creado satisfactoriamente con id :COD_GRUPO',['COD_GRUPO'=>$cod_grupo])], Response::HTTP_OK);
     }
 
 
@@ -154,7 +154,7 @@ class GruposCredenciales extends Controller
         ConfGrupoCred::addAuditoria($confGrupoCred,"M");
         $confGrupoCred->save();
         
-        return response(['ok' => "Actualización exitosa #".$cod_grupo], Response::HTTP_OK);
+        return response(['ok' => __("Actualización exitosa :COD_GRUPO",['COD_GRUPO'=>$cod_grupo])], Response::HTTP_OK);
     }
 
     /**
@@ -169,7 +169,7 @@ class GruposCredenciales extends Controller
         $cod_grupo = $clave[0][0];
         $confGrupoCred = ConfGrupoCred::find($cod_grupo);
         $confGrupoCred->delete();
-        return response(['ok' => 'Se eliminó satisfactoriamente el Grupo de Tarjetas #'.$cod_grupo], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente el Grupo de Tarjetas :COD_GRUPO',['COD_GRUPO'=>$cod_grupo])], Response::HTTP_OK);
     }
 
 }

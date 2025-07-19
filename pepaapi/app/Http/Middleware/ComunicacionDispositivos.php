@@ -58,7 +58,7 @@ class ComunicacionDispositivos {
 			HabiAcceso::checkhabiAcceso(false);
 			Cache::forever("EstadoHabiAccesoDispo",true);
             $context=array(
-                'msgtext'=>"Componentes actualizados",
+                'msgtext' => __("Componentes actualizados"),
                 "EstadoHabiAccesoDispo" => true, 
                 "colorEstado" => "green"
             );
@@ -153,7 +153,7 @@ class ComunicacionDispositivos {
         $tema_localizado = isset($this->lectores[$cod_tema_origen]);
         if (!$tema_localizado) {
             $context=array(
-                'msgtext'=>"Tema no localizado ($cod_tema_origen) valor $cod_credencial",
+                'msgtext'=> __("Tema no localizado (:COD_TEMA_ORIGEN) valor :COD_CREDENCIAL",['COD_TEMA_ORIGEN'=>$cod_tema_origen,'COD_CREDENCIAL'=>$cod_credencial]),
                 "cod_tema" => $cod_tema_origen, 
                 "cod_credencial" => $cod_credencial
             );
@@ -203,7 +203,7 @@ class ComunicacionDispositivos {
 
         if ($ind_movimiento == "L") {
             $context=array(
-                'msgtext'=>"Tarjeta: $tarjeta $des_credencial, Tema: $nom_tema, Mov: $des_movimiento, Sector: $muestro_sector",
+                'msgtext'=> __("Tarjeta :TARJETA :DES_CREDENCIAL, Tema :NOM_TEMA, Mov :DES_MOVIMIENTO, Sector :MUESTRO_SECTOR",['NOM_TEMA'=> $nom_tema,'DES_MOVIMIENTO'=> $des_movimiento,'MUESTRO_SECTOR'=>$muestro_sector,'TARJETA'=>$tarjeta,'DES_CREDENCIAL' =>$des_credencial]),
                 "cod_tema" => $cod_tema_origen,
                 "cod_credencial" => $cod_credencial
             );
@@ -372,7 +372,7 @@ class ComunicacionDispositivos {
             }
 
             $context=array(
-                'msgtext'=>"Tarjeta: $tarjeta $des_credencial, Persona: $nro_documento $ape_persona $nom_persona, Organización: $nom_ou_hab, Tema: $nom_tema, Mov: $des_movimiento, Tipo Hab: $tipo_habilitacion, Sector: $muestro_sector ($ind_rechazo)",
+                'msgtext'=> __("Tarjeta :TARJETA :DES_CREDENCIAL, Persona :NRO_DOCUMENTO :APE_PERSONA :NOM_PERSONA, Organización :NOM_OU_HAB, Tema :NOM_TEMA, Mov :DES_MOVIMIENTO, Tipo Hab :TIPO_HABILITACION, Sector :MUESTRO_SECTOR (:IND_RECHAZO)",['TARJETA'=>$tarjeta, 'DES_CREDENCIAL'=>$des_credencial,'NRO_DOCUMENTO'=>$nro_documento, 'APE_PERSONA'=>$ape_persona,'NOM_PERSONA'=>$nom_persona,'NOM_OU_HAB'=> $nom_ou_hab,'NOM_TEMA'=>$nom_tema,'DES_MOVIMIENTO'=>$des_movimiento,'TIPO_HABILITACION'=>$tipo_habilitacion,'MUESTRO_SECTOR'=>$muestro_sector,'IND_RECHAZO'=>$ind_rechazo ]),
                 'stm_event' =>$stm_actual,
                 'cod_credencial' => $cod_credencial, 
                 'cod_tema' => $cod_tema_origen,

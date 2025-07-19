@@ -47,7 +47,7 @@ class ImagenesTemas extends Controller
         if ($imagen) {
             $vaimagenes[$imagen['tipo_uso']] = $imagen['img_tema'];
         } else {
-            //            return response(['error' => 'Imagen no existe'], Response::HTTP_NOT_FOUND);
+            //            return response(['error'=> __("Imagen no existe")], Response::HTTP_NOT_FOUND);
         }
         return $vaimagenes;
     }
@@ -61,7 +61,7 @@ class ImagenesTemas extends Controller
             $img_tema_b64 = $vaResultado['img_tema'];
             $tipo_uso = $vaResultado['tipo_uso'];
         } else {
-            return response(['error' => 'Imagen no existe'], Response::HTTP_NOT_FOUND);
+            return response(['error' => __('Imagen no existe')], Response::HTTP_NOT_FOUND);
         }
         $header = substr($img_tema_b64, 0, 20);
         $image = base64_decode(substr($img_tema_b64, strpos($img_tema_b64, ",") + 1));
@@ -91,7 +91,7 @@ class ImagenesTemas extends Controller
                         return $ret;
                 }
             }
-            return response(['error' => 'Imagen no existe'], Response::HTTP_NOT_FOUND);
+            return response(['error' => __('Imagen no existe')], Response::HTTP_NOT_FOUND);
         }
 
         //        $image = base64_decode(substr($img_tema_b64, strpos($img_tema_b64, ",")+1));

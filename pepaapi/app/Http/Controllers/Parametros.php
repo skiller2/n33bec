@@ -68,22 +68,22 @@ class Parametros extends Controller
     {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "den_parametro", "name" => "Fecha", "key" => "den_parametro");
-                $columnDefs[] = array("prop" => "val_parametro", "name" => "Valor");
-                $columnDefs[] = array("prop" => "des_parametro", "name" => "Descripción");
-                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name" => "Fecha Alta", "pipe" => "ftDateTime", "searchtype" => "date");
+                $columnDefs[] = array("prop" => "den_parametro", "name"=> __("Fecha"), "key" => "den_parametro");
+                $columnDefs[] = array("prop" => "val_parametro", "name"=> __("Valor"));
+                $columnDefs[] = array("prop" => "des_parametro", "name"=> __("Descripción"));
+                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name"=> __("Fecha Alta"), "pipe" => "ftDateTime", "searchtype" => "date");
                 break;
             default:
-                $columnDefs[] = array("field" => "den_parametro", "displayName" => "Parámetro");
-                $columnDefs[] = array("field" => "val_parametro", "displayName" => "Valor");
-                $columnDefs[] = array("field" => "des_parametro", "displayName" => "Descripción");
-                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName" => "Fecha Alta", "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "den_parametro", "displayName"=> __("Parámetro"));
+                $columnDefs[] = array("field" => "val_parametro", "displayName"=> __("Valor"));
+                $columnDefs[] = array("field" => "des_parametro", "displayName"=> __("Descripción"));
+                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName"=> __("Fecha Alta"), "type" => "date", "cellFilter" => "ftDateTime");
         }
         $columnKeys = ['den_parametro'];
 
-        $filtros[] = array('id' => 'den_parametro', 'name' => 'Parámetro');
-        $filtros[] = array('id' => 'val_parametro', 'name' => 'Valor');
-        $filtros[] = array('id' => 'des_parametro', 'name' => 'Descripción');
+        $filtros[] = array('id' => 'den_parametro', 'name'=> __("Parámetro"));
+        $filtros[] = array('id' => 'val_parametro', 'name'=> __("Valor"));
+        $filtros[] = array('id' => 'des_parametro', 'name'=> __("Descripción"));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -131,7 +131,7 @@ class Parametros extends Controller
         Parametro::addAuditoria($parametro, "A");
         $parametro->save();
         $this->cleanCaches();
-        return response(['ok' => 'El Parámetro ' . $parametro->den_parametro . ' fue creado satisfactoriamente'], Response::HTTP_OK);
+        return response(['ok' => __('El Parámetro :DEN_PARAMETRO fue creado satisfactoriamente',['DEN_PARAMETRO'=>$parametro->den_parametro])], Response::HTTP_OK);
     }
 
 
@@ -156,10 +156,10 @@ class Parametros extends Controller
 
 
         } catch (Exception $e) {
-            return response(['error' => 'Error enviando mensaje al grupo de chat'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Error enviando mensaje al grupo de chat")], Response::HTTP_CONFLICT);
         }
 
-        return response(['ok' => 'Mensaje enviado al grupo'], Response::HTTP_OK);
+        return response(['ok'=> __("Mensaje enviado al grupo")], Response::HTTP_OK);
     }
 
 
@@ -184,10 +184,10 @@ class Parametros extends Controller
             $job = (new SendMail('MAIL_ALERT_TMPL', $data));
             dispatch($job->onQueue("low"));
         } catch (Exception $e) {
-            return response(['error' => 'Error enviando mail'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Error enviando mail")], Response::HTTP_CONFLICT);
         }
 
-        return response(['ok' => 'Mail encolado'], Response::HTTP_OK);
+        return response(['ok'=> __("Mail encolado")], Response::HTTP_OK);
     }
 
     /**
@@ -233,7 +233,7 @@ class Parametros extends Controller
             $varegistro_eventos->save();            
         }*/
 
-        return response(['ok' => "Actualización exitosa #" . $den_parametro], Response::HTTP_OK);
+        return response(['ok' => __("Actualización exitosa :DEN_PARAMETRO",['DEN_PARAMETRO'=>$den_parametro])], Response::HTTP_OK);
     }
 
     /**
@@ -250,18 +250,18 @@ class Parametros extends Controller
         $parametro->delete();
         ConfigParametro::clear($den_parametro);
         $this->cleanCaches();
-        return response(['ok' => 'Se eliminó satisfactoriamente el Parámetro ' . $den_parametro], Response::HTTP_OK);
+        return response(['ok'=> __("Se eliminó satisfactoriamente el Parámetro :DEN_PARAMETRO",['DEN_PARAMETRO'=>$den_parametro]) ], Response::HTTP_OK);
     }
 
 
     public function listDaemons()
     {
         $vadaemons = array(
-            array("cod_daemon" => "MoviDisplayTemasDaemon", "nom_daemon" => "Gestiona Comando y Control", "des_daemon" => "También procesa audio evacuación"),
-            array("cod_daemon" => "ActuadoresDaemon", "nom_daemon" => "Gestiona actuadores", "des_daemon" => "Procesa llamador y strobo"),
-            array("cod_daemon" => "Area54Daemon", "nom_daemon" => "Gestiona centrales incendio", "des_daemon" => ""),
-            array("cod_daemon" => "Rs485Daemon", "nom_daemon" => "Gestiona paneles", "des_daemon" => ""),
-            array("cod_daemon" => "DelayedTemaDaemon", "nom_daemon" => "Control de dispositivos", "des_daemon" => "")
+            array("cod_daemon" => "MoviDisplayTemasDaemon", "nom_daemon" => __("Gestiona Comando y Control"), "des_daemon" => __("También procesa audio evacuación")),
+            array("cod_daemon" => "ActuadoresDaemon", "nom_daemon" => __("Gestiona actuadores"), "des_daemon" => __("Procesa llamador y strobo")),
+            array("cod_daemon" => "Area54Daemon", "nom_daemon" => __("Gestiona centrales incendio"), "des_daemon" => __("")),
+            array("cod_daemon" => "Rs485Daemon", "nom_daemon" => __("Gestiona paneles"), "des_daemon" => __("")),
+            array("cod_daemon" => "DelayedTemaDaemon", "nom_daemon" => __("Control de dispositivos"), "des_daemon" => __(""))
         );
         return response($vadaemons, Response::HTTP_OK);
     }
@@ -270,7 +270,7 @@ class Parametros extends Controller
     {
         $cod_daemon = $request->input('cod_daemon');
         $context = array(
-            'msgtext' => "Reinicio $cod_daemon",
+            'msgtext' => __("Reinicio :COD_DAEMON",['COD_DAEMON'=>$cod_daemon]),
             'cod_daemon' => $cod_daemon,
             'command' => "reset",
             'cod_tema' => ""
@@ -278,6 +278,6 @@ class Parametros extends Controller
         Broadcast::driver('fast-web-socket')->broadcast(["procesos", "pantalla"], "info",  $context);
 
         sleep(2);
-        return response(['ok' => 'Orden enviada'], Response::HTTP_OK);
+        return response(['ok'=> __("Orden enviada")], Response::HTTP_OK);
     }
 }

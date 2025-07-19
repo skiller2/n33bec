@@ -180,7 +180,7 @@ class AnvizCommand
      *                      'idd' => 100,           //Employee ID on device
      *                      'passd' => '123456',    //Attendance password
      *                      'cardid' => '',         //Card Number
-     *                      'name' => 'Jacobs',     //Employee Name
+     *                      'name'=> __("Jacobs"),     //Employee Name
      *                      'group_id' => 1,        //Access control group ID
      *                      'is_admin' => 0         //Is admin. 0 is user, 1 is admin
      *                  ),
@@ -188,7 +188,7 @@ class AnvizCommand
      *                      'idd' => 101,
      *                      'passd' => '123456',
      *                      'cardid' => '',
-     *                      'name' => 'Jacobs',
+     *                      'name'=> __("Jacobs"),
      *                      'group_id' => 1,
      *                      'is_admin' => 0
      *                  )
@@ -233,7 +233,7 @@ class AnvizCommand
      *                      'idd' => 100,           //Employee ID on device
      *                      'passd' => '123456',    //Attendance password
      *                      'cardid' => '',         //Card Number
-     *                      'name' => 'Jacobs',     //Employee Name
+     *                      'name'=> __("Jacobs"),     //Employee Name
      *                      'group_id' => 1,        //Access control group ID
      *                      'is_admin' => 0         //Is admin. 0 is user, 1 is admin
      *                  ),

@@ -174,38 +174,38 @@ class MoviCredSectores extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"stm_ingreso", "name" => "Fecha");
-                    $columnDefs[] = array("prop"=>"tiempo_permanencia", "name" => "Tiempo Permanencia");
-                    $columnDefs[] = array("prop"=>"cod_credencial", "name" => "Cód. Tarjeta", "key" => "cod_credencial");
-                    $columnDefs[] = array("prop"=>"ref_credencial", "name" => "Ref. Tarjeta");
-                    $columnDefs[] = array("prop"=>"nom_persona", "name" => "Nombre");
-                    $columnDefs[] = array("prop"=>"ape_persona", "name" => "Apellido");
-                    $columnDefs[] = array("prop"=>"nro_documento", "name" => "Nro. Documento");
-                    $columnDefs[] = array("prop"=>"cod_sector", "name" => "Cód. Sector", "key" => "cod_sector");
-                    $columnDefs[] = array("prop"=>"nom_sector", "name" => "Sector");
-                    $columnDefs[] = array("prop"=>"nom_ou", "name" => "Organización");
+                    $columnDefs[] = array("prop"=>"stm_ingreso", "name"=> __("Fecha"));
+                    $columnDefs[] = array("prop"=>"tiempo_permanencia", "name"=> __("Tiempo Permanencia"));
+                    $columnDefs[] = array("prop"=>"cod_credencial", "name"=> __("Cód. Tarjeta"), "key" => "cod_credencial");
+                    $columnDefs[] = array("prop"=>"ref_credencial", "name"=> __("Ref. Tarjeta"));
+                    $columnDefs[] = array("prop"=>"nom_persona", "name"=> __("Nombre"));
+                    $columnDefs[] = array("prop"=>"ape_persona", "name"=> __("Apellido"));
+                    $columnDefs[] = array("prop"=>"nro_documento", "name"=> __("Nro. Documento"));
+                    $columnDefs[] = array("prop"=>"cod_sector", "name"=> __("Cód. Sector"), "key" => "cod_sector");
+                    $columnDefs[] = array("prop"=>"nom_sector", "name"=> __("Sector"));
+                    $columnDefs[] = array("prop"=>"nom_ou", "name"=> __("Organización"));
                     
             break;
             default:
-                    $columnDefs[] = array("field"=>"stm_ingreso","displayName"=>"Fecha","type"=>"date","cellFilter"=>"ftDateTime");
-                    $columnDefs[] = array("field"=>"tiempo_permanencia","displayName"=>"Tiempo Permanencia","type"=>"");
-                    $columnDefs[] = array("field"=>"cod_credencial","displayName"=>"Cód. Tarjeta", "cellFilter" => "ftTarjeta");
-                    $columnDefs[] = array("field"=>"ref_credencial","displayName"=>"Ref. Tarjeta");
-                    $columnDefs[] = array("field"=>"nom_persona","displayName"=>"Nombre");
-                    $columnDefs[] = array("field"=>"ape_persona","displayName"=>"Apellido");
-                    $columnDefs[] = array("field"=>"nro_documento","displayName"=>"Nro. Documento");
-                    $columnDefs[] = array("field"=>"cod_sector","displayName"=>"Cód. Sector", "visible" => false);
-                    $columnDefs[] = array("field"=>"nom_sector","displayName"=>"Sector");
-                    $columnDefs[] = array("field"=>"nom_ou","displayName"=>"Organización");
+                    $columnDefs[] = array("field"=>"stm_ingreso","displayName"=> __("Fecha"),"type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"tiempo_permanencia","displayName"=> __("Tiempo Permanencia"),"type"=>"");
+                    $columnDefs[] = array("field"=>"cod_credencial","displayName"=> __("Cód. Tarjeta"), "cellFilter" => "ftTarjeta");
+                    $columnDefs[] = array("field"=>"ref_credencial","displayName"=> __("Ref. Tarjeta"));
+                    $columnDefs[] = array("field"=>"nom_persona","displayName"=> __("Nombre"));
+                    $columnDefs[] = array("field"=>"ape_persona","displayName"=> __("Apellido"));
+                    $columnDefs[] = array("field"=>"nro_documento","displayName"=> __("Nro. Documento"));
+                    $columnDefs[] = array("field"=>"cod_sector","displayName"=> __("Cód. Sector"), "visible" => false);
+                    $columnDefs[] = array("field"=>"nom_sector","displayName"=> __("Sector"));
+                    $columnDefs[] = array("field"=>"nom_ou","displayName"=> __("Organización"));
         }
         $columnKeys = ['cod_credencial','cod_sector'];
         
-        $filtros[] = array('id' => 'cod_credencial', 'name' => 'Cód Tarjeta');
-        $filtros[] = array('id' => 'ref_credencial', 'name' => 'Ref. Tarjeta');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
-        $filtros[] = array('id' => 'nro_documento', 'name' => 'Nro. Documento');
-        $filtros[] = array('id' => 'nom_sector', 'name' => 'Sector');
-        $filtros[] = array('id' => 'nom_ou', 'name' => 'Organización');
+        $filtros[] = array('id' => 'cod_credencial', 'name'=> __("Cód Tarjeta"));
+        $filtros[] = array('id' => 'ref_credencial', 'name'=> __("Ref. Tarjeta"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
+        $filtros[] = array('id' => 'nro_documento', 'name'=> __("Nro. Documento"));
+        $filtros[] = array('id' => 'nom_sector', 'name'=> __("Sector"));
+        $filtros[] = array('id' => 'nom_ou', 'name'=> __("Organización"));
 
         $rango['desde'] = array('id' => 'stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -254,10 +254,9 @@ class MoviCredSectores extends Controller
         $vaResultado = MoviCredSector::where('cod_credencial', $cod_credencial)->where('cod_sector', $cod_sector)->first();
         if($vaResultado) {
             $vaResultado->delete();
-            return response(['ok' => 'Se eliminó satisfactoriamente el movimiento'], Response::HTTP_OK);
+            return response(['ok' => __('Se eliminó satisfactoriamente el movimiento')], Response::HTTP_OK);
         }else {
-            return response(['error' => 'No se encontró el registro'], Response::HTTP_CONFLICT);
+            return response(['error' => __('No se encontró el registro')], Response::HTTP_CONFLICT);
         }
     }
-
 }

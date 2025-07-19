@@ -1,0 +1,5 @@
+{
+    "require": {
+        "kkomelin/laravel-translatable-string-exporter": "^1.23"
+    }
+}

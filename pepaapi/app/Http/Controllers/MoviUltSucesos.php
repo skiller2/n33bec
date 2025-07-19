@@ -110,39 +110,39 @@ class MoviUltSucesos extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"cod_tema", "name" => "Tema", "key" => "cod_tema");
-                    $columnDefs[] = array("prop"=>"stm_ult_suceso", "name" => "Fecha Suceso", "key" => "stm_ult_suceso");
-                    $columnDefs[] = array("prop"=>"json_detalle", "name" => "I/O", "key" => "json_detalle");
-                    $columnDefs[] = array("prop"=>"nom_tema", "name" => "Etiqueta");
-                    $columnDefs[] = array("prop"=>"id_disp_reporte", "name" => "ID Reporte");
-                    $columnDefs[] = array("prop"=>"valor_analogico", "name" => "Valor Analógico");
-                    $columnDefs[] = array("prop"=>"des_unidad_medida", "name" => "Unid. Med.");
-                    $columnDefs[] = array("prop"=>"valor", "name" => "Valor");
-                    $columnDefs[] = array("prop"=>"des_valor", "name" => "Descripción");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta");
+                    $columnDefs[] = array("prop"=>"cod_tema", "name"=> __("Tema"), "key" => "cod_tema");
+                    $columnDefs[] = array("prop"=>"stm_ult_suceso", "name"=> __("Fecha Suceso"), "key" => "stm_ult_suceso");
+                    $columnDefs[] = array("prop"=>"json_detalle", "name"=> __("I/O"), "key" => "json_detalle");
+                    $columnDefs[] = array("prop"=>"nom_tema", "name"=> __("Etiqueta"));
+                    $columnDefs[] = array("prop"=>"id_disp_reporte", "name"=> __("ID Reporte"));
+                    $columnDefs[] = array("prop"=>"valor_analogico", "name"=> __("Valor Analógico"));
+                    $columnDefs[] = array("prop"=>"des_unidad_medida", "name"=> __("Unid. Med."));
+                    $columnDefs[] = array("prop"=>"valor", "name"=> __("Valor"));
+                    $columnDefs[] = array("prop"=>"des_valor", "name"=> __("Descripción"));
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name"=> __("Fecha Alta"));
             break;
             default:
-                    $columnDefs[] = array("field"=>"id_disp_origen","displayName"=>"ID Origen");
-                    $columnDefs[] = array("field"=>"stm_evento","displayName"=>"Fecha Evento","type"=>"date","cellFilter"=>"ftDateTime");
-                    $columnDefs[] = array("field"=>"id_io","displayName"=>"I/O");
-                    $columnDefs[] = array("field"=>"des_io","displayName"=>"Etiqueta");
-                    $columnDefs[] = array("field"=>"id_disp_reporte","displayName"=>"ID Reporte");
-                    $columnDefs[] = array("field"=>"valor_analogico","displayName"=>"Valor Analógico");
-                    $columnDefs[] = array("field"=>"des_unidad_medida","displayName"=>"Unid. Med.");
-                    $columnDefs[] = array("field"=>"valor","displayName"=>"Valor");
-                    $columnDefs[] = array("field"=>"des_valor","displayName"=>"Descripción");
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>"Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"id_disp_origen","displayName"=> __("ID Origen"));
+                    $columnDefs[] = array("field"=>"stm_evento","displayName"=> __("Fecha Evento"),"type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"id_io","displayName"=> __("I/O"));
+                    $columnDefs[] = array("field"=>"des_io","displayName"=> __("Etiqueta"));
+                    $columnDefs[] = array("field"=>"id_disp_reporte","displayName"=> __("ID Reporte"));
+                    $columnDefs[] = array("field"=>"valor_analogico","displayName"=> __("Valor Analógico"));
+                    $columnDefs[] = array("field"=>"des_unidad_medida","displayName"=> __("Unid. Med."));
+                    $columnDefs[] = array("field"=>"valor","displayName"=> __("Valor"));
+                    $columnDefs[] = array("field"=>"des_valor","displayName"=> __("Descripción"));
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=> __("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime");
         }
         $columnKeys = ['id_disp_origen','stm_evento','id_io'];
         
-        $filtros[] = array('id' => 'id_disp_origen', 'name' => 'ID Origen');
-        $filtros[] = array('id' => 'id_io', 'name' => 'I/O');
-        $filtros[] = array('id' => 'des_io', 'name' => 'Etiqueta');
-        $filtros[] = array('id' => 'id_disp_reporte', 'name' => 'ID Reporte');
-        $filtros[] = array('id' => 'valor_analogico', 'name' => 'Valor Analógico');
-        $filtros[] = array('id' => 'des_unidad_medida', 'name' => 'Unid. Med.');
-        $filtros[] = array('id' => 'valor', 'name' => 'Valor');
-        $filtros[] = array('id' => 'des_valor', 'name' => 'Descripción');
+        $filtros[] = array('id' => 'id_disp_origen', 'name'=> __("ID Origen"));
+        $filtros[] = array('id' => 'id_io', 'name'=> __("I/O"));
+        $filtros[] = array('id' => 'des_io', 'name'=> __("Etiqueta"));
+        $filtros[] = array('id' => 'id_disp_reporte', 'name'=> __("ID Reporte"));
+        $filtros[] = array('id' => 'valor_analogico', 'name'=> __("Valor Analógico"));
+        $filtros[] = array('id' => 'des_unidad_medida', 'name'=> __("Unid. Med."));
+        $filtros[] = array('id' => 'valor', 'name'=> __("Valor"));
+        $filtros[] = array('id' => 'des_valor', 'name'=> __("Descripción"));
 
         $rango['desde'] = array('id' => 'stm_evento', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -159,7 +159,7 @@ class MoviUltSucesos extends Controller
             MoviUltSuceso::addAuditoria($suceso, "RL");
             $suceso->save();
         }
-        return response(['ok' => 'Reset contador de '.$cod_tema], Response::HTTP_OK);
+        return response(['ok' => __('Reset contador de :COD_TEMA',['COD_TEMA'=>$cod_tema])], Response::HTTP_OK);
     }
 
     public static function resetStatus($datos) {
@@ -174,7 +174,7 @@ class MoviUltSucesos extends Controller
             MoviUltSuceso::addAuditoria($utlsuceso, "RL");
             $utlsuceso->save();
         }
-        return response(['ok' => 'Reset estado de '.$cod_tema], Response::HTTP_OK);
+        return response(['ok' => __('Reset estado de :COD_TEMA',['COD_TEMA'=>$cod_tema])], Response::HTTP_OK);
     }
 
     public static function store($datos)
@@ -207,7 +207,6 @@ class MoviUltSucesos extends Controller
         MoviUltSuceso::addAuditoria($suceso, "RL");
         $ret = $suceso->save();
 
-        return response(['ok' => 'El Suceso '.$suceso->cod_tema.' fue creado satisfactoriamente'], Response::HTTP_OK);
+        return response(['ok' => __('El Suceso :COD_TEMA fue creado satisfactoriamente',['COD_TEMA'=>$suceso->cod_tema])], Response::HTTP_OK);
     }
-
 }

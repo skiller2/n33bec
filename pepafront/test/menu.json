@@ -1,0 +1,89 @@
+[{
+		"icon": "user",
+		"id": "common.visitas",
+		"name": "Visitas"
+	},
+	{
+		"icon": "credit-card",
+		"id": "common.habilitaciones",
+		"name": "Habilitaciones"
+	},
+	{
+		"icon": "notes-medical",
+		"id": "common.aptosfisicos",
+		"name": "Aptos Físicos"
+	},
+	{
+		"icon": "arrows-alt-h",
+		"id": "common.movimientos",
+		"name": "Movimientos"
+	},
+	{
+		"icon": "arrows-alt-h",
+		"id": "common.movicredsectores",
+		"name": "Ocupación por Sector"
+	},
+	{
+		"icon": "tachometer-alt",
+		"id": "displaysucesos",
+		"name": "Comando y Control"
+	},
+	{
+		"divider": true,
+		"icon": "book",
+		"id": "common.movieventos",
+		"name": "Eventos"
+	},
+	{
+		"icon": "user",
+		"id": "common.usuarios",
+		"name": "Usuarios"
+	},
+	{
+		"icon": "user",
+		"id": "common.personas",
+		"name": "Personas"
+	},
+	{
+		"icon": "calendar",
+		"id": "common.feriados",
+		"name": "Feriados"
+	},
+	{
+		"icon": "tasks",
+		"id": "common.sectores",
+		"name": "Sectores"
+	},
+	{
+		"icon": "folder-open",
+		"id": "common.unidadesorganiz",
+		"name": "Organizaciones"
+	},
+	{
+		"divider": true,
+		"icon": "list-alt",
+		"id": "common.esquemas",
+		"name": "Esquemas de Acceso"
+	},
+	 {
+		"icon": "credit-card",
+		"id": "common.stockcredenciales",
+		"name": "Stock Tarjetas"
+	},
+       {
+		"icon": "hdd",
+		"id": "common.temas",
+		"name": "Componentes"
+	},
+       {
+		"divider": true,
+		"icon": "cog",
+		"id": "common.parametros",
+		"name": "Parámetros de Configuración"
+	},
+        {
+		"icon": "tachometer-alt",
+		"id": "common.dashboard",
+		"name": "Dashboard"
+	}
+]

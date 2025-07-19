@@ -160,40 +160,40 @@ class Novedades extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"cod_empleado", "name" => "Cód. Empleado", "key" => "cod_empleado");
-                    $columnDefs[] = array("prop"=>"ape_persona", "name" => "Apellido Empleado");
-                    $columnDefs[] = array("prop"=>"nom_persona", "name" => "Nombre Empleado");
-                    $columnDefs[] = array("prop"=>"tipo_novedad", "name" => "Tipo Novedad", "key" => "tipo_novedad");
-                    $columnDefs[] = array("prop"=>"nom_novedad", "name" => "Nombre Novedad");
-                    $columnDefs[] = array("prop"=>"fec_novedad_desde", "name" => "Fecha Desde", "key" => "fec_novedad_desde");
-                    $columnDefs[] = array("prop"=>"fec_novedad_hasta", "name" => "Fecha Hasta");
-                    $columnDefs[] = array("prop"=>"des_novedad", "name" => "Descripción");
-                    $columnDefs[] = array("prop"=>"nom_empresa", "name" => "Organización");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta");
-                    $columnDefs[] = array("prop"=>"cod_empresa", "name" => "Cód. Organización", "key" => "cod_empresa", "visible" => false);
+                    $columnDefs[] = array("prop"=>"cod_empleado", "name"=> __("Cód. Empleado"), "key" => "cod_empleado");
+                    $columnDefs[] = array("prop"=>"ape_persona", "name"=> __("Apellido Empleado"));
+                    $columnDefs[] = array("prop"=>"nom_persona", "name"=> __("Nombre Empleado"));
+                    $columnDefs[] = array("prop"=>"tipo_novedad", "name"=> __("Tipo Novedad"), "key" => "tipo_novedad");
+                    $columnDefs[] = array("prop"=>"nom_novedad", "name"=> __("Nombre Novedad"));
+                    $columnDefs[] = array("prop"=>"fec_novedad_desde", "name"=> __("Fecha Desde"), "key" => "fec_novedad_desde");
+                    $columnDefs[] = array("prop"=>"fec_novedad_hasta", "name"=> __("Fecha Hasta"));
+                    $columnDefs[] = array("prop"=>"des_novedad", "name"=> __("Descripción"));
+                    $columnDefs[] = array("prop"=>"nom_empresa", "name"=> __("Organización"));
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name"=> __("Fecha Alta"));
+                    $columnDefs[] = array("prop"=>"cod_empresa", "name"=> __("Cód. Organización"), "key" => "cod_empresa", "visible" => false);
             break;
             default:
-                    $columnDefs[] = array("field"=>"cod_empleado", "displayName" => "Cód. Empleado");
-                    $columnDefs[] = array("field"=>"ape_persona", "displayName" => "Apellido Empleado");
-                    $columnDefs[] = array("field"=>"nom_persona", "displayName" => "Nombre Empleado");                    
-                    $columnDefs[] = array("field"=>"tipo_novedad", "displayName" => "Tipo Novedad");
-                    $columnDefs[] = array("field"=>"nom_novedad", "displayName" => "Novedad");
-                    $columnDefs[] = array("field"=>"fec_novedad_desde", "displayName" => "Fecha Desde", "type"=>"date", "cellFilter"=>"ftDate");
-                    $columnDefs[] = array("field"=>"fec_novedad_hasta", "displayName" => "Fecha Hasta", "type"=>"date", "cellFilter"=>"ftDate");
-                    $columnDefs[] = array("field"=>"des_novedad", "displayName" => "Descripción");
-                    $columnDefs[] = array("field"=>"nom_empresa", "displayName" => "Organización");
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso", "displayName" => "Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime");
-                    $columnDefs[] = array("field"=>"cod_empresa", "displayName" => "Cód. Organización", "visible" => false);
+                    $columnDefs[] = array("field"=>"cod_empleado", "displayName"=> __("Cód. Empleado"));
+                    $columnDefs[] = array("field"=>"ape_persona", "displayName"=> __("Apellido Empleado"));
+                    $columnDefs[] = array("field"=>"nom_persona", "displayName"=> __("Nombre Empleado"));                    
+                    $columnDefs[] = array("field"=>"tipo_novedad", "displayName"=> __("Tipo Novedad"));
+                    $columnDefs[] = array("field"=>"nom_novedad", "displayName"=> __("Novedad"));
+                    $columnDefs[] = array("field"=>"fec_novedad_desde", "displayName"=> __("Fecha Desde"), "type"=>"date", "cellFilter"=>"ftDate");
+                    $columnDefs[] = array("field"=>"fec_novedad_hasta", "displayName"=> __("Fecha Hasta"), "type"=>"date", "cellFilter"=>"ftDate");
+                    $columnDefs[] = array("field"=>"des_novedad", "displayName"=> __("Descripción"));
+                    $columnDefs[] = array("field"=>"nom_empresa", "displayName"=> __("Organización"));
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso", "displayName"=> __("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"cod_empresa", "displayName"=> __("Cód. Organización"), "visible" => false);
         }
         $columnKeys = ['cod_empleado','cod_empresa','tipo_novedad','fec_novedad_desde'];  
         
-        $filtros[] = array('id' => 'cod_empleado', 'name' => 'Cód. Empleado');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
-        $filtros[] = array('id' => 'cod_empresa', 'name' => 'Cód. Organización');
-        $filtros[] = array('id' => 'nom_empresa', 'name' => 'Organización');
-        $filtros[] = array('id' => 'tipo_novedad', 'name' => 'Tipo Novedad');
-        $filtros[] = array('id' => 'nom_novedad', 'name' => 'Novedad');
-        $filtros[] = array('id' => 'des_novedad', 'name' => 'Descripción');
+        $filtros[] = array('id' => 'cod_empleado', 'name'=> __("Cód. Empleado"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
+        $filtros[] = array('id' => 'cod_empresa', 'name'=> __("Cód. Organización"));
+        $filtros[] = array('id' => 'nom_empresa', 'name'=> __("Organización"));
+        $filtros[] = array('id' => 'tipo_novedad', 'name'=> __("Tipo Novedad"));
+        $filtros[] = array('id' => 'nom_novedad', 'name'=> __("Novedad"));
+        $filtros[] = array('id' => 'des_novedad', 'name'=> __("Descripción"));
 
         $rango['desde'] = array('id' => 'fec_novedad_desde', 'tipo' => 'date');
         $rango['hasta'] = array('id' => 'fec_novedad_hasta', 'tipo' => 'date');
@@ -275,7 +275,7 @@ class Novedades extends Controller
             $novedad->save();
         }
 
-        return response(['ok' => 'La novedad '. $novedad->fec_novedad_desde.' fue creada satisfactoriamente'], Response::HTTP_OK);
+        return response(['ok' => __('La novedad :FEC_NOVEDAD_DESDE fue creada satisfactoriamente',['FEC_NOVEDAD_DESDE'=>$novedad->fec_novedad_desde])], Response::HTTP_OK);
     }
 
     public function update(Request $request)
@@ -353,7 +353,7 @@ class Novedades extends Controller
         //$q = DB::connection('mysql_asis')->getQueryLog();
         //file_put_contents('C:/temp/archivo.txt', var_export($q, true));        
         
-        return response(['ok' => 'Se eliminó satisfactoriamente la novedad'], Response::HTTP_OK);
+        return response(['ok'=> __("Se eliminó satisfactoriamente la novedad")], Response::HTTP_OK);
     }
 
 }

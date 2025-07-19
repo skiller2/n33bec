@@ -149,38 +149,38 @@ class Usuarios extends Controller
     {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "cod_usuario", "name" => "Cod. Usuario", "key" => "cod_usuario");
-                $columnDefs[] = array("prop" => "cod_persona", "name" => "Cod. Persona");
-                $columnDefs[] = array("prop" => "ape_persona", "name" => "Apellido");
-                $columnDefs[] = array("prop" => "nom_persona", "name" => "Nombre");
-                $columnDefs[] = array("prop" => "obj_permisos", "name" => "Permisos", "pipe" => "ftAbilities");
-                $columnDefs[] = array("prop" => "obj_ou", "name" => "Organizaciones", "pipe" => "ftOU");
-                $columnDefs[] = array("prop" => "obj_sectores", "name" => "Sectores", "pipe" => "ftSectores");
-                $columnDefs[] = array("prop" => "sector_default", "name" => "Sector Default Visita");
-                $columnDefs[] = array("prop" => "obj_esquemas", "name" => "Esquemas", "pipe" => "ftEsquemas");
-                $columnDefs[] = array("prop" => "esquema_default", "name" => "Esquema Default Visita");
-                $columnDefs[] = array("prop" => "ind_estado", "name" => "Dado de baja", "pipe" => "ftBoolean");
-                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name" => "Fecha Alta", "pipe" => "ftDateTime");
+                $columnDefs[] = array("prop" => "cod_usuario", "name"=> __("Cod. Usuario"), "key" => "cod_usuario");
+                $columnDefs[] = array("prop" => "cod_persona", "name"=> __("Cod. Persona"));
+                $columnDefs[] = array("prop" => "ape_persona", "name"=> __("Apellido"));
+                $columnDefs[] = array("prop" => "nom_persona", "name"=> __("Nombre"));
+                $columnDefs[] = array("prop" => "obj_permisos", "name"=> __("Permisos"), "pipe" => "ftAbilities");
+                $columnDefs[] = array("prop" => "obj_ou", "name"=> __("Organizaciones"), "pipe" => "ftOU");
+                $columnDefs[] = array("prop" => "obj_sectores", "name"=> __("Sectores"), "pipe" => "ftSectores");
+                $columnDefs[] = array("prop" => "sector_default", "name"=> __("Sector Default Visita"));
+                $columnDefs[] = array("prop" => "obj_esquemas", "name"=> __("Esquemas"), "pipe" => "ftEsquemas");
+                $columnDefs[] = array("prop" => "esquema_default", "name"=> __("Esquema Default Visita"));
+                $columnDefs[] = array("prop" => "ind_estado", "name"=> __("Dado de baja"), "pipe" => "ftBoolean");
+                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name"=> __("Fecha Alta"), "pipe" => "ftDateTime");
                 break;
             default:
-                $columnDefs[] = array("field" => "cod_usuario", "displayName" => "Cod. Usuario");
-                $columnDefs[] = array("field" => "cod_persona", "displayName" => "Cod. Persona");
-                $columnDefs[] = array("field" => "ape_persona", "displayName" => "Apellido");
-                $columnDefs[] = array("field" => "nom_persona", "displayName" => "Nombre");
-                $columnDefs[] = array("field" => "obj_permisos", "displayName" => "Permisos", "cellFilter" => "ftPermisos");
-                $columnDefs[] = array("field" => "obj_ou", "displayName" => "Organizaciones", "cellFilter" => "ftOU");
-                $columnDefs[] = array("field" => "obj_sectores", "displayName" => "Sectores");
-                $columnDefs[] = array("field" => "sector_default", "displayName" => "Sector Default Visita");
-                $columnDefs[] = array("field" => "obj_esquemas", "displayName" => "Esquemas");
-                $columnDefs[] = array("field" => "esquema_default", "displayName" => "Esquema Default Visita");
-                $columnDefs[] = array("field" => "ind_estado", "displayName" => "Dado de baja", "cellFilter" => "ftBoolean");
-                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName" => "Fecha Alta", "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "cod_usuario", "displayName"=> __("Cod. Usuario"));
+                $columnDefs[] = array("field" => "cod_persona", "displayName"=> __("Cod. Persona"));
+                $columnDefs[] = array("field" => "ape_persona", "displayName"=> __("Apellido"));
+                $columnDefs[] = array("field" => "nom_persona", "displayName"=> __("Nombre"));
+                $columnDefs[] = array("field" => "obj_permisos", "displayName"=> __("Permisos"), "cellFilter" => "ftPermisos");
+                $columnDefs[] = array("field" => "obj_ou", "displayName"=> __("Organizaciones"), "cellFilter" => "ftOU");
+                $columnDefs[] = array("field" => "obj_sectores", "displayName"=> __("Sectores"));
+                $columnDefs[] = array("field" => "sector_default", "displayName"=> __("Sector Default Visita"));
+                $columnDefs[] = array("field" => "obj_esquemas", "displayName"=> __("Esquemas"));
+                $columnDefs[] = array("field" => "esquema_default", "displayName"=> __("Esquema Default Visita"));
+                $columnDefs[] = array("field" => "ind_estado", "displayName"=> __("Dado de baja"), "cellFilter" => "ftBoolean");
+                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName"=> __("Fecha Alta"), "type" => "date", "cellFilter" => "ftDateTime");
         }
         $columnKeys = ['cod_usuario'];
 
-        $filtros[] = array('id' => 'cod_usuario', 'name' => 'Cód. Usuario');
-        $filtros[] = array('id' => 'cod_persona', 'name' => 'Cód. Persona');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
+        $filtros[] = array('id' => 'cod_usuario', 'name'=> __("Cód. Usuario"));
+        $filtros[] = array('id' => 'cod_persona', 'name'=> __("Cód. Persona"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -192,7 +192,7 @@ class Usuarios extends Controller
     {
         $clave = json_decode(base64_decode($clave), true);
         if (empty($clave[0]))
-            return response(['error' => "Debe seleccionar registro"], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe seleccionar registro")], Response::HTTP_CONFLICT);
         $cod_usuario = $clave[0][0];
         //$resultado=Usuario::find($cod_usuario);
         $resultado = Usuario::select(
@@ -235,9 +235,9 @@ class Usuarios extends Controller
             'contrasena' => 'required',
             'cod_persona' => 'required'
         ], [
-            'cod_usuario.required' => "Debe ingresar Cód. Usuario",
-            'contrasena.required' => "Debe ingresar Contraseña",
-            'cod_persona.required' => "Debe seleccionar Persona"
+            'cod_usuario.required'=> __("Debe ingresar Cód. Usuario"),
+            'contrasena.required'=> __("Debe ingresar Contraseña"),
+            'cod_persona.required'=> __("Debe seleccionar Persona")
         ]);
 
         if ($validator->fails()) {
@@ -272,8 +272,8 @@ class Usuarios extends Controller
             'cod_usuario' => 'required',
             'cod_persona' => 'required'
         ], [
-            'cod_usuario.required' => "Debe ingresar Cód. Usuario",
-            'cod_persona.required' => "Debe seleccionar Persona"
+            'cod_usuario.required'=> __("Debe ingresar Cód. Usuario"),
+            'cod_persona.required'=> __("Debe seleccionar Persona")
         ]);
 
         if ($validator->fails()) {
@@ -289,9 +289,9 @@ class Usuarios extends Controller
         if (empty($request->input('obj_esquemas'))) $esquema_default = "";
 
         if ($sector_default != "" && !in_array($sector_default, $vasectores))
-            return response(['error' => "Sector Default debe estar seleccionado en lista de Sectores"], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Sector Default debe estar seleccionado en lista de Sectores")], Response::HTTP_CONFLICT);
         if ($esquema_default != "" && !in_array($esquema_default, $request->input('obj_esquemas')))
-            return response(['error' => "Esquema Default debe estar seleccionado en lista de Esquemas"], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Esquema Default debe estar seleccionado en lista de Esquemas")], Response::HTTP_CONFLICT);
 
 
         $cod_usuario = $request->input('cod_usuario');
@@ -382,7 +382,7 @@ class Usuarios extends Controller
     public function getPersonaxOU($buscar, $cod_ou)
     {
         if ($cod_ou == "")
-            return response(['error' => "Debe selecciona OU Contacto"], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe selecciona OU Contacto")], Response::HTTP_CONFLICT);
         if (strlen($buscar) > 2) {
             $buscar = str_replace(' ', '* +', $buscar);
             $datosPersona = DB::select(DB::raw("SELECT DISTINCT CONCAT(c.nom_persona,' ',c.ape_persona,' ',c.nro_documento) as des_persona, 

@@ -52,7 +52,7 @@ class PepaAuthorize
         }catch(\Exception $e){}
         
         if(!$this->hasAccess($ability)){
-            return response(['error' => "El usuario no tiene permisos ($ability)"], Response::HTTP_FORBIDDEN);
+            return response(['error' => __("El usuario no tiene permisos (:ABILITY)",['ABILITY'=> $ability])], Response::HTTP_FORBIDDEN);
         }
         return $next($request);
         

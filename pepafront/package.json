@@ -1,6 +1,6 @@
 {
     "name": "n33bec",
-    "version": "1.490.0",
+    "version": "1.492.0",
     "description": "Control de Acceso y Monitoreo",
     "main": "http://localhost:9000",
     "window": {

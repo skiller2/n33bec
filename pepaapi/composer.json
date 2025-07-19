@@ -29,6 +29,7 @@
         "tymon/jwt-auth": "^1.0@dev"
     },
     "require-dev": {
+        "kkomelin/laravel-translatable-string-exporter": "^1.23",
         "mockery/mockery": "^1.0",
         "phpunit/phpunit": "^8.0"
     },

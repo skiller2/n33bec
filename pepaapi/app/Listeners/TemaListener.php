@@ -80,7 +80,7 @@ class TemaListener
             $valor_str = (is_array($valor)) ? json_encode($valor) : $valor;
             $context = array(
 
-                'msgtext' => "Tema $cod_tema no registrado valor devuelto $des_valor($valor_str)$obs",
+                'msgtext' => __("Tema :COD_TEMA no registrado valor devuelto :DES_VALOR(:VALOR_STR):OBS",['COD_TEMA'=>$cod_tema,'DES_VALOR'=>$des_valor,'VALOR_STR'=>$valor_str,'OBS'=>$obs]),
                 'cod_tema' => $cod_tema
             );
             $request = new Request(array("cod_tema" => $cod_tema, "valor" => $valor_str, "des_observaciones" => $des_observaciones, "stm_ultimo_reporte" => $event->stm_evento));
@@ -94,7 +94,7 @@ class TemaListener
 
         if (isset($event->event_data['origen']) && $event->event_data['origen'] != "" && $url_envio != "") {
             $context = array(
-                'msgtext' => "$nom_tema en loop, ingreso " . $event->event_data['origen'] . " y tiene configurada url de envío ",
+                'msgtext' => __(":NOM_TEMA en loop, ingreso :ORIGEN y tiene configurada url de envío ",['NOM_TEMA'=>$nom_tema,'ORIGEN'=>$event->event_data['origen']]),
                 'cod_tema' => $cod_tema
             );
             Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], "warning",  $context);
@@ -413,7 +413,7 @@ class TemaListener
                         break;
                     case "url":
                         if ($url_envio == "") {
-                            $msg = "Campo URL no configurado para " . $this->temas[$cod_tema]['nom_tema'];
+                            $msg = __("Campo URL no configurado para :NOM_TEMA",['NOM_TEMA'=>$this->temas[$cod_tema]['nom_tema']]);
                             Log::channel("eventos")->info($msg, array($this->temas[$cod_tema]));
                             $context = array(
                                 'msgtext' => $msg,
@@ -554,7 +554,7 @@ class TemaListener
 
         /*
         $context = array(
-            'msgtext' => "Proceso condiciones $nom_tema ($cod_tema_suc), disparado por $cod_tema_disparo con valor $valor",
+            'msgtext' => __("Proceso condiciones $nom_tema (:COD_TEMA_SUC), disparado por :COD_TEMA_DISPARO con valor :VALOR",['COD_TEMA_SUC'=>$cod_tema_suc,'COD_TEMA_DISPARO'=>$cod_tema_disparo,'VALOR'=>$valor]),
             //'cod_tema_origen' => $cod_tema,
         );
         Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);

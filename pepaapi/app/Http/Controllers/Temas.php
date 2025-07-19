@@ -200,7 +200,7 @@ class Temas extends Controller
 
 
         $context = array(
-            'msgtext' => "Configuración temas actualizada",
+            'msgtext' => __("Configuración temas actualizada"),
             //            "EstadoVal" => true, 
             //            "EstadoDen" => "Temas", 
             //            "EstadoColor" => "red"
@@ -213,41 +213,41 @@ class Temas extends Controller
 
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "cod_tema", "name" => "Componente", "key" => "cod_tema");
-                $columnDefs[] = array("prop" => "nom_tema", "name" => "Etiqueta");
-                $columnDefs[] = array("prop" => "nom_sector", "name" => "Sector");
-                $columnDefs[] = array("prop" => "des_ubicacion", "name" => "Ubicación");
-                $columnDefs[] = array("prop" => "cod_tipo_uso", "name" => "Tipo Uso");
-                $columnDefs[] = array("prop" => "ind_mostrar_en_panel", "name" => "Muestra en Panel");
-                $columnDefs[] = array("prop" => "ind_registra_evento", "name" => "Registra Evento");
-                $columnDefs[] = array("prop" => "ind_notifica_evento", "name" => "Notifica Evento");
-                $columnDefs[] = array("prop" => "ind_display_evento", "name" => "Display Evento");
-                $columnDefs[] = array("prop" => "ind_activo", "name" => "Activo");
-                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name" => "Fecha Alta");
-                $columnDefs[] = array("prop" => "aud_stm_ultmod", "name" => "Fecha Modif.");
+                $columnDefs[] = array("prop" => "cod_tema", "name"=> __("Componente"), "key" => "cod_tema");
+                $columnDefs[] = array("prop" => "nom_tema", "name"=> __("Etiqueta"));
+                $columnDefs[] = array("prop" => "nom_sector", "name"=> __("Sector"));
+                $columnDefs[] = array("prop" => "des_ubicacion", "name"=> __("Ubicación"));
+                $columnDefs[] = array("prop" => "cod_tipo_uso", "name"=> __("Tipo Uso"));
+                $columnDefs[] = array("prop" => "ind_mostrar_en_panel", "name"=> __("Muestra en Panel"));
+                $columnDefs[] = array("prop" => "ind_registra_evento", "name"=> __("Registra Evento"));
+                $columnDefs[] = array("prop" => "ind_notifica_evento", "name"=> __("Notifica Evento"));
+                $columnDefs[] = array("prop" => "ind_display_evento", "name"=> __("Display Evento"));
+                $columnDefs[] = array("prop" => "ind_activo", "name"=> __("Activo"));
+                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name"=> __("Fecha Alta"));
+                $columnDefs[] = array("prop" => "aud_stm_ultmod", "name"=> __("Fecha Modif."));
 
                 break;
             default:
-                $columnDefs[] = array("field" => "cod_tema", "displayName" => "Componente");
-                $columnDefs[] = array("field" => "nom_tema", "displayName" => "Etiqueta");
-                $columnDefs[] = array("field" => "nom_sector", "displayName" => "Sector");
-                $columnDefs[] = array("field" => "des_ubicacion", "displayName" => "Ubicación");
-                $columnDefs[] = array("field" => "cod_tipo_uso", "displayName" => "Tipo Uso");
-                $columnDefs[] = array("field" => "ind_mostrar_en_panel", "displayName" => "Muestra en Panel", "cellFilter" => "ftBoolean");
-                $columnDefs[] = array("field" => "ind_registra_evento", "displayName" => "Registra Evento", "cellFilter" => "ftBoolean");
-                $columnDefs[] = array("field" => "ind_notifica_evento", "displayName" => "Notifica Evento", "cellFilter" => "ftBoolean");
-                $columnDefs[] = array("field" => "ind_display_evento", "displayName" => "Display Evento", "cellFilter" => "ftBoolean");
-                $columnDefs[] = array("field" => "ind_activo", "displayName" => "Activo", "cellFilter" => "ftBoolean");
-                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName" => "Fecha Alta", "type" => "date", "cellFilter" => "ftDateTime");
-                $columnDefs[] = array("field" => "aud_stm_ultmod", "displayName" => "Fecha Modif.", "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "cod_tema", "displayName"=> __("Componente"));
+                $columnDefs[] = array("field" => "nom_tema", "displayName"=> __("Etiqueta"));
+                $columnDefs[] = array("field" => "nom_sector", "displayName"=> __("Sector"));
+                $columnDefs[] = array("field" => "des_ubicacion", "displayName"=> __("Ubicación"));
+                $columnDefs[] = array("field" => "cod_tipo_uso", "displayName"=> __("Tipo Uso"));
+                $columnDefs[] = array("field" => "ind_mostrar_en_panel", "displayName"=> __("Muestra en Panel"), "cellFilter" => "ftBoolean");
+                $columnDefs[] = array("field" => "ind_registra_evento", "displayName"=> __("Registra Evento"), "cellFilter" => "ftBoolean");
+                $columnDefs[] = array("field" => "ind_notifica_evento", "displayName"=> __("Notifica Evento"), "cellFilter" => "ftBoolean");
+                $columnDefs[] = array("field" => "ind_display_evento", "displayName"=> __("Display Evento"), "cellFilter" => "ftBoolean");
+                $columnDefs[] = array("field" => "ind_activo", "displayName"=> __("Activo"), "cellFilter" => "ftBoolean");
+                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName"=> __("Fecha Alta"), "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "aud_stm_ultmod", "displayName"=> __("Fecha Modif."), "type" => "date", "cellFilter" => "ftDateTime");
         }
         $columnKeys = ['cod_tema'];
 
-        $filtros[] = array('id' => 'cod_tema', 'name' => 'Cód. componente');
-        $filtros[] = array('id' => 'nom_tema', 'name' => 'Etiqueta');
-        $filtros[] = array('id' => 'nom_sector', 'name' => 'Sector');
-        $filtros[] = array('id' => 'des_ubicacion', 'name' => 'Ubicación');
-        $filtros[] = array('id' => 'cod_tipo_uso', 'name' => 'Tipo Uso');
+        $filtros[] = array('id' => 'cod_tema', 'name'=> __("Cód. componente"));
+        $filtros[] = array('id' => 'nom_tema', 'name'=> __("Etiqueta"));
+        $filtros[] = array('id' => 'nom_sector', 'name'=> __("Sector"));
+        $filtros[] = array('id' => 'des_ubicacion', 'name'=> __("Ubicación"));
+        $filtros[] = array('id' => 'cod_tipo_uso', 'name'=> __("Tipo Uso"));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -260,30 +260,30 @@ class Temas extends Controller
 
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "cod_tema", "name" => "Componente", "key" => "cod_tema");
-                $columnDefs[] = array("prop" => "nom_tema", "name" => "Etiqueta");
-                $columnDefs[] = array("prop" => "valor", "name" => "Valor");
-                $columnDefs[] = array("prop" => "des_observaciones", "name" => "Observaciones");
-                $columnDefs[] = array("prop" => "stm_ultimo_reporte", "name" => "Último reporte");
-                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name" => "Fecha Alta");
-                $columnDefs[] = array("prop" => "aud_stm_ultmod", "name" => "Fecha Modif.");
+                $columnDefs[] = array("prop" => "cod_tema", "name"=> __("Componente"), "key" => "cod_tema");
+                $columnDefs[] = array("prop" => "nom_tema", "name"=> __("Etiqueta"));
+                $columnDefs[] = array("prop" => "valor", "name"=> __("Valor"));
+                $columnDefs[] = array("prop" => "des_observaciones", "name"=> __("Observaciones"));
+                $columnDefs[] = array("prop" => "stm_ultimo_reporte", "name"=> __("Último reporte"));
+                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name"=> __("Fecha Alta"));
+                $columnDefs[] = array("prop" => "aud_stm_ultmod", "name"=> __("Fecha Modif."));
 
                 break;
             default:
-                $columnDefs[] = array("field" => "cod_tema", "displayName" => "Componente");
-                $columnDefs[] = array("field" => "nom_tema", "displayName" => "Etiqueta");
-                $columnDefs[] = array("field" => "valor", "displayName" => "Valor");
-                $columnDefs[] = array("field" => "des_observaciones", "displayName" => "Observaciones");
-                $columnDefs[] = array("field" => "stm_ultimo_reporte", "displayName" => "Último reporte", "type" => "date", "cellFilter" => "ftDateTime");
-                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName" => "Fecha Alta", "type" => "date", "cellFilter" => "ftDateTime");
-                $columnDefs[] = array("field" => "aud_stm_ultmod", "displayName" => "Fecha Modif.", "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "cod_tema", "displayName"=> __("Componente"));
+                $columnDefs[] = array("field" => "nom_tema", "displayName"=> __("Etiqueta"));
+                $columnDefs[] = array("field" => "valor", "displayName"=> __("Valor"));
+                $columnDefs[] = array("field" => "des_observaciones", "displayName"=> __("Observaciones"));
+                $columnDefs[] = array("field" => "stm_ultimo_reporte", "displayName"=> __("Último reporte"), "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName"=> __("Fecha Alta"), "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "aud_stm_ultmod", "displayName"=> __("Fecha Modif."), "type" => "date", "cellFilter" => "ftDateTime");
         }
         $columnKeys = ['cod_tema'];
 
-        $filtros[] = array('id' => 'cod_tema', 'name' => 'Cód. componente');
-        $filtros[] = array('id' => 'nom_tema', 'name' => 'Etiqueta');
-        $filtros[] = array('id' => 'valor', 'name' => 'Valor');
-        $filtros[] = array('id' => 'des_observaciones', 'name' => 'Observaciones');
+        $filtros[] = array('id' => 'cod_tema', 'name'=> __("Cód. componente"));
+        $filtros[] = array('id' => 'nom_tema', 'name'=> __("Etiqueta"));
+        $filtros[] = array('id' => 'valor', 'name'=> __("Valor"));
+        $filtros[] = array('id' => 'des_observaciones', 'name'=> __("Observaciones"));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -325,11 +325,11 @@ class Temas extends Controller
             'cod_clase' => "required"
 
         ], [
-            'cod_tema.required' => "Debe ingresar Componente",
-            'nom_tema.required' => "Debe ingresar etiqueta",
-            'des_ubicacion.required' => "Debe ingresar ubicación",
-            'cod_tipo_uso.required' => "Debe seleccionar tipo uso",
-            'cod_clase.required' => "Debe seleccionar una clase"
+            'cod_tema.required'=> __("Debe ingresar Componente"),
+            'nom_tema.required'=> __("Debe ingresar etiqueta"),
+            'des_ubicacion.required'=> __("Debe ingresar ubicación"),
+            'cod_tipo_uso.required'=> __("Debe seleccionar tipo uso"),
+            'cod_clase.required'=> __("Debe seleccionar una clase")
         ]);
 
         if ($validator->fails()) {
@@ -375,7 +375,7 @@ class Temas extends Controller
             $temanr->delete();
 
         $this->cleanCaches();
-        return response(['ok' => 'El componente fue creado satisfactoriamente con id: ' . $tema->cod_tema], Response::HTTP_OK);
+        return response(['ok' => __('El componente fue creado satisfactoriamente con identificador :COD_TEMA',['COD_TEMA'=>$tema->cod_tema])], Response::HTTP_OK);
     }
 
 
@@ -385,7 +385,7 @@ class Temas extends Controller
         $validator = Validator::make($request->all(), [
             'cod_tema' => 'required',
         ], [
-            'cod_tema.required' => "Debe ingresar Componente",
+            'cod_tema.required'=> __("Debe ingresar Componente"),
         ]);
 
         if ($validator->fails()) {
@@ -410,7 +410,7 @@ class Temas extends Controller
         $temanr->save();
 
 
-        return response(['ok' => 'El componente fue creado satisfactoriamente con id: ' . $temanr->cod_tema], Response::HTTP_OK);
+        return response(['ok' => __('El componente fue creado satisfactoriamente con identificador :COD_TEMA',['COD_TEMA'=>$tema->cod_tema]) . $temanr->cod_tema], Response::HTTP_OK);
     }
 
 
@@ -442,11 +442,11 @@ class Temas extends Controller
             'cod_tipo_uso' => 'required',
             'cod_clase' => 'required'
         ], [
-            'cod_tema.required' => "Debe ingresar componente",
-            'nom_tema.required' => "Debe ingresar etiqueta",
-            'des_ubicacion.required' => "Debe ingresar ubicación",
-            'cod_tipo_uso.required' => "Debe seleccionar tipo uso",
-            'cod_clase.required' => "Debe seleccionar clase"
+            'cod_tema.required'=> __("Debe ingresar componente"),
+            'nom_tema.required'=> __("Debe ingresar etiqueta"),
+            'des_ubicacion.required'=> __("Debe ingresar ubicación"),
+            'cod_tipo_uso.required'=> __("Debe seleccionar tipo uso"),
+            'cod_clase.required'=> __("Debe seleccionar clase")
         ]);
 
         if ($validator->fails()) {
@@ -624,7 +624,7 @@ class Temas extends Controller
                         return $ret;
                 }
             } 
-            return response(['error' => "Sector no localizado"], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Sector no localizado")], Response::HTTP_CONFLICT);
         }
 
         $vatemas = ConfigParametro::getTemas();
@@ -726,7 +726,7 @@ class Temas extends Controller
         $validator = Validator::make($request->all(), [
             'cod_tema' => 'required',
         ], [
-            'cod_tema.required' => "Debe ingresar Componente",
+            'cod_tema.required'=> __("Debe ingresar Componente"),
         ]);
 
         if ($validator->fails()) {
@@ -740,7 +740,7 @@ class Temas extends Controller
         $des_observaciones = "ejecución manual";
         $vatemas = ConfigParametro::getTemas();
         if(!isset($vatemas[$cod_tema]))
-            return response(['error' => "Tema '$cod_tema' no reconocido"], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Tema :COD_TEMA no reconocido",['COD_TEMA'=>$cod_tema])], Response::HTTP_CONFLICT);
 
 
         $vaextra_data = json_decode($extra_data,true);
@@ -801,7 +801,7 @@ class Temas extends Controller
                         return $ret;
                 }
             }
-            return response(['error' => 'Tema no existe'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Tema no existe")], Response::HTTP_CONFLICT);
         }
         $nom_tema = $vatemas[$cod_tema]['nom_tema'];
         $bus_id = (isset($vatemas[$cod_tema]['bus_id']))?$vatemas[$cod_tema]['bus_id']:"";
@@ -899,6 +899,6 @@ class Temas extends Controller
         );
 
         Broadcast::driver('fast-web-socket')->broadcast(["estados"], 'info',  $context);
-        return response(['ok' => 'estados enviados'], Response::HTTP_OK);
+        return response(['ok'=>__('Estados enviados')], Response::HTTP_OK);
     }
 }

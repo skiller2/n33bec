@@ -66,7 +66,7 @@ class SincronizaAsistencia extends Command {
                 
                 $this->printDebugInfo("Sincronizando tablas asistencia");
                 $context=array(
-                    'msgtext'=>"Sincronizando tablas asistencia",
+                    'msgtext' => __("Sincronizando tablas asistencia"),
                 );
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'warning',  $context);
         
@@ -81,7 +81,7 @@ class SincronizaAsistencia extends Command {
                 $this->printDebugInfo("Fin sincronización tablas asistencia");
 
                 $context=array(
-                    'msgtext'=>"Tablas asistencia actualizadas",
+                    'msgtext' => __("Tablas asistencia actualizadas"),
                 );
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
 

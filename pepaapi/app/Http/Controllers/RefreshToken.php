@@ -21,6 +21,6 @@ class RefreshToken extends Controller {
     
     public function refresh()
     {
-        return response(['ok' => 'Refresh ok'], Response::HTTP_OK)->header('Access-Control-Expose-Headers', 'Authorization');
+        return response(['ok'=> __("Refresh ok")], Response::HTTP_OK)->header('Access-Control-Expose-Headers', 'Authorization');
     }
 }

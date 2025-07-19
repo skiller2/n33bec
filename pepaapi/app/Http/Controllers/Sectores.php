@@ -53,7 +53,7 @@ class Sectores extends Controller
         Cache::forget("SECTORES");
 
         $context = array(
-            'msgtext' => "Configuración sectores actualizada",
+            'msgtext' => __("Configuración sectores actualizada"),
             "EstadoVal" => true, 
             "EstadoDen" => "Sectores", 
             "EstadoColor" => "green"
@@ -94,40 +94,40 @@ class Sectores extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"cod_sector", "name" => "Cód. Sector", "key" => "cod_sector","visible"=>false);
-                    $columnDefs[] = array("prop"=>"cod_sector_padre", "name" => "Cód. Sector Padre", "key" => "cod_sector_padre","visible"=>false);
-                    $columnDefs[] = array("prop"=>"cod_referencia", "name" => "Denominación Sector");
-                    $columnDefs[] = array("prop"=>"nom_sector", "name" => "Nombre");
-                    $columnDefs[] = array("prop"=>"nom_sector_padre", "name" => "Nombre Padre");
-                    $columnDefs[] = array("prop"=>"des_sector", "name" => "Descripción");
-                    $columnDefs[] = array("prop"=>"des_ubicacion", "name" => "Ubicación");
-                    $columnDefs[] = array("prop"=>"max_cant_personas", "name" => "Cant. Máx. Pers");
-                    $columnDefs[] = array("prop"=>"ind_permanencia", "name" => "Control Permanencia", "pipe" => "ftBoolean");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta");
+                    $columnDefs[] = array("prop"=>"cod_sector", "name"=> __("Cód. Sector"), "key" => "cod_sector","visible"=>false);
+                    $columnDefs[] = array("prop"=>"cod_sector_padre", "name"=> __("Cód. Sector Padre"), "key" => "cod_sector_padre","visible"=>false);
+                    $columnDefs[] = array("prop"=>"cod_referencia", "name"=> __("Denominación Sector"));
+                    $columnDefs[] = array("prop"=>"nom_sector", "name"=> __("Nombre"));
+                    $columnDefs[] = array("prop"=>"nom_sector_padre", "name"=> __("Nombre Padre"));
+                    $columnDefs[] = array("prop"=>"des_sector", "name"=> __("Descripción"));
+                    $columnDefs[] = array("prop"=>"des_ubicacion", "name"=> __("Ubicación"));
+                    $columnDefs[] = array("prop"=>"max_cant_personas", "name"=> __("Cant. Máx. Pers"));
+                    $columnDefs[] = array("prop"=>"ind_permanencia", "name"=> __("Control Permanencia"), "pipe" => "ftBoolean");
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name"=> __("Fecha Alta"));
             break;
             default:
-                    $columnDefs[] = array("field"=>"cod_sector","displayName"=>"Cód. Sector","visible"=>false);
-                    $columnDefs[] = array("field"=>"cod_sector_padre","displayName"=>"Cód. Sector Padre","visible"=>false);
-                    $columnDefs[] = array("field"=>"cod_referencia","displayName"=>"Denominación Sector");
-                    $columnDefs[] = array("field"=>"nom_sector","displayName"=>"Nombre");
-                    $columnDefs[] = array("field"=>"nom_sector_padre","displayName"=>"Nombre Padre");
-                    $columnDefs[] = array("field"=>"des_sector","displayName"=>"Descripción");
-                    $columnDefs[] = array("field"=>"des_ubicacion","displayName"=>"Ubicación");
-                    $columnDefs[] = array("field"=>"max_cant_personas","displayName"=>"Cant. Máx. Pers");
-                    $columnDefs[] = array("field"=>"ind_permanencia","displayName"=>"Control Permanencia","cellFilter"=>"ftBoolean");
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>"Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"cod_sector","displayName"=> __("Cód. Sector"),"visible"=>false);
+                    $columnDefs[] = array("field"=>"cod_sector_padre","displayName"=> __("Cód. Sector Padre"),"visible"=>false);
+                    $columnDefs[] = array("field"=>"cod_referencia","displayName"=> __("Denominación Sector"));
+                    $columnDefs[] = array("field"=>"nom_sector","displayName"=> __("Nombre"));
+                    $columnDefs[] = array("field"=>"nom_sector_padre","displayName"=> __("Nombre Padre"));
+                    $columnDefs[] = array("field"=>"des_sector","displayName"=> __("Descripción"));
+                    $columnDefs[] = array("field"=>"des_ubicacion","displayName"=> __("Ubicación"));
+                    $columnDefs[] = array("field"=>"max_cant_personas","displayName"=> __("Cant. Máx. Pers"));
+                    $columnDefs[] = array("field"=>"ind_permanencia","displayName"=> __("Control Permanencia"),"cellFilter"=>"ftBoolean");
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=> __("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime");
         }
         $columnKeys = ['cod_sector'];
         
-        $filtros[] = array('id' => 'maesSectores.cod_sector', 'name' => 'Cód. Sector');
-        $filtros[] = array('id' => 'maesSectores.cod_sector_padre', 'name' => 'Cód. Sector Padre');
+        $filtros[] = array('id' => 'maesSectores.cod_sector', 'name'=> __("Cód. Sector"));
+        $filtros[] = array('id' => 'maesSectores.cod_sector_padre', 'name'=> __("Cód. Sector Padre"));
 
-        $filtros[] = array('id' => 'maesSectores.cod_referencia', 'name' => 'Denominación Sector');
-        $filtros[] = array('id' => 'maesSectores.nom_sector', 'name' => 'Nombre');
-        $filtros[] = array('id' => 's2.nom_sector_padre', 'name' => 'Nombre Padre');
-        $filtros[] = array('id' => 'maesSectores.des_sector', 'name' => 'Descripción');
-        $filtros[] = array('id' => 'maesSectores.des_ubicacion', 'name' => 'Ubicación');
-        $filtros[] = array('id' => 'maesSectores.max_cant_personas', 'name' => 'Cant. Máx. Pers');
+        $filtros[] = array('id' => 'maesSectores.cod_referencia', 'name'=> __("Denominación Sector"));
+        $filtros[] = array('id' => 'maesSectores.nom_sector', 'name'=> __("Nombre"));
+        $filtros[] = array('id' => 's2.nom_sector_padre', 'name'=> __("Nombre Padre"));
+        $filtros[] = array('id' => 'maesSectores.des_sector', 'name'=> __("Descripción"));
+        $filtros[] = array('id' => 'maesSectores.des_ubicacion', 'name'=> __("Ubicación"));
+        $filtros[] = array('id' => 'maesSectores.max_cant_personas', 'name'=> __("Cant. Máx. Pers"));
 
 
 
@@ -250,7 +250,7 @@ class Sectores extends Controller
         }
 
         $this->cleanCaches();
-        return response(['ok' => 'El sector fue creado satisfactoriamente con id: '.$cod_sector], Response::HTTP_OK);
+        return response(['ok'=> __("El sector fue creado satisfactoriamente con identificador :COD_SECTOR",['COD_SECTOR'=>$cod_sector])], Response::HTTP_OK);
     }
 
 
@@ -305,7 +305,7 @@ class Sectores extends Controller
 
 
 
-        return response(['ok' => 'Actualización exitosa #: '.$cod_sector], Response::HTTP_OK);
+        return response(['ok'=> __("Actualización exitosa :COD_SECTOR",['COD_SECTOR'=>$cod_sector])], Response::HTTP_OK);
     }
 
     /**
@@ -328,7 +328,7 @@ class Sectores extends Controller
         }
 
         $this->cleanCaches();
-        return response(['ok' => 'Se eliminó satisfactoriamente el sector #'.$cod_sector], Response::HTTP_OK);
+        return response(['ok'=> __("Se eliminó satisfactoriamente el sector :COD_SECTOR",['COD_SECTOR'=>$cod_sector])], Response::HTTP_OK);
     }
 
     public function getSectoresSync() {
@@ -381,7 +381,7 @@ class Sectores extends Controller
                         return $ret;
                 }
             } 
-            return response(['error' => 'Sector no existe'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Sector no existe")], Response::HTTP_CONFLICT);
         }
         $imagen = ImagenSector::find($cod_sector, ['aud_stm_ultmod']);
         if (isset($imagen['aud_stm_ultmod']))

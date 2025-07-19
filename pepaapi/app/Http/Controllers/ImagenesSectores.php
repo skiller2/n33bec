@@ -31,7 +31,7 @@ class ImagenesSectores extends Controller {
         if ($imagen) {
             $vaimagenes[$imagen['tipo_uso']] = $imagen['blb_imagen'];
         } else {
-//            return response(['error' => 'Imagen no existe'], Response::HTTP_NOT_FOUND);
+//            return response(['error'=> __("Imagen no existe")], Response::HTTP_NOT_FOUND);
         }
         return $vaimagenes;
     }
@@ -45,7 +45,7 @@ class ImagenesSectores extends Controller {
             $img_tema_b64 = $vaResultado['blb_imagen'];
             $tipo_uso = $vaResultado['tipo_uso'];
         } else {
-            return response(['error' => 'Imagen no existe'], Response::HTTP_NOT_FOUND);
+            return response(['error' => __('Imagen no existe')], Response::HTTP_NOT_FOUND);
         }
         $header = substr($img_tema_b64,0,20);
         $image = base64_decode(substr($img_tema_b64, strpos($img_tema_b64, ",") + 1));
@@ -75,7 +75,7 @@ class ImagenesSectores extends Controller {
                         return $ret;
                 }
             }
-            return response(['error' => 'Imagen no existe para sector '], Response::HTTP_NOT_FOUND);
+            return response(['error' => __('Imagen no existe para sector')], Response::HTTP_NOT_FOUND);
         }
 
         //        $image = base64_decode(substr($img_tema_b64, strpos($img_tema_b64, ",")+1));

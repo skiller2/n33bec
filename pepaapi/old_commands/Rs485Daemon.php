@@ -84,7 +84,7 @@ class Rs485Daemon extends Command {
                 $this->printDebugInfo("Error conectando " . $this->_device . " " . $e->getMessage() . " reintento en $retrysecs segundos");
 
                 $context=array(
-                    'msgtext'=>"Error conectando con puerto ".$this->_device
+                    'msgtext'=>__("Error conectando con puerto :DEVICE",['DEVICE'=>$this->_device])
                 );
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
 
@@ -333,7 +333,7 @@ class Rs485Daemon extends Command {
 		$status="";
         
         $context=array(
-            'msgtext'=>"Conexión exitosa con ".$this->_device
+            'msgtext'=>__("Conexión exitosa con :DEVICE",['DEVICE'=>$this->_device])
         );
         Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
 

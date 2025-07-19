@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
                     $exception = \Symfony\Component\Debug\Exception\FlattenException::create($exception);
                     $debug = $exception->toArray();
                 }
-                return response(["error"=>"Error Interno","debug"=>$debug],$statusCode);
+                return response(["error"=>__("Error Interno"),"debug"=>$debug],$statusCode);
             }
             
             $msg =$exception->getMessage();
@@ -62,72 +62,72 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpEvxception){
-            return response(['error' => 'Requiere estar Autenticado'], 401);
+            return response(['error' => __('Requiere estar Autenticado')], 401);
         }
 
         if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException)
         {
-            return response(['error' => 'Token is invalid'], 401);
+            return response(['error' => __('Token is invalid')], 401);
         }
         if ($exception instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException)
         {
-            return response(['error' => 'Expiró la credencial'], 401);
+            return response(['error' => __('Expiró la credencial')], 401);
         }
         if ($exception instanceof \Tymon\JWTAuth\Exceptions\JWTException)
         {
-            return response(['error' => 'Requiere Autenticar'], 401);
+            return response(['error' => __('Requiere Autenticar')], 401);
         }
         if ($exception instanceof \Illuminate\Database\QueryException)
         {
-            $msg = "Error accediendo a la base de  datos";
+            $msg = __("Error accediendo a la base de  datos");
             $campos = array();
             if($exception->errorInfo[0]=="22001"){
-                $msg_campo = "Texto muy largo";
+                $msg_campo = __("Texto muy largo");
                 $re = '/column \'(.*)\'/';
                 $match = array();
                 preg_match($re, $exception->errorInfo[2],$match);
                 $campo = $match[1];
                 $campos[$campo] = $msg_campo;
-                $msg = "Dato muy largo para la columna $campo";
+                $msg = __("Dato muy largo para la columna :CAMPO",['CAMPO'=>$campo]);
             }
             if($exception->errorInfo[0]=="22003"){
-                $msg_campo = "Número fuera de rango";
+                $msg_campo = __("Número fuera de rango");
                 $re = '/column \'(.*)\'/';
                 $match = array();
                 preg_match($re, $exception->errorInfo[2],$match);
                 $campo = $match[1];
                 $campos[$campo] = $msg_campo;
-                $msg = "Dato muy largo para la columna $campo";
+                $msg = __("Dato muy largo para la columna :CAMPO",['CAMPO'=>$campo]);
             }           
 			if($exception->errorInfo[0]=="22007"){
-                $msg_campo = "Formato de fecha no válido";
+                $msg_campo = __("Formato de fecha no válido");
                 $re = '/column \'(.*)\'/';
                 $match = array();
                 preg_match($re, $exception->errorInfo[2],$match);
                 $campo = $match[1];
                 $campos[$campo] = $msg_campo;
-                $msg = "Fecha no válida para la columna $campo";
+                $msg = __("Fecha no válida para la columna :campo",['campo'=>$campo]);
             }
             if($exception->errorInfo[0]=="23000"){
                 $cod_error = $exception->errorInfo[1];
                 switch($cod_error){
                     case "1451":
-                        $msg = "No se puede eliminar o modificar, existen registros asociados";
+                        $msg = __("No se puede eliminar o modificar, existen registros asociados");
                         break;
                     case "1062":
-                        $msg = "Registro existente";
+                        $msg = __("Registro existente");
                         break;
                     case "1048":
-                        $msg_campo = "Campo sin datos";
+                        $msg_campo = __("Campo sin datos");
                         $re = '/column \'(.*)\'/i';
                         $match = array();
                         preg_match($re, $exception->errorInfo[2],$match);
                         $campo = $match[1];
                         $campos[$campo] = $msg_campo;
-                        $msg = "El campo $campo debe contener datos";
+                        $msg = __("El campo :CAMPO debe contener datos",['CAMPO'=>$campo]);
                         break;
                     default:
-                        $msg = "Error clave";
+                        $msg = __("Error clave");
                 }
             }
 
@@ -136,16 +136,16 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof \App\Http\Controllers\AuthEmtpyPassword)
         {
-            return response(['error' => 'Debe ingresar contraseña'], 401);
+            return response(['error' => __('Debe ingresar contraseña')], 401);
         }
 
         if ($exception instanceof \App\Http\Controllers\AuthNoMatchCredentials)
         {
-            return response(['error' => 'Usuario y/o contraseña no válidos'], 401);
+            return response(['error' => __('Usuario y/o contraseña no válidos')], 401);
         }
         if ($exception instanceof \App\Http\Controllers\AuthNoMatchCredentials)
         {
-            return response(['error' => 'Usuario y/o contraseña no válidos'], 401);
+            return response(['error' => __('Usuario y/o contraseña no válidos')], 401);
         }
         if ($exception instanceof \ErrorException)
         {
@@ -154,10 +154,10 @@ class Handler extends ExceptionHandler
                 $exception = \Symfony\Component\Debug\Exception\FlattenException::create($exception);
                 $debug = $exception->toArray();
             }
-            return response(["error"=>"Error Interno","debug"=>$debug], 500);
+            return response(["error"=>__("Error Interno"),"debug"=>$debug], 500);
         }
 
-        return response(['error' => 'Error desconocido'], 500);
+        return response(['error' => __('Error desconocido')], 500);
 
     }
 
@@ -171,7 +171,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+            return response()->json(['error' => __('Unauthenticated.')], 401);
         }
 
         return redirect()->guest('login');

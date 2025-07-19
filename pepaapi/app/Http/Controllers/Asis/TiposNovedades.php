@@ -55,22 +55,22 @@ class TiposNovedades extends Controller
     {
         switch($version){
             case "2":
-                    $columnDefs[] = array("prop"=>"tipo_novedad", "name" => "Tipo Novedad", "key" => "tipo_novedad");
-                    $columnDefs[] = array("prop"=>"nom_novedad", "name" => "Nombre");
-                    $columnDefs[] = array("prop"=>"ind_tipo_novedad", "name" => "Ind. Tipo Novedad");
-                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name" => "Fecha Alta");
+                    $columnDefs[] = array("prop"=>"tipo_novedad", "name"=> __("Tipo Novedad"), "key" => "tipo_novedad");
+                    $columnDefs[] = array("prop"=>"nom_novedad", "name"=> __("Nombre"));
+                    $columnDefs[] = array("prop"=>"ind_tipo_novedad", "name"=> __("Ind. Tipo Novedad"));
+                    $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name"=> __("Fecha Alta"));
             break;
             default:
-                    $columnDefs[] = array("field"=>"tipo_novedad","displayName"=>"Tipo Novedad");
-                    $columnDefs[] = array("field"=>"nom_novedad","displayName"=>"Nombre");
-                    $columnDefs[] = array("field"=>"ind_tipo_novedad","displayName"=>"Ind. Tipo Novedad");
-                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=>"Fecha Alta","type"=>"date","cellFilter"=>"ftDateTime");
+                    $columnDefs[] = array("field"=>"tipo_novedad","displayName"=> __("Tipo Novedad"));
+                    $columnDefs[] = array("field"=>"nom_novedad","displayName"=> __("Nombre"));
+                    $columnDefs[] = array("field"=>"ind_tipo_novedad","displayName"=> __("Ind. Tipo Novedad"));
+                    $columnDefs[] = array("field"=>"aud_stm_ingreso","displayName"=> __("Fecha Alta"),"type"=>"date","cellFilter"=>"ftDateTime");
         }
         $columnKeys = ['tipo_novedad'];
         
-        $filtros[] = array('id' => 'tipo_novedad', 'name' => 'Tipo Novedad');
-        $filtros[] = array('id' => 'nom_novedad', 'name' => 'Nombre');
-        $filtros[] = array('id' => 'ind_tipo_novedad', 'name' => 'Ind. Tipo Novedad');
+        $filtros[] = array('id' => 'tipo_novedad', 'name'=> __("Tipo Novedad"));
+        $filtros[] = array('id' => 'nom_novedad', 'name'=> __("Nombre"));
+        $filtros[] = array('id' => 'ind_tipo_novedad', 'name'=> __("Ind. Tipo Novedad"));
 
         $rango['desde'] = array('id' => 'aud_stm_ingreso', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -124,7 +124,7 @@ class TiposNovedades extends Controller
         TipoNovedad::addAuditoria($tipoNovedad, "A");
         $tipoNovedad->save();
 
-        return response(['ok' => 'El Tipo Novedad fue creado satisfactoriamente con id: '.$tipoNovedad->tipo_novedad], Response::HTTP_OK);
+        return response(['ok' => __('El Tipo Novedad fue creado satisfactoriamente con identificador :TIPO_NOVEDAD',['TIPO_NOVEDAD'=>$tipoNovedad->tipo_novedad])], Response::HTTP_OK);
     }
 
 
@@ -175,7 +175,8 @@ class TiposNovedades extends Controller
 
         TipoNovedad::find($tipo_novedad)->delete();
         
-        return response(['ok' => 'Se eliminó satisfactoriamente el Tipo Novedad #' . $tipo_novedad], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente el Tipo Novedad :TIPO_NOVEDAD',['TIPO_NOVEDAD'=>$tipoNovedad])], Response::HTTP_OK);
+
     }
 
     public function getTiposNovedades()

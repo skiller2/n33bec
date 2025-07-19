@@ -234,37 +234,37 @@ class Visitas extends Controller
     {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "cod_credencial", "name" => "Cód. Tarjeta", "key" => "cod_credencial");
-                $columnDefs[] = array("prop" => "ref_credencial", "name" => "Ref. Tarjeta");
-                $columnDefs[] = array("prop" => "nom_ou", "name" => "Organización");
-                $columnDefs[] = array("prop" => "cod_ou_emisora", "name" => "OU", "visible" => false, "key" => "cod_ou_emisora");
-                $columnDefs[] = array("prop" => "nom_sector", "name" => "Sectores", "pipe" => "ftSectores");
-                $columnDefs[] = array("prop" => "nro_documento", "name" => "DNI");
-                $columnDefs[] = array("prop" => "ape_persona", "name" => "Apellido");
-                $columnDefs[] = array("prop" => "nom_persona", "name" => "Nombre");
-                $columnDefs[] = array("prop" => "stm_habilitacion_desde", "name" => "Fecha Desde", "pipe" => "ftDateTime");
-                $columnDefs[] = array("prop" => "stm_habilitacion_hasta", "name" => "Fecha Hasta", "pipe" => "ftDateTime");
+                $columnDefs[] = array("prop" => "cod_credencial", "name"=> __("Cód. Tarjeta"), "key" => "cod_credencial");
+                $columnDefs[] = array("prop" => "ref_credencial", "name"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("prop" => "nom_ou", "name"=> __("Organización"));
+                $columnDefs[] = array("prop" => "cod_ou_emisora", "name"=> __("OU"), "visible" => false, "key" => "cod_ou_emisora");
+                $columnDefs[] = array("prop" => "nom_sector", "name"=> __("Sectores"), "pipe" => "ftSectores");
+                $columnDefs[] = array("prop" => "nro_documento", "name"=> __("DNI"));
+                $columnDefs[] = array("prop" => "ape_persona", "name"=> __("Apellido"));
+                $columnDefs[] = array("prop" => "nom_persona", "name"=> __("Nombre"));
+                $columnDefs[] = array("prop" => "stm_habilitacion_desde", "name"=> __("Fecha Desde"), "pipe" => "ftDateTime");
+                $columnDefs[] = array("prop" => "stm_habilitacion_hasta", "name"=> __("Fecha Hasta"), "pipe" => "ftDateTime");
                 break;
             default:
-                $columnDefs[] = array("field" => "cod_credencial", "displayName" => "Cód. Tarjeta", "cellFilter" => "ftTarjeta");
-                $columnDefs[] = array("field" => "ref_credencial", "displayName" => "Ref. Tarjeta");
-                $columnDefs[] = array("field" => "nom_ou", "displayName" => "Organización");
-                $columnDefs[] = array("field" => "cod_ou", "displayName" => "cod_ou", "visible" => false);
-                $columnDefs[] = array("field" => "nom_sector", "displayName" => "Sectores");
-                $columnDefs[] = array("field" => "nro_documento", "displayName" => "DNI");
-                $columnDefs[] = array("field" => "ape_persona", "displayName" => "Apellido");
-                $columnDefs[] = array("field" => "nom_persona", "displayName" => "Nombre");
-                $columnDefs[] = array("field" => "stm_habilitacion_desde", "displayName" => "Fecha Desde", "type" => "date", "cellFilter" => "ftDateTime");
-                $columnDefs[] = array("field" => "stm_habilitacion_hasta", "displayName" => "Fecha Hasta", "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "cod_credencial", "displayName"=> __("Cód. Tarjeta"), "cellFilter" => "ftTarjeta");
+                $columnDefs[] = array("field" => "ref_credencial", "displayName"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("field" => "nom_ou", "displayName"=> __("Organización"));
+                $columnDefs[] = array("field" => "cod_ou", "displayName"=> __("Código Organización"), "visible" => false);
+                $columnDefs[] = array("field" => "nom_sector", "displayName"=> __("Sectores"));
+                $columnDefs[] = array("field" => "nro_documento", "displayName"=> __("DNI"));
+                $columnDefs[] = array("field" => "ape_persona", "displayName"=> __("Apellido"));
+                $columnDefs[] = array("field" => "nom_persona", "displayName"=> __("Nombre"));
+                $columnDefs[] = array("field" => "stm_habilitacion_desde", "displayName"=> __("Fecha Desde"), "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "stm_habilitacion_hasta", "displayName"=> __("Fecha Hasta"), "type" => "date", "cellFilter" => "ftDateTime");
         }
         $columnKeys = ['cod_credencial', 'cod_ou'];
 
-        $filtros[] = array('id' => 'cod_credencial', 'name' => 'Cód. Tarjeta');
-        $filtros[] = array('id' => 'ref_credencial', 'name' => 'Ref. Tarjeta');
-        $filtros[] = array('id' => 'nom_ou', 'name' => 'Organización');
-        $filtros[] = array('id' => 'nom_sector', 'name' => 'Sectores');
-        $filtros[] = array('id' => 'nro_documento', 'name' => 'Nro. Documento');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
+        $filtros[] = array('id' => 'cod_credencial', 'name'=> __("Cód. Tarjeta"));
+        $filtros[] = array('id' => 'ref_credencial', 'name'=> __("Ref. Tarjeta"));
+        $filtros[] = array('id' => 'nom_ou', 'name'=> __("Organización"));
+        $filtros[] = array('id' => 'nom_sector', 'name'=> __("Sectores"));
+        $filtros[] = array('id' => 'nro_documento', 'name'=> __("Nro. Documento"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
 
         $rango['desde'] = array('id' => 'stm_habilitacion_desde', 'tipo' => 'datetime');
         $rango['hasta'] = array('id' => 'stm_habilitacion_desde', 'tipo' => 'datetime');
@@ -285,7 +285,7 @@ class Visitas extends Controller
         $cod_credencial = $clave[0][0];
 
         if ($cod_ou == "false")
-            return response(['error' => 'Debe seleccionar Unidad Organizacional'], Response::HTTP_CONFLICT);
+            return response(['error'=> __("Debe seleccionar Unidad Organizacional")], Response::HTTP_CONFLICT);
 
         $vccod_res = 1; //OK
 
@@ -416,15 +416,15 @@ class Visitas extends Controller
             ],
 
             [
-                'cod_credencial.required' => "Debe ingresar Cód. Tarjeta",
-                'cod_ou.required' => "Debe seleccionar Organización",
-                'tipo_habilitacion.required' => "Debe seleccionar Tipo Habilitación",
-                'cod_esquema_acceso.required' => "Debe seleccionar Esquema de Acceso",
-                'sectoresSel.required' => "Debe seleccionar Sectores",
-                'cod_tipo_doc.required'  => "Debe seleccionar tipo documento",
-                'nro_documento.required' => "Debe ingresar número de documento",
-                'nom_persona.required'  => "Ingrese nombre de la visita",
-                'ape_persona.required' => "Ingrese apellido de la visita"
+                'cod_credencial.required'=> __("Debe ingresar Cód. Tarjeta"),
+                'cod_ou.required'=> __("Debe seleccionar Organización"),
+                'tipo_habilitacion.required'=> __("Debe seleccionar Tipo Habilitación"),
+                'cod_esquema_acceso.required'=> __("Debe seleccionar Esquema de Acceso"),
+                'sectoresSel.required'=> __("Debe seleccionar Sectores"),
+                'cod_tipo_doc.required'=> __("Debe seleccionar tipo documento"),
+                'nro_documento.required'=> __("Debe ingresar número de documento"),
+                'nom_persona.required'=> __("Ingrese nombre de la visita"),
+                'ape_persona.required'=> __("Ingrese apellido de la visita")
 
             ]
         );
@@ -438,7 +438,7 @@ class Visitas extends Controller
         if ($stockcred) {
             $ref_credencial = $stockcred['ref_credencial'];
             if ($stockcred['tipo_habilitacion'] != $tipo_habilitacion)
-                return response(['error' => "Tarjeta en stock con tipo de habilitación distinta a la seleccionada"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Tarjeta en stock con tipo de habilitación distinta a la seleccionada")], Response::HTTP_CONFLICT);
         }
 
         $esq = Esquema::select()->where('cod_esquema_acceso', $cod_esquema_acceso)->first();
@@ -446,7 +446,7 @@ class Visitas extends Controller
             $fec_habilitacion_hasta = $esq['fec_habilitacion_hasta'];
             $stm_actual = Carbon::now()->format('Y-m-d H:i:s');
             if ($fec_habilitacion_hasta < $stm_actual && (int) $fec_habilitacion_hasta != 0) {
-                return response(['error' => "Esquema habilitado hasta $fec_habilitacion_hasta"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Esquema habilitado hasta :FEC_HABILITACION_HASTA",['FEC_HABILITACION_HASTA'=>$fec_habilitacion_hasta])], Response::HTTP_CONFLICT);
             }
         }
 
@@ -454,17 +454,17 @@ class Visitas extends Controller
 
             $stockcred = Credencial::select('tipo_habilitacion')->where('cod_credencial', $cod_credencial)->first();
             if (!$stockcred) {
-                return response(['error' => "Tarjeta inexistente en Stock Tarjetas"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Tarjeta inexistente en Stock Tarjetas")], Response::HTTP_CONFLICT);
             } else if ($stockcred['tipo_habilitacion'] != "T") {
-                return response(['error' => "La tarjeta ingresada debe ser de tipo Temporal/Visita"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("La tarjeta ingresada debe ser de tipo Temporal/Visita")], Response::HTTP_CONFLICT);
             }
 
             $tipo_credencial = "RFID";
             if (!$cod_ou_contacto)
-                return response(['error' => 'Debe ingresar Organización'], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Debe ingresar Organización")], Response::HTTP_CONFLICT);
             $cod_persona_contacto = $request->input('cod_persona_contacto');
             if (!$cod_persona_contacto)
-                return response(['error' => 'Debe ingresar Persona Contacto'], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Debe ingresar Persona Contacto")], Response::HTTP_CONFLICT);
 
             $valida_nrodoc_visitas_unico = ConfigParametro::get('VALIDA_NRODOC_VISITAS_UNICO', false);
 
@@ -475,7 +475,7 @@ class Visitas extends Controller
                     ->where('maesPersonas.nro_documento', $request->input('nro_documento'))->first();
 
                 if ($existe) {
-                    return response(['error' => 'Ya existe una habilitación temporal con el número de DNI indicado'], Response::HTTP_CONFLICT);
+                    return response(['error'=> __("Ya existe una habilitación temporal con el número de DNI indicado")], Response::HTTP_CONFLICT);
                 }
             }
         } else {
@@ -501,7 +501,7 @@ class Visitas extends Controller
         }
 
         if ($persona->ind_bloqueo == "1") {
-            return response(['error' => 'DNI bloqueado. Motivo: ' . $persona->des_motivo_bloqueo], Response::HTTP_CONFLICT);
+            return response(['error'=> __("DNI bloqueado. Motivo :DES_MOTIVO_BLOQUEO",['DES_MOTIVO_BLOQUEO'=>$persona->des_motivo_bloqueo])], Response::HTTP_CONFLICT);
         }
 
         $persona->nom_persona = $nom_persona;
@@ -637,7 +637,7 @@ class Visitas extends Controller
 
         Cache::forever("HabiAccesoLastUpdate", Carbon::now()->format('Y-m-d H:i:s'));
 
-        return response(['ok' => 'La tarjeta ' . $cod_credencial . ' fue asignada a la persona: ' . $cod_persona], Response::HTTP_OK);
+        return response(['ok' => __('La tarjeta :COD_CREDENCIAL fue asignada a la persona :COD_PERSONA',['COD_CREDENCIAL'=>$cod_credencial,'COD_PERSONA'=>$cod_persona])], Response::HTTP_OK);
     }
 
     /**
@@ -686,15 +686,15 @@ class Visitas extends Controller
             'nom_persona' => 'required',
             'ape_persona' => 'required'
         ], [
-            'cod_credencial.required' => "Debe ingresar Tarjeta",
-            'cod_ou.required' => "Debe seleccionar Organización",
-            'tipo_habilitacion.required' => "Debe seleccionar Tipo Habilitación",
-            'cod_esquema_acceso.required' => "Debe seleccionar Esquema de Acceso",
-            'sectoresSel.required' => "Debe seleccionar Sectores",
-            'cod_tipo_doc.required'  => "Debe seleccionar tipo documento",
-            'nro_documento.required' => "Debe ingresar número de documento",
-            'nom_persona.required'  => "Ingrese nombre de la visita",
-            'ape_persona.required' => "Ingrese apellido de la visita"
+            'cod_credencial.required'=> __("Debe ingresar Tarjeta"),
+            'cod_ou.required'=> __("Debe seleccionar Organización"),
+            'tipo_habilitacion.required'=> __("Debe seleccionar Tipo Habilitación"),
+            'cod_esquema_acceso.required'=> __("Debe seleccionar Esquema de Acceso"),
+            'sectoresSel.required'=> __("Debe seleccionar Sectores"),
+            'cod_tipo_doc.required'=> __("Debe seleccionar tipo documento"),
+            'nro_documento.required'=> __("Debe ingresar número de documento"),
+            'nom_persona.required'=> __("Ingrese nombre de la visita"),
+            'ape_persona.required'=> __("Ingrese apellido de la visita")
         ]);
 
         if ($validator->fails()) {
@@ -706,7 +706,7 @@ class Visitas extends Controller
         if ($stockcred) {
             $ref_credencial = $stockcred['ref_credencial'];
             if ($stockcred['tipo_habilitacion'] != $tipo_habilitacion)
-                return response(['error' => "Tarjeta en stock con tipo de habilitación distinta a la seleccionada"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Tarjeta en stock con tipo de habilitación distinta a la seleccionada")], Response::HTTP_CONFLICT);
         }
 
         $esq = Esquema::select()->where('cod_esquema_acceso', $cod_esquema_acceso)->first();
@@ -714,7 +714,7 @@ class Visitas extends Controller
             $fec_habilitacion_hasta = $esq['fec_habilitacion_hasta'];
             $stm_actual = Carbon::now()->format('Y-m-d H:i:s');
             if ($fec_habilitacion_hasta < $stm_actual && (int) $fec_habilitacion_hasta != 0) {
-                return response(['error' => "Esquema habilitado hasta $fec_habilitacion_hasta"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Esquema habilitado hasta :FEC_HABILITACION_HASTA",['FEC_HABILITACION_HASTA'=>$fec_habilitacion_hasta])], Response::HTTP_CONFLICT);
             }
         }
 
@@ -722,17 +722,17 @@ class Visitas extends Controller
 
             $stockcred = Credencial::select('tipo_habilitacion')->where('cod_credencial', $cod_credencial)->first();
             if (!$stockcred) {
-                return response(['error' => "Tarjeta inexistente en Stock Tarjetas"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Tarjeta inexistente en Stock Tarjetas")], Response::HTTP_CONFLICT);
             } else if ($stockcred['tipo_habilitacion'] != "T") {
-                return response(['error' => "La tarjeta ingresada debe ser de tipo Temporal/Visita"], Response::HTTP_CONFLICT);
+                return response(['error'=> __("La tarjeta ingresada debe ser de tipo Temporal/Visita")], Response::HTTP_CONFLICT);
             }
 
             $tipo_credencial = "RFID";
             if (!$cod_ou_contacto)
-                return response(['error' => 'Debe ingresar Organización'], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Debe ingresar Organización")], Response::HTTP_CONFLICT);
             $cod_persona_contacto = $request->input('cod_persona_contacto');
             if (!$cod_persona_contacto)
-                return response(['error' => 'Debe ingresar Persona Contacto'], Response::HTTP_CONFLICT);
+                return response(['error'=> __("Debe ingresar Persona Contacto")], Response::HTTP_CONFLICT);
 
             $valida_nrodoc_visitas_unico = ConfigParametro::get('VALIDA_NRODOC_VISITAS_UNICO', false);
             if ($valida_nrodoc_visitas_unico) {
@@ -744,7 +744,7 @@ class Visitas extends Controller
                     ->first();
 
                 if ($existe) {
-                    return response(['error' => 'Ya existe una habilitación temporal con el número de DNI indicado'], Response::HTTP_CONFLICT);
+                    return response(['error'=> __("Ya existe una habilitación temporal con el número de DNI indicado")], Response::HTTP_CONFLICT);
                 }
             }
         } else {
@@ -898,7 +898,7 @@ class Visitas extends Controller
 
         Cache::forever("HabiAccesoLastUpdate", Carbon::now()->format('Y-m-d H:i:s'));
 
-        return response(['ok' => 'La tarjeta ' . $cod_credencial . ' fue asignada a la persona: ' . $cod_persona], Response::HTTP_OK);
+        return response(['ok' => __('La tarjeta :COD_CREDENCIAL fue asignada a la persona :COD_PERSONA',['COD_CREDENCIAL'=>$cod_credencial,'COD_PERSONA'=>$cod_persona])], Response::HTTP_OK);
     }
 
     /**
@@ -933,7 +933,7 @@ class Visitas extends Controller
 
         Cache::forever("HabiAccesoLastUpdate", Carbon::now()->format('Y-m-d H:i:s'));
 
-        return response(['ok' => 'Se eliminó satisfactoriamente la Tarjeta #' . $cod_credencial], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente la Tarjeta :COD_CREDENCIAL',['COD_CREDENCIAL'=>$cod_credencial])], Response::HTTP_OK);
     }
 
     public function upload()

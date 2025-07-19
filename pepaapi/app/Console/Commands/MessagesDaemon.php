@@ -81,7 +81,7 @@ class MessagesDaemon extends Command
         if (Cache::get(self::confVersion) != $this->daemon_conf_ver) {
             if ($this->loadConfigData()) {
                 $context = array(
-                    'msgtext' => "Proceso Mensajería instantánea actualizando configuración"
+                    'msgtext' => __("Proceso Mensajería instantánea actualizando configuración")
                 );
 
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);

@@ -543,7 +543,7 @@ class Movimientos extends Controller {
                                     SELECT DATE_FORMAT(DATE_ADD(stm_movimiento, INTERVAL -3 HOUR), '%Y-%m-%d') as stm_movimiento,count(*) as cantidad,'rechazados' as 'tabla' 
                                     FROM moviRechazados
                                     GROUP BY DATE_FORMAT(DATE_ADD(stm_movimiento, INTERVAL -3 HOUR), '%Y-%m-%d')
-                                    ORDER BY stm_movimiento DESC LIMIT $limit "));
+                                    ORDER BY stm_movimiento DESC LIMIT $limit"));
         foreach ($query as $row) {
             if (!isset($temp[$row->stm_movimiento]))
                 $temp[$row->stm_movimiento] = array(0, 0, 0);
@@ -675,43 +675,43 @@ class Movimientos extends Controller {
     public function gridOptionsPermanentes($version = "") {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "stm_movimiento", "name" => "Fecha", "key" => "stm_movimiento", "pipe"=>"ftDateTime");
-                $columnDefs[] = array("prop" => "cod_credencial", "name" => "Cód Tarjeta", "pipe"=>"ftCredencial" );
-                $columnDefs[] = array("prop" => "ref_credencial", "name" => "Ref. Tarjeta");
-                $columnDefs[] = array("prop" => "nom_persona", "name" => "Nombre");
-                $columnDefs[] = array("prop" => "ape_persona", "name" => "Apellido");
-                $columnDefs[] = array("prop" => "nro_documento", "name" => "Nro. Doc.");
-                $columnDefs[] = array("prop" => "ind_movimiento", "name" => "Movimiento", "pipe"=>"ftIndMovimiento");
-                $columnDefs[] = array("prop" => "nom_tema", "name" => "Lector");
-                $columnDefs[] = array("prop" => "cod_sector", "name" => "Sector" , "pipe"=>"ftSectores");
-                $columnDefs[] = array("prop" => "nom_ou_contacto", "name" => "Organización Contacto");
-                $columnDefs[] = array("prop" => "nom_persona_contacto", "name" => "Nombre Persona Contacto");
-                $columnDefs[] = array("prop" => "ape_persona_contacto", "name" => "Apellido Persona Contacto");
+                $columnDefs[] = array("prop" => "stm_movimiento", "name"=> __("Fecha"), "key" => "stm_movimiento", "pipe"=>"ftDateTime");
+                $columnDefs[] = array("prop" => "cod_credencial", "name"=> __("Cód Tarjeta"), "pipe"=>"ftCredencial" );
+                $columnDefs[] = array("prop" => "ref_credencial", "name"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("prop" => "nom_persona", "name"=> __("Nombre"));
+                $columnDefs[] = array("prop" => "ape_persona", "name"=> __("Apellido"));
+                $columnDefs[] = array("prop" => "nro_documento", "name"=> __("Nro. Doc."));
+                $columnDefs[] = array("prop" => "ind_movimiento", "name"=> __("Movimiento"), "pipe"=>"ftIndMovimiento");
+                $columnDefs[] = array("prop" => "nom_tema", "name"=> __("Lector"));
+                $columnDefs[] = array("prop" => "cod_sector", "name"=> __("Sector") , "pipe"=>"ftSectores");
+                $columnDefs[] = array("prop" => "nom_ou_contacto", "name"=> __("Organización Contacto"));
+                $columnDefs[] = array("prop" => "nom_persona_contacto", "name"=> __("Nombre Persona Contacto"));
+                $columnDefs[] = array("prop" => "ape_persona_contacto", "name"=> __("Apellido Persona Contacto"));
                 break;
             default:
-                $columnDefs[] = array("field" => "stm_movimiento", "displayName" => "Fecha", "width" => 170, "type" => "date", "cellFilter" => "ftDateTime");
-                $columnDefs[] = array("field" => "cod_credencial", "displayName" => "Cód. Tarjeta", "cellFilter" => "ftTarjeta");
-                $columnDefs[] = array("field" => "ref_credencial", "displayName" => "Ref. Tarjeta");
-                $columnDefs[] = array("field" => "nom_persona", "displayName" => "Nombre");
-                $columnDefs[] = array("field" => "ape_persona", "displayName" => "Apellido");
-                $columnDefs[] = array("field" => "nro_documento", "displayName" => "Nro. Doc.");
-                $columnDefs[] = array("field" => "ind_movimiento", "displayName" => "Movimiento", "cellFilter" => "ftMovimiento");
-                $columnDefs[] = array("field" => "nom_tema", "displayName" => "Lector");
-                $columnDefs[] = array("field" => "nom_sector", "displayName" => "Sector");
-                $columnDefs[] = array("field" => "nom_ou_contacto", "displayName" => "Organización Contacto");
-                $columnDefs[] = array("field" => "nom_persona_contacto", "displayName" => "Nombre Persona Contacto");
-                $columnDefs[] = array("field" => "ape_persona_contacto", "displayName" => "Apellido Persona Contacto");
+                $columnDefs[] = array("field" => "stm_movimiento", "displayName"=> __("Fecha"), "width" => 170, "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "cod_credencial", "displayName"=> __("Cód. Tarjeta"), "cellFilter" => "ftTarjeta");
+                $columnDefs[] = array("field" => "ref_credencial", "displayName"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("field" => "nom_persona", "displayName"=> __("Nombre"));
+                $columnDefs[] = array("field" => "ape_persona", "displayName"=> __("Apellido"));
+                $columnDefs[] = array("field" => "nro_documento", "displayName"=> __("Nro. Doc."));
+                $columnDefs[] = array("field" => "ind_movimiento", "displayName"=> __("Movimiento"), "cellFilter" => "ftMovimiento");
+                $columnDefs[] = array("field" => "nom_tema", "displayName"=> __("Lector"));
+                $columnDefs[] = array("field" => "nom_sector", "displayName"=> __("Sector"));
+                $columnDefs[] = array("field" => "nom_ou_contacto", "displayName"=> __("Organización Contacto"));
+                $columnDefs[] = array("field" => "nom_persona_contacto", "displayName"=> __("Nombre Persona Contacto"));
+                $columnDefs[] = array("field" => "ape_persona_contacto", "displayName"=> __("Apellido Persona Contacto"));
         }
         $columnKeys = ['stm_movimiento'];
         
-        $filtros[] = array('id' => 'cod_credencial', 'name' => 'Cód. Tarjeta');
-        $filtros[] = array('id' => 'ref_credencial', 'name' => 'Ref. Tarjeta');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
-        $filtros[] = array('id' => 'nro_documento', 'name' => 'Nro. Documento');
-        $filtros[] = array('id' => 'nom_tema', 'name' => 'Lector');
-        $filtros[] = array('id' => 'nom_sector', 'name' => 'Sector');
-        $filtros[] = array('id' => 'nom_ou_contacto', 'name' => 'Organización Contacto');
-        $filtros[] = array('id' => 'des_persona_contacto', 'name' => 'Apellido y Nombre Contacto');
+        $filtros[] = array('id' => 'cod_credencial', 'name'=> __("Cód. Tarjeta"));
+        $filtros[] = array('id' => 'ref_credencial', 'name'=> __("Ref. Tarjeta"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
+        $filtros[] = array('id' => 'nro_documento', 'name'=> __("Nro. Documento"));
+        $filtros[] = array('id' => 'nom_tema', 'name'=> __("Lector"));
+        $filtros[] = array('id' => 'nom_sector', 'name'=> __("Sector"));
+        $filtros[] = array('id' => 'nom_ou_contacto', 'name'=> __("Organización Contacto"));
+        $filtros[] = array('id' => 'des_persona_contacto', 'name'=> __("Apellido y Nombre Contacto"));
 
         $rango['desde'] = array('id' => 'stm_movimiento', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -722,43 +722,43 @@ class Movimientos extends Controller {
     public function gridOptionsPermanentesDisplay($version = "") {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "stm_movimiento", "name" => "Fecha", "key" => "stm_movimiento", "pipe"=>"ftDateTime");
-//                $columnDefs[] = array("prop" => "cod_credencial", "name" => "Cód Tarjeta", "pipe"=>"ftCredencial");
-//                $columnDefs[] = array("prop" => "ref_credencial", "name" => "Ref. Tarjeta");
-                $columnDefs[] = array("prop" => "nom_persona", "name" => "Nombre");
-                $columnDefs[] = array("prop" => "ape_persona", "name" => "Apellido");
-                $columnDefs[] = array("prop" => "nro_documento", "name" => "Nro. Doc.");
-                $columnDefs[] = array("prop" => "ind_movimiento", "name" => "Movimiento", "pipe"=>"ftIndMovimiento");
-                $columnDefs[] = array("prop" => "nom_tema", "name" => "Lector");
-                $columnDefs[] = array("prop" => "cod_sector", "name" => "Sector", "pipe"=>"ftSectores");
-//                $columnDefs[] = array("prop" => "nom_ou_contacto", "name" => "Organización Contacto");
-//                $columnDefs[] = array("prop" => "nom_persona_contacto", "name" => "Nombre Persona Contacto");
-//                $columnDefs[] = array("prop" => "ape_persona_contacto", "name" => "Apellido Persona Contacto");
+                $columnDefs[] = array("prop" => "stm_movimiento", "name"=> __("Fecha"), "key" => "stm_movimiento", "pipe"=>"ftDateTime");
+//                $columnDefs[] = array("prop" => "cod_credencial", "name"=> __("Cód Tarjeta"), "pipe"=>"ftCredencial");
+//                $columnDefs[] = array("prop" => "ref_credencial", "name"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("prop" => "nom_persona", "name"=> __("Nombre"));
+                $columnDefs[] = array("prop" => "ape_persona", "name"=> __("Apellido"));
+                $columnDefs[] = array("prop" => "nro_documento", "name"=> __("Nro. Doc."));
+                $columnDefs[] = array("prop" => "ind_movimiento", "name"=> __("Movimiento"), "pipe"=>"ftIndMovimiento");
+                $columnDefs[] = array("prop" => "nom_tema", "name"=> __("Lector"));
+                $columnDefs[] = array("prop" => "cod_sector", "name"=> __("Sector"), "pipe"=>"ftSectores");
+//                $columnDefs[] = array("prop" => "nom_ou_contacto", "name"=> __("Organización Contacto"));
+//                $columnDefs[] = array("prop" => "nom_persona_contacto", "name"=> __("Nombre Persona Contacto"));
+//                $columnDefs[] = array("prop" => "ape_persona_contacto", "name"=> __("Apellido Persona Contacto"));
                 break;
             default:
-                $columnDefs[] = array("field" => "stm_movimiento", "displayName" => "Fecha", "width" => 170, "type" => "date", "cellFilter" => "ftDateTime");
-//                $columnDefs[] = array("field" => "cod_credencial", "displayName" => "Cód. Tarjeta", "cellFilter" => "ftTarjeta");
-//                $columnDefs[] = array("field" => "ref_credencial", "displayName" => "Ref. Tarjeta");
-                $columnDefs[] = array("field" => "nom_persona", "displayName" => "Nombre");
-                $columnDefs[] = array("field" => "ape_persona", "displayName" => "Apellido");
-                $columnDefs[] = array("field" => "nro_documento", "displayName" => "Nro. Doc.");
-                $columnDefs[] = array("field" => "ind_movimiento", "displayName" => "Movimiento", "cellFilter" => "ftMovimiento");
-                $columnDefs[] = array("field" => "nom_tema", "displayName" => "Lector");
-                $columnDefs[] = array("field" => "nom_sector", "displayName" => "Sector");
-//                $columnDefs[] = array("field" => "nom_ou_contacto", "displayName" => "Organización Contacto");
-//                $columnDefs[] = array("field" => "nom_persona_contacto", "displayName" => "Nombre Persona Contacto");
-//                $columnDefs[] = array("field" => "ape_persona_contacto", "displayName" => "Apellido Persona Contacto");
+                $columnDefs[] = array("field" => "stm_movimiento", "displayName"=> __("Fecha"), "width" => 170, "type" => "date", "cellFilter" => "ftDateTime");
+//                $columnDefs[] = array("field" => "cod_credencial", "displayName"=> __("Cód. Tarjeta"), "cellFilter" => "ftTarjeta");
+//                $columnDefs[] = array("field" => "ref_credencial", "displayName"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("field" => "nom_persona", "displayName"=> __("Nombre"));
+                $columnDefs[] = array("field" => "ape_persona", "displayName"=> __("Apellido"));
+                $columnDefs[] = array("field" => "nro_documento", "displayName"=> __("Nro. Doc."));
+                $columnDefs[] = array("field" => "ind_movimiento", "displayName"=> __("Movimiento"), "cellFilter" => "ftMovimiento");
+                $columnDefs[] = array("field" => "nom_tema", "displayName"=> __("Lector"));
+                $columnDefs[] = array("field" => "nom_sector", "displayName"=> __("Sector"));
+//                $columnDefs[] = array("field" => "nom_ou_contacto", "displayName"=> __("Organización Contacto"));
+//                $columnDefs[] = array("field" => "nom_persona_contacto", "displayName"=> __("Nombre Persona Contacto"));
+//                $columnDefs[] = array("field" => "ape_persona_contacto", "displayName"=> __("Apellido Persona Contacto"));
         }
         $columnKeys = ['stm_movimiento'];
         
-        $filtros[] = array('id' => 'cod_credencial', 'name' => 'Cód. Tarjeta');
-//        $filtros[] = array('id' => 'ref_credencial', 'name' => 'Ref. Tarjeta');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
-        $filtros[] = array('id' => 'nro_documento', 'name' => 'Nro. Documento');
-        $filtros[] = array('id' => 'nom_tema', 'name' => 'Lector');
-        $filtros[] = array('id' => 'nom_sector', 'name' => 'Sector');
-//        $filtros[] = array('id' => 'nom_ou_contacto', 'name' => 'Organización Contacto');
-//        $filtros[] = array('id' => 'des_persona_contacto', 'name' => 'Apellido y Nombre Contacto');
+        $filtros[] = array('id' => 'cod_credencial', 'name'=> __("Cód. Tarjeta"));
+//        $filtros[] = array('id' => 'ref_credencial', 'name'=> __("Ref. Tarjeta"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
+        $filtros[] = array('id' => 'nro_documento', 'name'=> __("Nro. Documento"));
+        $filtros[] = array('id' => 'nom_tema', 'name'=> __("Lector"));
+        $filtros[] = array('id' => 'nom_sector', 'name'=> __("Sector"));
+//        $filtros[] = array('id' => 'nom_ou_contacto', 'name'=> __("Organización Contacto"));
+//        $filtros[] = array('id' => 'des_persona_contacto', 'name'=> __("Apellido y Nombre Contacto"));
 
         $rango['desde'] = array('id' => 'stm_movimiento', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -771,43 +771,43 @@ class Movimientos extends Controller {
     public function gridOptionsTemporales($version = "") {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "stm_movimiento", "name" => "Fecha", "key" => "stm_movimiento", "pipe"=>"ftDateTime");
-                $columnDefs[] = array("prop" => "cod_credencial", "name" => "Cód. Tarjeta", "pipe"=>"ftCredencial");
-                $columnDefs[] = array("prop" => "ref_credencial", "name" => "Ref. Tarjeta");
-                $columnDefs[] = array("prop" => "nom_persona", "name" => "Nombre");
-                $columnDefs[] = array("prop" => "ape_persona", "name" => "Apellido");
-                $columnDefs[] = array("prop" => "nro_documento", "name" => "Nro. Doc.");
-                $columnDefs[] = array("prop" => "ind_movimiento", "name" => "Movimiento", "pipe"=>"ftIndMovimiento");
-                $columnDefs[] = array("prop" => "nom_tema", "name" => "Lector");
-                $columnDefs[] = array("prop" => "cod_sector", "name" => "Sector", "pipe"=>"ftSectores");
-                $columnDefs[] = array("prop" => "nom_ou_contacto", "name" => "Organización Contacto");
-                $columnDefs[] = array("prop" => "nom_persona_contacto", "name" => "Nombre Persona Contacto");
-                $columnDefs[] = array("prop" => "ape_persona_contacto", "name" => "Apellido Persona Contacto");
+                $columnDefs[] = array("prop" => "stm_movimiento", "name"=> __("Fecha"), "key" => "stm_movimiento", "pipe"=>"ftDateTime");
+                $columnDefs[] = array("prop" => "cod_credencial", "name"=> __("Cód. Tarjeta"), "pipe"=>"ftCredencial");
+                $columnDefs[] = array("prop" => "ref_credencial", "name"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("prop" => "nom_persona", "name"=> __("Nombre"));
+                $columnDefs[] = array("prop" => "ape_persona", "name"=> __("Apellido"));
+                $columnDefs[] = array("prop" => "nro_documento", "name"=> __("Nro. Doc."));
+                $columnDefs[] = array("prop" => "ind_movimiento", "name"=> __("Movimiento"), "pipe"=>"ftIndMovimiento");
+                $columnDefs[] = array("prop" => "nom_tema", "name"=> __("Lector"));
+                $columnDefs[] = array("prop" => "cod_sector", "name"=> __("Sector"), "pipe"=>"ftSectores");
+                $columnDefs[] = array("prop" => "nom_ou_contacto", "name"=> __("Organización Contacto"));
+                $columnDefs[] = array("prop" => "nom_persona_contacto", "name"=> __("Nombre Persona Contacto"));
+                $columnDefs[] = array("prop" => "ape_persona_contacto", "name"=> __("Apellido Persona Contacto"));
                 break;
             default:
-                $columnDefs[] = array("field" => "stm_movimiento", "displayName" => "Fecha", "width" => 170, "type" => "date", "cellFilter" => "ftDateTime");
-                $columnDefs[] = array("field" => "cod_credencial", "displayName" => "Cód. Tarjeta", "cellFilter" => "ftTarjeta");
-                $columnDefs[] = array("field" => "ref_credencial", "displayName" => "Ref. Tarjeta");
-                $columnDefs[] = array("field" => "nom_persona", "displayName" => "Nombre");
-                $columnDefs[] = array("field" => "ape_persona", "displayName" => "Apellido");
-                $columnDefs[] = array("field" => "nro_documento", "displayName" => "Nro. Doc.");
-                $columnDefs[] = array("field" => "ind_movimiento", "displayName" => "Movimiento", "cellFilter" => "ftMovimiento");
-                $columnDefs[] = array("field" => "nom_tema", "displayName" => "Lector");
-                $columnDefs[] = array("field" => "nom_sector", "displayName" => "Sector");
-                $columnDefs[] = array("field" => "nom_ou_contacto", "displayName" => "Organización Contacto");
-                $columnDefs[] = array("field" => "nom_persona_contacto", "displayName" => "Nombre Persona Contacto");
-                $columnDefs[] = array("field" => "ape_persona_contacto", "displayName" => "Apellido Persona Contacto");
+                $columnDefs[] = array("field" => "stm_movimiento", "displayName"=> __("Fecha"), "width" => 170, "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "cod_credencial", "displayName"=> __("Cód. Tarjeta"), "cellFilter" => "ftTarjeta");
+                $columnDefs[] = array("field" => "ref_credencial", "displayName"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("field" => "nom_persona", "displayName"=> __("Nombre"));
+                $columnDefs[] = array("field" => "ape_persona", "displayName"=> __("Apellido"));
+                $columnDefs[] = array("field" => "nro_documento", "displayName"=> __("Nro. Doc."));
+                $columnDefs[] = array("field" => "ind_movimiento", "displayName"=> __("Movimiento"), "cellFilter" => "ftMovimiento");
+                $columnDefs[] = array("field" => "nom_tema", "displayName"=> __("Lector"));
+                $columnDefs[] = array("field" => "nom_sector", "displayName"=> __("Sector"));
+                $columnDefs[] = array("field" => "nom_ou_contacto", "displayName"=> __("Organización Contacto"));
+                $columnDefs[] = array("field" => "nom_persona_contacto", "displayName"=> __("Nombre Persona Contacto"));
+                $columnDefs[] = array("field" => "ape_persona_contacto", "displayName"=> __("Apellido Persona Contacto"));
         }
         $columnKeys = ['stm_movimiento'];
         
-        $filtros[] = array('id' => 'cod_credencial', 'name' => 'Cód. Tarjeta');
-        $filtros[] = array('id' => 'ref_credencial', 'name' => 'Ref. Tarjeta');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
-        $filtros[] = array('id' => 'nro_documento', 'name' => 'Nro. Documento');
-        $filtros[] = array('id' => 'nom_tema', 'name' => 'Lector');
-        $filtros[] = array('id' => 'nom_sector', 'name' => 'Sector');
-        $filtros[] = array('id' => 'nom_ou_contacto', 'name' => 'Organización Contacto');
-        $filtros[] = array('id' => 'des_persona_contacto', 'name' => 'Apellido y Nombre Contacto');
+        $filtros[] = array('id' => 'cod_credencial', 'name'=> __("Cód. Tarjeta"));
+        $filtros[] = array('id' => 'ref_credencial', 'name'=> __("Ref. Tarjeta"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
+        $filtros[] = array('id' => 'nro_documento', 'name'=> __("Nro. Documento"));
+        $filtros[] = array('id' => 'nom_tema', 'name'=> __("Lector"));
+        $filtros[] = array('id' => 'nom_sector', 'name'=> __("Sector"));
+        $filtros[] = array('id' => 'nom_ou_contacto', 'name'=> __("Organización Contacto"));
+        $filtros[] = array('id' => 'des_persona_contacto', 'name'=> __("Apellido y Nombre Contacto"));
 
         $rango['desde'] = array('id' => 'stm_movimiento', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -818,39 +818,39 @@ class Movimientos extends Controller {
     public function gridOptionsRechazados($version = "") {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "stm_movimiento", "name" => "Fecha", "key" => "stm_movimiento", "pipe"=>"ftDateTime");
-                $columnDefs[] = array("prop" => "cod_credencial", "name" => "Cód. Tarjeta", "pipe"=>"ftCredencial");
-                $columnDefs[] = array("prop" => "ref_credencial", "name" => "Ref. Tarjeta");
-                $columnDefs[] = array("prop" => "nom_persona", "name" => "Nombre");
-                $columnDefs[] = array("prop" => "ape_persona", "name" => "Apellido");
-                $columnDefs[] = array("prop" => "nro_documento", "name" => "Nro. Doc.");
-                $columnDefs[] = array("prop" => "ind_movimiento", "name" => "Movimiento", "pipe"=>"ftIndMovimiento");
-                $columnDefs[] = array("prop" => "nom_tema", "name" => "Lector");
-                $columnDefs[] = array("prop" => "cod_sector", "name" => "Sector", "pipe"=>"ftSectores");
-                $columnDefs[] = array("prop" => "tipo_habilitacion", "name" => "Tipo Hab.");
-                $columnDefs[] = array("prop" => "ind_rechazo", "name" => "Ind Rechazo");
+                $columnDefs[] = array("prop" => "stm_movimiento", "name"=> __("Fecha"), "key" => "stm_movimiento", "pipe"=>"ftDateTime");
+                $columnDefs[] = array("prop" => "cod_credencial", "name"=> __("Cód. Tarjeta"), "pipe"=>"ftCredencial");
+                $columnDefs[] = array("prop" => "ref_credencial", "name"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("prop" => "nom_persona", "name"=> __("Nombre"));
+                $columnDefs[] = array("prop" => "ape_persona", "name"=> __("Apellido"));
+                $columnDefs[] = array("prop" => "nro_documento", "name"=> __("Nro. Doc."));
+                $columnDefs[] = array("prop" => "ind_movimiento", "name"=> __("Movimiento"), "pipe"=>"ftIndMovimiento");
+                $columnDefs[] = array("prop" => "nom_tema", "name"=> __("Lector"));
+                $columnDefs[] = array("prop" => "cod_sector", "name"=> __("Sector"), "pipe"=>"ftSectores");
+                $columnDefs[] = array("prop" => "tipo_habilitacion", "name"=> __("Tipo Hab."));
+                $columnDefs[] = array("prop" => "ind_rechazo", "name"=> __("Ind Rechazo"));
                 break;
             default:
-                $columnDefs[] = array("field" => "stm_movimiento", "displayName" => "Fecha", "width" => 170, "type" => "date", "cellFilter" => "ftDateTime");
-                $columnDefs[] = array("field" => "cod_credencial", "displayName" => "Cód. Tarjeta", "cellFilter" => "ftTarjeta");
-                $columnDefs[] = array("field" => "ref_credencial", "displayName" => "Ref. Tarjeta");
-                $columnDefs[] = array("field" => "nom_persona", "displayName" => "Nombre");
-                $columnDefs[] = array("field" => "ape_persona", "displayName" => "Apellido");
-                $columnDefs[] = array("field" => "nro_documento", "displayName" => "Nro. Doc.");
-                $columnDefs[] = array("field" => "ind_movimiento", "displayName" => "Movimiento", "cellFilter" => "ftMovimiento");
-                $columnDefs[] = array("field" => "nom_tema", "displayName" => "Lector");
-                $columnDefs[] = array("field" => "nom_sector", "displayName" => "Sector");
-                $columnDefs[] = array("field" => "tipo_habilitacion", "displayName" => "Tipo Hab.", "cellFilter" => "ftTipoHab");
-                $columnDefs[] = array("field" => "ind_rechazo", "displayName" => "Ind Rechazo", "cellFilter" => "ftTipoRechazo");
+                $columnDefs[] = array("field" => "stm_movimiento", "displayName"=> __("Fecha"), "width" => 170, "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "cod_credencial", "displayName"=> __("Cód. Tarjeta"), "cellFilter" => "ftTarjeta");
+                $columnDefs[] = array("field" => "ref_credencial", "displayName"=> __("Ref. Tarjeta"));
+                $columnDefs[] = array("field" => "nom_persona", "displayName"=> __("Nombre"));
+                $columnDefs[] = array("field" => "ape_persona", "displayName"=> __("Apellido"));
+                $columnDefs[] = array("field" => "nro_documento", "displayName"=> __("Nro. Doc."));
+                $columnDefs[] = array("field" => "ind_movimiento", "displayName"=> __("Movimiento"), "cellFilter" => "ftMovimiento");
+                $columnDefs[] = array("field" => "nom_tema", "displayName"=> __("Lector"));
+                $columnDefs[] = array("field" => "nom_sector", "displayName"=> __("Sector"));
+                $columnDefs[] = array("field" => "tipo_habilitacion", "displayName"=> __("Tipo Hab."), "cellFilter" => "ftTipoHab");
+                $columnDefs[] = array("field" => "ind_rechazo", "displayName"=> __("Ind Rechazo"), "cellFilter" => "ftTipoRechazo");
         }
         $columnKeys = ['stm_movimiento'];
         
-        $filtros[] = array('id' => 'cod_credencial', 'name' => 'Cód. Tarjeta');
-        $filtros[] = array('id' => 'ref_credencial', 'name' => 'Ref. Tarjeta');
-        $filtros[] = array('id' => 'des_persona', 'name' => 'Apellido y Nombre');
-        $filtros[] = array('id' => 'nro_documento', 'name' => 'Nro. Documento');
-        $filtros[] = array('id' => 'nom_tema', 'name' => 'Lector');
-        $filtros[] = array('id' => 'nom_sector', 'name' => 'Sector');
+        $filtros[] = array('id' => 'cod_credencial', 'name'=> __("Cód. Tarjeta"));
+        $filtros[] = array('id' => 'ref_credencial', 'name'=> __("Ref. Tarjeta"));
+        $filtros[] = array('id' => 'des_persona', 'name'=> __("Apellido y Nombre"));
+        $filtros[] = array('id' => 'nro_documento', 'name'=> __("Nro. Documento"));
+        $filtros[] = array('id' => 'nom_tema', 'name'=> __("Lector"));
+        $filtros[] = array('id' => 'nom_sector', 'name'=> __("Sector"));
 
         $rango['desde'] = array('id' => 'stm_movimiento', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -1119,8 +1119,8 @@ class Movimientos extends Controller {
             'cod_tema' => 'required',
             'valor' => 'required',
         ], [
-            'cod_tema.required' => "Debe ingresar código de componente",
-            'valor.required' => "Debe ingresar valor",
+            'cod_tema.required'=> __("Debe ingresar código de componente"),
+            'valor.required'=> __("Debe ingresar valor"),
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -1186,7 +1186,7 @@ class Movimientos extends Controller {
 
         $event_tipe= ($ind_rechazo=="") ? "info" : "error";
         Broadcast::driver('fast-web-socket')->broadcast(['pantalla'], $event_tipe,  $context);
-        return response(['ok' => 'El evento externo ' . $cod_tema . ' fue procesado satisfactoriamente'], Response::HTTP_OK);
+        return response(['ok' => __('El evento externo :COD_TEMA fue procesado satisfactoriamente',['COD_TEMA'=>$cod_tema])], Response::HTTP_OK);
     }
 
 }

@@ -111,41 +111,41 @@ class MoviEventos extends Controller
     {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "cod_tema", "name" => "Cód. Componente", "key" => "cod_tema");
-                $columnDefs[] = array("prop" => "stm_evento", "name" => "Fecha Evento", "key" => "stm_evento");
-                $columnDefs[] = array("prop" => "ind_modo_prueba", "name" => "Prueba");
-                $columnDefs[] = array("prop" => "nom_tema", "name" => "Nombre");
-                $columnDefs[] = array("prop" => "origen", "name" => "Origen");
-                $columnDefs[] = array("prop" => "valor", "name" => "Valor");
-                $columnDefs[] = array("prop" => "des_valor", "name" => "Descripción");
-                $columnDefs[] = array("prop" => "valor_analogico", "name" => "Valor Analógico");
-                $columnDefs[] = array("prop" => "des_unidad_medida", "name" => "Unid. Med.");
-                $columnDefs[] = array("prop" => "des_observaciones", "name" => "Observaciones");
-                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name" => "Fecha Alta");
+                $columnDefs[] = array("prop" => "cod_tema", "name"=> __("Cód. Componente"), "key" => "cod_tema");
+                $columnDefs[] = array("prop" => "stm_evento", "name"=> __("Fecha Evento"), "key" => "stm_evento");
+                $columnDefs[] = array("prop" => "ind_modo_prueba", "name"=> __("Prueba"));
+                $columnDefs[] = array("prop" => "nom_tema", "name"=> __("Nombre"));
+                $columnDefs[] = array("prop" => "origen", "name"=> __("Origen"));
+                $columnDefs[] = array("prop" => "valor", "name"=> __("Valor"));
+                $columnDefs[] = array("prop" => "des_valor", "name"=> __("Descripción"));
+                $columnDefs[] = array("prop" => "valor_analogico", "name"=> __("Valor Analógico"));
+                $columnDefs[] = array("prop" => "des_unidad_medida", "name"=> __("Unid. Med."));
+                $columnDefs[] = array("prop" => "des_observaciones", "name"=> __("Observaciones"));
+                $columnDefs[] = array("prop" => "aud_stm_ingreso", "name"=> __("Fecha Alta"));
                 break;
             default:
-                $columnDefs[] = array("field" => "cod_tema", "displayName" => "Cód. Componente");
-                $columnDefs[] = array("field" => "stm_evento", "displayName" => "Fecha Evento", "type" => "date", "cellFilter" => "ftDateTime");
-                $columnDefs[] = array("field" => "ind_modo_prueba", "displayName" => "Prueba", "cellFilter" => "ftBoolean");
-                $columnDefs[] = array("field" => "nom_tema", "displayName" => "Nombre");
-                $columnDefs[] = array("field" => "origen", "displayName" => "Origen");
-                $columnDefs[] = array("field" => "valor", "displayName" => "Valor");
-                $columnDefs[] = array("field" => "des_valor", "displayName" => "Descripción");
-                $columnDefs[] = array("field" => "valor_analogico", "displayName" => "Valor Analógico");
-                $columnDefs[] = array("field" => "des_observaciones", "displayName" => "Observaciones");
-                $columnDefs[] = array("field" => "des_unidad_medida", "displayName" => "Unid. Med.");
-                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName" => "Fecha Alta", "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "cod_tema", "displayName"=> __("Cód. Componente"));
+                $columnDefs[] = array("field" => "stm_evento", "displayName"=> __("Fecha Evento"), "type" => "date", "cellFilter" => "ftDateTime");
+                $columnDefs[] = array("field" => "ind_modo_prueba", "displayName"=> __("Prueba"), "cellFilter" => "ftBoolean");
+                $columnDefs[] = array("field" => "nom_tema", "displayName"=> __("Nombre"));
+                $columnDefs[] = array("field" => "origen", "displayName"=> __("Origen"));
+                $columnDefs[] = array("field" => "valor", "displayName"=> __("Valor"));
+                $columnDefs[] = array("field" => "des_valor", "displayName"=> __("Descripción"));
+                $columnDefs[] = array("field" => "valor_analogico", "displayName"=> __("Valor Analógico"));
+                $columnDefs[] = array("field" => "des_observaciones", "displayName"=> __("Observaciones"));
+                $columnDefs[] = array("field" => "des_unidad_medida", "displayName"=> __("Unid. Med."));
+                $columnDefs[] = array("field" => "aud_stm_ingreso", "displayName"=> __("Fecha Alta"), "type" => "date", "cellFilter" => "ftDateTime");
         }
         $columnKeys = ['cod_tema', 'stm_evento'];
 
-        $filtros[] = array('id' => 'cod_tema', 'name' => 'Cód. Componente');
-        $filtros[] = array('id' => 'nom_tema', 'name' => 'Nombre Componente');
-        $filtros[] = array('id' => 'ind_modo_prueba', 'name' => 'Prueba');
-        $filtros[] = array('id' => 'valor', 'name' => 'Valor');
-        $filtros[] = array('id' => 'des_valor', 'name' => 'Descripción');
-        $filtros[] = array('id' => 'valor_analogico', 'name' => 'Valor Analógico');
-        $filtros[] = array('id' => 'des_unidad_medida', 'name' => 'Unid. Med.');
-        $filtros[] = array('id' => 'des_observaciones', 'name' => 'Observaciones');
+        $filtros[] = array('id' => 'cod_tema', 'name'=> __("Cód. Componente"));
+        $filtros[] = array('id' => 'nom_tema', 'name'=> __("Nombre Componente"));
+        $filtros[] = array('id' => 'ind_modo_prueba', 'name'=> __("Prueba"));
+        $filtros[] = array('id' => 'valor', 'name'=> __("Valor"));
+        $filtros[] = array('id' => 'des_valor', 'name'=> __("Descripción"));
+        $filtros[] = array('id' => 'valor_analogico', 'name'=> __("Valor Analógico"));
+        $filtros[] = array('id' => 'des_unidad_medida', 'name'=> __("Unid. Med."));
+        $filtros[] = array('id' => 'des_observaciones', 'name'=> __("Observaciones"));
 
         $rango['desde'] = array('id' => 'stm_evento', 'tipo' => 'datetime');
         $rango['hasta'] = $rango['desde'];
@@ -184,7 +184,7 @@ class MoviEventos extends Controller
         MoviUltEvento::addAuditoria($ultevento, "RL");
         
         $ultevento->save();
-        return response(['ok' => 'El evento ' . $evento->stm_evento . ' fue creado satisfactoriamente'], Response::HTTP_OK);
+        return response(['ok'=> __("El evento :STM_EVENTO fue creado satisfactoriamente",['STM_EVENTO' =>$evento->stm_evento])], Response::HTTP_OK);
     }
 
     public static function altaEventoExt(Request $request)
@@ -193,8 +193,8 @@ class MoviEventos extends Controller
             'cod_tema' => 'required',
             'valor' => 'required',
         ], [
-            'cod_tema.required' => "Debe ingresar código de componente",
-            'valor.required' => "Debe ingresar valor",
+            'cod_tema.required'=> __("Debe ingresar código de componente"),
+            'valor.required'=> __("Debe ingresar valor"),
         ]);
 
         if ($validator->fails()) {
@@ -223,6 +223,6 @@ class MoviEventos extends Controller
         if ($valor != Cache::get(self::config_tag . $cod_tema))
             event(new TemaEvent($cod_tema, $stm_evento, $event_data));
 
-        return response(['ok' => 'El evento externo ' . $cod_tema . ' fue procesado satisfactoriamente'], Response::HTTP_OK);
+        return response(['ok'=> __("El evento externo :COD_TEMA fue procesado satisfactoriamente",['COD_TEMA'=>$cod_tema])], Response::HTTP_OK);
     }
 }
