@@ -281,7 +281,9 @@ class ActuadoresDaemon extends Command
                         }
 
                         if ($ind_modo_prueba == true){
-                            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => "Llamador: ignora llamada $tipo_evento, sector: $nom_sector, alarmas activas: $contador_sector_alarm, cantidad dispositivos: $cant_temas_sector, prueba: $ind_modo_prueba, avisador: $evento_avisador "));
+
+                            $msg = __("Llamador, ignora llamada :TIPO_EVENTO, sector :NOM_SECTOR, alarmas activas :CONTADOR_SECTOR_ALARM, cantidad dispositivos :CANT_TEMAS_SECTOR, prueba :IND_MODO_PRUEBA, avisador :EVENTO_AVISADOR",['TIPO_EVENTO'=>$tipo_evento,'NOM_SECTOR'=>$nom_sector,'CONTADOR_SECTOR_ALARM'=>$contador_sector_alarm,'CONTADOR_SECTOR_ALARM'=>$contador_sector_alarm,'CANT_TEMAS_SECTOR'=>$cant_temas_sector,'IND_MODO_PRUEBA'=>$ind_modo_prueba]);
+                            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => $msg));
                             break;
                         }
 
@@ -289,9 +291,14 @@ class ActuadoresDaemon extends Command
                         if ($evento_avisador || $contador_sector_alarm > 1 || $cant_temas_sector == 1) {
                             $event_data = array("valor" => $this->valor_ini, "delay" => $this->tiempo_seg, "valor_fin" => $this->valor_fin, "des_valor" => "", "des_observaciones" => "sector: $nom_sector, alarmas: $contador_sector_alarm");
                             event(new TemaEvent($this->cod_tema_rele_alarma, Carbon::now(), $event_data));
-                            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => "Llamador: activo llamada $tipo_evento, sector: $nom_sector, alarmas activas: $contador_sector_alarm, cantidad dispositivos: $cant_temas_sector, prueba: $ind_modo_prueba, avisador: $evento_avisador "));
+
+                            $msg = __("Llamador, activo llamada :TIPO_EVENTO, sector :NOM_SECTOR, alarmas activas :CONTADOR_SECTOR_ALARM, cantidad dispositivos :CANT_TEMAS_SECTOR, prueba :IND_MODO_PRUEBA, avisador :EVENTO_AVISADOR",
+                            ['TIPO_EVENTO'=>$tipo_evento,'NOM_SECTOR'=>$nom_sector,'CONTADOR_SECTOR_ALARM'=>$contador_sector_alarm,'CONTADOR_SECTOR_ALARM'=>$contador_sector_alarm,'CANT_TEMAS_SECTOR'=>$cant_temas_sector,'IND_MODO_PRUEBA'=>$ind_modo_prueba]);
+                            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => $msg));
                         } else {
-                            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => "Llamador: ignora llamada $tipo_evento, sector: $nom_sector, alarmas activas: $contador_sector_alarm, cantidad dispositivos: $cant_temas_sector, prueba: $ind_modo_prueba, avisador: $evento_avisador "));
+                            $msg = __("Llamador, ignora llamada :TIPO_EVENTO, sector :NOM_SECTOR, alarmas activas :CONTADOR_SECTOR_ALARM, cantidad dispositivos :CANT_TEMAS_SECTOR, prueba :IND_MODO_PRUEBA, avisador :EVENTO_AVISADOR",
+                            ['TIPO_EVENTO'=>$tipo_evento,'NOM_SECTOR'=>$nom_sector,'CONTADOR_SECTOR_ALARM'=>$contador_sector_alarm,'CONTADOR_SECTOR_ALARM'=>$contador_sector_alarm,'CANT_TEMAS_SECTOR'=>$cant_temas_sector,'IND_MODO_PRUEBA'=>$ind_modo_prueba]);
+                            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => $msg));
                         }
 
                         break;
@@ -303,16 +310,16 @@ class ActuadoresDaemon extends Command
                             break;
 
                         if ($ind_modo_prueba == true){
-                            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => "Llamador: ignora llamada $tipo_evento, sector: $nom_sector, alarmas activas: $contador_sector_alarm, cantidad dispositivos: $cant_temas_sector, prueba: $ind_modo_prueba, avisador: $evento_avisador "));
+                            $msg = __("Llamador, ignora llamada :TIPO_EVENTO, sector :NOM_SECTOR, alarmas activas :CONTADOR_SECTOR_ALARM, cantidad dispositivos :CANT_TEMAS_SECTOR, prueba :IND_MODO_PRUEBA, avisador :EVENTO_AVISADOR",['TIPO_EVENTO'=>$tipo_evento,'NOM_SECTOR'=>$nom_sector,'CONTADOR_SECTOR_ALARM'=>$contador_sector_alarm,'CANT_TEMAS_SECTOR'=>$cant_temas_sector,'IND_MODO_PRUEBA'=>$ind_modo_prueba,'EVENTO_AVISADOR'=>$evento_avisador]);
+                            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => $msg));
                             break;
                         }
 
 
                         $event_data = array("valor" => $this->valor_ini, "delay" => $this->tiempo_seg, "valor_fin" => $this->valor_fin, "des_valor" => "", "des_observaciones" => "");
                         event(new TemaEvent($this->cod_tema_rele_falla, Carbon::now(), $event_data));
-                        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => "Llamador: Activo llamada $tipo_evento, sector: $nom_sector, alarmas activas: $contador_sector_alarm, cantidad dispositivos: $cant_temas_sector, prueba: $ind_modo_prueba, avisador: $evento_avisador "));
-
-
+                        $msg = __("Llamador, activo llamada :TIPO_EVENTO, sector :NOM_SECTOR, alarmas activas :CONTADOR_SECTOR_ALARM, cantidad dispositivos :CANT_TEMAS_SECTOR, prueba :IND_MODO_PRUEBA, avisador :EVENTO_AVISADOR",['TIPO_EVENTO'=>$tipo_evento,'NOM_SECTOR'=>$nom_sector,'CONTADOR_SECTOR_ALARM'=>$contador_sector_alarm,'CANT_TEMAS_SECTOR'=>$cant_temas_sector,'IND_MODO_PRUEBA'=>$ind_modo_prueba,'EVENTO_AVISADOR'=>$evento_avisador]);
+                        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => $msg));
                         break;
 
                     default:

@@ -933,7 +933,7 @@ class Visitas extends Controller
 
         Cache::forever("HabiAccesoLastUpdate", Carbon::now()->format('Y-m-d H:i:s'));
 
-        return response(['ok' => __('Se eliminó satisfactoriamente la Tarjeta :COD_CREDENCIAL',['COD_CREDENCIAL'=>$cod_credencial])], Response::HTTP_OK);
+        return response(['ok' => __('Se eliminó satisfactoriamente la tarjeta :COD_CREDENCIAL',['COD_CREDENCIAL'=>$cod_credencial])], Response::HTTP_OK);
     }
 
     public function upload()

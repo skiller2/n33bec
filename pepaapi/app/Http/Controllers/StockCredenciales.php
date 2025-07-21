@@ -72,7 +72,7 @@ class StockCredenciales extends Controller
                     $columnDefs[] = array("prop"=>"cod_credencial", "name"=> __("Cód. Tarjeta"), "key" => "cod_credencial");
                     $columnDefs[] = array("prop"=>"ref_credencial", "name"=> __("Ref. Tarjeta"));
                     $columnDefs[] = array("prop"=>"tipo_credencial", "name"=> __("Tipo Tarjeta"), "pipe" => "ftTipoCred");
-                    $columnDefs[] = array("prop"=>"tipo_habilitacion", "name"=> __("Tipo Habilitacion"), "pipe" => "ftTipoHab");
+                    $columnDefs[] = array("prop"=>"tipo_habilitacion", "name"=> __("Tipo Habilitación"), "pipe" => "ftTipoHab");
                     $columnDefs[] = array("prop"=>"aud_stm_ingreso", "name"=> __("Fecha Alta"), "pipe" => "ftDateTime");
             break;
             default:
@@ -178,6 +178,6 @@ class StockCredenciales extends Controller
         
         $credencial = Credencial::find($cod_credencial);
         $credencial->delete();
-        return response(['ok'=> __("Se eliminó satisfactoriamente la Tarjeta :COD_CREDENCIAL",['COD_CREDENCIAL'=>$cod_credencial])], Response::HTTP_OK);
+        return response(['ok'=> __("Se eliminó satisfactoriamente la tarjeta :COD_CREDENCIAL",['COD_CREDENCIAL'=>$cod_credencial])], Response::HTTP_OK);
     }
 }

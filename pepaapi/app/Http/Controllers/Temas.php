@@ -325,7 +325,7 @@ class Temas extends Controller
             'cod_clase' => "required"
 
         ], [
-            'cod_tema.required'=> __("Debe ingresar Componente"),
+            'cod_tema.required'=> __("Debe ingresar componente"),
             'nom_tema.required'=> __("Debe ingresar etiqueta"),
             'des_ubicacion.required'=> __("Debe ingresar ubicación"),
             'cod_tipo_uso.required'=> __("Debe seleccionar tipo uso"),
@@ -385,7 +385,7 @@ class Temas extends Controller
         $validator = Validator::make($request->all(), [
             'cod_tema' => 'required',
         ], [
-            'cod_tema.required'=> __("Debe ingresar Componente"),
+            'cod_tema.required'=> __("Debe ingresar componente"),
         ]);
 
         if ($validator->fails()) {
@@ -726,7 +726,7 @@ class Temas extends Controller
         $validator = Validator::make($request->all(), [
             'cod_tema' => 'required',
         ], [
-            'cod_tema.required'=> __("Debe ingresar Componente"),
+            'cod_tema.required'=> __("Debe ingresar componente"),
         ]);
 
         if ($validator->fails()) {

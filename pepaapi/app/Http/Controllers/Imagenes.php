@@ -35,12 +35,12 @@ class Imagenes extends Controller {
                 break;
 
             default:
-                return response(['error' => __("Tipo imagen :tipo_imagen desconocido",['tipo_imagen'=>$tipo_imagen])], Response::HTTP_NOT_FOUND);
+                return response(['error' => __("Tipo imagen :TIPO_IMAGEN desconocido",['TIPO_IMAGEN'=>$tipo_imagen])], Response::HTTP_NOT_FOUND);
                 break;
         }
 
         if ( !$imagen || empty($imagen[$campo]) )
-            return response(['error' => __("Imagen no localizada tipo :tipo_imagen",['tipo_imagen'=>$tipo_imagen])], Response::HTTP_NOT_FOUND);
+            return response(['error' => __("Imagen no localizada tipo :TIPO_IMAGEN",['TIPO_IMAGEN'=>$tipo_imagen])], Response::HTTP_NOT_FOUND);
 
 
         switch ($tipo_imagen) {

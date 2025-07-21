@@ -123,7 +123,7 @@ class ComunicacionDispositivos {
 
     public function leeCredencial($data) {
         /**
-         * "" = permitido, "N" = inválido, "R" = rechazado, "H" = tipo habilitacion incorrecto, "S" = no existe Componente para credencial, 
+         * "" = permitido, "N" = inválido, "R" = rechazado, "H" = tipo habilitación incorrecto, "S" = no existe Componente para credencial, 
          * "V" = no está vigente, "T" = tiempo de ingreso en temporal, "C" = cantidad ingresos en hab temporal, 
          * "F" = Apto fisico vencido, "G" = No posee apto fisico 
          */

@@ -227,7 +227,7 @@ class Habilitaciones extends Controller
                 ->where('maesPersonas.cod_persona', '=', $cod_persona)
                 ->get();
             if (empty($query[0])) {
-                return response(array("error" => __("Persona no localizada :cod_persona",['cod_persona'=>$cod_persona])), Response::HTTP_NOT_FOUND);
+                return response(array("error" => __("Persona no localizada :COD_PERSONA",['COD_PERSONA'=>$cod_persona])), Response::HTTP_NOT_FOUND);
             }
             $row = $query[0];
             $datosPersona = array(
@@ -686,7 +686,7 @@ class Habilitaciones extends Controller
             $fec_habilitacion_hasta = $esq['fec_habilitacion_hasta'];
             $stm_actual = Carbon::now()->format('Y-m-d H:i:s');
             if ($fec_habilitacion_hasta < $stm_actual && (int) $fec_habilitacion_hasta != 0) {
-                return response(['error' => __("Esquema habilitado hasta :fec_habilitacion_hasta",['fec_habilitacion_hasta'=>$fec_habilitacion_hasta])], Response::HTTP_CONFLICT);
+                return response(['error' => __("Esquema habilitado hasta :FEC_HABILITACION_HASTA",['FEC_HABILITACION_HASTA'=>$fec_habilitacion_hasta])], Response::HTTP_CONFLICT);
             }
         }
 
@@ -1030,7 +1030,7 @@ class Habilitaciones extends Controller
         }
 
         if ($persona->ind_bloqueo == "1") {
-            return response(['error'=> __("DNI bloqueado. Motivo :DES_MOVIVO_BLOQUEO",['DES_MOVIVO_BLOQUEO'=> $persona->des_motivo_bloqueo])], Response::HTTP_CONFLICT);
+            return response(['error'=> __("DNI bloqueado. Motivo :DES_MOTIVO_BLOQUEO",['DES_MOTIVO_BLOQUEO'=> $persona->des_motivo_bloqueo])], Response::HTTP_CONFLICT);
         }
 
         $persona->nom_persona = $nom_persona;
@@ -1358,7 +1358,7 @@ class Habilitaciones extends Controller
         }
 
 
-        //        return response(['error'=> __("Debug $tipo_credencial") ], Response::HTTP_CONFLICT);
+        //        return response(['error'=> __("Debug :TIPO_CREDENCIAL",['TIPO_CREDENCIAL'=>$tipo_credencial]) ], Response::HTTP_CONFLICT);
 
         return response(['ok'=> __("Se importó satisfactoriamente el archivo")], Response::HTTP_OK);
     }

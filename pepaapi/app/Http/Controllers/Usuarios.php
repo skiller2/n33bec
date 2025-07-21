@@ -236,7 +236,7 @@ class Usuarios extends Controller
             'cod_persona' => 'required'
         ], [
             'cod_usuario.required'=> __("Debe ingresar Cód. Usuario"),
-            'contrasena.required'=> __("Debe ingresar Contraseña"),
+            'contrasena.required'=> __("Debe ingresar contraseña"),
             'cod_persona.required'=> __("Debe seleccionar Persona")
         ]);
 

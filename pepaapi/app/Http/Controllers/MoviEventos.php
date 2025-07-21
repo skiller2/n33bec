@@ -111,7 +111,7 @@ class MoviEventos extends Controller
     {
         switch ($version) {
             case "2":
-                $columnDefs[] = array("prop" => "cod_tema", "name"=> __("Cód. Componente"), "key" => "cod_tema");
+                $columnDefs[] = array("prop" => "cod_tema", "name"=> __("Cód. componente"), "key" => "cod_tema");
                 $columnDefs[] = array("prop" => "stm_evento", "name"=> __("Fecha Evento"), "key" => "stm_evento");
                 $columnDefs[] = array("prop" => "ind_modo_prueba", "name"=> __("Prueba"));
                 $columnDefs[] = array("prop" => "nom_tema", "name"=> __("Nombre"));
@@ -124,7 +124,7 @@ class MoviEventos extends Controller
                 $columnDefs[] = array("prop" => "aud_stm_ingreso", "name"=> __("Fecha Alta"));
                 break;
             default:
-                $columnDefs[] = array("field" => "cod_tema", "displayName"=> __("Cód. Componente"));
+                $columnDefs[] = array("field" => "cod_tema", "displayName"=> __("Cód. componente"));
                 $columnDefs[] = array("field" => "stm_evento", "displayName"=> __("Fecha Evento"), "type" => "date", "cellFilter" => "ftDateTime");
                 $columnDefs[] = array("field" => "ind_modo_prueba", "displayName"=> __("Prueba"), "cellFilter" => "ftBoolean");
                 $columnDefs[] = array("field" => "nom_tema", "displayName"=> __("Nombre"));
@@ -138,7 +138,7 @@ class MoviEventos extends Controller
         }
         $columnKeys = ['cod_tema', 'stm_evento'];
 
-        $filtros[] = array('id' => 'cod_tema', 'name'=> __("Cód. Componente"));
+        $filtros[] = array('id' => 'cod_tema', 'name'=> __("Cód. componente"));
         $filtros[] = array('id' => 'nom_tema', 'name'=> __("Nombre Componente"));
         $filtros[] = array('id' => 'ind_modo_prueba', 'name'=> __("Prueba"));
         $filtros[] = array('id' => 'valor', 'name'=> __("Valor"));

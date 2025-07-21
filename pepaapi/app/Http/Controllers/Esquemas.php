@@ -287,7 +287,7 @@ class Esquemas extends Controller
             'des_esquema_acceso.required' => __('Debe ingresar una descripción'),  
             'cod_esquema_acceso' => __("Debe ingresar Cód. Esquema Acceso"),
             'cod_ou' => __("Debe seleccionar Organización"),
-            'obj_intervalos_habiles.required' => __("Debe ingresar Intervalos Hábiles"),
+            'obj_intervalos_habiles.required' => __("Debe ingresar Intervalos hábiles"),
             'obj_intervalos_nohabiles.required' => __("Debe ingresar Intervalos no hábiles"),
             'obj_intervalos_mixtos.required' => __("Debe ingresar Intervalos mixtos"),
 			'fec_habilitacion_hasta.required' => __("Debe ingresar fecha hasta habilitación")

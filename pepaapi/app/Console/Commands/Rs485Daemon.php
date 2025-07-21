@@ -47,7 +47,7 @@ function parseMsg($buff, $log)
         $valor = (isset($evento['valor'])) ? $evento['valor'] : "";
     } else {
         $context = array(
-            'msgtext' => __("Error decodificando tam :TAM, data :BUFF ",['TAM'=>strlen($buff),'BUFF'=>$buff]) 
+            'msgtext' => __("Error decodificando tam :TAM, data :BUFF",['TAM'=>strlen($buff),'BUFF'=>$buff]) 
         );
         Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
         $log->info($context['msgtext'], array());

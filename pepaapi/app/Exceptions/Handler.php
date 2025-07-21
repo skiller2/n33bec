@@ -106,7 +106,7 @@ class Handler extends ExceptionHandler
                 preg_match($re, $exception->errorInfo[2],$match);
                 $campo = $match[1];
                 $campos[$campo] = $msg_campo;
-                $msg = __("Fecha no válida para la columna :campo",['campo'=>$campo]);
+                $msg = __("Fecha no válida para la columna :CAMPO",['CAMPO'=>$campo]);
             }
             if($exception->errorInfo[0]=="23000"){
                 $cod_error = $exception->errorInfo[1];
