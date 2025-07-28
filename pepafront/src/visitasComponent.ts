@@ -369,17 +369,17 @@ const visitasComponent =
                             ctrl.obs_habilitacion = response.data.obs_habilitacion;
                             ctrl.cod_grupo = response.data.cod_grupo;
                             if (!response.data.stockcred) {
-                                ctrl.obs_tarjeta = 'Tarjeta inexistente en Stock.';
+                                ctrl.obs_tarjeta = $translate.instant('Tarjeta inexistente en Stock.');
                             }
                             if (response.data.cod_persona !== '' && ctrl.cod_persona !== response.data.cod_persona) {
                                 ctrl.cod_persona = response.data.cod_persona;
-                                ctrl.obs_tarjeta = 'Tarjeta ya asignada.';
+                                ctrl.obs_tarjeta = $translate.instant('Tarjeta ya asignada.');
                                 // readonly datos persona
                                 // vm.noteditable = true;
                                 vm.fbuscaPersona(true);
                             }
                             if (response.data.ref_credencial) {
-                                ctrl.obs_tarjeta += ' Serie: ' + response.data.ref_credencial;
+                                ctrl.obs_tarjeta += ' '+$translate.instant('Serie:')+' ' + response.data.ref_credencial;
                             }
                         }).catch(function () {
                             ctrl.cod_credencial = '';
@@ -436,7 +436,7 @@ const visitasComponent =
 
                         if (!ind_credencial) {
                             if (response.data.datosCred.length > 1) {
-                                ModalService.alertMessage('La persona tiene mas de una credencial','Error','danger',response);
+                                ModalService.alertMessage($translate.instant('La persona tiene mas de una credencial'),'Error','danger',response);
                                 ctrl.vacredenciales = response.data.datosCred;
                             } else {
                                 if (ctrl.cod_credencial === '') {

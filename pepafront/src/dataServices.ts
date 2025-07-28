@@ -12,8 +12,8 @@ import "./icon-library/icon-library.css";
 
 angular.module('appServices', [])
     // Autenticar usuario
-    .factory('auth', ['$http', 'store', 'cfg', 'jwtHelper', '$q', '$rootScope', '$stateRegistry', '$state', '$uibModal', 'localData', '$timeout', 'sounds', '$location', 'globalData', '$window', 'spinCounter',
-        function ($http, store, cfg, jwtHelper, $q, $rootScope, $stateRegistry, $state, $uibModal, localData, $timeout, sounds, $location, globalData, $window, spinCounter) {
+    .factory('auth', ['$http', 'store', 'cfg', 'jwtHelper', '$q', '$rootScope', '$stateRegistry', '$state', '$uibModal', 'localData', '$timeout', 'sounds', '$location', 'globalData', '$window', 'spinCounter','translate',
+        function ($http, store, cfg, jwtHelper, $q, $rootScope, $stateRegistry, $state, $uibModal, localData, $timeout, sounds, $location, globalData, $window, spinCounter,$translate) {
             const auth = this;
             let decodedToken = (store.get('decodedToken')) ? store.get('decodedToken') : {};
             let codUsuario = (decodedToken.sub) ? decodedToken.sub : "";
@@ -226,9 +226,9 @@ angular.module('appServices', [])
                                         })
                                         .catch(function (response) {
                                             if (response.status === 429) {
-                                                $ctrl.error = 'Aguarde 1 minuto y vuelva a enviar las credenciales';
+                                                $ctrl.error = $translate.instant('Aguarde 1 minuto y vuelva a enviar las credenciales');
                                             } else {
-                                                $ctrl.error = (response.data.error) ? response.data.error : 'Reintente operación';
+                                                $ctrl.error = (response.data.error) ? response.data.error : $translate.instant('Reintente operación');
                                             }
                                             //                                            console.log('$ctrl.frmSignin', $ctrl.frmSignin);
 
@@ -287,7 +287,7 @@ angular.module('appServices', [])
 
                 if (tokenTimeDiff > 360) {
                     $rootScope.$broadcast('pantalla', {
-                        message: 'Diferencia de hora con el servidor mayor a 5 minutos',
+                        message: $translate.instant('Diferencia de hora con el servidor mayor a 5 minutos'),
                         level: 'error',
                         level_class: 'danger',
                         level_img: 'warning',
@@ -474,7 +474,7 @@ angular.module('appServices', [])
     }])
 
     // Organización
-    .factory('globalData', ['store', 'localData', '$http', 'cfg', '$q', 'spinCounter', function (store, localData, $http, cfg, $q, spinCounter) {
+    .factory('globalData', ['store', 'localData', '$http', 'cfg', '$q', 'spinCounter','$translate', function (store, localData, $http, cfg, $q, spinCounter,$translate) {
         return {
             getCodEquipo() {
                 let id_disp_origen = false;
@@ -539,7 +539,7 @@ angular.module('appServices', [])
                             }
                             deferred.resolve(clasesList);
                         }).catch(function (msg, code) {
-                            deferred.reject('Error obteniendo Clases');
+                            deferred.reject($translate.instant('Error obteniendo Clases'));
                         });
                 }
                 return deferred.promise;
@@ -564,7 +564,7 @@ angular.module('appServices', [])
                             }
                             deferred.resolve(sectoresList);
                         }).catch(function (msg, code) {
-                            deferred.reject('Error obteniendo Sectores');
+                            deferred.reject($translate.instant('Error obteniendo Sectores'));
                         });
                 }
                 return deferred.promise;
@@ -657,7 +657,7 @@ angular.module('appServices', [])
                             deferred.resolve(sl);
                         }).catch(function (msg, code) {
                             //                            console.log('error', msg);
-                            deferred.reject('Error obteniendo Arbol de Sectores', msg);
+                            deferred.reject($translate.instant('Error obteniendo Arbol de Sectores'), msg);
                         });
                 }
                 return deferred.promise;
@@ -684,7 +684,7 @@ angular.module('appServices', [])
                         }
                         deferred.resolve(cod_ou);
                     }).catch(function (msg, code) {
-                        deferred.reject('Error obteniendo cod_ou');
+                        deferred.reject($translate.instant('Error obteniendo cod_ou'));
                     });
                 return deferred.promise;
             },
@@ -722,7 +722,7 @@ angular.module('appServices', [])
                         }
                         deferred.resolve(cod_ou);
                     }).catch(function (msg, code) {
-                        deferred.reject('Error obteniendo dash');
+                        deferred.reject($translate.instant('Error obteniendo dash'));
                     });
                 return deferred.promise;
             },
@@ -899,8 +899,8 @@ angular.module('appServices', [])
      return me;
      };
      }])*/
-    .service('localData', ['$http', '$log', '$q', 'cfg', 'spinCounter', 'store',
-        function ($http, $log, $q, cfg, spinCounter, store) {
+    .service('localData', ['$http', '$log', '$q', 'cfg', 'spinCounter', 'store', '$translate',
+        function ($http, $log, $q, cfg, spinCounter, store, $translate) {
             const self = this;
             const sectoresList = [];
             const esquemasList = [];
@@ -931,7 +931,7 @@ angular.module('appServices', [])
                     }).catch(function (msg, code) {
                         self.sectoresListAct = false;
                         $log.debug(msg, code);
-                        deferred.reject('Error obteniendo lista de sectores');
+                        deferred.reject($translate.instant('Error obteniendo lista de sectores'));
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
                     });
@@ -965,7 +965,7 @@ angular.module('appServices', [])
                     }).catch(function (msg, code) {
                         self.esquemasListAct = false;
                         $log.debug(msg, code);
-                        deferred.reject('Error obteniendo lista de esquemas');
+                        deferred.reject($translate.instant('Error obteniendo lista de esquemas'));
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
                     });
@@ -988,7 +988,7 @@ angular.module('appServices', [])
                         deferred.resolve(angular.fromJson(response.data.val_parametro));
                     }).catch(function (msg, code) {
                         $log.debug(msg, code);
-                        deferred.reject('Error obteniendo lista de usuarios');
+                        deferred.reject($translate.instant('Error obteniendo lista de usuarios'));
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
                     });
@@ -1013,7 +1013,7 @@ angular.module('appServices', [])
                     }).catch(function (msg, code) {
                         self.grupoCredListAct = false;
                         $log.debug(msg, code);
-                        deferred.reject('Error obteniendo lista de grupo de tarjetas');
+                        deferred.reject($translate.instant('Error obteniendo lista de grupo de tarjetas'));
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
                     });
@@ -1040,7 +1040,7 @@ angular.module('appServices', [])
                         deferred.resolve(response.data);
                     }).catch(function (msg, code) {
                         $log.debug(msg, code);
-                        deferred.reject('Error obteniendo lista de logs');
+                        deferred.reject($translate.instant('Error obteniendo lista de logs'));
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
                     });
@@ -1060,7 +1060,7 @@ angular.module('appServices', [])
                         deferred.resolve(self.listaEmpresas);
                     }).catch(function (msg, code) {
                         $log.debug(msg, code);
-                        deferred.reject('Error obteniendo lista de Organizaciones');
+                        deferred.reject($translate.instant('Error obteniendo lista de Organizaciones'));
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
                     });
@@ -1086,7 +1086,7 @@ angular.module('appServices', [])
                     }).catch(function (msg, code) {
                         self.listaOUAct = false;
                         $log.debug(msg, code);
-                        deferred.reject('Error obteniendo lista de OU');
+                        deferred.reject($translate.instant('Error obteniendo lista de OU'));
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
                     });
@@ -1109,7 +1109,7 @@ angular.module('appServices', [])
                         deferred.resolve(angular.fromJson(response.data.val_parametro));
                     }).catch(function (msg, code) {
                         $log.debug(msg, code);
-                        deferred.reject('Error obteniendo menu');
+                        deferred.reject($translate.instant('Error obteniendo menu'));
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
                     });
@@ -1139,7 +1139,7 @@ angular.module('appServices', [])
                         deferred.resolve(angular.fromJson(response.data.val_parametro));
                     }).catch(function (msg, code) {
                         $log.debug(msg, code);
-                        deferred.reject('Error obteniendo parámetros configuración');
+                        deferred.reject($translate.instant('Error obteniendo parámetros configuración'));
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
                     });
@@ -1187,7 +1187,7 @@ angular.module('appServices', [])
                 },
                 {
                     id: 'PAS',
-                    name: 'Pasaporte',
+                    name: $translate.instant('Pasaporte'),
                 },
                 ];
             };
@@ -1195,11 +1195,11 @@ angular.module('appServices', [])
             this.getTipoNovedad = function () {
                 return [{
                     id: 'T',
-                    name: 'Tipo Trabajo',
+                    name: $translate.instant('Tipo Trabajo'),
                 },
                 {
                     id: 'N',
-                    name: 'Novedad',
+                    name: $translate.instant('Novedad'),
                 },
                 ];
             };
@@ -1273,11 +1273,11 @@ angular.module('appServices', [])
             this.getTipoHabilitacion = function () {
                 return [{
                     id: 'P',
-                    name: 'Permanente',
+                    name: $translate.instant('Permanente'),
                 },
                 {
                     id: 'T',
-                    name: 'Temporal/Visita',
+                    name: $translate.instant('Temporal/Visita'),
                 },
                 ];
             };
@@ -1285,15 +1285,15 @@ angular.module('appServices', [])
             this.getIndMovimiento = function () {
                 return [{
                     id: 'I',
-                    name: 'Ingreso',
+                    name: $translate.instant('Ingreso'),
                 },
                 {
                     id: 'E',
-                    name: 'Egreso',
+                    name: $translate.instant('Egreso'),
                 },
                 {
                     id: 'L',
-                    name: 'Lectura',
+                    name: $translate.instant('Lectura'),
                 },
                 ];
             };
@@ -1301,11 +1301,11 @@ angular.module('appServices', [])
             this.getIndRetencion = function () {
                 return [{
                     id: '0',
-                    name: 'No',
+                    name: $translate.instant('No'),
                 },
                 {
                     id: '1',
-                    name: 'Sí',
+                    name: $translate.instant('Sí'),
                 },
                 ];
             };
@@ -1313,15 +1313,15 @@ angular.module('appServices', [])
             this.getTipoSexo = function () {
                 return [{
                     id: 'M',
-                    name: 'Masculino',
+                    name: $translate.instant('Masculino'),
                 },
                 {
                     id: 'F',
-                    name: 'Femenino',
+                    name: $translate.instant('Femenino'),
                 },
                 {
                     id: 'NI',
-                    name: 'No Informado',
+                    name: $translate.instant('No Informado'),
                 },
                 ];
             };
@@ -1329,7 +1329,7 @@ angular.module('appServices', [])
             this.getSectores = function () {
                 return [{
                     id: '1',
-                    name: 'Ingreso Principal',
+                    name: $translate.instant('Ingreso Principal'),
                 }];
             };
 
@@ -1379,35 +1379,35 @@ angular.module('appServices', [])
                 return [
                     {
                         id: 'LECTOR',
-                        name: 'Lector',
+                        name: $translate.instant('Lector'),
                     },
                     {
                         id: 'DIN',
-                        name: 'Digital IN',
+                        name: $translate.instant('Digital IN'),
                     },
                     {
                         id: 'DINEXT',
-                        name: 'Digital IN Mejorado',
+                        name: $translate.instant('Digital IN Mejorado'),
                     },
                     {
                         id: 'DOUT',
-                        name: 'Digital OUT',
+                        name: $translate.instant('Digital OUT'),
                     },
                     {
                         id: 'AIN',
-                        name: 'Analog IN',
+                        name: $translate.instant('Analog IN'),
                     },
                     {
                         id: 'AOUT',
-                        name: 'Analog OUT',
+                        name: $translate.instant('Analog OUT'),
                     },
                     {
                         id: 'SUCESO',
-                        name: 'Suceso',
+                        name: $translate.instant('Suceso'),
                     },
                     {
                         id: 'COMUNIC',
-                        name: 'Comunicación',
+                        name: $translate.instant('Comunicación'),
                     },
                 ];
             };
@@ -1539,8 +1539,8 @@ angular.module('appServices', [])
         };
     }])
 
-    .service('datosBack', ['$http', '$log', '$q', 'ModalService', 'cfg', 'spinCounter', 'globalData', 'store', '$rootScope',
-        function ($http, $log, $q, ModalService, cfg, spinCounter, globalData, store, $rootScope) {
+    .service('datosBack', ['$http', '$log', '$q', 'ModalService', 'cfg', 'spinCounter', 'globalData', 'store', '$rootScope','$translate',
+        function ($http, $log, $q, ModalService, cfg, spinCounter, globalData, store, $rootScope,$translate) {
             const self = this;
             self.request_load = null;
             self.previousBackendStatus = 0;
@@ -1548,7 +1548,7 @@ angular.module('appServices', [])
             self.upload = function (path, data) {
                 var fd = new FormData();
                 //Take the first selected file
-                if (!data) return $q.reject("Seleccione Archivo");
+                if (!data) return $q.reject($translate.instant("Seleccione Archivo"));
                 fd.append("file", data);
 
                 return $http.post(cfg.webApiBaseUrl + path, fd, {
@@ -1570,8 +1570,8 @@ angular.module('appServices', [])
                 const saveprom = $q.defer();
                 let msg_error = 'Error grabando datos';
                 if (clave.length > 1) {
-                    ModalService.alertMessage('Debe seleccionar un solo registro', 'Alerta', 'warning');
-                    saveprom.reject('Debe seleccionar un solo registro');
+                    ModalService.alertMessage($translate.instant('Debe seleccionar un solo registro'), 'Alerta', 'warning');
+                    saveprom.reject($translate.instant('Debe seleccionar un solo registro'));
                 } else {
                     const url = cfg.webApiBaseUrl + path;
 
@@ -1617,7 +1617,7 @@ angular.module('appServices', [])
             self.save_ext = function (action, url, data) {
                 let method = 'POST';
                 const deferred = $q.defer();
-                let msg_error = 'Error grabando datos';
+                let msg_error = $translate.instant('Error grabando datos');
                 if (action === 'edita') {
                     method = 'PUT';
                 }
@@ -1647,7 +1647,7 @@ angular.module('appServices', [])
             self.load = function (loadOptions) {
                 const deferred = $q.defer();
                 const filterJson = loadOptions.filtro;
-                const msg_error = 'Error obteniendo lista';
+                const msg_error = $translate.instant('Error obteniendo lista');
                 // var mybody = angular.element(document).find('body');
                 if (filterJson.error !== undefined && filterJson.error !== '') {
                     ModalService.alertMessage(filterJson.error, 'Error', 'danger');
@@ -1699,7 +1699,7 @@ angular.module('appServices', [])
             self.gridOptions = function (loadOptions) {
                 spinCounter.setSpinCounterAdd(1);
                 const deferred = $q.defer();
-                const msg_error = 'Error obteniendo gridOptions';
+                const msg_error = $translate.instant('Error obteniendo gridOptions');
 
                 $http.get(cfg.webApiBaseUrl + loadOptions.path, {})
                     .then(function (response) {
@@ -1721,13 +1721,13 @@ angular.module('appServices', [])
                     clave = selected.selected;
                 }
                 const deferred = $q.defer();
-                let msg_error = 'Error eliminando registro';
+                let msg_error = $translate.instant('Error eliminando registro');
                 if (clave.length > 1) {
-                    ModalService.alertMessage('Debe seleccionar un solo registro', 'Alerta', 'warning');
-                    deferred.reject('Debe seleccionar un solo registro');
+                    ModalService.alertMessage($translate.instant('Debe seleccionar un solo registro'), 'Alerta', 'warning');
+                    deferred.reject($translate.instant('Debe seleccionar un solo registro'));
                 } else {
                     if (clave.length > 0) {
-                        ModalService.confirmaCancela('Está seguro que desea eliminar registro?', 'Eliminar registro')
+                        ModalService.confirmaCancela($translate.instant('Está seguro que desea eliminar registro?'), $translate.instant('Eliminar registro'))
                             .then(function () {
                                 spinCounter.setSpinCounterAdd(1);
                                 return $http({
@@ -1748,8 +1748,8 @@ angular.module('appServices', [])
                                 spinCounter.setSpinCounterDel(1);
                             });
                     } else {
-                        ModalService.alertMessage('Debe seleccionar un registro', 'Alerta', 'warning');
-                        deferred.reject('Debe seleccionar un registro');
+                        ModalService.alertMessage($translate.instant('Debe seleccionar un registro'), 'Alerta', 'warning');
+                        deferred.reject($translate.instant('Debe seleccionar un registro'));
                     }
                 }
                 return deferred.promise;
@@ -1762,7 +1762,7 @@ angular.module('appServices', [])
             self.detalle = function (path, clave, include_ou = true, ignore404 = false) {
                 const deferred = $q.defer();
                 const cod_ou = globalData.getOULocal();
-                let msg_error = 'Error obteniendo detalle';
+                let msg_error = $translate.instant('Error obteniendo detalle');
 
                 if (angular.isDefined(clave) && clave.length > 0) {
                     spinCounter.setSpinCounterAdd(1);
@@ -1785,7 +1785,7 @@ angular.module('appServices', [])
                             spinCounter.setSpinCounterDel(1);
                         });
                 } else {
-                    deferred.reject('Debe seleccionar un registro');
+                    deferred.reject($translate.instant('Debe seleccionar un registro'));
                     ModalService.alertMessage('Debe seleccionar un registro', 'Alerta', 'warning');
                 }
 
@@ -1855,7 +1855,7 @@ angular.module('appServices', [])
 
             self.getData = function (path: string, showSpin: boolean, showErrorDialog: boolean = true, cache: boolean = false) {
                 const deferred = $q.defer();
-                let msg_error = 'Error obteniendo datos';
+                let msg_error = $translate.instant('Error obteniendo datos');
                 if (showSpin) {
                     spinCounter.setSpinCounterAdd(1);
                 }
@@ -1895,7 +1895,7 @@ angular.module('appServices', [])
             self.postData = function (path, data) {
                 let method = 'POST';
                 const saveprom = $q.defer();
-                let msg_error = 'Error grabando datos';
+                let msg_error = $translate.instant('Error grabando datos');
                 const url = cfg.webApiBaseUrl + path;
 
                 spinCounter.setSpinCounterAdd(1);
@@ -1961,7 +1961,7 @@ angular.module('appServices', [])
     }])
 
 
-    .service('captureMedia', ['datosBack', '$rootScope', '$q', function (datosBack, $rootScope, $q) {
+    .service('captureMedia', ['datosBack', '$rootScope', '$q','$translate', function (datosBack, $rootScope, $q, $translate) {
         const self = this;
         let inicializando = false;
         let mediastream = [];
@@ -1975,7 +1975,7 @@ angular.module('appServices', [])
 
 
             $rootScope.$broadcast('pantalla', {
-                message: 'Buscando dispositivos de captura de imagen',
+                message: $translate.instant('Buscando dispositivos de captura de imagen'),
                 level: 'info',
                 level_class: 'info',
                 level_img: 'info',
@@ -2036,7 +2036,7 @@ angular.module('appServices', [])
                         }).finally(function () {
                             if (videoDevices.length == 0) {
                                 $rootScope.$broadcast('pantalla', {
-                                    message: 'No se encontró dispositivo de captura ',
+                                    message: $translate.instant('No se encontró dispositivo de captura'),
                                     level: 'info',
                                     level_class: 'info',
                                     level_img: 'info',
@@ -2044,7 +2044,7 @@ angular.module('appServices', [])
                                 });
                             } else {
                                 $rootScope.$broadcast('pantalla', {
-                                    message: 'Se encontraron ' + videoDevices.length + ' dispositivo/s de captura',
+                                    message: $translate.instant('Se encontraron {{COUNT}} dispositivo/s de captura', {COUNT:videoDevices.length}),
                                     level: 'info',
                                     level_class: 'info',
                                     level_img: 'info',
@@ -2136,7 +2136,7 @@ angular.module('appServices', [])
                     .catch(function (error) {
                         inicializando = false;
                         $rootScope.$broadcast('pantalla', {
-                            message: 'Error listando dispositivos de captura ' + error,
+                            message: $translate.instant('Error listando dispositivos de captura')+' '+ error,
                             level: 'error',
                             level_class: 'danger',
                             level_img: 'warning',
@@ -2211,7 +2211,7 @@ angular.module('appServices', [])
     }])
 
 
-    .service('iconsLibSvc', ['$interval', 'datosBack', function ($interval, datosBack) {
+    .service('iconsLibSvc', ['$interval', 'datosBack','$translate', function ($interval, datosBack,$translate) {
 
         import(  /* webpackPrefetch: -100 */ '!!raw-loader!./icon-library/icon-library.svg')
             .then(module => {
@@ -2223,23 +2223,29 @@ angular.module('appServices', [])
 
         const vm = this;
         vm.getIconList = () => {
-            return [{ nom_icono: "Cartel", class: "cs-icon-cartel" }, { nom_icono: "Detector Humo", class: "cs-icon-detector-humo" }, { nom_icono: "Pulsador", class: "fab fa-uber" },
-                { nom_icono: "Espejo", class: "cs-icon-espejo" }, { nom_icono: "Flash", class: "cs-icon-flash" }, { nom_icono: "Lineal", class: "cs-icon-lineal" },
-                { nom_icono: "Sirena", class: "fas fa-volume-up" },
-                { nom_icono: "Central", class: "cs-icon-central" },
-                { nom_icono: "Campana", class: "cs-icon-campana" },
-                { nom_icono: "Bomba", class: "cs-icon-bomba" },
-                { nom_icono: "Alarma Gral", class: "cs-icon-alarma-gral" },
-                { nom_icono: "Moto Bomba", class: "cs-icon-motobomba" },
-                { nom_icono: "Electro Bomba", class: "cs-icon-electrobomba" },
-                { nom_icono: "Tanque Agua", class: "cs-icon-tanqueagua" },
-                { nom_icono: "Control Acceso", class: "cs-icon-controlacceso" },
-                { nom_icono: "Amplicación Extinción", class: "cs-icon-ampliacionextincion" },
+            return [{ nom_icono: "Cartel", class: "cs-icon-cartel" },
+                { nom_icono: $translate.instant("Detector Humo"), class: "cs-icon-detector-humo" },
+                { nom_icono: $translate.instant("Pulsador"), class: "fab fa-uber" },
+                { nom_icono: $translate.instant("Espejo"), class: "cs-icon-espejo" },
+                { nom_icono: $translate.instant("Flash"), class: "cs-icon-flash" },
+                { nom_icono: $translate.instant("Lineal"), class: "cs-icon-lineal" },
+                { nom_icono: $translate.instant("Sirena"), class: "fas fa-volume-up" },
+                { nom_icono: $translate.instant("Central"), class: "cs-icon-central" },
+                { nom_icono: $translate.instant("Campana"), class: "cs-icon-campana" },
+                { nom_icono: $translate.instant("Bomba"), class: "cs-icon-bomba" },
+                { nom_icono: $translate.instant("Alarma Gral"), class: "cs-icon-alarma-gral" },
+                { nom_icono: $translate.instant("Moto Bomba"), class: "cs-icon-motobomba" },
+                { nom_icono: $translate.instant("Electro Bomba"), class: "cs-icon-electrobomba" },
+                { nom_icono: $translate.instant("Tanque Agua"), class: "cs-icon-tanqueagua" },
+                { nom_icono: $translate.instant("Control Acceso"), class: "cs-icon-controlacceso" },
+                { nom_icono: $translate.instant("Amplicación Extinción"), class: "cs-icon-ampliacionextincion" },
 
-                { nom_icono: "Detector", class: "fab fa-ubuntu" },
-                { nom_icono: "Puerta", class: "fas fa-door-open" }, { nom_icono: "Lector huella", class: "fas fa-fingerprint" }, { nom_icono: "Extinguidor", class: "fas fa-fire-extinguisher" },
-                { nom_icono: "Cámara", class: "fas fa-video" },
-                { nom_icono: "Extinguidor", class: "fas fa-fire-extinguisher" },
+                { nom_icono: $translate.instant("Detector"), class: "fab fa-ubuntu" },
+                { nom_icono: $translate.instant("Puerta"), class: "fas fa-door-open" },
+                { nom_icono: $translate.instant("Lector huella"), class: "fas fa-fingerprint" },
+                { nom_icono: $translate.instant("Extinguidor"), class: "fas fa-fire-extinguisher" },
+                { nom_icono: $translate.instant("Cámara"), class: "fas fa-video" },
+                { nom_icono: $translate.instant("Extinguidor"), class: "fas fa-fire-extinguisher" },
             ];
         };
     }])

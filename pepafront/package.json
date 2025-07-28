@@ -1,6 +1,6 @@
 {
     "name": "n33bec",
-    "version": "1.492.0",
+    "version": "1.493.0",
     "description": "Control de Acceso y Monitoreo",
     "main": "http://localhost:9000",
     "window": {
@@ -26,7 +26,8 @@
         "dev": "webpack-dev-server",
         "build": "npm version minor && webpack --mode production",
         "ws": "php ../pepaapi/artisan command:WebSocketServer",
-        "phpapi": "php -S 0.0.0.0:8091 -t ../pepaapi"
+        "phpapi": "php -S 0.0.0.0:8091 -t ../pepaapi",
+        "lang": "n"
     },
     "repository": {
         "type": "svn",
@@ -39,6 +40,7 @@
         "@types/angular": "^1.7.0",
         "@types/ws": "^6.0.4",
         "angular-translate": "^2.19.1",
+        "angular-translate-extract": "^1.0.0",
         "angular1-template-loader": "^0.1.0",
         "angularjs-template-loader": "^0.1.2",
         "awesome-typescript-loader": "^5.2.1",
