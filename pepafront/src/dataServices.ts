@@ -5,7 +5,6 @@ import angular from 'angular';
 
 import Keyboard from 'simple-keyboard';
 import 'simple-keyboard/build/css/index.css';
-import { Console } from "console";
 import ng from "angular";
 
 import "./icon-library/icon-library.css";

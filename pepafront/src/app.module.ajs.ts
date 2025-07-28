@@ -231,7 +231,7 @@ angular.module(MODULE_NAME,
                 suffix: '.json'
             });
             $translateProvider.preferredLanguage('it');
-
+console.log('xxx')
 
             $stateProvider
                 .state('common', {

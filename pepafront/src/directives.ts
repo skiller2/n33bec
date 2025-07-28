@@ -165,46 +165,50 @@ angular.module('appDirectives', [])
 
     .directive('clickAndDisable', function () {
         return {
-            scope: {
-                clickAndDisable: '&',
-            },
-            link(scope: any, ele, iAttrs) {
+            //            scope: { clickAndDisable: '&', },
+            restrict: 'A',
+            link(scope: any, ele, attrs) {
                 ele.bind('click', function () {
                     if (ele.attr('disabled'))
                         return;
                     ele.attr('disabled', 'disabled');
-                    const deferred = scope.clickAndDisable();
-                    if (angular.isObject(deferred)) {
-                        deferred
-                            .then(function () {
-                                
-                            })
-                            .catch(function () { 
 
-                            })
-                            .finally(function () {
+                    scope.$apply(function () {
+
+                        const promise = scope.$eval(attrs.clickAndDisable);
+
+                        // Check if it's a promise
+                        if (promise && typeof promise.finally === 'function') {
+                            promise.finally(function () {
+                                ele.removeAttr('disabled');
+                            });
+                        } else {
                             ele.removeAttr('disabled');
-                        });
-                    } else {
-                        ele.removeAttr('disabled');
-                    }
-                });
-                /*
-                                ele.parent().bind("keydown keypress", function (event) {
-                                    if (event.which === 13) {
-                                        scope.$apply(function () {
-                                            console.log('presiona enter');
-                                        });
-                        
-                                        event.preventDefault();
-                                    }
-                                });
-                */
+                        }
+                    });
 
+                    /*
+                                        const deferred = scope.clickAndDisable();
+                                        if (angular.isObject(deferred)) {
+                                            deferred
+                                                .then(function () {
+                    
+                                                })
+                                                .catch(function () {
+                    
+                                                })
+                                                .finally(function () {
+                                                    ele.removeAttr('disabled');
+                                                });
+                                        } else {
+                                            ele.removeAttr('disabled');
+                                        }
+                    */
+                });
             },
         };
     })
-    
+
     .directive('numbersOnly', function () {
         return {
             require: 'ngModel',
@@ -337,27 +341,27 @@ angular.module('appDirectives', [])
             },
         };
     }])
-/*
-    .directive('inputxx', function () {
-        return {
-            restrict: 'E',
-            scope: {
-                ngModel: '=',
-                ngChange: '&',
-                type: '@'
-            },
-            link: function (scope, element, attrs) {
-                if (scope.type.toLowerCase() != 'file') {
-                    return;
+    /*
+        .directive('inputxx', function () {
+            return {
+                restrict: 'E',
+                scope: {
+                    ngModel: '=',
+                    ngChange: '&',
+                    type: '@'
+                },
+                link: function (scope, element, attrs) {
+                    if (scope.type.toLowerCase() != 'file') {
+                        return;
+                    }
+                    element.bind('change', function () {
+                        let files = element[0].files;
+                        scope.ngModel = files;
+                        scope.$apply();
+                        scope.ngChange();
+                    });
                 }
-                element.bind('change', function () {
-                    let files = element[0].files;
-                    scope.ngModel = files;
-                    scope.$apply();
-                    scope.ngChange();
-                });
             }
-        }
-    })
-*/
+        })
+    */
     ;
