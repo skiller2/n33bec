@@ -13,18 +13,18 @@
             <div class="row justify-content-md-center w-100">
                 <div class="col-md-6 col-lg-5">
                     <div class="form-group">
-                        <label for="cod_usuario_dt" class="col-sm-10 label-adjust" translate>Cód. Usuario <span
+                        <label for="cod_usuario_dt" class="col-sm-10 label-adjust" translate>Cód. Usuario<span
                                 class="field-required">*</span></label>
                         <input type="text" class="form-control form-control-sm" id="cod_usuario_dt"
-                            name="cod_usuario_dt" placeholder="Cód. Usuario" ng-model="usuarios.usuario_dt.cod_usuario"
+                            name="cod_usuario_dt" translate translate-attr-placeholder="Cód. Usuario" ng-model="usuarios.usuario_dt.cod_usuario"
                             readonly="">
                     </div>
 
                     <div class="form-group">
-                        <label for="cod_persona_dt" class="col-sm-10 label-adjust" translate>Cód. Persona <span
+                        <label for="cod_persona_dt" class="col-sm-10 label-adjust" translate>Cód. Persona<span
                                 class="field-required">*</span></label>
                         <input type="text" class="form-control form-control-sm" id="cod_persona_dt"
-                            name="cod_persona_dt" placeholder="Cód. Persona" ng-model="usuarios.usuario_dt.cod_persona"
+                            name="cod_persona_dt" translate translate-attr-placeholder="Cód. Persona" ng-model="usuarios.usuario_dt.cod_persona"
                             readonly="">
                     </div>
 
@@ -32,8 +32,7 @@
                         <label for="obj_permisos" class="col-sm-10 label-adjust" translate>Permisos</label>
                         <ui-select multiple ng-model="usuarios.usuario.obj_permisos" append-to-body="true"
                             close-on-select="false" disabled="">
-                            <ui-select-match ui-lock-choice="true"
-                                placeholder="Permisos">{{$item.nom}}</ui-select-match>
+                            <ui-select-match ui-lock-choice="true"  placeholder="{{'Permiso'|translate}}"><span>{{$item.nom}}</span></ui-select-match>
                             <ui-select-choices
                                 repeat="hability.den as hability in usuarios.obj_permisos | filter: $select.search">
                                 <div ng-bind-html="hability.nom | highlight: $select.search"></div>
@@ -45,8 +44,7 @@
                         <label for="obj_ou_dt" class="col-sm-10 label-adjust" translate>Organizaciones</label>
                         <ui-select multiple ng-model="usuarios.usuario_dt.obj_ou" append-to-body="true"
                             close-on-select="false" disabled="">
-                            <ui-select-match ui-lock-choice="true"
-                                placeholder="Organizaciones">{{$item.nom_ou}}</ui-select-match>
+                            <ui-select-match ui-lock-choice="true" placeholder="{{'Empresa'|translate}}"><span>{{$item.nom_ou}}</span></ui-select-match>
                             <ui-select-choices repeat="ou.cod_ou as ou in usuarios.obj_ou | filter: $select.search">
                                 <div ng-bind-html="ou.nom_ou | highlight: $select.search"></div>
                             </ui-select-choices>
@@ -57,8 +55,7 @@
                         <label for="obj_sectores_dt" class="col-sm-10 label-adjust" translate>Sectores</label>
                         <ui-select multiple ng-model="usuarios.usuario_dt.obj_sectores" append-to-body="true"
                             close-on-select="false" disabled="">
-                            <ui-select-match ui-lock-choice="true"
-                                placeholder="Sectores">{{$item.nom_sector}}</ui-select-match>
+                            <ui-select-match ui-lock-choice="true"  placeholder="{{'Sector'|translate}}"><span>{{$item.nom_sector}}</span></ui-select-match>
                             <ui-select-choices
                                 repeat="sector.cod_sector as sector in usuarios.obj_sectores | filter: $select.search">
                                 <div ng-bind-html="sector.nom_sector | highlight: $select.search"></div>
@@ -81,8 +78,7 @@
                         <label for="obj_esquemas_dt" class="col-sm-10 label-adjust" translate>Esquemas</label>
                         <ui-select multiple ng-model="usuarios.usuario_dt.obj_esquemas" append-to-body="true"
                             close-on-select="false" disabled="">
-                            <ui-select-match ui-lock-choice="true"
-                                placeholder="Esquemas">{{$item.des_esquema_acceso}}</ui-select-match>
+                            <ui-select-match ui-lock-choice="true"  placeholder="{{'Esquema'|translate}}"><span>{{$item.des_esquema_acceso}}</span></ui-select-match>
                             <ui-select-choices
                                 repeat="esquema.cod_esquema_acceso as esquema in usuarios.obj_esquemas | filter: $select.search">
                                 <div ng-bind-html="esquema.des_esquema_acceso | highlight: $select.search"></div>
@@ -95,7 +91,7 @@
                         <ui-select class="form-control form-control-sm" id="sector_default_dt" name="sector_default_dt"
                             ng-model="usuarios.usuario_dt.sector_default" disabled=""
                             xng-options="item.cod_sector as item.nom_sector for item in usuarios.obj_sectores">
-                            <ui-select-match placeholder="Sectores"><span
+                            <ui-select-match placeholder="{{'Sector'|translate}}"><span
                                     ng-bind="$select.selected.nom_sector"></span></ui-select-match>
                             <ui-select-choices
                                 repeat="item.cod_sector as item in usuarios.obj_sectores | filter: $select.search">
@@ -111,7 +107,7 @@
                             ng-model="usuarios.usuario_dt.esquema_default" disabled=""
                             xng-options="item.cod_esquema_acceso as item.des_esquema_acceso for item in usuarios.obj_esquemas"
                             >
-                            <ui-select-match placeholder="Esquemas">{{$item.des_esquema_acceso}}</ui-select-match>
+                            <ui-select-match placeholder="{{'Esquema'|translate}}"><span>{{$item.des_esquema_acceso}}</span></ui-select-match>
                             <ui-select-choices
                                 repeat="esquema.cod_esquema_acceso as esquema in usuarios.obj_esquemas | filter: $select.search">
                                 <div ng-bind-html="esquema.des_esquema_acceso | highlight: $select.search"></div>
@@ -121,9 +117,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="ruta_login_dt" class="col-sm-10 label-adjust" translate>Ruta Login </label>
+                        <label for="ruta_login_dt" class="col-sm-10 label-adjust" translate>Ruta Login</label>
                         <input type="text" class="form-control form-control-sm" id="ruta_login_dt" name="ruta_login_dt"
-                            placeholder="Ruta Login" ng-model="usuarios.usuario_dt.ruta_login" readonly="">
+                            translate translate-attr-placeholder="Ruta Login" ng-model="usuarios.usuario_dt.ruta_login" readonly="">
                     </div>
 
                     <div class="form-group">
@@ -141,7 +137,7 @@
 
                     <!-- div class="form-group">
                         <label for="contrasena_dt" class="col-sm-10 label-adjust">Contraseña <span class="field-required">*</span></label>
-                        <input type="password" class="form-control form-control-sm" id="contrasena_dt" name="contrasena_dt" placeholder="contraseña"
+                        <input type="password" class="form-control form-control-sm" id="contrasena_dt" name="contrasena_dt" translate translate-attr-placeholder="contraseña"
                                ng-model="usuarios.usuario_dt.contrasena" readonly="">
                     </div -->
                 </div>
@@ -161,7 +157,7 @@
                             <label for="cod_usuario" class="col-sm-10 label-adjust" translate>Cód. Usuario <span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="cod_usuario" name="cod_usuario"
-                                placeholder="Cód. Usuario" ng-model="usuarios.usuario.cod_usuario" ng-required="true"
+                                translate translate-attr-placeholder="Cód. Usuario" ng-model="usuarios.usuario.cod_usuario" ng-required="true"
                                 ng-readonly="usuarios.noteditable">
                             <span class="help-inline"
                                 ng-show="frmUsuarios.cod_usuario.$invalid && frmUsuarios.cod_usuario.$touched" translate>Debe ingresar un Cód. Usuario</span>
@@ -170,7 +166,7 @@
                         <div class="form-group">
                             <label for="busq_persona" class="col-sm-10 label-adjust" translate>Buscar Persona</label>
                             <input type="text" class="form-control form-control-sm" id="busq_persona"
-                                name="busq_persona" placeholder="DNI o Apellido Nombre Persona"
+                                name="busq_persona" translate translate-attr-placeholder="DNI o Apellido Nombre Persona"
                                 ng-model="usuarios.usuario.busq_persona" ng-readonly="usuarios.noteditable"
                                 typeahead-append-to-body="true"
                                 typeahead-on-select="usuarios.typeaheadOnSelect($item,$model,$label)"
@@ -181,10 +177,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="cod_persona" class="col-sm-10 label-adjust" translate>Cód. Persona <span
+                            <label for="cod_persona" class="col-sm-10 label-adjust" translate>Cód. Persona<span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="cod_persona" name="cod_persona"
-                                placeholder="Cód. Persona" ng-model="usuarios.usuario.cod_persona" ng-required="true"
+                                translate translate-attr-placeholder="Cód. Persona" ng-model="usuarios.usuario.cod_persona" ng-required="true"
                                 ng-readonly="true">
                             <span class="help-inline"
                                 ng-show="frmUsuarios.cod_persona.$invalid && frmUsuarios.cod_persona.$touched" translate>Debe ingresar un Cód. Persona</span>
@@ -194,7 +190,7 @@
                             <label for="obj_permisos" class="col-sm-10 label-adjust" translate>Permisos</label>
                             <ui-select multiple ng-model="usuarios.usuario.obj_permisos" append-to-body="true"
                                 close-on-select="false">
-                                <ui-select-match placeholder="Permisos">{{$item.nom}}</ui-select-match>
+                                <ui-select-match placeholder="{{'Permiso'|translate}}"><span>{{$item.nom}}</span></ui-select-match>
                                 <ui-select-choices
                                     repeat="hability.den as hability in usuarios.obj_permisos | filter: $select.search">
                                     <div ng-bind-html="hability.nom | highlight: $select.search"></div>
@@ -206,7 +202,7 @@
                             <label for="obj_ou" class="col-sm-10 label-adjust" translate>Organizaciones</label>
                             <ui-select multiple ng-model="usuarios.usuario.obj_ou" append-to-body="true"
                                 close-on-select="false">
-                                <ui-select-match placeholder="Organizaciones">{{$item.nom_ou}}</ui-select-match>
+                                <ui-select-match placeholder="{{'Empresa'|translate}}"><span>{{$item.nom_ou}}</span></ui-select-match>
                                 <ui-select-choices repeat="ou.cod_ou as ou in usuarios.obj_ou | filter: $select.search">
                                     <div ng-bind-html="ou.nom_ou | highlight: $select.search"></div>
                                 </ui-select-choices>
@@ -217,7 +213,7 @@
                             <label for="obj_sectores" class="col-sm-10 label-adjust" translate>Sectores</label>
                             <ui-select multiple ng-model="usuarios.usuario.obj_sectores" append-to-body="true"
                                 close-on-select="false">
-                                <ui-select-match placeholder="Sectores">{{$item.nom_sector}}</ui-select-match>
+                                <ui-select-match placeholder="{{'Sector'|translate}}"><span>{{$item.nom_sector}}</span></ui-select-match>
                                 <ui-select-choices
                                     repeat="sector.cod_sector as sector in usuarios.obj_sectores | filter: $select.search">
                                     <div ng-bind-html="sector.nom_sector | highlight: $select.search"></div>
@@ -230,7 +226,7 @@
                             <ui-select class="form-control form-control-sm" id="cod_tema_lector" name="cod_tema_lector"
                                 ng-model="usuarios.usuario.cod_tema_lector">
                                 <option value="" translate>No requiere</option>
-                                <ui-select-match placeholder="Lector"><span
+                                <ui-select-match placeholder="{{'Lector'|translate}}"><span
                                         ng-bind="$select.selected.value"></span></ui-select-match>
                                 <ui-select-choices
                                     repeat="item.key as item in usuarios.lectores | filter: $select.search">
@@ -246,7 +242,7 @@
                             <label for="obj_esquemas" class="col-sm-10 label-adjust" translate>Esquemas</label>
                             <ui-select multiple ng-model="usuarios.usuario.obj_esquemas" append-to-body="true"
                                 close-on-select="false">
-                                <ui-select-match placeholder="Esquemas">{{$item.des_esquema_acceso}}</ui-select-match>
+                                <ui-select-match placeholder="{{'Esquema'|translate}}"><span>{{$item.des_esquema_acceso}}</span></ui-select-match>
                                 <ui-select-choices
                                     repeat="esquema.cod_esquema_acceso as esquema in usuarios.obj_esquemas | filter: $select.search">
                                     <div ng-bind-html="esquema.des_esquema_acceso | highlight: $select.search"></div>
@@ -257,8 +253,8 @@
                         <div class="form-group ">
                             <label for="sector_default" class="col-sm-10 label-adjust" translate>Sector Default Visita</label>
                             <ui-select class="form-control form-control-sm" id="sector_default" name="sector_default"
-                                placeholder="Sector" ng-model="usuarios.usuario.sector_default">
-                                <ui-select-match placeholder="Esquemas"><span
+                                ng-model="usuarios.usuario.sector_default" >
+                                <ui-select-match placeholder="{{'Sector'|translate}}"><span
                                         ng-bind="$select.selected.nom_sector"></span></ui-select-match>
                                 <ui-select-choices
                                     repeat="item.cod_sector as item in usuarios.obj_sectores | filter: $select.search">
@@ -273,7 +269,7 @@
                             <ui-select class="form-control form-control-sm" id="esquema_default" name="esquema_default"
                                 ng-model="usuarios.usuario.esquema_default"
                                 >
-                                <ui-select-match placeholder="Esquema" ><span ng-bind="$select.selected.des_esquema_acceso"></span></ui-select-match>
+                                <ui-select-match placeholder="{{'Esquema'|translate}}"><span ng-bind="$select.selected.des_esquema_acceso"></span></ui-select-match>
                                 <ui-select-choices repeat="item.cod_esquema_acceso as item in usuarios.obj_esquemas | filter: $select.search">
                                     <div ng-bind-html="item.des_esquema_acceso | highlight: $select.search"></div>
                                 </ui-select-choices>
@@ -282,9 +278,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="ruta_login" class="col-sm-10 label-adjust" translate>Ruta Login </label>
+                            <label for="ruta_login" class="col-sm-10 label-adjust" translate>Ruta Login</label>
                             <input type="text" class="form-control form-control-sm" id="ruta_login" name="ruta_login"
-                                placeholder="Ruta Login" ng-model="usuarios.usuario.ruta_login">
+                                translate translate-attr-placeholder="Ruta Login" ng-model="usuarios.usuario.ruta_login">
                         </div>
 
                         <div class="form-group">
@@ -300,10 +296,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="contrasena" class="col-sm-10 label-adjust" translate>Contraseña <span
+                            <label for="contrasena" class="col-sm-10 label-adjust" translate>Contraseña<span
                                     class="field-required">*</span></label>
                             <input type="password" class="form-control form-control-sm" id="contrasena"
-                                name="contrasena" placeholder="contraseña" ng-model="usuarios.usuario.contrasena"
+                                name="contrasena" translate translate-attr-placeholder="contraseña" ng-model="usuarios.usuario.contrasena"
                                 ng-required="false">
                             <span class="help-inline"
                                 ng-show="frmUsuarios.contrasena.$invalid && frmUsuarios.contrasena.$touched" translate>Debe ingresar una contraseña</span>

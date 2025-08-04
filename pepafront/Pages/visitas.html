@@ -29,7 +29,7 @@
                         <ui-select class="form-control form-control-sm" id="cod_ou_contacto_dt"
                             name="cod_ou_contacto_dt" disabled="" ng-model="visitas.visita_dt.cod_ou_contacto"
                             xng-options="item.cod_ou as item.nom_ou for item in visitas.ouList">
-                            <ui-select-match placeholder="Organización"><span
+                            <ui-select-match placeholder="{{'Empresa'|translate}}"><span
                                     ng-bind="$select.selected.nom_ou"></span></ui-select-match>
                             <ui-select-choices repeat="item.cod_ou as item in visitas.ouList | filter: $select.search">
                                 <div ng-bind-html="item.nom_ou | highlight: $select.search"></div>
@@ -39,12 +39,12 @@
                     </div>
 
                     <div class="form-group" ng-show="visitas.ind_muestra_tipocred">
-                        <label for="tipo_credencial_dt" class="col-sm-10 label-adjust" translate>Tipo Tarjeta <span
+                        <label for="tipo_credencial_dt" class="col-sm-10 label-adjust" translate>Tipo Tarjeta<span
                                 class="field-required">*</span></label>
                         <ui-select class="form-control form-control-sm" id="tipo_credencial_dt"
                             name="tipo_credencial_dt" ng-model="visitas.visita_dt.tipo_credencial" disabled=""
                             xng-options="item.id as item.name for item in visitas.tipoCredencial">
-                            <ui-select-match placeholder="Tipo Tarjeta"><span
+                            <ui-select-match placeholder="{{'Tipo'|translate}}"><span
                                     ng-bind="$select.selected.name"></span></ui-select-match>
                             <ui-select-choices
                                 repeat="item.id as item in visitas.tipoCredencial | filter: $select.search">
@@ -59,7 +59,7 @@
                         <ui-select class="form-control form-control-sm" id="tipo_credencial_dt" name="tipo_visita_dt"
                             ng-model="visitas.visita_dt.tipo_habilitacion" disabled=""
                             xng-options="item.id as item.name for item in visitas.tipoHabilitacion">
-                            <ui-select-match placeholder="Habilitación"><span
+                            <ui-select-match placeholder="{{'Tipo'|translate}}"><span
                                     ng-bind="$select.selected.name"></span></ui-select-match>
                             <ui-select-choices
                                 repeat="item.id as item in visitas.tipoHabilitacion | filter: $select.search">
@@ -69,11 +69,11 @@
                     </div>
 
                     <div class="form-group" ng-show="visitas.ind_muestra_grupocred">
-                        <label for="cod_grupo_dt" class="col-sm-10 label-adjust" translate>Grupo de Tarjetas </label>
+                        <label for="cod_grupo_dt" class="col-sm-10 label-adjust" translate>Grupo de Tarjetas</label>
                         <ui-select class="form-control form-control-sm" id="cod_grupo_dt" name="cod_grupo_dt"
                             ng-model="visitas.visita_dt.cod_grupo" disabled=""
                             xng-options="item.cod_grupo as item.des_grupo for item in visitas.grupoCredList">
-                            <ui-select-match placeholder="Grupo Tarjetas"><span
+                            <ui-select-match placeholder="{{'Grupo'|translate}}"><span
                                     ng-bind="$select.selected.des_grupo"></span></ui-select-match>
                             <ui-select-choices
                                 repeat="item.cod_grupo as item in visitas.grupoCredList | filter: $select.search">
@@ -85,17 +85,17 @@
                     <div class="form-group">
                         <label for="des_persona_contacto_dt" class="col-sm-10 label-adjust" translate>Apellido y Nombre Contacto</label>
                         <input type="text" class="form-control form-control-sm" id="des_persona_contacto_dt"
-                            name="des_persona_contacto_dt" placeholder="Apellido y Nombre Contacto"
+                            name="des_persona_contacto_dt" translate translate-attr-placeholder="Apellido y Nombre Contacto"
                             ng-model="visitas.visita_dt.des_persona_contacto" readonly="">
                     </div>
 
                     <div class="form-group">
-                        <label for="cod_esquema_acceso_dt" class="col-sm-10 label-adjust" translate>Esquema de Acceso <span
+                        <label for="cod_esquema_acceso_dt" class="col-sm-10 label-adjust" translate>Esquema de Acceso<span
                                 class="field-required">*</span></label>
                         <ui-select class="form-control form-control-sm" id="cod_esquema_acceso_dt"
                             name="cod_esquema_acceso_dt" ng-model="visitas.visita_dt.cod_esquema_acceso" disabled=""
                             xng-options="item.cod_esquema_acceso as item.des_esquema_acceso for item in visitas.esquemasList">
-                            <ui-select-match placeholder="Esquema"><span
+                            <ui-select-match placeholder="{{'Esquema'|translate}}"><span
                                     ng-bind="$select.selected.des_esquema_acceso"></span></ui-select-match>
                             <ui-select-choices
                                 repeat="item.cod_esquema_acceso as item in visitas.esquemasList | filter: $select.search">
@@ -106,12 +106,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sel_sectores_dt" class="col-sm-10 label-adjust" translate>Sectores <span
+                        <label for="sel_sectores_dt" class="col-sm-10 label-adjust" translate>Sectores<span
                                 class="field-required">*</span></label>
                         <ui-select multiple ng-model="visitas.visita_dt.sectoresSel" append-to-body="false"
                             close-on-select="false" disabled="">
-                            <ui-select-match ui-lock-choice="true"
-                                placeholder="Sectores">{{$item.nom_sector}}</ui-select-match>
+                            <ui-select-match ui-lock-choice="true" placeholder="{{'Sector'|translate}}"><span>{{$item.nom_sector}}</span></ui-select-match>
                             <ui-select-choices ng-hide="!$select.open"
                                 repeat="sector.cod_sector as sector in visitas.sectoresList | filter: $select.search">
                                 <small ng-bind-html="sector.nom_sector | highlight: $select.search"></small>
@@ -136,7 +135,7 @@
                     <div class="form-group" ng-show="false">
                         <label for="cod_persona_dt" class="col-sm-10 label-adjust" translate>Cód. Persona</label>
                         <input type="text" class="form-control form-control-sm" id="cod_persona_dt"
-                            name="cod_persona_dt" placeholder="Cód. Persona" ng-model="visitas.visita_dt.cod_persona"
+                            name="cod_persona_dt" translate translate-attr-placeholder="Cód. Persona" ng-model="visitas.visita_dt.cod_persona"
                             readonly="">
                     </div>
 
@@ -146,7 +145,7 @@
                         <ui-select class="form-control form-control-sm" id="cod_tipo_doc_dt" name="cod_tipo_doc_dt"
                             disabled="" ng-model="visitas.visita_dt.cod_tipo_doc" ng-required="true"
                             xng-options="item.id as item.name for item in visitas.tipoDocumento">
-                            <ui-select-match placeholder="Tipo Documento"><span
+                            <ui-select-match placeholder="{{'Tipo Doc.'|translate}}"><span
                                     ng-bind="$select.selected.name"></span></ui-select-match>
                             <ui-select-choices
                                 repeat="item.id as item in visitas.tipoDocumento | filter: $select.search">
@@ -157,18 +156,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nro_documento_dt" class="col-sm-10 label-adjust" translate>DNI Persona <span
+                        <label for="nro_documento_dt" class="col-sm-10 label-adjust" translate>DNI Persona<span
                                 class="field-required">*</span></label>
                         <input type="text" class="form-control form-control-sm" id="nro_documento_dt"
-                            name="nro_documento_dt" placeholder="DNI Persona" ng-model="visitas.visita_dt.nro_documento"
+                            name="nro_documento_dt" translate translate-attr-placeholder="DNI Persona" ng-model="visitas.visita_dt.nro_documento"
                             readonly="">
                     </div>
 
                     <div class="form-group">
-                        <label for="ape_persona_dt" class="col-sm-10 label-adjust" translate>Apellido <span
+                        <label for="ape_persona_dt" class="col-sm-10 label-adjust" translate>Apellido<span
                                 class="field-required">*</span></label>
                         <input type="text" class="form-control form-control-sm" id="ape_persona_dt"
-                            name="ape_persona_dt" placeholder="Apellido" ng-model="visitas.visita_dt.ape_persona"
+                            name="ape_persona_dt" translate translate-attr-placeholder="Apellido" ng-model="visitas.visita_dt.ape_persona"
                             readonly="">
                     </div>
 
@@ -176,7 +175,7 @@
                         <label for="nom_persona_dt" class="col-sm-10 label-adjust" translate>Nombre <span
                                 class="field-required">*</span></label>
                         <input type="text" class="form-control form-control-sm" id="nom_persona_dt"
-                            name="nom_persona_dt" placeholder="Nombre" ng-model="visitas.visita_dt.nom_persona"
+                            name="nom_persona_dt" translate translate-attr-placeholder="Nombre" ng-model="visitas.visita_dt.nom_persona"
                             readonly="">
                     </div>
 
@@ -186,7 +185,7 @@
                         <ui-select class="form-control form-control-sm" id="cod_sexo_dt" name="cod_sexo_dt"
                             ng-model="visitas.visita_dt.cod_sexo" disabled=""
                             xng-options="item.id as item.name for item in visitas.tipoSexo">
-                            <ui-select-match placeholder="Sexo"><span
+                            <ui-select-match  placeholder="{{'Sexo'|translate}}"><span
                                     ng-bind="$select.selected.name"></span></ui-select-match>
                             <ui-select-choices repeat="item.id as item in visitas.tipoSexo | filter: $select.search">
                                 <div ng-bind-html="item.id | highlight: $select.search"></div>
@@ -198,19 +197,19 @@
                         <label for="email_dt" class="col-sm-10 label-adjust" translate>E-mail <span
                                 class="field-required">*</span></label>
                         <input type="email" class="form-control form-control-sm" id="email_dt" name="email_dt"
-                            placeholder="Correo electrónico" ng-model="visitas.visita_dt.email" readonly="">
+                            translate translate-attr-placeholder="Correo electrónico" ng-model="visitas.visita_dt.email" readonly="">
                     </div>
 
                     <div class="form-group">
                         <label for="obs_habilitacion_dt" class="col-sm-10 label-adjust" translate>Observaciones Habilitación</label>
                         <textarea class="form-control form-control-sm" id="obs_habilitacion_dt"
-                            name="obs_habilitacion_dr" readonly="" placeholder="Observaciones Habilitación"
+                            name="obs_habilitacion_dr" readonly="" translate translate-attr-placeholder="Observaciones Habilitación"
                             ng-model="visitas.visita_dt.obs_habilitacion"></textarea>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="form-group">
-                        <label for="img_persona_dt" class="col-sm-10 label-adjust" translate>Foto <span
+                        <label for="img_persona_dt" class="col-sm-10 label-adjust" translate>Foto<span
                                 class="field-required">*</span></label>
                         <div class="form-control form-control-img"><img id="img_persona_dt"
                                 ng-src="{{visitas.visita_dt.img_persona}}" ng-show="visitas.visita_dt.img_persona" />
@@ -256,7 +255,7 @@
                             <ui-select class="form-control form-control-sm" id="cod_ou_contacto" name="cod_ou_contacto"
                                 ng-change="visitas.limpiarContacto()" ng-model="visitas.visita.cod_ou_contacto"
                                 ng-required="true" xng-options="item.cod_ou as item.nom_ou for item in visitas.ouList">
-                                <ui-select-match placeholder="Organización"><span
+                                <ui-select-match placeholder="{{'Empresa contacto'|translate}}"><span
                                         ng-bind="$select.selected.nom_ou"></span></ui-select-match>
                                 <ui-select-choices
                                     repeat="item.cod_ou as item in visitas.ouList | filter: $select.search">
@@ -273,7 +272,7 @@
                             <ui-select class="form-control form-control-sm" id="tipo_credencial" name="tipo_credencial"
                                 ng-model="visitas.visita.tipo_credencial" ng-required="true"
                                 xng-options="item.id as item.name for item in visitas.tipoCredencial">
-                                <ui-select-match placeholder="Tipo Tarjeta"><span
+                                <ui-select-match placeholder="{{'Tipo credencial'|translate}}"><span
                                         ng-bind="$select.selected.name"></span></ui-select-match>
                                 <ui-select-choices
                                     repeat="item.id as item in visitas.tipoCredencial | filter: $select.search">
@@ -292,7 +291,7 @@
                                 name="tipo_habilitacion" ng-model="visitas.visita.tipo_habilitacion" ng-required="true"
                                 ng-disabled="visitas.noteditable"
                                 xng-options="item.id as item.name for item in visitas.tipoHabilitacion">
-                                <ui-select-match placeholder="Habilitación"><span
+                                <ui-select-match placeholder="{{'Tipo credencial'|translate}}"><span
                                         ng-bind="$select.selected.name"></span></ui-select-match>
                                 <ui-select-choices
                                     repeat="item.id as item in visitas.tipoHabilitacion | filter: $select.search">
@@ -305,11 +304,11 @@
                         </div>
 
                         <div class="form-group" ng-show="visitas.ind_muestra_grupocred">
-                            <label for="cod_grupo" class="col-sm-10 label-adjust" translate>Grupo de Tarjetas </label>
+                            <label for="cod_grupo" class="col-sm-10 label-adjust" translate>Grupo de Tarjetas</label>
                             <ui-select class="form-control form-control-sm" id="cod_grupo" name="cod_grupo"
                                 ng-model="visitas.visita.cod_grupo"
                                 xng-options="item.cod_grupo as item.des_grupo for item in visitas.grupoCredList">
-                                <ui-select-match placeholder="Grupo"><span
+                                <ui-select-match placeholder="{{'Grupo tarjetas'|translate}}"><span
                                         ng-bind="$select.selected.des_grupo"></span></ui-select-match>
                                 <ui-select-choices
                                     repeat="item.cod_grupo as item in visitas.grupoCredList | filter: $select.search">
@@ -322,7 +321,7 @@
                             <label for="busq_persona_contacto" class="col-sm-10 label-adjust" translate>Buscar Persona Contacto</label>
                             <i class="fa fa-search form-control-feedback"></i>
                             <input type="text" class="form-control form-control-sm" id="busq_persona_contacto"
-                                name="busq_persona_contacto" placeholder="DNI o Apellido Nombre Persona Contacto"
+                                name="busq_persona_contacto" translate translate-attr-placeholder="DNI o Apellido Nombre Persona Contacto"
                                 ng-model="visitas.visita.busq_persona_contacto" typeahead-append-to-body="true"
                                 autocomplete="off"
                                 typeahead-on-select="visitas.typeaheadOnSelectContacto($item,$model,$label)"
@@ -335,7 +334,7 @@
                         <div class="form-group" ng-show="false">
                             <label for="cod_persona_contacto" class="col-sm-10 label-adjust" translate>Cód. Persona Contacto</label>
                             <input type="text" class="form-control form-control-sm" id="cod_persona_contacto"
-                                name="cod_persona_contacto" placeholder="Cód. Persona Contacto"
+                                name="cod_persona_contacto" translate translate-attr-placeholder="Cód. Persona Contacto"
                                 ng-model="visitas.visita.cod_persona_contacto" ng-required="true" readonly="">
                         </div>
 
@@ -348,13 +347,13 @@
                         <span class="help-inline" style="color:yellow;"
                             ng-show="frmHabilitaciones.habilitacion.obs_visitas_contacto != ''">{{visitas.visita.obs_visitas_contacto}}</span>
                         <div ng-hide="visitas.ind_visita_simplificada" class="form-group">
-                            <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" translate>Esquema de Acceso <span
+                            <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" translate>Esquema de Acceso<span
                                     class="field-required">*</span></label>
                             <ui-select class="form-control form-control-sm" id="cod_esquema_acceso"
                                 name="cod_esquema_acceso" ng-model="visitas.visita.cod_esquema_acceso"
                                 ng-required="true"
                                 xng-options="item.cod_esquema_acceso as item.des_esquema_acceso for item in visitas.esquemasList">
-                                <ui-select-match placeholder="Esquema"><span
+                                <ui-select-match placeholder="{{'Esquema'|translate}}"><span
                                         ng-bind="$select.selected.des_esquema_acceso"></span></ui-select-match>
                                 <ui-select-choices
                                     repeat="item.cod_esquema_acceso as item in visitas.esquemasList | filter: $select.search">
@@ -371,8 +370,7 @@
                                     class="field-required">*</span></label>
                             <ui-select multiple ui-hide-choices ng-model="visitas.visita.sectoresSel" id="sel_sectores"
                                 name="sel_sectores" append-to-body="false" ng-required="true" close-on-select="false">
-                                <ui-select-match ui-lock-choice="$item.estado === 'inactivo'"
-                                    placeholder="Sectores">{{$item.nom_sector}}</ui-select-match>
+                                <ui-select-match ui-lock-choice="$item.estado === 'inactivo'"  placeholder="{{'Sector'|translate}}"><span>{{$item.nom_sector}}</span></ui-select-match>
                                 <ui-select-choices ui-disable-choice="sector.estado === 'inactivo'"
                                     ng-hide="!$select.open"
                                     repeat="sector.cod_sector as sector in visitas.sectoresList  | filter: $select.search">
@@ -401,7 +399,7 @@
                             <label for="busq_persona" class="col-sm-10 label-adjust" translate>Buscar Persona</label>
                             <i class="fa fa-search form-control-feedback"></i>
                             <input type="text" class="form-control form-control-sm" id="busq_persona"
-                                name="busq_persona" placeholder="DNI o Apellido Nombre Persona"
+                                name="busq_persona" translate translate-attr-placeholder="DNI o Apellido Nombre Persona"
                                 ng-model="visitas.visita.busq_persona" ng-readonly="visitas.noteditable"
                                 typeahead-append-to-body="true" autocomplete="off"
                                 typeahead-on-select="visitas.typeaheadOnSelect($item,$model,$label)"
@@ -414,17 +412,17 @@
                         <div class="form-group" ng-show="false">
                             <label for="cod_persona" class="col-sm-10 label-adjust" translate>Cód. Persona</label>
                             <input type="text" class="form-control form-control-sm" id="cod_persona" name="cod_persona"
-                                placeholder="Cód. Persona" ng-model="visitas.visita.cod_persona" ng-required="true"
+                                translate translate-attr-placeholder="Cód. Persona" ng-model="visitas.visita.cod_persona" ng-required="true"
                                 readonly="">
                         </div>
 
                         <div class="form-group">
-                            <label for="cod_tipo_doc" class="col-sm-10 label-adjust" translate>Tipo Doc. <span
+                            <label for="cod_tipo_doc" class="col-sm-10 label-adjust" translate>Tipo Doc.<span
                                     class="field-required">*</span></label>
                             <ui-select class="form-control form-control-sm" id="cod_tipo_doc" name="cod_tipo_doc"
                                 ng-model="visitas.visita.cod_tipo_doc" ng-required="true"
                                 xng-options="item.id as item.name for item in visitas.tipoDocumento">
-                                <ui-select-match placeholder="Tipo Documento"><span
+                                <ui-select-matc placeholder="{{'Tipo documento'|translate}}"h><span
                                         ng-bind="$select.selected.name"></span></ui-select-match>
                                 <ui-select-choices
                                     repeat="item.id as item in visitas.tipoDocumento | filter: $select.search">
@@ -437,10 +435,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nro_documento" class="col-sm-10 label-adjust" translate>DNI Persona <span
+                            <label for="nro_documento" class="col-sm-10 label-adjust" translate>DNI Persona<span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="nro_documento"
-                                name="nro_documento" placeholder="DNI Persona" ng-model="visitas.visita.nro_documento"
+                                name="nro_documento" translate translate-attr-placeholder="DNI Persona" ng-model="visitas.visita.nro_documento"
                                 ng-required="true">
                             <span class="help-inline"
                                 ng-show="frmHabilitaciones.nro_documento.$invalid && frmHabilitaciones.nro_documento.$touched" translate>Debe ingresar un DNI Persona</span>
@@ -449,30 +447,30 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="ape_persona" class="col-sm-10 label-adjust" translate>Apellido <span
+                            <label for="ape_persona" class="col-sm-10 label-adjust" translate>Apellido<span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona"
-                                placeholder="Apellido" ng-model="visitas.visita.ape_persona" ng-required="true">
+                                translate translate-attr-placeholder="Apellido" ng-model="visitas.visita.ape_persona" ng-required="true">
                             <span class="help-inline"
                                 ng-show="frmHabilitaciones.ape_persona.$invalid && frmHabilitaciones.ape_persona.$touched" translate>Debe ingresar un Apellido</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="nom_persona" class="col-sm-10 label-adjust" translate>Nombre <span
+                            <label for="nom_persona" class="col-sm-10 label-adjust" translate>Nombre<span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona"
-                                placeholder="Nombre" ng-model="visitas.visita.nom_persona" ng-required="true">
+                                translate translate-attr-placeholder="Nombre" ng-model="visitas.visita.nom_persona" ng-required="true">
                             <span class="help-inline"
                                 ng-show="frmHabilitaciones.ape_persona.$invalid && frmHabilitaciones.ape_persona.$touched" translate>Debe ingresar un Apellido</span>
                         </div>
 
                         <div ng-hide="visitas.ind_visita_simplificada" class="form-group">
-                            <label for="cod_sexo" class="col-sm-10 label-adjust" translate>Sexo <span
+                            <label for="cod_sexo" class="col-sm-10 label-adjust" translate>Sexo<span
                                     class="field-required">*</span></label>
                             <ui-select class="form-control form-control-sm" id="cod_sexo" name="cod_sexo"
                                 ng-model="visitas.visita.cod_sexo" ng-required="true"
                                 xng-options="item.id as item.name for item in visitas.tipoSexo">
-                                <ui-select-match placeholder="Sexo"><span
+                                <ui-select-match placeholder="{{'Sexo'|translate}}"><span
                                         ng-bind="$select.selected.name"></span></ui-select-match>
                                 <ui-select-choices
                                     repeat="item.id as item in visitas.tipoSexo | filter: $select.search">
@@ -484,9 +482,9 @@
                         </div>
 
                         <div ng-hide="visitas.ind_visita_simplificada" class="form-group">
-                            <label for="email" class="col-sm-10 label-adjust" translate>E-mail </label>
+                            <label for="email" class="col-sm-10 label-adjust" translate>E-mail</label>
                             <input type="email" class="form-control form-control-sm" id="email" name="email"
-                                placeholder="Correo electrónico" ng-model="visitas.visita.email">
+                                translate translate-attr-placeholder="Correo electrónico" ng-model="visitas.visita.email">
                             <span class="help-inline"
                                 ng-show="frmHabilitaciones.email.$invalid && frmHabilitaciones.email.$touched" translate>Debe ingresar un E-mail válido</span>
                         </div>
@@ -494,20 +492,20 @@
                         <div class="form-group">
                             <label for="obs_habilitacion" class="col-sm-10 label-adjust" translate>Observaciones Habilitación</label>
                             <textarea class="form-control form-control-sm" id="obs_habilitacion" name="obs_habilitacion"
-                                maxlength="255" placeholder="Observaciones Habilitación"
+                                maxlength="255" translate translate-attr-placeholder="Observaciones Habilitación"
                                 ng-model="visitas.visita.obs_habilitacion"></textarea>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="form-group">
-                            <label for="img_persona" class="col-sm-10 label-adjust">Foto <span
+                            <label for="img_persona" class="col-sm-10 label-adjust">Foto<span
                                     class="field-required">*</span></label>
                             <capture-image id="img_persona" class="form-control form-control-img"
                                 ng-model="visitas.visita.img_persona" device-num="0"
                                 showstream="visitas.habilita_camara" />
                         </div>
                         <div class="form-group">
-                            <label for="img_documento" class="col-sm-10 label-adjust" translate>Documento <span
+                            <label for="img_documento" class="col-sm-10 label-adjust" translate>Documento<span
                                     class="field-required">*</span></label>
                             <capture-image id="img_documento" class="form-control form-control-img"
                                 ng-model="visitas.visita.img_documento" device-num="1" showstream="false" />

@@ -15,7 +15,7 @@
       <div class="row justify-content-md-center w-100">
             <div class="col-md-6">
         <div class="form-group">
-          <label for="cod_empresa_dt" class="col-sm-10 label-adjust">Organización <span
+          <label for="cod_empresa_dt" class="col-sm-10 label-adjust">Organización<span
               class="field-required">*</span></label>
           <select class="form-control form-control-sm" id="cod_empresa_dt" name="cod_empresa_dt"
             ng-model="novedades.novedad_dt.cod_empresa" ng-required="true" disabled
@@ -24,14 +24,14 @@
         </div>
 
         <div class="form-group">
-          <label for="des_empleado_dt" class="col-sm-10 label-adjust">Empleado <span
+          <label for="des_empleado_dt" class="col-sm-10 label-adjust" translate>Empleado<span
               class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="des_empleado_dt" name="des_empleado_dt"
-              placeholder="Empleado" ng-model="novedades.novedad_dt.des_empleado" readonly>
+              translate translate-attr-placeholder="Empleado" ng-model="novedades.novedad_dt.des_empleado" readonly>
         </div>
 
         <div class="form-group">
-          <label for="tipo_novedad_dt" class="col-sm-10 label-adjust">Tipo Novedad <span
+          <label for="tipo_novedad_dt" class="col-sm-10 label-adjust">Tipo Novedad<span
               class="field-required">*</span></label>
           <select class="form-control form-control-sm" id="tipo_novedad_dt" name="tipo_novedad_dt"
             ng-model="novedades.novedad_dt.tipo_novedad" ng-required="true" disabled
@@ -54,15 +54,15 @@
         </div>
 
         <div class="form-group">
-          <label for="des_novedad_dt" class="col-sm-10 label-adjust">Descripción <span
+          <label for="des_novedad_dt" class="col-sm-10 label-adjust" translate>Descripción<span
               class="field-required">*</span></label>
           <input type="text" class="form-control form-control-sm" id="des_novedad_dt" name="des_novedad_dt"
-            placeholder="Descripción" ng-model="novedades.novedad_dt.des_novedad" readonly>
+            translate translate-attr-placeholder="Descripción" ng-model="novedades.novedad_dt.des_novedad" readonly>
         </div>
         </div>
       </div>
       <div class="modal-footer p-2">
-        <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+        <span class="legend-line">(<span class="field-required">*</span><span translate>: campo requerido</span>)</span>
       </div>
     </div>
   </uib-tab>
@@ -75,7 +75,7 @@
           <div class="col-md-6">
 
             <div class="form-group">
-              <label for="cod_empresa" class="col-sm-10 label-adjust">Organización <span
+              <label for="cod_empresa" class="col-sm-10 label-adjust"  translate>Organización<span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="cod_empresa" name="cod_empresa"
                 ng-model="novedades.novedad.cod_empresa" ng-required="true" ng-disabled="novedades.noteditable"
@@ -83,46 +83,46 @@
                 ng-change="novedades.getEmpleados()">
               </select>
               <span class="help-inline"
-                ng-show="frmNovedades.cod_empresa.$invalid && frmNovedades.cod_empresa.$touched">Debe seleccionar una
+                ng-show="frmNovedades.cod_empresa.$invalid && frmNovedades.cod_empresa.$touched" translate>Debe seleccionar una
                 Organización</span>
             </div>
 
             <div class="form-group" ng-show="novedades.action == 'agrega'">
-              <label for="sel_empleado" class="col-sm-10 label-adjust">Empleados <span
+              <label for="sel_empleado" class="col-sm-10 label-adjust" translate>Empleados<span
                   class="field-required">*</span></label>
               <ui-select multiple ui-hide-choices ng-model="novedades.novedad.empleadosSel" id="sel_empleado"
                 name="sel_empleado" append-to-body="false" ng-required="true" close-on-select="false">
-                <ui-select-match placeholder="Empleados">{{$item.des_empleado}}</ui-select-match>
+                <ui-select-match placeholder="{{'Empleado'|translate}}"><span>{{$item.des_empleado}}</span></ui-select-match>
                 <ui-select-choices ng-hide="!$select.open"
                   repeat="empleado.cod_empleado as empleado in novedades.empleadosList | filter: $select.search">
                   <small ng-bind-html="empleado.des_empleado | highlight: $select.search"></small>
                 </ui-select-choices>
               </ui-select>
               <span class="help-inline"
-                ng-show="frmNovedades.sel_empleado.$invalid && frmNovedades.sel_empleado.$touched">Debe seleccionar un Empleado</span>
+                ng-show="frmNovedades.sel_empleado.$invalid && frmNovedades.sel_empleado.$touched" translate>Debe seleccionar un Empleado</span>
             </div>
 
             <div class="form-group" ng-show="novedades.action != 'agrega'">
-              <label for="des_empleado" class="col-sm-10 label-adjust">Empleado <span
+              <label for="des_empleado" class="col-sm-10 label-adjust" translate>Empleado<span
                   class="field-required">*</span></label>
                 <input type="text" class="form-control form-control-sm" id="des_empleado" name="des_empleado"
-                  placeholder="Empleado" ng-model="novedades.novedad.des_empleado" readonly>
+                  translate translate-attr-placeholder="Empleado" ng-model="novedades.novedad.des_empleado" readonly>
             </div>
 
             <div class="form-group">
-              <label for="tipo_novedad" class="col-sm-10 label-adjust">Tipo Novedad <span
+              <label for="tipo_novedad" class="col-sm-10 label-adjust" translate>Tipo Novedad<span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="tipo_novedad" name="tipo_novedad"
                 ng-model="novedades.novedad.tipo_novedad" ng-required="true" ng-disabled="novedades.noteditable"
                 ng-options="item.tipo_novedad as item.nom_novedad for item in novedades.tiposNovedades">
               </select>
               <span class="help-inline"
-                ng-show="frmNovedades.tipo_novedad.$invalid && frmNovedades.tipo_novedad.$touched">Debe seleccionar un Tipo Novedad</span>
+                ng-show="frmNovedades.tipo_novedad.$invalid && frmNovedades.tipo_novedad.$touched" translate>Debe seleccionar un Tipo Novedad</span>
             </div>
 
             <div class="form-group input-append date first-avail"
               ng-class="{'has-warning' : frmNovedades.fec_novedad_desde.$dirty}">
-              <label for="fec_novedad_desde" class="col-sm-10 label-adjust">Fecha Novedad Desde <span
+              <label for="fec_novedad_desde" class="col-sm-10 label-adjust" translate>Fecha Novedad Desde<span
                   class="field-required">*</span></label>
               <input type="date" class="form-control form-control-sm" id="fec_novedad_desde" name="fec_novedad_desde"
                 ng-required="true" ng-readonly="novedades.noteditable" ng-model="novedades.novedad.fec_novedad_desde" fmtdatetimesql/>
@@ -130,19 +130,19 @@
 
             <div class="form-group input-append date first-avail"
               ng-class="{'has-warning' : frmNovedades.fec_novedad_hasta.$dirty}">
-              <label for="fec_novedad_hasta" class="col-sm-10 label-adjust">Fecha Novedad Hasta <span
+              <label for="fec_novedad_hasta" class="col-sm-10 label-adjust" translate>Fecha Novedad Hasta<span
                   class="field-required">*</span></label>
               <input type="date" class="form-control form-control-sm" id="fec_novedad_hasta" name="fec_novedad_hasta"
                 ng-required="true" ng-model="novedades.novedad.fec_novedad_hasta" fmtdatetimesql/>
             </div>
 
             <div class="form-group">
-              <label for="des_novedad" class="col-sm-10 label-adjust">Descripción <span
+              <label for="des_novedad" class="col-sm-10 label-adjust" translate>Descripción<span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="des_novedad" name="des_novedad"
-                placeholder="Descripción" ng-model="novedades.novedad.des_novedad" ng-required="true">
+                translate translate-attr-placeholder="Descripción" ng-model="novedades.novedad.des_novedad" ng-required="true">
               <span class="help-inline"
-                ng-show="frmNovedades.des_novedad.$invalid && frmNovedades.des_novedad.$touched">Debe ingresar una Descripción</span>
+                ng-show="frmNovedades.des_novedad.$invalid && frmNovedades.des_novedad.$touched" translate>Debe ingresar una Descripción</span>
             </div>
           </div>
         </div>
@@ -150,10 +150,10 @@
           <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
           <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
           <button dtcancela hide-tab="novedades.hide" type="button"
-            class="btn btn-outline-danger btn-sm">Cancelar</button>
+            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
           <button type="button" class="btn btn-outline-success btn-sm"
             ng-class="{'modal-button-primary': frmNovedades.$valid, 'modal-button-primary-disabled': !(frmNovedades.$valid && frmNovedades.$dirty)} "
-            ng-disabled="!(frmNovedades.$dirty)" click-and-disable="novedades.ok()">&#160;Grabar&#160;</button>
+            ng-disabled="!(frmNovedades.$dirty)" click-and-disable="novedades.ok()">&#160;<span  translate>Grabar</span>&#160;</button>
         </div>
       </ng-form>
     </div>

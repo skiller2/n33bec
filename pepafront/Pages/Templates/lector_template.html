@@ -2,7 +2,7 @@
 <div class="row justify-content-md-center w-100">
     <div class="col-md-4">
         <div class="form-group ">
-            <label for="tipo_credencial" class="col-sm-10 label-adjust">Tipo Lector <span class="field-required">*</span></label>
+            <label for="tipo_credencial" class="col-sm-10 label-adjust" translate>Tipo Lector<span class="field-required">*</span></label>
             <select class="form-control form-control-sm" id="tipo_credencial" name="tipo_credencial"
                     ng-model="lector.json_parametros.tipo_credencial" ng-required="true" 
                     ng-options="item.id as item.name for item in lector.tipoCredencial">
@@ -10,54 +10,54 @@
         </div>
 
         <div class="form-group ">
-            <label for="ind_retencion" class="col-sm-10 label-adjust">Retiene Cred. <span class="field-required">*</span></label>
+            <label for="ind_retencion" class="col-sm-10 label-adjust" translate>Retiene Cred.<span class="field-required">*</span></label>
             <select class="form-control form-control-sm" id="ind_retencion" name="ind_retencion"
                     ng-model="lector.json_parametros.ind_retencion" ng-required="true" 
                     ng-options="item.id as item.name for item in lector.indRetencion">
             </select>
-            <span class="help-inline" ng-show="frmTemas.ind_retencion.$invalid && frmTemas.ind_retencion.$touched">Debe seleccionar si Retiene Tarjeta </span>
+            <span class="help-inline" ng-show="frmTemas.ind_retencion.$invalid && frmTemas.ind_retencion.$touched" translate>Debe seleccionar si Retiene Tarjeta</span>
         </div>
         <div class="input-group">
-            <label for="ind_separa_facility_code" class="col-sm-10 label-adjust">Separa Facility Code</label>
+            <label for="ind_separa_facility_code" class="col-sm-10 label-adjust" translate>Separa Facility Code</label>
             <input class="checkbox" type="checkbox" id="ind_separa_facility_code" name="ind_separa_facility_code" 
                 ng-model="lector.json_parametros.ind_separa_facility_code" >
         </div>
-        <label style="margin-top: 20px;">Respuesta OK (seg.)</label>
+        <label style="margin-top: 20px;" translate>Respuesta OK (seg.)</label>
 
         <div class="form-group ">
-            <label for="res_ok_rele1" class="col-sm-10 label-adjust">Relé 1</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_rele1" name="" placeholder="Relé 1" 
+            <label for="res_ok_rele1" class="col-sm-10 label-adjust" translate>Relé 1</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_rele1" name="" translate translate-attr-placeholder="Relé 1" 
                 ng-model="lector.json_parametros.res_ok_rele1" >
         </div>
 
         <div class="form-group ">
-            <label for="res_ok_rele2" class="col-sm-10 label-adjust">Relé 2</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_rele2" name="" placeholder="Relé 2" 
+            <label for="res_ok_rele2" class="col-sm-10 label-adjust" translate>Relé 2</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_rele2" name="" translate translate-attr-placeholder="Relé 2" 
                 ng-model="lector.json_parametros.res_ok_rele2" >
         </div>
 
         <div class="form-group ">
-            <label for="res_ok_rele3" class="col-sm-10 label-adjust">Relé 3</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_rele3" name="" placeholder="Relé 3" 
+            <label for="res_ok_rele3" class="col-sm-10 label-adjust" translate>Relé 3</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_rele3" name="" translate translate-attr-placeholder="Relé 3" 
                 ng-model="lector.json_parametros.res_ok_rele3" >
         </div>
 
         <div class="form-group ">
-            <label for="res_ok_buzzer" class="col-sm-10 label-adjust">Zumbador</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_buzzer" name="" placeholder="Zumbador" 
+            <label for="res_ok_buzzer" class="col-sm-10 label-adjust" translate>Zumbador</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_buzzer" name="" translate translate-attr-placeholder="Zumbador" 
                 ng-model="lector.json_parametros.res_ok_buzzer" >
         </div>
 
         <div class="form-group ">
-            <label for="res_ok_led" class="col-sm-10 label-adjust">Led</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_led" name="" placeholder="Led" 
+            <label for="res_ok_led" class="col-sm-10 label-adjust" translate>Led</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_ok_led" name="" translate translate-attr-placeholder="Led" 
                 ng-model="lector.json_parametros.res_ok_led" >
         </div>
     </div>
     <div class="col-md-4">
 
         <div class="form-group ">
-            <label for="ind_movimiento" class="col-sm-10 label-adjust">Movimiento <span class="field-required">*</span></label>
+            <label for="ind_movimiento" class="col-sm-10 label-adjust" translate>Movimiento<span class="field-required">*</span></label>
             <select class="form-control form-control-sm" id="ind_movimiento" name="ind_movimiento"
                     ng-model="lector.json_parametros.ind_movimiento" ng-required="true" 
                     ng-options="item.id as item.name for item in lector.indMovimiento">
@@ -66,47 +66,47 @@
         </div>
 
         <div class="form-group">
-            <label for="tipo_habilitaciones" class="col-sm-10 label-adjust">Habilitaciones Permitidas</label>
+            <label for="tipo_habilitaciones" class="col-sm-10 label-adjust" translate>Habilitaciones Permitidas</label>
             <ui-select multiple ng-model="lector.json_parametros.tipo_habilitaciones" append-to-body="true" close-on-select="false">
-                <ui-select-match ui-lock-choice="lector.readonly" placeholder="Habilitaciones" >{{$item.name}}</ui-select-match>
+                <ui-select-match ui-lock-choice="lector.readonly"  placeholder="{{'Habilitaciones'|translate}}"><span>{{$item.name}}</span></ui-select-match>
                 <ui-select-choices repeat="habilitacion.id as habilitacion in lector.habilitacionesList | filter: $select.search">
                     <div ng-bind-html="habilitacion.name | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
         </div>
         <div class="input-group">
-            <label for="ind_rex" class="col-sm-10 label-adjust">Admite Rex</label>
+            <label for="ind_rex" class="col-sm-10 label-adjust" translate>Admite Rex</label>
             <input class="checkbox" type="checkbox" id="ind_rex" name="ind_rex" ng-model="lector.json_parametros.ind_rex" >
         </div>
-        <label style="margin-top: 17px;">Respuesta Error (seg.)</label>
+        <label style="margin-top: 17px;" translate>Respuesta Error (seg.)</label>
 
         <div class="form-group ">
-            <label for="res_error_rele1" class="col-sm-10 label-adjust">Relé 1</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_rele1" name="" placeholder="Relé 1" 
+            <label for="res_error_rele1" class="col-sm-10 label-adjust" translate>Relé 1</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_rele1" name="" translate translate-attr-placeholder="Relé 1" 
                 ng-model="lector.json_parametros.res_error_rele1" >
         </div>
 
         <div class="form-group ">
-            <label for="res_error_rele2" class="col-sm-10 label-adjust">Relé 2</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_rele2" name="" placeholder="Relé 2" 
+            <label for="res_error_rele2" class="col-sm-10 label-adjust" translate>Relé 2</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_rele2" name="" translate translate-attr-placeholder="Relé 2" 
                 ng-model="lector.json_parametros.res_error_rele2" >
         </div>
 
         <div class="form-group ">
-            <label for="res_error_rele3" class="col-sm-10 label-adjust">Relé 3</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_rele3" name="" placeholder="Relé 3" 
+            <label for="res_error_rele3" class="col-sm-10 label-adjust" translate>Relé 3</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_rele3" name="" translate translate-attr-placeholder="Relé 3" 
                 ng-model="lector.json_parametros.res_error_rele3" >
         </div>
 
         <div class="form-group ">
-            <label for="res_error_buzzer" class="col-sm-10 label-adjust">Zumbador</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_buzzer" name="" placeholder="Zumbador" 
+            <label for="res_error_buzzer" class="col-sm-10 label-adjust" translate>Zumbador</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_buzzer" name="" translate translate-attr-placeholder="Zumbador" 
                 ng-model="lector.json_parametros.res_error_buzzer" >
         </div>
 
         <div class="form-group">
-            <label for="res_error_led" class="col-sm-10 label-adjust">Led</label>
-            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_led" name="" placeholder="Led" 
+            <label for="res_error_led" class="col-sm-10 label-adjust" translate>Led</label>
+            <input type="text" numbers-only class="form-control form-control-sm" id="res_error_led" name="" translate translate-attr-placeholder="Led" 
                 ng-model="lector.json_parametros.res_error_led" >
         </div>
     </div>

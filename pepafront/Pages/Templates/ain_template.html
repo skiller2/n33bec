@@ -2,20 +2,20 @@
 <div class="row justify-content-md-center w-100">
     <div class="col-md-4">
         <div class="form-group">
-            <label for="ain_val_0" class="col-sm-10 label-adjust">Unidad Medida<span class="field-required">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="meause_unit" name="meause_unit" placeholder="meause_unit" ng-model="ain.json_parametros.meause_unit" ng-required="true">
+            <label for="ain_val_0" class="col-sm-10 label-adjust" translate>Unidad Medida<span class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="meause_unit" name="meause_unit" translate translate-attr-placeholder="meause_unit" ng-model="ain.json_parametros.meause_unit" ng-required="true">
         </div>
         <div class="form-group">
-            <label for="ain_count" class="col-sm-10 label-adjust">Contador <span class="field-required">*</span></label>
+            <label for="ain_count" class="col-sm-10 label-adjust" translate>Contador <span class="field-required">*</span></label>
             <select class="form-control form-control-sm" ng-model="ain.json_parametros.count" ng-required="true">
-                <option value="true">Sí</option>
-                <option value="false">No</option>
+                <option value="true" translate>Sí</option>
+                <option value="false" translate>No</option>
             </select>
         </div>
     </div>
     <div class="col-md-4">  
         <div class="form-group">
-            <label for="ain_color_val_0" class="col-sm-10 label-adjust">Color<span class="field-required">*</span></label>
+            <label for="ain_color_val_0" class="col-sm-10 label-adjust" translate>Color<span class="field-required">*</span></label>
             <select class="form-control form-control-sm" ng-model="ain.json_parametros.color_val" 
                     ng-required="true" ng-options="item.id as item.name for item in ain.coloresList">
             </select>

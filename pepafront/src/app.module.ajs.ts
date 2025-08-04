@@ -222,7 +222,7 @@ angular.module(MODULE_NAME,
             $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 
             $urlRouterProvider.otherwise('/dashboard');
-            $locationProvider.html5Mode(true);
+//            $locationProvider.html5Mode(true);
 
 
             $translateProvider.useStaticFilesLoader({
@@ -231,7 +231,7 @@ angular.module(MODULE_NAME,
                 suffix: '.json'
             });
             $translateProvider.preferredLanguage('it');
-console.log('xxx')
+//console.log('xxx')
 
             $stateProvider
                 .state('common', {

@@ -12,7 +12,7 @@ import "./icon-library/icon-library.css";
 
 angular.module('appServices', [])
     // Autenticar usuario
-    .factory('auth', ['$http', 'store', 'cfg', 'jwtHelper', '$q', '$rootScope', '$stateRegistry', '$state', '$uibModal', 'localData', '$timeout', 'sounds', '$location', 'globalData', '$window', 'spinCounter','translate',
+    .factory('auth', ['$http', 'store', 'cfg', 'jwtHelper', '$q', '$rootScope', '$stateRegistry', '$state', '$uibModal', 'localData', '$timeout', 'sounds', '$location', 'globalData', '$window', 'spinCounter','$translate',
         function ($http, store, cfg, jwtHelper, $q, $rootScope, $stateRegistry, $state, $uibModal, localData, $timeout, sounds, $location, globalData, $window, spinCounter,$translate) {
             const auth = this;
             let decodedToken = (store.get('decodedToken')) ? store.get('decodedToken') : {};

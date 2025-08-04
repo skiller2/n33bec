@@ -9,7 +9,7 @@
     </div>
     <div class="form-group">
       <label for="widgetTitle" ng-bind="translate('ADF_COMMON_TITLE')" translate>Title</label>
-      <input type="text" class="form-control" id="widgetTitle" ng-model="definition.title" placeholder="Enter title" required="">
+      <input type="text" class="form-control" id="widgetTitle" ng-model="definition.title" translate translate-attr-placeholder="Enter title" required="">
     </div>
     <div ng-if="widget.edit">
       <adf-widget-content model="definition" content="widget.edit" />

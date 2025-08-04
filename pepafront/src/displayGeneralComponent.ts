@@ -21,6 +21,7 @@ const displayGeneralComponent = {
         "$filter",
         "IdleTimeout",
         "$state",
+        "$translate",
         function (
             $scope,
             datosBack,
@@ -31,7 +32,8 @@ const displayGeneralComponent = {
             $templateCache,
             $filter,
             IdleTimeout,
-            $state
+            $state,
+            $translate
         ) {
             const vm = this;
             let timer: any;
@@ -48,7 +50,7 @@ const displayGeneralComponent = {
             vm.button_video = "btn-info";
             vm.cod_tema = "";
             vm.cod_sector = "";
-            vm.silenced = false;
+            //vm.silenced = false;
             vm.expanding_property = {
                 field: "nom_tema",
                 displayName: "Nombre",
@@ -177,8 +179,8 @@ const displayGeneralComponent = {
                 vm.cont_btn_alarma = 0;
                 vm.cont_btn_falla = 0;
                 vm.alertas_old = null;
-                vm.des_valor_alarma = "SIN CONEXIÓN";
-                vm.des_valor_falla = "SIN CONEXIÓN";
+                vm.des_valor_alarma = $translate.instant("SIN CONEXIÓN");
+                vm.des_valor_falla = $translate.instant("SIN CONEXIÓN");
                 vm.button_alarma = "btn-dark";
                 vm.button_falla = "btn-dark";
                 vm.cs_shaker_alarpre = "";
@@ -193,8 +195,8 @@ const displayGeneralComponent = {
                 ind_desconexion,
                 ind_exclusion
             ) => {
-                vm.des_valor_alarma = "NORMAL";
-                vm.des_valor_falla = "NORMAL";
+                vm.des_valor_alarma = $translate.instant("NORMAL");
+                vm.des_valor_falla = $translate.instant("NORMAL");
                 vm.cs_shaker_alarpre = "";
                 vm.cs_shaker_falla = "";
                 vm.button_alarma = "cs-btn-normal";
@@ -202,25 +204,25 @@ const displayGeneralComponent = {
 
                 if (ind_alarma_gral) {
                     vm.button_alarma = "cs-btn-alarma";
-                    vm.des_valor_alarma = "ALARMA";
+                    vm.des_valor_alarma = $translate.instant("ALARMA");
                     vm.cs_shaker_alarpre = "shaker";
                 } else if (ind_alarmatec_gral) {
                     vm.button_alarma = "cs-btn-alarma";
-                    vm.des_valor_alarma = "ALARMA TÉCNICA";
+                    vm.des_valor_alarma = $translate.instant("ALARMA TÉCNICA");
                     vm.cs_shaker_alarpre = "shaker";
                 } else if (ind_prealarma_gral) {
                     vm.button_alarma = "cs-btn-prealarma";
-                    vm.des_valor_alarma = "PREALARMA";
+                    vm.des_valor_alarma = $translate.instant("PREALARMA");
                     vm.cs_shaker_alarpre = "shaker";
                 }
 
                 if (ind_falla_gral) {
                     vm.button_falla = "cs-btn-falla";
-                    vm.des_valor_falla = "FALLA";
+                    vm.des_valor_falla = $translate.instant("FALLA");
                     vm.cs_shaker_falla = "shaker";
                 } else if (ind_desconexion) {
                     vm.button_falla = "cs-btn-desconexion";
-                    vm.des_valor_falla = "DESCONEXIÓN";
+                    vm.des_valor_falla = $translate.instant("DESCONEXIÓN");
                     vm.cs_shaker_falla = "shaker";
                 }
 
@@ -233,15 +235,16 @@ const displayGeneralComponent = {
                 ) {
                     //Sin alarmas, ni prealarmas,
                     sounds.stop();
-                    vm.silenced = false;
+                    //vm.silenced = false;
                     vm.btn_bell_class = "btn-dark";
                     vm.shake_bell_class = "";
                 } else {
-                    if (!vm.silenced) {
+                    //if (!vm.silenced) {
+                        sounds.stop();
                         sounds.start();
                         vm.btn_bell_class = "btn-warning"; //'btn-danger';
                         vm.shake_bell_class = "shaker";
-                    }
+                    //}
                 }
             };
 
@@ -388,8 +391,8 @@ const displayGeneralComponent = {
                     vm.ind_modo_prueba = args.context.EstadoVal;
                     vm.testModeLabel =
                         vm.ind_modo_prueba == 0
-                            ? "Activar Prueba"
-                            : "Cancelar Prueba";
+                            ? $translate.instant("Activar Prueba")
+                            : $translate.instant("Cancelar Prueba");
                     $scope.$applyAsync();
                 }
 
@@ -403,7 +406,7 @@ const displayGeneralComponent = {
                 "auth",
                 function (event: any, args: { authenticated: any }) {
                     vm.isLogged = args.authenticated;
-                    vm.btnauthtext = args.authenticated ? "Salir" : "Ingresar";
+                    vm.btnauthtext = args.authenticated ? $translate.instant("Salir") : $translate.instant("Ingresar");
                     vm.codUsuario = auth.getCodUsuario();
                     if (vm.codUsuario == "admin" || vm.codUsuario == "efaisa")
                         vm.showBtnPantallaPrincipal = true;

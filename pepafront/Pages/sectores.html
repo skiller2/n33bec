@@ -28,20 +28,20 @@
             <label for="cod_referencia_dt" class="col-sm-10 label-adjust" translate>Denominación Sector <span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="cod_referencia_dt" name="cod_referencia_dt"
-              placeholder="Denominación Sector" ng-model="sectores.sector_dt.cod_referencia" readonly="">
+              translate translate-attr-placeholder="Denominación Sector" ng-model="sectores.sector_dt.cod_referencia" readonly="">
           </div>
 
           <div class="form-group">
             <label for="nom_sector_dt" class="col-sm-10 label-adjust" translate>Nombre <span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="nom_sector_dt" name="nom_sector_dt"
-              placeholder="Nombre" ng-model="sectores.sector_dt.nom_sector" readonly="">
+              translate translate-attr-placeholder="Nombre" ng-model="sectores.sector_dt.nom_sector" readonly="">
           </div>
 
           <div class="form-group">
             <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
             <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt" name="cant_cod_tema_dt"
-              placeholder="Cantidad" ng-model="sectores.sector_dt.cant_cod_tema" readonly>
+              translate translate-attr-placeholder="Cantidad" ng-model="sectores.sector_dt.cant_cod_tema" readonly>
           </div>
 
 
@@ -51,23 +51,23 @@
             <label for="des_sector_dt" class="col-sm-10 label-adjust" translate>Descripción <span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="des_sector_dt" name="des_sector_dt"
-              placeholder="Descripción" ng-model="sectores.sector_dt.des_sector" readonly="">
+              translate translate-attr-placeholder="Descripción" ng-model="sectores.sector_dt.des_sector" readonly="">
           </div>
 
           <div class="form-group">
             <label for="des_ubicacion_dt" class="col-sm-10 label-adjust" translate>Ubicación <span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="des_ubicacion_dt" name="des_ubicacion_dt"
-              placeholder="Ubicación" ng-model="sectores.sector_dt.des_ubicacion" readonly="">
+              translate translate-attr-placeholder="Ubicación" ng-model="sectores.sector_dt.des_ubicacion" readonly="">
           </div>
           <div class="form-group">
-            <label for="max_cant_personas_dt" class="col-sm-10 label-adjust" translate>Cantidad máxima de personas </label>
+            <label for="max_cant_personas_dt" class="col-sm-10 label-adjust" translate>Cantidad máxima de personas</label>
             <input class="form-control form-control-sm" type="text" id="max_cant_personas_dt"
               name="max_cant_personas_dt" ng-model="sectores.sector_dt.max_cant_personas" readonly="">
           </div>
 
           <div class="form-group">
-            <label for="ind_permanencia" class="col-sm-10 label-adjust" translate>Control Permanencia </label>
+            <label for="ind_permanencia" class="col-sm-10 label-adjust" translate>Control Permanencia</label>
             <input class="checkbox-inline" type="checkbox" id="ind_permanencia_dt" name="ind_permanencia_dt"
               ng-model="sectores.sector_dt.ind_permanencia" disabled>
           </div>
@@ -81,7 +81,7 @@
           <div class="form-group">
             <label for="sec_obj_urls_videos_dt" class="col-sm-10 label-adjust" translate>URLs Videos</label>
             <input class="form-control form-control-sm" id="sec_obj_urls_videos_dt" name="sec_obj_urls_videos_dt"
-              placeholder="URLs Videos" ng-model="sectores.sector_dt.obj_urls_videos" ng-list=", " readonly>
+              translate translate-attr-placeholder="URLs Videos" ng-model="sectores.sector_dt.obj_urls_videos" ng-list=", " readonly>
           </div>
 
           <div class="form-group">
@@ -136,7 +136,7 @@
               <label for="cod_referencia" class="col-sm-10 label-adjust" translate>Denominación Sector<span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="cod_referencia" name="cod_referencia"
-                placeholder="Denominación Sector" ng-model="sectores.sector.cod_referencia" ng-required="true"
+                translate translate-attr-placeholder="Denominación Sector" ng-model="sectores.sector.cod_referencia" ng-required="true"
 
                 >
               <span class="help-inline"
@@ -147,14 +147,14 @@
               <label for="nom_sector" class="col-sm-10 label-adjust" translate>Nombre <span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="nom_sector" name="nom_sector"
-                placeholder="Nombre" ng-model="sectores.sector.nom_sector" ng-required="true">
+                translate translate-attr-placeholder="Nombre" ng-model="sectores.sector.nom_sector" ng-required="true">
               <span class="help-inline"
                 ng-show="frmSectores.nom_sector.$invalid && frmSectores.nom_sector.$touched" translate>Debe ingresar un Nombre</span>
             </div>
             <div class="form-group">
               <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
               <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt" name="cant_cod_tema_dt"
-                placeholder="Cantidad" ng-model="sectores.sector.cant_cod_tema" readonly>
+                translate translate-attr-placeholder="Cantidad" ng-model="sectores.sector.cant_cod_tema" readonly>
             </div>
   
           </div>
@@ -164,7 +164,7 @@
               <label for="des_sector" class="col-sm-10 label-adjust" translate>Descripción <span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="des_sector" name="des_sector"
-                placeholder="Descripción" ng-model="sectores.sector.des_sector" ng-required="true">
+                translate translate-attr-placeholder="Descripción" ng-model="sectores.sector.des_sector" ng-required="true">
               <span class="help-inline"
                 ng-show="frmSectores.des_sector.$invalid && frmSectores.des_sector.$touched" translate>Debe ingresar una Descripción</span>
             </div>
@@ -173,7 +173,7 @@
               <label for="des_ubicacion" class="col-sm-10 label-adjust" translate>Ubicación <span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="des_ubicacion" name="des_ubicacion"
-                placeholder="Ubicación" ng-model="sectores.sector.des_ubicacion" ng-required="true">
+                translate translate-attr-placeholder="Ubicación" ng-model="sectores.sector.des_ubicacion" ng-required="true">
               <span class="help-inline"
                 ng-show="frmSectores.des_ubicacion.$invalid && frmSectores.des_ubicacion.$touched" translate>Debe ingresar una Ubicación</span>
             </div>
@@ -184,7 +184,7 @@
             </div>
 
             <div class="form-group">
-              <label for="ind_permanencia" class="col-6 col-md-10 label-adjust" translate>Control Permanencia </label>
+              <label for="ind_permanencia" class="col-6 col-md-10 label-adjust" translate>Control Permanencia</label>
               <input class="checkbox-inline" type="checkbox" id="ind_permanencia" name="ind_permanencia"
                 ng-model="sectores.sector.ind_permanencia">
             </div>
@@ -202,7 +202,7 @@
             <div class="form-group">
               <label for="sec_obj_urls_videos" class="col-sm-10 label-adjust" translate>URLs Videos</label>
               <input class="form-control form-control-sm" id="sec_obj_urls_videos" name="sec_obj_urls_videos"
-                placeholder="URLs Videos" ng-model="sectores.sector.obj_urls_videos" ng-list=", ">
+                translate translate-attr-placeholder="URLs Videos" ng-model="sectores.sector.obj_urls_videos" ng-list=", ">
             </div>
 
             <div class="form-group" ng-class="{'has-warning' : frmSectores.cod_sector.$dirty}">
@@ -244,19 +244,19 @@
             <label for="cod_referencia_dt" class="col-sm-10 label-adjust" translate>Denominación Sector <span
                 class="field-required" >*</span></label>
             <input type="text" class="form-control form-control-sm" id="cod_referencia_dt" name="cod_referencia_dt"
-              placeholder="Denominación Sector" ng-model="sectores.sector_dt.cod_referencia" readonly="">
+              translate translate-attr-placeholder="Denominación Sector" ng-model="sectores.sector_dt.cod_referencia" readonly="">
           </div>
 
           <div class="form-group">
             <label for="nom_sector_dt" class="col-sm-10 label-adjust" translate>Nombre <span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="nom_sector_dt" name="nom_sector_dt"
-              placeholder="Nombre" ng-model="sectores.sector_dt.nom_sector" readonly="">
+              translate translate-attr-placeholder="Nombre" ng-model="sectores.sector_dt.nom_sector" readonly="">
           </div>
           <div class="form-group">
             <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
             <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt" name="cant_cod_tema_dt"
-              placeholder="Cantidad" ng-model="sectores.sector_dt.cant_cod_tema" readonly>
+              translate translate-attr-placeholder="Cantidad" ng-model="sectores.sector_dt.cant_cod_tema" readonly>
           </div>
 
           <div class="form-group">

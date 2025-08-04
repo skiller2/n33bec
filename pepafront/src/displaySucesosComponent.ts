@@ -5,8 +5,8 @@ const displaySucesosComponent = {
     controllerAs: "displaySucesos",
     controller:
             
-        ['$scope', 'datosBack', '$timeout', 'sounds', 'auth', '$window', '$templateCache',
-            function ($scope, datosBack, $timeout, sounds, auth, $window, $templateCache) {
+        ['$scope', 'datosBack', '$timeout', 'sounds', 'auth', '$window', '$templateCache','$translate',
+            function ($scope, datosBack, $timeout, sounds, auth, $window, $templateCache,$translate) {
                 const vm = this;
                 let timer: any;
 
@@ -198,21 +198,21 @@ const displaySucesosComponent = {
 
                         if (response.ind_alarma_gral) {
                             vm.button_alarma = "cs-btn-alarma";
-                            vm.des_valor_alarma = "ALARMA";
+                            vm.des_valor_alarma = $translate.instant("ALARMA");
                             vm.cs_shaker_alarpre = "shaker";
                         } else if (response.ind_alarmatec_gral) {
                             vm.button_alarma = "cs-btn-alarma";
-                            vm.des_valor_alarma = "ALARMA TÉCNICA";
+                            vm.des_valor_alarma = $translate.instant("ALARMA TÉCNICA");
                             vm.cs_shaker_alarpre = "shaker";
                         } else if (response.ind_prealarma_gral) {
                             vm.button_alarma = "cs-btn-prealarma";
-                            vm.des_valor_alarma = "PREALARMA";
+                            vm.des_valor_alarma = $translate.instant("PREALARMA");
                             vm.cs_shaker_alarpre = "shaker";
                         }
 
                         if (response.ind_falla_gral) {
                             vm.button_falla = "cs-btn-falla";
-                            vm.des_valor_falla = "FALLA";
+                            vm.des_valor_falla = $translate.instant("FALLA");
                             vm.cs_shaker_falla = "shaker";
                         }
 
@@ -257,7 +257,7 @@ const displaySucesosComponent = {
 
                 $scope.$on('auth', function (event: any, args: { authenticated: any; }) {
                     vm.isLogged = args.authenticated;
-                    vm.btnauthtext = (args.authenticated) ? "Salir" : "Ingresar";
+                    vm.btnauthtext = (args.authenticated) ? $translate.instant("Salir") : $translate.instant("Ingresar");
                     vm.codUsuario = auth.getCodUsuario();
                 });
 

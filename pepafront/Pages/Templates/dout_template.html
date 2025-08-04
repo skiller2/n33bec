@@ -3,40 +3,40 @@
     <div class="col-md-4">
 
        <div class="form-group">
-            <label for="dout_val_NO" class="col-sm-10 label-adjust">Valor Normal</label>
-            <input type="text" class="form-control form-control-sm" id="dout_val_NO" name="dout_val_NO" placeholder="valor normal" ng-model="dout.json_parametros.val_NO" ng-required="false">
+            <label for="dout_val_NO" class="col-sm-10 label-adjust" translate>Valor Normal</label>
+            <input type="text" class="form-control form-control-sm" id="dout_val_NO" name="dout_val_NO" translate translate-attr-placeholder="valor normal" ng-model="dout.json_parametros.val_NO" ng-required="false">
         </div>
         <div class="form-group">
-            <label for="dout_val_AL" class="col-sm-10 label-adjust">Valor Alarma</label>
-            <input type="text" class="form-control form-control-sm" id="dout_val_AL" name="dout_val_AL" placeholder="valor alarma" ng-model="dout.json_parametros.val_AL" ng-required="false">
+            <label for="dout_val_AL" class="col-sm-10 label-adjust" translate>Valor Alarma</label>
+            <input type="text" class="form-control form-control-sm" id="dout_val_AL" name="dout_val_AL" translate translate-attr-placeholder="valor alarma" ng-model="dout.json_parametros.val_AL" ng-required="false">
         </div>
         <div class="form-group">
-            <label for="dout_val_PA" class="col-sm-10 label-adjust">Valor Pre Alarma</label>
-            <input type="text" class="form-control form-control-sm" id="dout_val_PA" name="dout_val_PA" placeholder="valor prealarma" ng-model="dout.json_parametros.val_PA" ng-required="false">
+            <label for="dout_val_PA" class="col-sm-10 label-adjust" translate>Valor Pre Alarma</label>
+            <input type="text" class="form-control form-control-sm" id="dout_val_PA" name="dout_val_PA" translate translate-attr-placeholder="valor prealarma" ng-model="dout.json_parametros.val_PA" ng-required="false">
         </div>
         <div class="form-group">
-            <label for="dout_val_AT" class="col-sm-10 label-adjust">Valor Alarma Técnica</label>
-            <input type="text" class="form-control form-control-sm" id="dout_val_AT" name="dout_val_AT" placeholder="valor alarma técnica" ng-model="dout.json_parametros.val_AT" ng-required="false">
-        </div>
-
-        <div class="form-group">
-            <label for="dout_val_FA" class="col-sm-10 label-adjust">Valor Falla</label>
-            <input type="text" class="form-control form-control-sm" id="dout_val_FA" name="dout_val_FA" placeholder="valor falla" ng-model="dout.json_parametros.val_FA" ng-required="false">
+            <label for="dout_val_AT" class="col-sm-10 label-adjust" translate>Valor Alarma Técnica</label>
+            <input type="text" class="form-control form-control-sm" id="dout_val_AT" name="dout_val_AT" translate translate-attr-placeholder="valor alarma técnica" ng-model="dout.json_parametros.val_AT" ng-required="false">
         </div>
 
         <div class="form-group">
-            <label for="dout_val_EV" class="col-sm-10 label-adjust">Valor Evento</label>
-            <input type="text" class="form-control form-control-sm" id="dout_val_EV" name="dout_val_EV" placeholder="valor evento" ng-model="dout.json_parametros.val_EV" ng-required="false">
+            <label for="dout_val_FA" class="col-sm-10 label-adjust" translate>Valor Falla</label>
+            <input type="text" class="form-control form-control-sm" id="dout_val_FA" name="dout_val_FA" translate translate-attr-placeholder="valor falla" ng-model="dout.json_parametros.val_FA" ng-required="false">
+        </div>
+
+        <div class="form-group">
+            <label for="dout_val_EV" class="col-sm-10 label-adjust" translate>Valor Evento</label>
+            <input type="text" class="form-control form-control-sm" id="dout_val_EV" name="dout_val_EV" translate translate-attr-placeholder="valor evento" ng-model="dout.json_parametros.val_EV" ng-required="false">
         </div>
 
 <!--
         <div class="form-group">
             <label for="dout_val_0" class="col-sm-10 label-adjust">Etiqueta Valor 0 <span class="field-required">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="dout_val_0" name="dout_val_0" placeholder="val_0" ng-model="dout.json_parametros.val_0" ng-required="true">
+            <input type="text" class="form-control form-control-sm" id="dout_val_0" name="dout_val_0" translate translate-attr-placeholder="val_0" ng-model="dout.json_parametros.val_0" ng-required="true">
         </div>
         <div class="form-group">
             <label for="dout_val_1" class="col-sm-10 label-adjust">Etiqueta Valor 1 <span class="field-required">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="dout_val_1" name="dout_val_1" placeholder="val_1" ng-model="dout.json_parametros.val_1" ng-required="true">
+            <input type="text" class="form-control form-control-sm" id="dout_val_1" name="dout_val_1" translate translate-attr-placeholder="val_1" ng-model="dout.json_parametros.val_1" ng-required="true">
         </div>
         <div class="form-group">
             <label for="dout_color_val_0" class="col-sm-10 label-adjust">Color Valor 0 <span class="field-required">*</span></label>
@@ -54,28 +54,28 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            <label for="dout_count" class="col-sm-10 label-adjust">Contador<span class="field-required">*</span></label>
+            <label for="dout_count" class="col-sm-10 label-adjust" translate>Contador<span class="field-required">*</span></label>
             <select class="form-control form-control-sm" ng-model="dout.json_parametros.count" ng-required="true">
                 <option value="true">Sí</option>
                 <option value="false">No</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="action_type" class="col-sm-10 label-adjust">Medio de salida<span class="field-required">*</span></label>
+            <label for="action_type" class="col-sm-10 label-adjust" translate>Medio de salida<span class="field-required">*</span></label>
             <select class="form-control form-control-sm" ng-model="dout.json_parametros.action_type" ng-required="true">
-                <option value="local">Local</option>
-                <option value="url">URL (Web)</option>
-                <option value="bus">Bus 485</option>
-                <option value="cai">Central Incendio</option>
+                <option value="local" translate>Local</option>
+                <option value="url" translate>URL (Web)</option>
+                <option value="bus" translate>Bus 485</option>
+                <option value="cai" translate>Central Incendio</option>
             </select>
         </div>        
         <div class="form-group">
-            <label for="io" class="col-sm-10 label-adjust">GPIO <span class="field-required">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="io" name="io" placeholder="GPIO" ng-model="dout.json_parametros.io" ng-required="true">
+            <label for="io" class="col-sm-10 label-adjust" translate>GPIO<span class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="io" name="io" translate translate-attr-placeholder="GPIO" ng-model="dout.json_parametros.io" ng-required="true">
         </div>
         <div class="form-group">
-            <label for="bus_id" class="col-sm-10 label-adjust">Identificador del bus<span class="field-required">*</span></label>
-            <input type="text" class="form-control form-control-sm" id="bus_id" name="bus_id" placeholder="bus_id" ng-model="dout.json_parametros.bus_id" ng-required="true">
+            <label for="bus_id" class="col-sm-10 label-adjust" translate>Identificador del bus<span class="field-required">*</span></label>
+            <input type="text" class="form-control form-control-sm" id="bus_id" name="bus_id" translate translate-attr-placeholder="bus_id" ng-model="dout.json_parametros.bus_id" ng-required="true">
         </div>
 
     </div>

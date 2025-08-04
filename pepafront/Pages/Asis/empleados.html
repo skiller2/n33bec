@@ -26,13 +26,13 @@
           <div class="form-group" ng-show="false">
             <label for="cod_empleado_dt" class="col-sm-10 label-adjust">Cód. Empleado</label>
             <input type="text" class="form-control form-control-sm" id="cod_empleado_dt" name="cod_empleado_dt"
-              placeholder="Cód. Empleado" ng-model="empleados.empleado_dt.cod_empleado" readonly="">
+              translate translate-attr-placeholder="Cód. Empleado" ng-model="empleados.empleado_dt.cod_empleado" readonly="">
           </div>
 
           <div class="form-group" ng-show="false">
             <label for="cod_persona_dt" class="col-sm-10 label-adjust">Cód. Persona</label>
             <input type="text" class="form-control form-control-sm" id="cod_persona_dt" name="cod_persona_dt"
-              placeholder="Cód. Persona" ng-model="empleados.empleado_dt.cod_persona" readonly="">
+              translate translate-attr-placeholder="Cód. Persona" ng-model="empleados.empleado_dt.cod_persona" readonly="">
           </div>
 
           <div class="form-group">
@@ -48,21 +48,21 @@
             <label for="nro_documento_dt" class="col-sm-10 label-adjust">DNI Persona <span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="nro_documento_dt" name="nro_documento_dt"
-              placeholder="DNI Persona" ng-model="empleados.empleado_dt.nro_documento" readonly="">
+              translate translate-attr-placeholder="DNI Persona" ng-model="empleados.empleado_dt.nro_documento" readonly="">
           </div>
 
           <div class="form-group">
             <label for="ape_persona_dt" class="col-sm-10 label-adjust">Apellido <span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="ape_persona_dt" name="ape_persona_dt"
-              placeholder="Apellido" ng-model="empleados.empleado_dt.ape_persona" readonly="">
+              translate translate-attr-placeholder="Apellido" ng-model="empleados.empleado_dt.ape_persona" readonly="">
           </div>
 
           <div class="form-group">
             <label for="nom_persona_dt" class="col-sm-10 label-adjust">Nombre <span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="nom_persona_dt" name="nom_persona_dt"
-              placeholder="Nombre" ng-model="empleados.empleado_dt.nom_persona" readonly="">
+              translate translate-attr-placeholder="Nombre" ng-model="empleados.empleado_dt.nom_persona" readonly="">
           </div>
 
           <div class="form-group">
@@ -76,7 +76,7 @@
           <div class="form-group">
             <label for="email_dt" class="col-sm-10 label-adjust">E-mail <span class="field-required">*</span></label>
             <input type="email_dt" class="form-control form-control-sm" id="email_dt" name="email_dt"
-              placeholder="Correo electrónico" ng-model="empleados.empleado_dt.email" readonly="">
+              translate translate-attr-placeholder="Correo electrónico" ng-model="empleados.empleado_dt.email" readonly="">
           </div>
 
           <div class="form-group input-append date first-avail">
@@ -88,7 +88,7 @@
           </div>
 
           <div class="form-group">
-            <label for="ind_estado_dt" class="col-sm-10 label-adjust">Activo </label>
+            <label for="ind_estado_dt" class="col-sm-10 label-adjust">Activo</label>
             <input class="checkbox-inline" type="checkbox" id="ind_estado_dt" name="ind_estado_dt"
               ng-model="empleados.empleado_dt.ind_activo" disabled="">
           </div>
@@ -117,7 +117,7 @@
               <label for="busq_persona" class="col-sm-10 label-adjust">Buscar Persona</label>
               <i class="fa fa-search form-control-feedback"></i>
               <input type="text" class="form-control form-control-sm" id="busq_persona" name="busq_persona"
-                placeholder="DNI o Apellido Nombre Persona" ng-model="empleados.empleado.busq_persona"
+                translate translate-attr-placeholder="DNI o Apellido Nombre Persona" ng-model="empleados.empleado.busq_persona"
                 ng-readonly="empleados.noteditable" typeahead-append-to-body="true" autocomplete="off"
                 typeahead-on-select="empleados.typeaheadOnSelect($item,$model,$label)"
                 uib-typeahead="obj as obj.des_persona for obj in empleados.getDatosPersona($viewValue) | limitTo:8"
@@ -128,7 +128,7 @@
             </div>
 
             <div class="form-group">
-              <label for="cod_empresa" class="col-sm-10 label-adjust" translate>Organización <span
+              <label for="cod_empresa" class="col-sm-10 label-adjust" translate>Organización<span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="cod_empresa" name="cod_empresa"
                 ng-model="empleados.empleado.cod_empresa" ng-required="true" ng-disabled="empleados.noteditable"
@@ -141,13 +141,13 @@
             <div class="form-group" ng-show="false">
               <label for="cod_persona" class="col-sm-10 label-adjust">Cód. Persona</label>
               <input type="text" class="form-control form-control-sm" id="cod_persona" name="cod_persona"
-                placeholder="Cód. Persona" ng-model="empleados.empleado.cod_persona" ng-required="true" readonly="">
+                translate translate-attr-placeholder="Cód. Persona" ng-model="empleados.empleado.cod_persona" ng-required="true" readonly="">
             </div>
 
             <div class="form-group">
               <label for="cod_empleado" class="col-sm-10 label-adjust">Cód. Empleado</label>
               <input type="text" class="form-control form-control-sm" id="cod_empleado" name="cod_empleado" ng-readonly="empleados.noteditable"
-                placeholder="Cód. Empleado" ng-model="empleados.empleado.cod_empleado" ng-required="true">
+                translate translate-attr-placeholder="Cód. Empleado" ng-model="empleados.empleado.cod_empleado" ng-required="true">
             </div>
 
             <div class="form-group">
@@ -165,7 +165,7 @@
               <label for="nro_documento" class="col-sm-10 label-adjust">DNI Persona <span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento"
-                placeholder="DNI Persona" ng-model="empleados.empleado.nro_documento" ng-required="true">
+                translate translate-attr-placeholder="DNI Persona" ng-model="empleados.empleado.nro_documento" ng-required="true">
               <span class="help-inline"
                 ng-show="frmEmpleados.nro_documento.$invalid && frmEmpleados.nro_documento.$touched">Debe ingresar un DNI Persona</span>
               <span class="help-inline" style="color:yellow;"
@@ -176,7 +176,7 @@
               <label for="ape_persona" class="col-sm-10 label-adjust">Apellido <span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona"
-                placeholder="Apellido" ng-model="empleados.empleado.ape_persona" ng-required="true">
+                translate translate-attr-placeholder="Apellido" ng-model="empleados.empleado.ape_persona" ng-required="true">
               <span class="help-inline"
                 ng-show="frmEmpleados.ape_persona.$invalid && frmEmpleados.ape_persona.$touched">Debe ingresar un Apellido</span>
             </div>
@@ -185,7 +185,7 @@
               <label for="nom_persona" class="col-sm-10 label-adjust">Nombre <span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona"
-                placeholder="Nombre" ng-model="empleados.empleado.nom_persona" ng-required="true">
+                translate translate-attr-placeholder="Nombre" ng-model="empleados.empleado.nom_persona" ng-required="true">
               <span class="help-inline"
                 ng-show="frmEmpleados.ape_persona.$invalid && frmEmpleados.ape_persona.$touched">Debe ingresar un Apellido</span>
             </div>
@@ -202,7 +202,7 @@
             <div class="form-group">
               <label for="email" class="col-sm-10 label-adjust">E-mail</label>
               <input type="email" class="form-control form-control-sm" id="email" name="email"
-                placeholder="Correo electrónico" ng-model="empleados.empleado.email">
+                translate translate-attr-placeholder="Correo electrónico" ng-model="empleados.empleado.email">
               <span class="help-inline" ng-show="frmEmpleados.email.$invalid && frmEmpleados.email.$touched">Debe ingresar un E-mail válido</span>
             </div>
 
@@ -217,7 +217,7 @@
             </div>
 
             <div class="form-group">
-              <label for="ind_activo" class="col-sm-10 label-adjust">Activo </label>
+              <label for="ind_activo" class="col-sm-10 label-adjust">Activo</label>
               <input class="checkbox-inline" type="checkbox" id="ind_activo" name="ind_activo"
                 ng-checked="empleados.checked" ng-model="empleados.empleado.ind_activo">
             </div>
@@ -260,11 +260,11 @@
             </div>
 
             <div class="form-group">
-              <label for="sel_empleado2" class="col-sm-10 label-adjust">Empleados <span
+              <label for="sel_empleado2" class="col-sm-10 label-adjust">Empleados<span
                   class="field-required">*</span></label>
               <ui-select multiple ui-hide-choices ng-model="empleados.empleado2.empleadosSel" id="sel_empleado2"
                 name="sel_empleado2" append-to-body="false" ng-required="true" close-on-select="false">
-                <ui-select-match placeholder="Empleados">{{$item.des_empleado}}</ui-select-match>
+                <ui-select-match placeholder="{{'Empleado'|translate}}"><span>{{$item.des_empleado}}</span></ui-select-match>
                 <ui-select-choices ng-hide="!$select.open"
                   repeat="empleado.cod_empleado as empleado in empleados.empleadosList | filter: $select.search">
                   <small ng-bind-html="empleado.des_empleado | highlight: $select.search"></small>

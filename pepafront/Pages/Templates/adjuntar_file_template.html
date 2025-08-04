@@ -3,7 +3,7 @@
         <p ng-if="!adjuntarFile.viewFile && adjuntarFile.fileinput.name" class="form-input-img img-thumbnail" ng-bind="adjuntarFile.fileinput.name"></p>
     </div>
     <div class="btn-group" role="group">
-        <button class="btn btn-sm btn-outline-secondary" ng-click="adjuntarFile.adjuntar()">Adjuntar</button>
-        <button class="btn btn-sm btn-outline-secondary" ng-click="adjuntarFile.borrarContenido()">Limpiar</button>
+        <button class="btn btn-sm btn-outline-secondary" ng-click="adjuntarFile.adjuntar()" translate>Adjuntar</button>
+        <button class="btn btn-sm btn-outline-secondary" ng-click="adjuntarFile.borrarContenido()" translate>Limpiar</button>
     </div>
     <input ng-show="false" type="file" accept="*/*"/>

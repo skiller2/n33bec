@@ -2,14 +2,18 @@
   <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-1">
       <div class="navbar flex-column align-items-start p-0 m-0">
-        <div title="Estado compilación de accesos" class="led-{{body.colorEstadoHabiAcceso}} small"></div>
-        <div title="Estado consola" class="led-{{body.colorEstadoConsola}} small"></div>
-        <div title="Estado backend" class="led-{{body.colorEstadoBackend}} small"></div>
+        <div translate translate-attr-title="Estado compilación de accesos"
+          class="led-{{body.colorEstadoHabiAcceso}} small"></div>
+        <div translate translate-attr-title="Estado consola" class="led-{{body.colorEstadoConsola}} small"></div>
+        <div translate translate-attr-title="Estado backend" class="led-{{body.colorEstadoBackend}} small"></div>
       </div>
       <div class="navbar flex-column align-items-start p-0 m-0 px-1">
-        <div title="Modo sistema verde normal, amarillo prueba" class="led-{{body.colorEstadoPrueba}} small"></div>
-        <div title="Estado configuración componentes" class="led-{{body.colorEstadoTema}} small"></div>
-        <div title="Estado configuración componentes" class="led-{{body.colorEstadoTema}} small"></div>
+        <div translate translate-attr-title="Modo sistema verde normal, amarillo prueba"
+          class="led-{{body.colorEstadoPrueba}} small"></div>
+        <div translate translate-attr-title="Estado configuración componentes"
+          class="led-{{body.colorEstadoTema}} small"></div>
+        <div translate translate-attr-title="Estado configuración componentes"
+          class="led-{{body.colorEstadoTema}} small"></div>
       </div>
 
       <div class="dropdown " uib-dropdown>
@@ -17,48 +21,48 @@
           uib-dropdown-toggle title="menu"><span class="navbar-toggler-icon"></span></button>
         <div class="dropdown-menu" uib-dropdown-menu role="menu">
           <a ng-if="!body.isLogged" class="dropdown-item" ng-click="body.callLogin(true)"><i
-              class="fas fa-sign-in-alt"></i><span  translate>Ingresar</span></a>
-          <a ng-if="body.isLogged" class="dropdown-item" ui-sref=".logout"><i class="fas fa-sign-out-alt"></i><span  translate>Salir</span></a>
+              class="fas fa-sign-in-alt">&nbsp;</i><span translate>Ingresar</span></a>
+          <a ng-if="body.isLogged" class="dropdown-item" ui-sref=".logout"><i class="fas fa-sign-out-alt">&nbsp;</i><span
+              translate>Salir</span></a>
           <div class="dropdown-divider"></div>
           <a ng-repeat="menu in body.menu" class="dropdown-item" ui-sref="{{menu.id}}({action:'lista'})">
-            <i class="fa fa-{{menu.icon}}"></i><span ng-if="menu.name"> {{menu.name}} </span>
+            <i class="fa fa-{{menu.icon}}">&nbsp;</i><span ng-if="menu.name">{{menu.name}}</span>
             <div ng-if="menu.divider" class="dropdown-divider"></div>
           </a>
         </div>
       </div>
 
-      <a class="navbar-brand p-0 my-0" href="#"><span  translate>N33-BEC</span> ({{body.id_disp_origen}})</a>
+      <a class="navbar-brand p-0 my-0" href="#"><span translate>N33-BEC</span> ({{body.id_disp_origen}})</a>
 
       <ds-widget-clock show-digital digital-format="'HH:mm:ss'"
         class="text-warning navbar-collapse text-warning collapse p-0 m-0"></ds-widget-clock>
 
       <div class="collapse navbar-collapse flex-column align-items-end">
         <div class="navbar-nav">
-          <ui-select ng-if="body.isLogged" class="btn btn-outline-light btn-sm" id="cod_ou" name="cod_ou"
-            style="width:14vw; padding-top: 0; padding-bottom: 0; color: white;" ng-model="body.cod_ou" ng-change="body.fcambiaSelOU()" title="Empresa"
-            xng-options="item.cod_ou as item.nom_ou for item in body.codOuList">
-            <ui-select-match placeholder="Empresa"><span ng-bind="$select.selected.nom_ou"></span></ui-select-match>
-            <ui-select-choices repeat="item.cod_ou as item in body.codOuList | filter: $select.search">
-              <div ng-bind-html="item.nom_ou | highlight: $select.search"></div>
-            </ui-select-choices>
-          </ui-select>
+              <ui-select ng-if="body.isLogged" class="btn btn-outline-light btn-sm" id="cod_ou" name="cod_ou" title="{{'Empresa'|translate}}"
+                style="width:14vw; padding-top: 0; padding-bottom: 0; color: white;" ng-model="body.cod_ou"
+                ng-change="body.fcambiaSelOU()" xng-options="item.cod_ou as item.nom_ou for item in body.codOuList" >
+                <ui-select-match placeholder="{{'Empresa'|translate}}"><span ng-bind="$select.selected.nom_ou"></span></ui-select-match>
+                <ui-select-choices repeat="item.cod_ou as item in body.codOuList | filter: $select.search">
+                  <div ng-bind-html="item.nom_ou | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+              <button ng-if="! body.isLogged" class="btn btn-outline-light btn-sm mx-1" ng-click="body.callLogin(true)"><i
+              class="fa fa-user" translate translate-attr-title="Ingresar">&nbsp;</i><span translate>Ingresar<span></button>
 
-          <button ng-if="! body.isLogged" class="btn btn-outline-light btn-sm mx-1" ng-click="body.callLogin(true)"><i
-              class="fa fa-user" title="Ingresar"></i><span  translate> Ingresar<span></button>
-
-          <button ng-if="body.isLogged" class="btn btn-outline-danger btn-sm mx-1" ui-sref=".logout"
-            title="Salir">Salir</button>
+          <button ng-if="body.isLogged" class="btn btn-outline-danger btn-sm mx-1" ui-sref=".logout" translate
+            translate-attr-title="Salir">Salir</button>
 
           <button ng-if="body.isLogged" class="btn btn-outline-danger btn-sm mx-1" ng-click="body.initCaptureDevices()"
-            title="Camera"><i class="fa fa-camera"></i></button>
+            translate translate-attr-title="Camera"><i class="fa fa-camera"></i></button>
 
 
           <div ng-if="body.isLogged" class="dropdown" uib-dropdown>
             <button class="btn btn-outline-light dropdown-toggle mx-1 btn-sm" type="button" data-toggle="dropdown2"
-              aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle title="Menu">Menu</button>
+              aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle title="Menu" translate>Menu</button>
             <div class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu">
               <a ng-repeat="menu in body.menu" class="dropdown-item" ui-sref="{{menu.id}}({action:'lista'})">
-                <i class="fa fa-{{menu.icon}}"></i><span ng-if="menu.name"> {{menu.name}} </span>
+                <i class="fa fa-{{menu.icon}}"></i>&nbsp;<span ng-if="menu.name">{{menu.name}}</span>
                 <div ng-if="menu.divider" class="dropdown-divider"></div>
               </a>
             </div>

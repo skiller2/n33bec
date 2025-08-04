@@ -55,7 +55,7 @@
                     <div class="form-group ">
                         <label for="url_envio_dt" class="col-sm-10 label-adjust" translate>URL Envío</label>
                         <input type="text" class="form-control form-control-sm" id="url_envi_dt" name="url_envio_dt"
-                            placeholder="URL Envío" ng-model="temas.tema_dt.url_envio" readonly>
+                            translate translate-attr-placeholder="URL Envío" ng-model="temas.tema_dt.url_envio" readonly>
                     </div>
 
                     <div class="form-group ">
@@ -65,13 +65,13 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_mostrar_en_panel_dt" class="col-sm-10 label-adjust" translate>Mostrar En Panel </label>
+                        <label for="ind_mostrar_en_panel_dt" class="col-sm-10 label-adjust" translate>Mostrar En Panel</label>
                         <input class="checkbox" type="checkbox" id="ind_mostrar_en_panel_dt"
                             name="ind_mostrar_en_panel_dt" ng-model="temas.tema_dt.ind_mostrar_en_panel" disabled>
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_registra_evento_dt" class="col-sm-10 label-adjust" translate>Registra Evento </label>
+                        <label for="ind_registra_evento_dt" class="col-sm-10 label-adjust" translate>Registra Evento</label>
                         <input class="checkbox" type="checkbox" id="ind_registra_evento_dt"
                             name="ind_registra_evento_dt" ng-model="temas.tema_dt.ind_registra_evento" disabled>
                     </div>
@@ -123,7 +123,7 @@
                     <div class="form-group ">
                         <label for="pos_img_x_dt" class="col-sm label-adjust" translate>Pos. X (px)</label>
                         <input type="text" class="form-control form-control-sm" id="pos_img_x_dt" name="pos_img_x_dt"
-                            placeholder="Posición X" ng-model="temas.tema_dt.json_posicion_img.left" readonly>
+                            translate translate-attr-placeholder="Posición X" ng-model="temas.tema_dt.json_posicion_img.left" readonly>
                     </div>
 
                 </div>
@@ -132,7 +132,7 @@
                     <div class="form-group ">
                         <label for="pos_img_y_dt" class="col-sm label-adjust" translate>Pos. Y (px)</label>
                         <input type="text" class="form-control form-control-sm" id="pos_img_y_dt" name="pos_img_y_dt"
-                            placeholder="Posición Y" ng-model="temas.tema_dt.json_posicion_img.top" readonly>
+                            translate translate-attr-placeholder="Posición Y" ng-model="temas.tema_dt.json_posicion_img.top" readonly>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -140,7 +140,7 @@
                     <div class="form-group ">
                         <label for="pos_img_tam_dt" class="col-sm label-adjust" translate>Tamaño</label>
                         <input type="text" class="form-control form-control-sm" id="pos_img_tam_dt"
-                            name="pos_img_tam_dt" placeholder="Tamaño" ng-model="temas.tema_dt.json_posicion_img.width"
+                            name="pos_img_tam_dt" translate translate-attr-placeholder="Tamaño" ng-model="temas.tema_dt.json_posicion_img.width"
                             readonly>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                     <div class="form-group ">
                         <label for="pos_img_rotar_dt" class="col-sm label-adjust" translate>Rotar (°)</label>
                         <input type="text" class="form-control form-control-sm" id="pos_img_rotar_dt"
-                            name="pos_img_rotar_dt" placeholder="Tamaño"
+                            name="pos_img_rotar_dt" translate translate-attr-placeholder="Tamaño"
                             ng-model="temas.tema_dt.json_posicion_img.rotacion_grados" readonly>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                     <div class="form-group ">
                         <label for="pos_img_rotary_dt" class="col-sm label-adjust" translate>RotarY (°)</label>
                         <input type="text" class="form-control form-control-sm" id="pos_img_rotary_dt"
-                            name="pos_img_rotary_dt" placeholder="Grados"
+                            name="pos_img_rotary_dt" translate translate-attr-placeholder="Grados"
                             ng-model="temas.tema_dt.json_posicion_img.rotaciony_grados" readonly>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                         <div class="form-group">
                             <label for="icon_descrip_dt" class="col-sm label-adjust" translate>Descripción</label>
                             <input type="text" class="form-control form-control-sm" id="icon_descrip_dt"
-                                name="icon_descrip_dt" placeholder="Descripción"
+                                name="icon_descrip_dt" translate translate-attr-placeholder="Descripción"
                                 ng-model="temas.tema_dt.json_posicion_img.icon_descrip" readonly>
                         </div>
                     </div>
@@ -217,7 +217,7 @@
                     <div class="form-group">
                         <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
                         <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt"
-                            name="cant_cod_tema_dt" placeholder="Cantidad" ng-model="temas.sector.cant_cod_tema"
+                            name="cant_cod_tema_dt" translate translate-attr-placeholder="Cantidad" ng-model="temas.sector.cant_cod_tema"
                             readonly>
                     </div>
                 </div>
@@ -235,7 +235,7 @@
                             <label for="cod_tema" class="col-sm-10 label-adjust" translate>Identificación Componente<span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="cod_tema" name="cod_tema"
-                                placeholder="Identificación Componente" ng-model="temas.tema.cod_tema"
+                                translate translate-attr-placeholder="Identificación Componente" ng-model="temas.tema.cod_tema"
                                 ng-required="true" xng-readonly="temas.noteditable">
                             <span class="help-inline"
                                 ng-show="temas.frmTemas.cod_tema.$invalid && temas.frmTemas.cod_tema.$touched" translate>Debe ingresar una identificación de componente</span>
@@ -245,7 +245,7 @@
                             <label for="nom_tema" class="col-sm-10 label-adjust" translate>Etiqueta <span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="nom_tema" name="nom_tema"
-                                placeholder="Tema" ng-model="temas.tema.nom_tema" ng-required="true">
+                                translate translate-attr-placeholder="Tema" ng-model="temas.tema.nom_tema" ng-required="true">
                             <span class="help-inline"
                                 ng-show="temas.frmTemas.nom_tema.$invalid && temas.frmTemas.nom_tema.$touched" translate>Debe ingresar una Etiqueta</span>
                         </div>
@@ -289,7 +289,7 @@
                         <div class="form-group ">
                             <label for="url_envio" class="col-sm-10 label-adjust" translate>URL Envío</label>
                             <input type="text" class="form-control form-control-sm" id="url_envio" name="url_envio"
-                                placeholder="URL Envío" ng-model="temas.tema.url_envio" ng-required="false">
+                                translate translate-attr-placeholder="URL Envío" ng-model="temas.tema.url_envio" ng-required="false">
                             <span class="help-inline"
                                 ng-show="temas.frmTemas.url_envio.$invalid && temas.frmTemas.url_envio.$touched" translate>Debe seleccionar URL envío</span>
                         </div>
@@ -298,20 +298,20 @@
                             <label for="des_ubicacion" class="col-sm-10 label-adjust" translate>Ubicación <span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="des_ubicacion"
-                                name="des_ubicacion" placeholder="Ubicación" ng-model="temas.tema.des_ubicacion"
+                                name="des_ubicacion" translate translate-attr-placeholder="Ubicación" ng-model="temas.tema.des_ubicacion"
                                 ng-required="true">
                             <span class="help-inline"
                                 ng-show="temas.frmTemas.des_ubicacion.$invalid && temas.frmTemas.des_ubicacion.$touched" translate>Debe seleccionar una Ubicación</span>
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_mostrar_en_panel" class="col-sm-10 label-adjust" translate>Mostrar En Panel </label>
+                            <label for="ind_mostrar_en_panel" class="col-sm-10 label-adjust" translate>Mostrar En Panel</label>
                             <input class="checkbox" type="checkbox" id="ind_mostrar_en_panel"
                                 name="ind_mostrar_en_panel" ng-model="temas.tema.ind_mostrar_en_panel">
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_registra_evento" class="col-sm-10 label-adjust" translate>Registra Evento </label>
+                            <label for="ind_registra_evento" class="col-sm-10 label-adjust" translate>Registra Evento</label>
                             <input class="checkbox" type="checkbox" id="ind_registra_evento" name="ind_registra_evento"
                                 ng-model="temas.tema.ind_registra_evento">
                         </div>
@@ -330,7 +330,7 @@
 
 
                         <div class="input-group">
-                            <label for="ind_activo" class="col-sm-10 label-adjust" translate>Activo </label>
+                            <label for="ind_activo" class="col-sm-10 label-adjust" translate>Activo</label>
                             <input class="checkbox" type="checkbox" id="ind_activo" name="ind_activo"
                                 ng-model="temas.tema.ind_activo">
                         </div>
@@ -370,7 +370,7 @@
                         <div class="form-group ">
                             <label for="pos_img_x" class="col-sm-10 label-adjust" translate>Pos. X (px)</label>
                             <input type="text" class="form-control form-control-sm" id="pos_img_x" name="pos_img_x"
-                                placeholder="Posición X" ng-model="temas.tema.json_posicion_img.left"
+                                translate translate-attr-placeholder="Posición X" ng-model="temas.tema.json_posicion_img.left"
                                 ng-change="temas.onChangeIconData(temas.tema)" numbers-only>
                         </div>
                     </div>
@@ -379,7 +379,7 @@
                         <div class="form-group ">
                             <label for="pos_img_y" class="col-sm-10 label-adjust" translate>Pos. Y (px)</label>
                             <input type="text" class="form-control form-control-sm" id="pos_img_y" name="pos_img_y"
-                                placeholder="Posición Y" ng-model="temas.tema.json_posicion_img.top"
+                                translate translate-attr-placeholder="Posición Y" ng-model="temas.tema.json_posicion_img.top"
                                 ng-change="temas.onChangeIconData(temas.tema)" numbers-only>
                         </div>
                     </div>
@@ -388,7 +388,7 @@
                         <div class="form-group ">
                             <label for="pos_img_tam" class="col-sm-10 label-adjust" translate>Tamaño (px)</label>
                             <input type="text" class="form-control form-control-sm" id="pos_img_tam" name="pos_img_tam"
-                                placeholder="Tamaño" ng-model="temas.tema.json_posicion_img.width"
+                                translate translate-attr-placeholder="Tamaño" ng-model="temas.tema.json_posicion_img.width"
                                 ng-change="temas.onChangeIconData(temas.tema)" numbers-only>
                         </div>
                     </div>
@@ -397,7 +397,7 @@
                         <div class="form-group ">
                             <label for="pos_img_rotar" class="col-sm-10 label-adjust" translate>Rotar (°)</label>
                             <input type="text" class="form-control form-control-sm" id="pos_img_rotar"
-                                name="pos_img_rotar" placeholder="Grados" numbers-only
+                                name="pos_img_rotar" translate translate-attr-placeholder="Grados" numbers-only
                                 ng-model="temas.tema.json_posicion_img.rotacion_grados"
                                 ng-change="temas.onChangeIconData(temas.tema)">
                         </div>
@@ -406,7 +406,7 @@
                         <div class="form-group ">
                             <label for="pos_img_rotary" class="col-sm label-adjust" translate>RotarY (°)</label>
                             <input type="text" class="form-control form-control-sm" id="pos_img_rotary"
-                                name="pos_img_rotary" placeholder="Grados" numbers-only
+                                name="pos_img_rotary" translate translate-attr-placeholder="Grados" numbers-only
                                 ng-model="temas.tema.json_posicion_img.rotaciony_grados"
                                 ng-change="temas.onChangeIconData(temas.tema)">
                         </div>
@@ -419,7 +419,7 @@
                             <div class="form-group">
                                 <label for="icon_descrip" class="col-sm-10 label-adjust" translate>Descripción</label>
                                 <input type="text" class="form-control form-control-sm" id="icon_descrip"
-                                    name="icon_descrip" placeholder="Descripción"
+                                    name="icon_descrip" translate translate-attr-placeholder="Descripción"
                                     ng-model="temas.tema.json_posicion_img.icon_descrip">
                             </div>
                         </div>

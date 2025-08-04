@@ -24,13 +24,13 @@
 
                     <div class="form-group">
                         <label for="nom_persona_dt" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
-                        <input type="text" class="form-control form-control-sm" id="nom_persona_dt" name="nom_persona_dt" placeholder="Nombre"
+                        <input type="text" class="form-control form-control-sm" id="nom_persona_dt" name="nom_persona_dt" translate translate-attr-placeholder="Nombre"
                                ng-model="personas.persona_dt.nom_persona" readonly="">
                     </div>
 
                     <div class="form-group">
                         <label for="ape_persona_dt" class="col-sm-10 label-adjust" translate>Apellido <span class="field-required">*</span></label>
-                        <input type="text" class="form-control form-control-sm" id="ape_persona_dt" name="ape_persona_dt" placeholder="Apellido"
+                        <input type="text" class="form-control form-control-sm" id="ape_persona_dt" name="ape_persona_dt" translate translate-attr-placeholder="Apellido"
                                ng-model="personas.persona_dt.ape_persona" readonly="">
                     </div>
 
@@ -53,47 +53,47 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
                         <label for="nro_documento_dt" class="col-sm-10 label-adjust" translate>Nro. Documento <span class="field-required">*</span></label>
-                        <input type="text" class="form-control form-control-sm" id="nro_documento_dt" name="nro_documento_dt" placeholder="Nro. Documento"
+                        <input type="text" class="form-control form-control-sm" id="nro_documento_dt" name="nro_documento_dt" translate translate-attr-placeholder="Nro. Documento"
                                ng-model="personas.persona_dt.nro_documento" readonly="">
                     </div>
 
                     <div class="form-group">
-                        <label for="email_dt" class="col-sm-10 label-adjust" translate>E-mail </label>
-                        <input type="email" class="form-control form-control-sm" id="email_dt" name="email_dt" placeholder="Correo electrónico"
+                        <label for="email_dt" class="col-sm-10 label-adjust" translate>E-mail</label>
+                        <input type="email" class="form-control form-control-sm" id="email_dt" name="email_dt" translate translate-attr-placeholder="Correo electrónico"
                                ng-model="personas.persona_dt.email" readonly="">
                     </div>
 
                     <div class="form-group">
-                        <label for="ind_bloqueo_dt" class="col-sm-10 label-adjust" translate>Persona Bloqueada </label>
+                        <label for="ind_bloqueo_dt" class="col-sm-10 label-adjust" translate>Persona Bloqueada</label>
                         <input class="checkbox-inline" type="checkbox" id="ind_bloqueo_dt" name="ind_bloqueo_dt" ng-model="personas.persona_dt.ind_bloqueo" disabled="">
                     </div>
 
                     <div class="form-group">
-                        <label for="des_motivo_bloqueo_dt" class="col-sm-10 label-adjust" translate>Motivo Bloqueo </label>
+                        <label for="des_motivo_bloqueo_dt" class="col-sm-10 label-adjust" translate>Motivo Bloqueo</label>
                         <textarea  class="form-control form-control-sm" id="des_motivo_bloqueo_dt" name="des_motivo_bloqueo_dt" readonly=""
-                                   placeholder="Motivo Bloqueo" ng-model="personas.persona_dt.des_motivo_bloqueo"></textarea>
+                                   translate translate-attr-placeholder="Motivo Bloqueo" ng-model="personas.persona_dt.des_motivo_bloqueo"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="obs_visitas_dt" class="col-sm-10 label-adjust" translate>Observación Visitas </label>
+                        <label for="obs_visitas_dt" class="col-sm-10 label-adjust" translate>Observación Visitas</label>
                         <textarea  class="form-control form-control-sm" id="obs_visitas_dt" name="obs_visitas_dt" readonly=""
-                                   placeholder="Observación Visitas" ng-model="personas.persona_dt.obs_visitas"></textarea>
+                                   translate translate-attr-placeholder="Observación Visitas" ng-model="personas.persona_dt.obs_visitas"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="obs_habilitacion" class="col-sm-10 label-adjust" translate>Observaciones Última Habilitación</label>
                         <textarea  class="form-control form-control-sm" id="obs_ult_habilitacion_dt" name="obs_ult_habilitacion_dt" maxlength="255"
-                                   placeholder="Observaciones Última Habilitación" ng-model="personas.persona_dt.obs_ult_habilitacion"></textarea>
+                                   translate translate-attr-placeholder="Observaciones Última Habilitación" ng-model="personas.persona_dt.obs_ult_habilitacion"></textarea>
                     </div>                    
                 </div>
                 <div class="col-lg-3 col-md-6">
 
                     <div class="form-group">
-                        <label for="img_persona_dt" class="col-sm-10 label-adjust" translate>Foto </label>
+                        <label for="img_persona_dt" class="col-sm-10 label-adjust" translate>Foto</label>
                         <div class="form-control form-control-img"><img id="img_persona_dt" ng-src="{{personas.persona_dt.img_persona}}" ng-show="personas.persona_dt.img_persona"/></div>
                     </div>
                     <div class="form-group">
-                        <label for="img_documento_dt" class="col-sm-10 label-adjust" translate>Documento </label>
+                        <label for="img_documento_dt" class="col-sm-10 label-adjust" translate>Documento</label>
                         <div class="form-control form-control-img"><img id="img_documento_dt" ng-src="{{personas.persona_dt.img_documento}}" ng-show="personas.persona_dt.img_documento"/></div>
                     </div>
 
@@ -101,18 +101,18 @@
                 <div class="col-lg-3 col-md-6">
 
                     <div class="form-group">
-                        <label for="img_apto_fisico" class="col-sm-10 label-adjust" translate>Apto Físico </label>
+                        <label for="img_apto_fisico" class="col-sm-10 label-adjust" translate>Apto Físico</label>
                         <div class="form-control form-control-img"><img id="img_apto_fisico_dt" ng-src="{{personas.persona_dt.img_apto_fisico}}" ng-show="personas.persona_dt.img_apto_fisico"/></div>
                     </div>
 
                     <div class="form-group input-append date first-avail">
-                        <label for="fec_otorgamiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico </label>
+                        <label for="fec_otorgamiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico</label>
                         <input type="date" class="form-control form-control-sm" id="fec_otorgamiento_af_dt" name="fec_otorgamiento_af_dt"
                                ng-model="personas.persona_dt.fec_otorgamiento_af" fmtdatetimesql readonly/>
                     </div>
 
                     <div class="form-group input-append date first-avail">
-                        <label for="fec_vencimiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico </label>
+                        <label for="fec_vencimiento_af_dt" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico</label>
                         <input type="date" class="form-control form-control-sm" id="fec_vencimiento_af_dt" name="fec_vencimiento_af_dt"
                                ng-model="personas.persona_dt.fec_vencimiento_af" fmtdatetimesql readonly/>
                     </div>
@@ -137,14 +137,14 @@
 
                         <div class="form-group">
                             <label for="nom_persona" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
-                            <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona" placeholder="Nombre"
+                            <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona" translate translate-attr-placeholder="Nombre"
                                    ng-model="personas.persona.nom_persona" ng-required="true">
                             <span class="help-inline" ng-show="frmPersonas.nom_persona.$invalid && frmPersonas.nom_persona.$touched" translate>Debe ingresar un Nombre</span>
                         </div>
 
                         <div class="form-group">
                             <label for="ape_persona" class="col-sm-10 label-adjust" translate>Apellido <span class="field-required">*</span></label>
-                            <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona" placeholder="Apellido"
+                            <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona" translate translate-attr-placeholder="Apellido"
                                    ng-model="personas.persona.ape_persona" ng-required="true">
                             <span class="help-inline" ng-show="frmPersonas.ape_persona.$invalid && frmPersonas.ape_persona.$touched" translate>Debe ingresar un Apellido</span>
                         </div>
@@ -170,39 +170,39 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="form-group">
                             <label for="nro_documento" class="col-sm-10 label-adjust" translate>Nro. Documento <span class="field-required">*</span></label>
-                            <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento" placeholder="Nro. Documento"
+                            <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento" translate translate-attr-placeholder="Nro. Documento"
                                    ng-model="personas.persona.nro_documento" ng-required="true">
                             <span class="help-inline" ng-show="frmPersonas.nro_documento.$invalid && frmPersonas.nro_documento.$touched" translate>Debe ingresar un Nro. Documento</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="col-sm-10 label-adjust" translate>E-mail </label>
-                            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico"
+                            <label for="email" class="col-sm-10 label-adjust" translate>E-mail</label>
+                            <input type="email" class="form-control form-control-sm" id="email" name="email" translate translate-attr-placeholder="Correo electrónico"
                                    ng-model="personas.persona.email">
                             <span class="help-inline" ng-show="frmPersonas.email.$invalid && frmPersonas.email.$touched" translate>Debe ingresar un E-mail válido</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="ind_bloqueo" class="col-sm-10 label-adjust" translate>Persona Bloqueada </label>
+                            <label for="ind_bloqueo" class="col-sm-10 label-adjust" translate>Persona Bloqueada</label>
                             <input class="checkbox-inline" type="checkbox" id="ind_bloqueo" name="ind_bloqueo" ng-model="personas.persona.ind_bloqueo">
                         </div>
 
                         <div class="form-group">
-                            <label for="des_motivo_bloqueo" class="col-sm-10 label-adjust" translate>Motivo Bloqueo </label>
+                            <label for="des_motivo_bloqueo" class="col-sm-10 label-adjust" translate>Motivo Bloqueo</label>
                             <textarea  class="form-control form-control-sm" id="des_motivo_bloqueo" name="des_motivo_bloqueo" ng-disabled="!personas.persona.ind_bloqueo"
-                                       placeholder="Motivo Bloqueo"  ng-model="personas.persona.des_motivo_bloqueo"></textarea>
+                                       translate translate-attr-placeholder="Motivo Bloqueo"  ng-model="personas.persona.des_motivo_bloqueo"></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="obs_visitas" class="col-sm-10 label-adjust" translate>Observación Visitas </label>
+                            <label for="obs_visitas" class="col-sm-10 label-adjust" translate>Observación Visitas</label>
                             <textarea  class="form-control form-control-sm" id="obs_visitas" name="obs_visitas" 
-                                       placeholder="Observación Visitas"  ng-model="personas.persona.obs_visitas"></textarea>
+                                       translate translate-attr-placeholder="Observación Visitas"  ng-model="personas.persona.obs_visitas"></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="obs_habilitacion" class="col-sm-10 label-adjust" translate>Observaciones Última Habilitación</label>
                             <textarea  class="form-control form-control-sm" id="obs_ult_habilitacion" name="obs_ult_habilitacion" maxlength="255"
-                                       placeholder="Observaciones Última Habilitación" ng-model="personas.persona.obs_ult_habilitacion"></textarea>
+                                       translate translate-attr-placeholder="Observaciones Última Habilitación" ng-model="personas.persona.obs_ult_habilitacion"></textarea>
                         </div>                    
     
                     </div>
@@ -220,18 +220,18 @@
                     <div class="col-lg-3 col-md-6">
 
                         <div class="form-group">
-                            <label for="webcam" class="col-sm-10 label-adjust" translate>Apto Físico </label>
+                            <label for="webcam" class="col-sm-10 label-adjust" translate>Apto Físico</label>
                             <adjuntar-img id="img_apto_fisico" class="form-control form-control-sm" ng-model="personas.persona.img_apto_fisico" />
                         </div>
 
                         <div class="form-group input-append date first-avail">
-                            <label for="fec_otorgamiento_af" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico </label>
+                            <label for="fec_otorgamiento_af" class="col-sm-10 label-adjust" translate>Fecha Otorgamiento Apto Físico</label>
                             <input type="date" class="form-control form-control-sm" id="fec_otorgamiento_af" name="fec_otorgamiento_af"
                                    ng-model="personas.persona.fec_otorgamiento_af" fmtdatetimesql/>
                         </div>
 
                         <div class="form-group input-append date first-avail">
-                            <label for="fec_vencimiento_af" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico </label>
+                            <label for="fec_vencimiento_af" class="col-sm-10 label-adjust" translate>Fecha Vencimiento Apto Físico</label>
                             <input type="date" class="form-control form-control-sm" id="fec_vencimiento_af" name="fec_vencimiento_af"
                                    ng-model="personas.persona.fec_vencimiento_af" fmtdatetimesql readonly/>
                         </div>

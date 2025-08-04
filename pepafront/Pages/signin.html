@@ -12,7 +12,7 @@
                         <!--
                         <div class="col-sm-7" ng-focus="$ctrl.onFocus('cod_usuario')" >
                             <ui-select class="form-control" ng-model="$ctrl.cod_usuario" theme="bootstrap"   >
-                                <ui-select-match  placeholder="Ingrese usuario"  >{{$select.selected}}</ui-select-match>
+                                <ui-select-match >{{$select.selected}}</ui-select-match>
                                 <ui-select-choices repeat="user in $ctrl.getUsuariosSelect($select.search) | filter: $select.search">
                                   <div ng-bind="user"></div>
                                 </ui-select-choices>
@@ -20,11 +20,10 @@
                         </div>
                         -->
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="cod_usuario" placeholder="Usuario" ng-model="$ctrl.cod_usuario" ng-required="true"
+                            <input type="text" class="form-control" id="cod_usuario" translate translate-attr-placeholder="Usuario" ng-model="$ctrl.cod_usuario" ng-required="true"
                             uib-typeahead="usuario for usuario in $ctrl.usuarios | filter:$viewValue" typeahead-show-hint="true" typeahead-min-length="0"
                             typeahead-is-open="$ctrl.cod_usuario_open" typeahead-on-select="$ctrl.onSelect($item, $model, $label)"
                             typeahead-open-on-focus
-
                             ng-focus="$ctrl.onFocus('cod_usuario')" ng-change="$ctrl.onChange('cod_usuario')"
                             ng-disabled="$ctrl.inputsdisabled"
                             />
@@ -33,7 +32,7 @@
                     <div class="form-group row">
                         <label for="contrasena" class="col-sm-5 col-form-label" translate>Contraseña</label>
                         <div class="col-sm-7">
-                            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" ng-model="$ctrl.contrasena" ng-required="true" ng-change="$ctrl.onChange('contrasena')" ng-focus="$ctrl.onFocus('contrasena')"                             ng-disabled="$ctrl.inputsdisabled"
+                            <input type="password" class="form-control" id="contrasena" translate translate-attr-placeholder="Contraseña" ng-model="$ctrl.contrasena" ng-required="true" ng-change="$ctrl.onChange('contrasena')" ng-focus="$ctrl.onFocus('contrasena')"                             ng-disabled="$ctrl.inputsdisabled"
                             />
                         </div>
                         <div ng-show="$ctrl.showkeyboard" class="text-dark teclado-tam">
@@ -51,7 +50,7 @@
                     <div ng-show="$ctrl.ind_cambio_pass" class="form-group row">
                         <label for="contrasena_nueva" class="col-sm-5 col-form-label" translate>Contraseña Nueva</label>
                         <div class="col-sm-7">
-                            <input type="password" class="form-control" id="contrasena_nueva" name="contrasena_nueva" placeholder="Contraseña Nueva"
+                            <input type="password" class="form-control" id="contrasena_nueva" name="contrasena_nueva" translate translate-attr-placeholder="Contraseña Nueva"
                                    ng-model="$ctrl.contrasena_nueva" ng-required="$ctrl.ind_cambio_pass" ng-focus="$ctrl.onFocus('contrasena_nueva')" ng-change="$ctrl.onChange('contrasena_nueva')" ng-disabled="$ctrl.inputsdisabled" 
                                    />
                         </div>
@@ -59,7 +58,7 @@
                     <div ng-show="$ctrl.ind_cambio_pass" class="form-group row">
                         <label for="confirma_contrasena" class="col-sm-5 col-form-label" translate>Reingrese Contraseña Nueva</label>
                         <div class="col-sm-7">
-                            <input type="password" class="form-control" id="confirma_contrasena" name="confirma_contrasena" placeholder="Reingrese Contraseña Nueva"
+                            <input type="password" class="form-control" id="confirma_contrasena" name="confirma_contrasena" translate translate-attr-placeholder="Reingrese Contraseña Nueva"
                                    ng-model="$ctrl.confirma_contrasena" ng-required="$ctrl.ind_cambio_pass" ng-pattern="$ctrl.contrasena_nueva" ng-focus="$ctrl.onFocus('confirma_contrasena')" ng-change="$ctrl.onChange('confirma_contrasena')" ng-disabled="$ctrl.inputsdisabled" />
                             <span class="help-inline" ng-show="$ctrl.frmSignin.confirma_contrasena.$invalid && $ctrl.frmSignin.confirma_contrasena.$touched" translate>Las contraseñas no coinciden</span>
                         </div>
@@ -73,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <p data-ng-show="$ctrl.error" class="error" ><span translate>Ups: </span>{{ $ctrl.error}}</p>
+                    <p data-ng-show="$ctrl.error" class="error" ><span translate>Ups:</span> {{ $ctrl.error}}</p>
                 </ng-form>
             </div>
     </div>

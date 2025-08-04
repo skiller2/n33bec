@@ -92,8 +92,7 @@
 <div id="logViewer" class="display-split display-bottom">
   <div class="log-viewer">
     <div class="log-viewer-entry" ng-repeat="logline in display2.loglines">
-      <span class="text-{{logline.level_class}}"><span class="fa fa-{{logline.level_img}}-sign"> {{logline.level}}
-        </span></span>
+      <span class="text-{{logline.level_class}}"><span class="fa fa-{{logline.level_img}}-sign"> {{logline.level}}</span></span>
       <span ng-bind-html="logline.HtmlLine"></span>
     </div>
   </div>

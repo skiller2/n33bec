@@ -26,16 +26,16 @@
         <div class="sticky-top btn-group-vertical w-100">
           <button type="button" class="btn {{display.button_alarma}} btn-lg rounded-0"
             click-and-disable="display.setData(display.io_name,1)" style="height: 25vh">
-            <div class="{{display.cs_shaker_alarpre}}"><i class="fas fa-bell fa-2x"></i></div>
+            <div class="{{display.cs_shaker_alarpre}}"><i class="fas fa-bell fa-2x">&nbsp;</i></div>
             <div>{{display.des_valor_alarma}}</div>
           </button>
           <button type="button" class="btn {{display.button_falla}} btn-lg"
             click-and-disable="display.setData(display.io_name,1)" style="height: 25vh">
-            <div class="ng-class: display.cs_shaker_falla"><i class="fas fa-exclamation-triangle fa-2x"></i></div>
+            <div class="ng-class: display.cs_shaker_falla"><i class="fas fa-exclamation-triangle fa-2x">&nbsp;</i></div>
             <div>{{display.des_valor_falla}}</div>
           </button>
           <button type="button" class="btn {{display.button_video}} btn-lg" click-and-disable="display.showVideo()"
-            style="height: 25vh"><i class="fas fa-video fa-2x"></i>
+            style="height: 25vh"><i class="fas fa-video fa-2x">&nbsp;</i>
             <div>VIDEO</div>
           </button>
           <button ng-model="display.bell" class="btn {{display.btn_bell_class}} btn-lg rounded-0" style="height: 16vh"

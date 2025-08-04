@@ -24,26 +24,26 @@
 
                     <div class="form-group">
                         <label for="nom_ou_dt" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
-                        <input type="text" class="form-control form-control-sm" id="nom_ou_dt" name="nom_ou_dt" placeholder="Nombre"
+                        <input type="text" class="form-control form-control-sm" id="nom_ou_dt" name="nom_ou_dt" translate translate-attr-placeholder="Nombre"
                                ng-model="unidadesorganiz.ou_dt.nom_ou" readonly="">
                     </div>
 
                     <div class="form-group">
                         <label for="des_ou_dt" class="col-sm-10 label-adjust" translate>Descripción <span class="field-required">*</span></label>
-                        <input type="text" class="form-control form-control-sm" id="des_ou_dt" name="des_ou_dt" placeholder="Descripción"
+                        <input type="text" class="form-control form-control-sm" id="des_ou_dt" name="des_ou_dt" translate translate-attr-placeholder="Descripción"
                                ng-model="unidadesorganiz.ou_dt.des_ou" readonly="">
                     </div>
 
                     <div class="form-group">
                         <label for="centro_emergencias_dt" class="col-sm-10 label-adjust" translate>Centro Emergencias</label>
                         <input type="text" class="form-control form-control-sm" id="centro_emergencias_dt" name="centro_emergencias_dt" 
-                            placeholder="Centro Emergencias" ng-model="unidadesorganiz.ou_dt.centro_emergencias" readonly="">
+                            translate translate-attr-placeholder="Centro Emergencias" ng-model="unidadesorganiz.ou_dt.centro_emergencias" readonly="">
                     </div>
 
                     <div class="form-group">
                         <label for="tel_centro_emergencias_dt" class="col-sm-10 label-adjust" translate>Tel. Centro Emergencias</label>
                         <input type="text" class="form-control form-control-sm" id="tel_centro_emergencias_dt" name="tel_centro_emergencias_dt" 
-                            placeholder="Tel. Centro Emergencias" ng-model="unidadesorganiz.ou_dt.tel_centro_emergencias" readonly="">
+                            translate translate-attr-placeholder="Tel. Centro Emergencias" ng-model="unidadesorganiz.ou_dt.tel_centro_emergencias" readonly="">
                     </div>
 
                     <div class="form-group">
@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label for="sel_sectores_dt" class="col-sm-10 label-adjust" translate>Sectores</label>
                         <ui-select multiple ng-model="unidadesorganiz.ou_dt.sectoresSel" append-to-body="true" close-on-select="false" disabled="">
-                            <ui-select-match ui-lock-choice="true" placeholder="Sectores" >{{$item.nom_sector}}</ui-select-match>
+                            <ui-select-match placeholder="{{'Sector'|translate}}" ui-lock-choice="true" ><span>{{$item.nom_sector}}</span></ui-select-match>
                             <ui-select-choices repeat="sector.cod_sector as sector in unidadesorganiz.sectoresList | filter: $select.search">
                                 <div ng-bind-html="sector.nom_sector | highlight: $select.search"></div>
                             </ui-select-choices>
@@ -80,14 +80,14 @@
 
                         <div class="form-group">
                             <label for="nom_ou" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
-                            <input type="text" class="form-control form-control-sm" id="nom_ou" name="nom_ou" placeholder="Nombre"
+                            <input type="text" class="form-control form-control-sm" id="nom_ou" name="nom_ou" translate translate-attr-placeholder="Nombre"
                                    ng-model="unidadesorganiz.ou.nom_ou" ng-required="true">
                             <span class="help-inline" ng-show="frmOU.nom_ou.$invalid && frmOU.nom_ou.$touched" translate>Debe ingresar un Nombre</span>
                         </div>
 
                         <div class="form-group">
                             <label for="des_ou" class="col-sm-10 label-adjust" translate>Descripción <span class="field-required">*</span></label>
-                            <input type="text" class="form-control form-control-sm" id="des_ou" name="des_ou" placeholder="Descripción"
+                            <input type="text" class="form-control form-control-sm" id="des_ou" name="des_ou" translate translate-attr-placeholder="Descripción"
                                    ng-model="unidadesorganiz.ou.des_ou" ng-required="true">
                             <span class="help-inline" ng-show="frmOU.des_ou.$invalid && frmOU.des_ou.$touched" translate>Debe ingresar una Descripción</span>
                         </div>
@@ -95,13 +95,13 @@
                         <div class="form-group">
                             <label for="centro_emergencias" class="col-sm-10 label-adjust" translate>Centro Emergencias</label>
                             <input type="text" class="form-control form-control-sm" id="centro_emergencias" name="centro_emergencias" 
-                                placeholder="Centro Emergencias" ng-model="unidadesorganiz.ou.centro_emergencias">
+                                translate translate-attr-placeholder="Centro Emergencias" ng-model="unidadesorganiz.ou.centro_emergencias">
                         </div>
 
                         <div class="form-group">
                             <label for="tel_centro_emergencias" class="col-sm-10 label-adjust" translate>Tel. Centro Emergencias</label>
                             <input type="text" class="form-control form-control-sm" id="tel_centro_emergencias" name="tel_centro_emergencias" 
-                                placeholder="Tel. Centro Emergencias" ng-model="unidadesorganiz.ou.tel_centro_emergencias">
+                                translate translate-attr-placeholder="Tel. Centro Emergencias" ng-model="unidadesorganiz.ou.tel_centro_emergencias">
                         </div>
 
                         <div class="form-group">
@@ -113,7 +113,7 @@
                         <div class="form-group">
                             <label for="sel_sectores" class="col-sm-10 label-adjust" translate>Sectores</label>
                             <ui-select multiple ng-model="unidadesorganiz.ou.sectoresSel" append-to-body="true" close-on-select="false">
-                                <ui-select-match placeholder="Sectores" >{{$item.nom_sector}}</ui-select-match>
+                                <ui-select-match  placeholder="{{'Sector'|translate}}"><span>{{$item.nom_sector}}</span></ui-select-match>
                                 <ui-select-choices repeat="sector.cod_sector as sector in unidadesorganiz.sectoresList | filter: $select.search">
                                     <div ng-bind-html="sector.nom_sector | highlight: $select.search"></div>
                                 </ui-select-choices>

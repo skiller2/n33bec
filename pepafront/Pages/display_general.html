@@ -24,10 +24,10 @@
 
 
                   <button type="button" class="btn btn-sm btn-outline-secondary" ui-sref="common.dashboard">
-                    <i class="fa fa-tachometer-alt"></i><span translate>Pantalla principal</span>
+                    <i class="fa fa-tachometer-alt">&nbsp;</i><span translate>Pantalla principal</span>
                   </button>
                   <button type="button" ng-if="ctrl.testModeLabel" class="btn btn-sm" ng-class="ctrl.ind_modo_prueba == 0 ? 'btn-outline-warning' : 'btn-warning'" ng-click="ctrl.toogleTestMode()">
-                    <i class="fas fa-check-double"></i><span ng-bind="ctrl.testModeLabel"></span>
+                    <i class="fas fa-check-double">&nbsp;</i><span ng-bind="ctrl.testModeLabel"></span>
                   </button>
 
                 </div>
@@ -42,38 +42,38 @@
                   aria-expanded="false" uib-dropdown-toggle><span class="navbar-toggler-icon"></span></button>
                 <div class="dropdown-menu" uib-dropdown-menu role="menu">
                   <a ng-if="ctrl.showBtnPantallaPrincipal" class="dropdown-item" ui-sref="common.dashboard"> <i
-                      class="fa fa-tachometer-alt"></i>
+                      class="fa fa-tachometer-alt">&nbsp;</i>
                     <span translate>Pantalla principal</span></a>
                   <a ng-if="ctrl.showBtnPantallaPrincipal" class="dropdown-item" ng-click="ctrl.toogleTestMode()"> <i
-                      class="fa fa-check-double"></i>
+                      class="fa fa-check-double">&nbsp;</i>
                       <span ng-bind="ctrl.testModeLabel"></span></a>
 
                   <a ng-if="!ctrl.codUsuario" class="dropdown-item" ng-click="ctrl.authaction()"><i
-                      class="fas fa-sign-in-alt"></i>
+                      class="fas fa-sign-in-alt">&nbsp;</i>
                     <span translate>Ingresar</span></a>
                   <a ng-if="ctrl.codUsuario" class="dropdown-item" ng-click="ctrl.authaction()"><i
-                      class="fas fa-sign-out-alt"></i>
+                      class="fas fa-sign-out-alt">&nbsp;</i>
                     <span translate>Salir</span></a>
                 </div>
               </div>
               <div class="d-sm-none ">
                 <button type="button" class="btn {{ctrl.button_alarma}} btn-sm "
                 click-and-disable="ctrl.showDisplay('listado')">
-                  <div class="{{ctrl.cs_shaker_alarpre}}"><i class="fas fa-bell"></i></div>
+                  <div class="{{ctrl.cs_shaker_alarpre}}"><i class="fas fa-bell">&nbsp;</i></div>
                   <div>{{ctrl.des_valor_alarma}}</div>
                 </button>
                 <button type="button" class="btn {{ctrl.button_falla}} btn-sm"
                 click-and-disable="ctrl.showDisplay('listado')">
-                  <div class="ng-class: ctrl.cs_shaker_falla"><i class="fas fa-exclamation-triangle"></i></div>
+                  <div class="ng-class: ctrl.cs_shaker_falla"><i class="fas fa-exclamation-triangle">&nbsp;</i></div>
                   <div>{{ctrl.des_valor_falla}}</div>
                 </button>
                 <button type="button" class="btn {{ctrl.button_video}} btn-sm btnvideo" disabled="1"><i
-                    class="fas fa-video"></i>
+                    class="fas fa-video">&nbsp;</i>
                   <div translate>VIDEO</div>
                 </button>
                 <button ng-model="ctrl.bell" class="btn {{ctrl.btn_bell_class}} btn-sm"
                   click-and-disable="ctrl.switchAudio()">
-                  <div class="{{ctrl.shake_bell_class}}"><i class="fa fa-bell-slash text-white"></i></div>
+                  <div class="{{ctrl.shake_bell_class}}"><i class="fa fa-bell-slash text-white">&nbsp;</i></div>
                   <div translate>SILENCIAR</div>
                 </button>
               </div>
@@ -137,7 +137,7 @@
 
           <button ng-model="ctrl.bell" class="btn {{ctrl.btn_bell_class}} btn-lg " style="height: 16vh"
             click-and-disable="ctrl.switchAudio()">
-            <div class="{{ctrl.shake_bell_class}}"><i class="fa fa-bell-slash fa-2x text-white"></i></div>
+            <div class="{{ctrl.shake_bell_class}}"><i class="fa fa-bell-slash fa-2x text-white">&nbsp;</i></div>
             <div style="font-size: 100%;" translate>SILENCIAR</div>
           </button>
           <button class="btn btn-lg btn-dark" style="height: 9vh; font-size: 2.5vh;"

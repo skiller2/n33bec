@@ -15,7 +15,7 @@
     </div>
     <div class="log-viewer" style="min-height: 400px;">
         <div class="log-viewer-entry" ng-repeat="logline in logviewer.loglines">
-            <span class="text-{{logline.level_class}}"><i class="{{logline.level_icon}}"></i></span>
+            <span class="text-{{logline.level_class}}"><i class="{{logline.level_icon}}">&nbsp;</i></span>
             <span ng-bind-html="logline.HtmlLine"></span>
         </div>
     </div>
