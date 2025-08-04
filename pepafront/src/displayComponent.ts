@@ -8,15 +8,15 @@ const displayComponent = {
     bindings: {},
     controllerAs: "display",
     controller:
-        ['$scope', 'datosBack', 'sounds', '$timeout',
-            function ($scope, datosBack, sounds, $timeout) {
+        ['$scope', 'datosBack', 'sounds', '$timeout','$translate',
+            function ($scope, datosBack, sounds, $timeout,$translate) {
                 const vm = this;
                 vm.linea1 = '1111111111111111111111111111111111111111'; // "PRUEBA                             11111";
                 vm.linea2 = '2222222222222222222222222222222222222222'; // "PRUEBA                             22222";
                 vm.linea3 = '3333333333333333333333333333333333333333'; // "PRUEBA                             33333";
                 vm.linea4 = '4444444444444444444444444444444444444444'; // "PRUEBA                             44444";
                 vm.cod_tema = 'fourseassons/elkron';
-                vm.des_valor = 'Normal';
+                vm.des_valor = $translate.instant('Normal');
                 vm.button = 'btn-success';
 
                 $scope.$on('display_area54', function (event, args) {
@@ -95,7 +95,7 @@ const displayComponent = {
                 
                 vm.fireAlarm = function () {
                     vm.button = 'btn-danger';
-                    vm.des_valor = "ALARMA";
+                    vm.des_valor = $translate.instant("ALARMA");
                     //22-6
                     const hora = parseInt(moment(Date.now()).format("hh"));
                     if (hora > 22 && hora < 6) {
@@ -105,7 +105,7 @@ const displayComponent = {
 
                 vm.stopAlarm = function () {
                     vm.button = 'btn-success';
-                    vm.des_valor = "NORMAL";
+                    vm.des_valor = $translate.instant("NORMAL");
                     sounds.stop();
                 }
                 /*

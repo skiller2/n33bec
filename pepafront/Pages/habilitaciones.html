@@ -237,7 +237,7 @@
                 ng-required="true" ng-options="item.cod_ou as item.nom_ou for item in habilitaciones.ouList">
               </select>
               <span class="help-inline"
-                ng-show="frmHabilitaciones.cod_ou_contacto.$invalid && frmHabilitaciones.cod_ou_contacto.$touched" translate>Debe seleccionar una Unidad Organizacional</span>
+                ng-show="frmHabilitaciones.cod_ou_contacto.$invalid && frmHabilitaciones.cod_ou_contacto.$touched" translate>Debe seleccionar una Organización</span>
             </div>
 
             <div class="form-group" ng-class="{'has-warning' : frmHabilitaciones.cod_credencial_nueva.$dirty}">
@@ -507,7 +507,7 @@
                 ng-required="true" ng-options="item.cod_ou as item.nom_ou for item in habilitaciones.ouList">
               </select>
               <span class="help-inline"
-                ng-show="frmHabilitacionesImporta.cod_ou_contacto.$invalid && frmHabilitacionesImporta.cod_ou_contacto.$touched" translate>Debe seleccionar una Unidad Organizacional</span>
+                ng-show="frmHabilitacionesImporta.cod_ou_contacto.$invalid && frmHabilitacionesImporta.cod_ou_contacto.$touched" translate>Debe seleccionar una Organización</span>
             </div>
 
             <div class="form-group" ng-show="habilitaciones.ind_muestra_tipohab">

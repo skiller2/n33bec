@@ -6,8 +6,8 @@ const display2Component = {
     template: require('../Pages/display2.html'),
     bindings: {},
     controllerAs: "display2",
-    controller: ['$scope', 'realTimeData', '$sce', '$filter', 'datosBack',
-        function ($scope, realTimeData, $sce, $filter, datosBack) {
+    controller: ['$scope', 'realTimeData', '$sce', '$filter', 'datosBack','$translate',
+        function ($scope, realTimeData, $sce, $filter, datosBack,$translate) {
 
             const vm = this;
             vm.loglines = [];
@@ -21,7 +21,7 @@ const display2Component = {
             vm.io_name04 = 'IO04';
             vm.io_name17 = 'IO17';
             vm.value = 0;
-            vm.des_valor = 'Normal';
+            vm.des_valor = $translate.instant('Normal');
             vm.button = 'btn-success';
             vm.d03src = '';
             vm.d04src = '';
