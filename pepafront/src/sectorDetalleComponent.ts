@@ -9,7 +9,7 @@ const sectorDetalleComponent = {
         onClose: '&'
     },
     controllerAs: "ctrl",
-    controller: ['$element', '$scope', '$window', '$timeout', 'datosBack', '$attrs', '$sce', '$uibModal', 'iconsLibSvc','$filter', function ($element, $scope, $window, $timeout, datosBack, $attrs, $sce, $uibModal, iconsLibSvc, $filter) {
+    controller: ['$element', '$scope', '$window', '$timeout', 'datosBack', '$attrs', '$sce', '$uibModal', 'iconsLibSvc','$filter','videoSvc', function ($element, $scope, $window, $timeout, datosBack, $attrs, $sce, $uibModal, iconsLibSvc, $filter,videoSvc) {
         const vm = this;
 
         vm.ind_video = false;
@@ -28,6 +28,7 @@ const sectorDetalleComponent = {
             //                console.log("documentos " + vm.documentos_url);
             vm.ind_detalle_temas = false;
             vm.ind_video = false;
+            videoSvc.stop()
             vm.video_url = '';
             vm.ind_documentos = true;
             $scope.$applyAsync();
@@ -39,6 +40,12 @@ const sectorDetalleComponent = {
             vm.video_url = url;
             vm.ind_video = true;
             $scope.$applyAsync();
+
+            setTimeout(() => {
+                videoSvc.start("dashVideo",url)
+                
+            }, 250);
+
         };
 
         vm.showImagenSector = () => {
@@ -49,6 +56,7 @@ const sectorDetalleComponent = {
             vm.imgdata = vm.imgdata_sector;
             vm.showSectorIcons();
             vm.video_url = "";
+            videoSvc.stop()
             //            $scope.$applyAsync();
         }
 
@@ -68,6 +76,7 @@ const sectorDetalleComponent = {
             datosBack.getData('displaysucesos/temaimgdata/' + btoa(cod_tema) + "/" + vm.selected.img_hash_tema, true, false, false).then(function (response: any) {
                 vm.ind_detalle_temas = false;
                 vm.ind_video = false;
+                videoSvc.stop()
                 vm.video_url = '';
                 vm.ind_documentos = false;
 
@@ -120,6 +129,7 @@ const sectorDetalleComponent = {
 
         vm.verEstadosIOs = (cod_sector: string) => {
             vm.ind_video = false;
+            videoSvc.stop()
             vm.video_url = '';
             vm.ind_documentos = false;
             vm.showSectorIcons();
@@ -266,6 +276,7 @@ const sectorDetalleComponent = {
 
         vm.onCodSectorChange = (cod_sector) => {
             vm.ind_video = false;
+            videoSvc.stop()
             vm.video_url = "";
             vm.ind_detalle_temas = false;
             vm.ind_documentos = false;
@@ -284,9 +295,11 @@ const sectorDetalleComponent = {
             angular.element('.btnvideo').off('click');
             angular.element('.btnvideo').attr("disabled", "disabled");
             vm.ind_video = false;
+            videoSvc.stop()
             vm.video_url = "";
             vm.ind_detalle_temas = false;
             vm.ind_documentos = false;
+
         }
 
         vm.fresetear = (ind) => {

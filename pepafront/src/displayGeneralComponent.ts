@@ -490,6 +490,13 @@ const displayGeneralComponent = {
                 }
             );
 
+            vm.switchAudioOn = function () {
+                sounds.stop();
+                sounds.start();
+                vm.btn_bell_class = "btn-warning"; //'btn-danger';
+                vm.shake_bell_class = "shaker";
+            }
+
             vm.switchAudio = function () {
                 vm.silenced = []
                 vm.alertas.forEach((r) => {

@@ -120,14 +120,18 @@
                 <img ng-if="!ctrl.video_url.includes('.mpd')" alt="Video" class=""
                     style="max-width: 100%;max-height: 100;" ng-src="{{ctrl.video_url}}" />
 
-                <!-- img class="rounded-lg" src="{{ctrl.video_url}}" style="max-width: 100%; max-height: 100%;"/ -->
+
+                <video id="dashVideo" ng-if="ctrl.video_url.includes('.mpd')" controls style="max-width: 100%;max-height: 100%; margin: auto; width: 80%;"></video>
+
+<!--
                 <video ng-if="ctrl.video_url.includes('.mpd')" data-dashjs-player autoplay controls
+                    id="videoPlayer"
                     ng-src="{{ctrl.video_url}}" type="application/dash+xml"
                     style="max-width: 100%;max-height: 100%;     margin: auto;">
                     <script ng-if="ctrl.video_url.includes('.mpd')" src="../../Content/dash.all.min.js"></script>
 
                 </video>
-
+-->
             </div>
         </div>
 

@@ -230,8 +230,8 @@ angular.module(MODULE_NAME,
                 prefix: './langs/locale-',
                 suffix: '.json'
             });
-            $translateProvider.preferredLanguage('it');
-//console.log('xxx')
+            $translateProvider.preferredLanguage('es');
+//            $translateProvider.preferredLanguage('it');
 
             $stateProvider
                 .state('common', {

@@ -1,6 +1,6 @@
 {
     "name": "n33bec",
-    "version": "1.496.0",
+    "version": "1.503.0",
     "description": "Control de Acceso y Monitoreo",
     "main": "http://localhost:9000",
     "window": {
@@ -99,6 +99,7 @@
         "bootstrap": "^4.5.2",
         "ct-ui-select": "^1.0.1",
         "d3": "^3.5.0",
+        "dashjs": "^5.0.3",
         "echarts": "^5.3.3",
         "echarts-gl": "^2.0.9",
         "electron": "^33.2.0",

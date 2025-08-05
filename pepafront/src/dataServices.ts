@@ -8,6 +8,7 @@ import 'simple-keyboard/build/css/index.css';
 import ng from "angular";
 
 import "./icon-library/icon-library.css";
+import { MediaPlayer } from "dashjs";
 
 
 angular.module('appServices', [])
@@ -1958,6 +1959,24 @@ angular.module('appServices', [])
             self.keypresssnd.currentTime = 0;
             self.keypresssnd.play();
         }
+    }])
+
+    .service('videoSvc', ['datosBack', function (datosBack) {
+        const self = this;
+        self.player = null
+
+        self.start = function (id: string, video_url: string) {
+            const video = document.getElementById(id) as HTMLMediaElement
+            
+            try { self.player.destroy() } catch (e) { }
+            self.player = MediaPlayer().create();
+            self.player.initialize(video, video_url, true);
+        };
+
+        self.stop = function () { 
+            try { self.player.destroy() } catch (e) { }
+        }        
+
     }])
 
 
