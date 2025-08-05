@@ -98,9 +98,9 @@ const displayComponent = {
                     vm.des_valor = $translate.instant("ALARMA");
                     //22-6
                     const hora = parseInt(moment(Date.now()).format("hh"));
-                    if (hora > 22 && hora < 6) {
+                    //if (hora > 22 && hora < 6) {
                         sounds.start();
-                    }
+                    //}
                 }
 
                 vm.stopAlarm = function () {

@@ -26,6 +26,9 @@
                   <button type="button" class="btn btn-sm btn-outline-secondary" ui-sref="common.dashboard">
                     <i class="fa fa-tachometer-alt">&nbsp;</i><span translate>Pantalla principal</span>
                   </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" ng-click="ctrl.showList()" style="max-width: fit-content;">
+                    <i class="fa fa-rss">&nbsp;</i>
+                  </button>
                   <button type="button" ng-if="ctrl.testModeLabel" class="btn btn-sm" ng-class="ctrl.ind_modo_prueba == 0 ? 'btn-outline-warning' : 'btn-warning'" ng-click="ctrl.toogleTestMode()">
                     <i class="fas fa-check-double">&nbsp;</i><span ng-bind="ctrl.testModeLabel"></span>
                   </button>
@@ -81,6 +84,7 @@
 
             <a ng-repeat="alerta in ctrl.alertas" class="cs-alert d-flex"
               ng-class="'cs-alert-' + (alerta.tipo_evento || 'warning')" ng-click="ctrl.showSectorDetalle(alerta)">
+              
               <div class="col-3 p-0">{{alerta.stm_evento | ftDateTime}}</div>
               <div class="col-7 p-0">
                 <div>{{alerta.nom_sectores}}</div>
@@ -94,6 +98,7 @@
                 <i ng-if="alerta.tipo_evento == 'DE'" class="fa fa-signal cs-fa-15x"></i>
                 <i ng-if="alerta.tipo_evento == 'EX'" class="fa fa-object-ungroup cs-fa-15x"></i>
               </div>
+              <div ng-if="alerta.silenced">X</div>
             </a>
           </div>
         </div>

@@ -50,7 +50,6 @@ const displayGeneralComponent = {
             vm.button_video = "btn-info";
             vm.cod_tema = "";
             vm.cod_sector = "";
-            //vm.silenced = false;
             vm.expanding_property = {
                 field: "nom_tema",
                 displayName: "Nombre",
@@ -64,7 +63,7 @@ const displayGeneralComponent = {
             vm.col_defs = [];
             vm.showBtnPantallaPrincipal = false;
             vm.ind_modo_prueba = false;
-            
+            vm.silenced = []
             vm.cont_falla = 0;
             vm.cont_alarma = 0;
             vm.cont_prealarma = 0;
@@ -150,7 +149,7 @@ const displayGeneralComponent = {
                 return tree;
             }
 
-            vm.restart = () => {};
+            vm.restart = () => { };
 
             vm.flexFont = function () {
                 var divs = document.getElementsByClassName(
@@ -226,26 +225,6 @@ const displayGeneralComponent = {
                     vm.cs_shaker_falla = "shaker";
                 }
 
-                if (
-                    !ind_alarma_gral &&
-                    !ind_alarmatec_gral &&
-                    !ind_prealarma_gral &&
-                    !ind_falla_gral &&
-                    !ind_desconexion
-                ) {
-                    //Sin alarmas, ni prealarmas,
-                    sounds.stop();
-                    //vm.silenced = false;
-                    vm.btn_bell_class = "btn-dark";
-                    vm.shake_bell_class = "";
-                } else {
-                    //if (!vm.silenced) {
-                        sounds.stop();
-                        sounds.start();
-                        vm.btn_bell_class = "btn-warning"; //'btn-danger';
-                        vm.shake_bell_class = "shaker";
-                    //}
-                }
             };
 
             const fillSectoresTree = () => {
@@ -273,15 +252,37 @@ const displayGeneralComponent = {
                     });
             };
 
-            const showList = () => {
+            const isEqualsArr = (arr1: [any], arr2: [any]) => {
+                if (arr1?.length !== arr2?.length) return false;
+
+                const props = ['cod_tema', 'cant_activacion', 'cod_sector', 'des_observaciones', 'nom_tema', 'stm_evento', 'tipo_evento']
+
+                for (let i = 0; i < arr1.length; i++) {
+                    const findit = arr2.find(r => r.cod_tema == arr1[i].cod_tema)
+                    if (!findit) {
+                        return false
+                    }
+                    for (let j = 0; j < props.length; j++) {
+                        const prop = props[j];
+                        if (arr1[i][prop] !== findit[prop]) {
+                            return false;
+                        }
+                    }
+                }
+                return true
+
+            }
+
+            vm.showList = () => {
+                console.log('trigger showList')
                 if (vm.showListTimer) $timeout.cancel(vm.showListTimer);
                 datosBack
                     .getData("displaysucesos/lista/false", false, false)
                     .then(function (response: any) {
-                        if (!angular.equals(vm.alertas_old, response)) {
+
+                        if (!isEqualsArr(vm.alertas_old, response)) {
                             vm.ind_listado = true;
                             vm.ind_detalle = false;
-                            vm.alertas_old = response;
                             vm.alertas = $filter("orderBy")(response, [
                                 "tipo_evento",
                                 "stm_evento",
@@ -293,35 +294,41 @@ const displayGeneralComponent = {
                             let ind_falla_gral = false;
                             let ind_desconexion = false;
                             let ind_exclusion = false;
-                            
+                            let triggerAudio = false
                             vm.cont_alarma = 0;
                             vm.cont_prealarma = 0;
                             vm.cont_alarmatec = 0;
                             vm.cont_desconexion = 0;
                             vm.cont_exclusion = 0;
                             vm.cont_falla = 0;
-
                             vm.alertas.forEach((alerta) => {
+                                alerta.silenced = (vm.silenced.find(r => r == alerta.cod_tema)) ? true : false
+
                                 switch (alerta.tipo_evento) {
                                     case "FA":
                                         ind_falla_gral = true;
                                         vm.cont_falla++;
+                                        if (!alerta.silenced) triggerAudio = true
                                         break;
                                     case "AL":
                                         ind_alarma_gral = true;
                                         vm.cont_alarma++;
+                                        if (!alerta.silenced) triggerAudio = true
                                         break;
                                     case "PA":
                                         ind_prealarma_gral = true;
                                         vm.cont_prealarma++;
+                                        if (!alerta.silenced) triggerAudio = true
                                         break;
                                     case "AT":
                                         ind_alarmatec_gral = true;
                                         vm.cont_alarmatec++;
+                                        if (!alerta.silenced) triggerAudio = true
                                         break;
                                     case "DE":
                                         ind_desconexion = true;
                                         vm.cont_desconexion++;
+                                        if (!alerta.silenced) triggerAudio = true
                                         break;
                                     case "EX":
                                         ind_exclusion = true;
@@ -332,9 +339,12 @@ const displayGeneralComponent = {
                                         break;
                                 }
                             });
+
+                            vm.alertas_old = vm.alertas
+
                             vm.cont_btn_alarma = vm.cont_alarma + vm.cont_prealarma + vm.cont_alarmatec;
                             vm.cont_btn_falla = vm.cont_desconexion + vm.cont_exclusion + vm.cont_falla;
-                
+
 
                             updateLeftIcons(
                                 ind_falla_gral,
@@ -344,13 +354,27 @@ const displayGeneralComponent = {
                                 ind_desconexion,
                                 ind_exclusion
                             );
+
+                            if (!triggerAudio) {
+                                //Sin alarmas, ni prealarmas,
+                                sounds.stop();
+                                vm.btn_bell_class = "btn-dark";
+                                vm.shake_bell_class = "";
+                            } else {
+                                sounds.stop();
+                                sounds.start();
+                                vm.btn_bell_class = "btn-warning"; //'btn-danger';
+                                vm.shake_bell_class = "shaker";
+                            }
+
+
                         }
-                        vm.showListTimer = $timeout(showList, 7000);
+                        vm.showListTimer = $timeout(vm.showList, 7000);
                     })
                     .catch(function (data: any) {
                         vm.alertas = {};
                         resetClases();
-                        vm.showListTimer = $timeout(showList, 2000);
+                        vm.showListTimer = $timeout(vm.showList, 2000);
                     });
             };
 
@@ -414,7 +438,7 @@ const displayGeneralComponent = {
                 }
 
 
-                
+
             );
 
             vm.authaction = () => {
@@ -431,7 +455,7 @@ const displayGeneralComponent = {
                         vm.ind_listado = true;
                         vm.ind_detalle = false;
                         vm.ind_controlacceso = false;
-                        showList();
+                        vm.showList();
                         break;
                     case "detalle":
                         vm.ind_listado = false;
@@ -462,12 +486,16 @@ const displayGeneralComponent = {
                     event: any,
                     args: { context: { ind_activa_audio: number } }
                 ) {
-                    showList();
+                    vm.showList();
                 }
             );
 
             vm.switchAudio = function () {
-                vm.silenced = true;
+                vm.silenced = []
+                vm.alertas.forEach((r) => {
+                    r.silenced = true
+                    vm.silenced.push(r.cod_tema)
+                })
                 sounds.stop();
                 vm.btn_bell_class = "btn-dark";
                 vm.shake_bell_class = "";
@@ -479,8 +507,8 @@ const displayGeneralComponent = {
                     .postData("temas/setOperationMode", {
                         ind_modo_prueba: !vm.ind_modo_prueba,
                     })
-                    .then(function (res: any) {})
-                    .catch(function () {});
+                    .then(function (res: any) { })
+                    .catch(function () { });
             };
         },
     ],
