@@ -29,14 +29,14 @@ class Usuarios extends Controller
 {
     public static function getAbilities()
     {
-        $abs[] = array("den" => "ab_config", "nom" => "Configuración del sistema");
-        $abs[] = array("den" => "ab_usuarios", "nom" => "Administración de usuarios");
-        $abs[] = array("den" => "ab_gestion", "nom" => "Gestión general");
-        $abs[] = array("den" => "ab_gestion_visitas", "nom" => "Gestión visitas");
-        $abs[] = array("den" => "ab_movimientos", "nom" => "Consulta movimientos");
-        $abs[] = array("den" => "ab_conf_alar", "nom" => "Configuración de sucesos");
-        $abs[] = array("den" => "ab_asistencia", "nom" => "Gestión de asistencias");
-        $abs[] = array("den" => "ab_resetsucesos", "nom" => "Reset sucesos");
+        $abs[] = array("den" => "ab_config", "nom" => __("Configuración del sistema"));
+        $abs[] = array("den" => "ab_usuarios", "nom" => __("Administración de usuarios"));
+        $abs[] = array("den" => "ab_gestion", "nom" => __("Gestión general"));
+        $abs[] = array("den" => "ab_gestion_visitas", "nom" => __("Gestión visitas"));
+        $abs[] = array("den" => "ab_movimientos", "nom" => __("Consulta movimientos"));
+        $abs[] = array("den" => "ab_conf_alar", "nom" => __("Configuración de sucesos"));
+        $abs[] = array("den" => "ab_asistencia", "nom" => __("Gestión de asistencias"));
+        $abs[] = array("den" => "ab_resetsucesos", "nom" => __("Reset sucesos"));
         return $abs;
     }
 
@@ -334,7 +334,7 @@ class Usuarios extends Controller
 
         $usuario = Usuario::find($cod_usuario);
         $usuario->delete();
-        return (array('ok' => "Se eliminó satisfactoriamente el usuario #" . $cod_usuario));
+        return (array('ok' => __("Se eliminó satisfactoriamente el usuario #") . $cod_usuario));
     }
 
     public function signin(Request $request)

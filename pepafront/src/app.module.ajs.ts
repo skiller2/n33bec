@@ -60,8 +60,9 @@ import 'angular-ui-grid';
 import 'ui-bootstrap4';
 import 'ui-select';
 import 'ng-file-upload';
-import 'angular-translate';
-import 'angular-translate-loader-static-files';
+
+//import 'angular-translate';
+//import 'angular-translate-loader-static-files';
 
 
 import Sortable from 'sortablejs';
@@ -217,21 +218,21 @@ angular.module(MODULE_NAME,
         dummy: 'any',
         webApiBaseUrl: 'api/v1/',
     })
-    .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider', '$animateProvider','$locationProvider','$translateProvider',
-        ($httpProvider, $stateProvider, $urlRouterProvider, jwtInterceptorProvider, jwtOptionsProvider, $animateProvider,$locationProvider,$translateProvider) => {
+    .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider', '$animateProvider', '$locationProvider', '$translateProvider',
+        ($httpProvider, $stateProvider, $urlRouterProvider, jwtInterceptorProvider, jwtOptionsProvider, $animateProvider, $locationProvider, $translateProvider) => {
             $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
 
             $urlRouterProvider.otherwise('/dashboard');
-//            $locationProvider.html5Mode(true);
-
+            //            $locationProvider.html5Mode(true);
 
             $translateProvider.useStaticFilesLoader({
                 
                 prefix: './langs/locale-',
                 suffix: '.json'
             });
-            $translateProvider.preferredLanguage('es');
-//            $translateProvider.preferredLanguage('it');
+
+//            $translateProvider.preferredLanguage('es');
+// /            $translateProvider.useLocalStorage()
 
             $stateProvider
                 .state('common', {
@@ -677,6 +678,8 @@ angular.module(MODULE_NAME,
 
             $httpProvider.interceptors.push('jwtInterceptor');
 
+            $httpProvider.interceptors.push('LocaleInterceptor');
+
             const interceptor = ['$state', '$q', 'broadcastService', function ($state, $q, broadcastService) {
                 return {
                     responseError(response) {
@@ -697,7 +700,6 @@ angular.module(MODULE_NAME,
 
             $httpProvider.interceptors.push(interceptor);
             $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-
 
         }])
     .component("bodyDefault", bodyDefault)
@@ -753,7 +755,7 @@ angular.module(MODULE_NAME,
     //    .component("numbersOnly", numbersOnlyDirective)
 
 
-//Temas tipo de uso
+    //Temas tipo de uso
     .component("appTipoUso", appTipoUsoComponent)
     .component("appLector", appLectorComponent)
     .component("appComunic", appComunicComponent)
@@ -856,8 +858,14 @@ angular.module(MODULE_NAME,
             });
     }])
 
-    .run(['cfg', 'authManager', '$state', '$location', 'IdleTimeout', function (cfg, authManager, $state, $location, IdleTimeout) {
+    .run(['cfg', 'authManager', '$state', '$location', 'IdleTimeout', 'LanguageService','store', function (cfg, authManager, $state, $location, IdleTimeout,LanguageService,store) {
+        const lang = store.get('idioma')
+        if (lang)
+            LanguageService.setLanguage(lang)
+        else 
+            LanguageService.setLanguage('es')
 
+        console.log('seteo lang')
         authManager.redirectWhenUnauthenticated();
         authManager.checkAuthOnRefresh();
         //        console.log('initial run', $location.path());

@@ -29,6 +29,7 @@ Route::group(['middleware' => 'throttle:3,1,signin'],function () {
 Route::group(['middleware' => 'throttle:5000,1,pool'],function () {
     Route::get('/v1/displaysucesos/lista/{export?}', 'MoviDisplayTemas@index');
     Route::get('/v1/parametros/getParametro/{den_parametro}', 'Parametros@getParametro');
+    Route::post('/v1/parametros/lang/{lang}', 'Parametros@setLang');
     Route::get('/v1/displaysucesos/listasec', 'DisplaySucesos@getLista');
 });
 

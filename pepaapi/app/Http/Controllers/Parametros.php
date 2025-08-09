@@ -110,6 +110,11 @@ class Parametros extends Controller
         return Parametro::find($den_parametro);
     }
 
+    public function setLang($lang)
+    {
+        App::setLocale($lang);
+    }
+
     public function getParametro($den_parametro)
     {
         return Parametro::find($den_parametro);

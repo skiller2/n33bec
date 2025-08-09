@@ -45,7 +45,7 @@ module.exports = {
             'Access-Control-Allow-Origin': 'https://drive.google.com',
         },
         proxy: {
-            '/apiL': {
+            '/api': {
                 target: 'http://localhost:8091/public',
                 //                target: 'http://localhost:9002',
                 headers: {
@@ -58,12 +58,12 @@ module.exports = {
                 secure: true,
                 changeOrigin: true,
             },
-            '/api': {   //Siderca
+            '/apiSide': {   //Siderca
                 target: 'http://10.8.0.3/',
                 secure: true,
                 changeOrigin: true,
             },
-            '/apiSide': {   //Bomberos
+            '/apiBombe': {   //Bomberos
                 target: 'http://10.8.0.8/',
                 secure: true,
                 changeOrigin: true,

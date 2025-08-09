@@ -9,12 +9,25 @@ import ng from "angular";
 
 import "./icon-library/icon-library.css";
 import { MediaPlayer } from "dashjs";
+import 'angular-translate';
+import 'angular-translate-loader-static-files';
 
 
 angular.module('appServices', [])
     // Autenticar usuario
-    .factory('auth', ['$http', 'store', 'cfg', 'jwtHelper', '$q', '$rootScope', '$stateRegistry', '$state', '$uibModal', 'localData', '$timeout', 'sounds', '$location', 'globalData', '$window', 'spinCounter','$translate',
-        function ($http, store, cfg, jwtHelper, $q, $rootScope, $stateRegistry, $state, $uibModal, localData, $timeout, sounds, $location, globalData, $window, spinCounter,$translate) {
+
+    .factory('LocaleInterceptor',['LanguageService', function(LanguageService) {
+    return {
+        request: function(config) {
+        // Add the locale header
+        config.headers['Locale'] = LanguageService.getLanguage() || 'en-US'; // or use a custom locale value
+        return config;
+        }
+    };
+    }])
+
+    .factory('auth', ['$http', 'store', 'cfg', 'jwtHelper', '$q', '$rootScope', '$stateRegistry', '$state', '$uibModal', 'localData', '$timeout', 'sounds', '$location', 'globalData', '$window', 'spinCounter', '$translate','LanguageService',
+        function ($http, store, cfg, jwtHelper, $q, $rootScope, $stateRegistry, $state, $uibModal, localData, $timeout, sounds, $location, globalData, $window, spinCounter, $translate,LanguageService) {
             const auth = this;
             let decodedToken = (store.get('decodedToken')) ? store.get('decodedToken') : {};
             let codUsuario = (decodedToken.sub) ? decodedToken.sub : "";
@@ -43,8 +56,8 @@ angular.module('appServices', [])
                                 $ctrl.usuarios = [];
                                 $ctrl.showkeyboard = ($location.host() == "localhost" || $location.host() == "127.0.0.1" || typeof (nw) !== 'undefined') || (navigator.userAgent.indexOf("Electron") >= 0) ? true : false;
 
-                                console.log('agent',navigator.userAgent,window)
-//                                $ctrl.showkeyboard =  (typeof (window.nw!== 'undefined')) ? true : false;
+                                console.log('agent', navigator.userAgent, window)
+                                //                                $ctrl.showkeyboard =  (typeof (window.nw!== 'undefined')) ? true : false;
                                 $ctrl.showUserList = $ctrl.showkeyboard;
                                 //$ctrl.contrasena = "";
                                 $ctrl.cod_usuario = "";
@@ -174,7 +187,7 @@ angular.module('appServices', [])
                                 }
 
                                 if ($ctrl.showUserList)
-                                localData.getListaUsuariosLogin().then(function (lista) { $ctrl.usuarios = lista }).catch(function () { });
+                                    localData.getListaUsuariosLogin().then(function (lista) { $ctrl.usuarios = lista }).catch(function () { });
 
 
                                 $ctrl.getUsuariosSelect = function (search) {
@@ -199,6 +212,7 @@ angular.module('appServices', [])
                                         ind_cambio_pass: $ctrl.ind_cambio_pass,
                                         contrasena_nueva: $ctrl.contrasena_nueva,
                                         confirma_contrasena: $ctrl.confirma_contrasena,
+                                        lang: LanguageService.getLanguage()
                                     };
                                     $ctrl.contrasena = '';
                                     $ctrl.ind_cambio_pass = '';
@@ -475,7 +489,7 @@ angular.module('appServices', [])
     }])
 
     // Organización
-    .factory('globalData', ['store', 'localData', '$http', 'cfg', '$q', 'spinCounter','$translate', function (store, localData, $http, cfg, $q, spinCounter,$translate) {
+    .factory('globalData', ['store', 'localData', '$http', 'cfg', '$q', 'spinCounter', '$translate', function (store, localData, $http, cfg, $q, spinCounter, $translate) {
         return {
             getCodEquipo() {
                 let id_disp_origen = false;
@@ -779,9 +793,9 @@ angular.module('appServices', [])
         };
 
         //const wsurl1 = wsprotocol + $location.host() + ':' + $location.port() + $location.path() + '/wssub/pantalla/input/io/estados/display_area54/movcred/common/?token=' + store.get('token') + "&cod_usuario=" + auth.getCodUsuario();
-        
+
         const fullURL = $location.absUrl().split('#')[0]
-        const wsurl  = fullURL.replace('http','ws').replace(/\/+$/, '') + '/wssub/pantalla/input/io/estados/display_area54/movcred/common/?token=' + store.get('token') + "&cod_usuario=" + auth.getCodUsuario();
+        const wsurl = fullURL.replace('http', 'ws').replace(/\/+$/, '') + '/wssub/pantalla/input/io/estados/display_area54/movcred/common/?token=' + store.get('token') + "&cod_usuario=" + auth.getCodUsuario();
 
         const rws = new ReconnectingWebSocket(wsurl, [], options);
         const messages = {
@@ -1540,8 +1554,8 @@ angular.module('appServices', [])
         };
     }])
 
-    .service('datosBack', ['$http', '$log', '$q', 'ModalService', 'cfg', 'spinCounter', 'globalData', 'store', '$rootScope','$translate',
-        function ($http, $log, $q, ModalService, cfg, spinCounter, globalData, store, $rootScope,$translate) {
+    .service('datosBack', ['$http', '$log', '$q', 'ModalService', 'cfg', 'spinCounter', 'globalData', 'store', '$rootScope', '$translate',
+        function ($http, $log, $q, ModalService, cfg, spinCounter, globalData, store, $rootScope, $translate) {
             const self = this;
             self.request_load = null;
             self.previousBackendStatus = 0;
@@ -1961,26 +1975,42 @@ angular.module('appServices', [])
         }
     }])
 
+
+    .service('LanguageService',['$translate','store', function ($translate,store) {
+        let currentLanguage = 'es'; // idioma por defecto
+        this.setLanguage = function (lang) {
+            currentLanguage = lang;
+            $translate.use(lang);
+            store.set('idioma',lang)
+        };
+
+        this.getLanguage = function () {
+            return currentLanguage;
+        };
+    }])
+
+
+
     .service('videoSvc', ['datosBack', function (datosBack) {
         const self = this;
         self.player = null
 
         self.start = function (id: string, video_url: string) {
             const video = document.getElementById(id) as HTMLMediaElement
-            
+
             try { self.player.destroy() } catch (e) { }
             self.player = MediaPlayer().create();
             self.player.initialize(video, video_url, true);
         };
 
-        self.stop = function () { 
+        self.stop = function () {
             try { self.player.destroy() } catch (e) { }
-        }        
+        }
 
     }])
 
 
-    .service('captureMedia', ['datosBack', '$rootScope', '$q','$translate', function (datosBack, $rootScope, $q, $translate) {
+    .service('captureMedia', ['datosBack', '$rootScope', '$q', '$translate', function (datosBack, $rootScope, $q, $translate) {
         const self = this;
         let inicializando = false;
         let mediastream = [];
@@ -2063,7 +2093,7 @@ angular.module('appServices', [])
                                 });
                             } else {
                                 $rootScope.$broadcast('pantalla', {
-                                    message: $translate.instant('Se encontraron {{COUNT}} dispositivo/s de captura', {COUNT:videoDevices.length}),
+                                    message: $translate.instant('Se encontraron {{COUNT}} dispositivo/s de captura', { COUNT: videoDevices.length }),
                                     level: 'info',
                                     level_class: 'info',
                                     level_img: 'info',
@@ -2155,7 +2185,7 @@ angular.module('appServices', [])
                     .catch(function (error) {
                         inicializando = false;
                         $rootScope.$broadcast('pantalla', {
-                            message: $translate.instant('Error listando dispositivos de captura')+' '+ error,
+                            message: $translate.instant('Error listando dispositivos de captura') + ' ' + error,
                             level: 'error',
                             level_class: 'danger',
                             level_img: 'warning',
@@ -2230,7 +2260,7 @@ angular.module('appServices', [])
     }])
 
 
-    .service('iconsLibSvc', ['$interval', 'datosBack','$translate', function ($interval, datosBack,$translate) {
+    .service('iconsLibSvc', ['$interval', 'datosBack', '$translate', function ($interval, datosBack, $translate) {
 
         import(  /* webpackPrefetch: -100 */ '!!raw-loader!./icon-library/icon-library.svg')
             .then(module => {
@@ -2243,28 +2273,28 @@ angular.module('appServices', [])
         const vm = this;
         vm.getIconList = () => {
             return [{ nom_icono: "Cartel", class: "cs-icon-cartel" },
-                { nom_icono: $translate.instant("Detector Humo"), class: "cs-icon-detector-humo" },
-                { nom_icono: $translate.instant("Pulsador"), class: "fab fa-uber" },
-                { nom_icono: $translate.instant("Espejo"), class: "cs-icon-espejo" },
-                { nom_icono: $translate.instant("Flash"), class: "cs-icon-flash" },
-                { nom_icono: $translate.instant("Lineal"), class: "cs-icon-lineal" },
-                { nom_icono: $translate.instant("Sirena"), class: "fas fa-volume-up" },
-                { nom_icono: $translate.instant("Central"), class: "cs-icon-central" },
-                { nom_icono: $translate.instant("Campana"), class: "cs-icon-campana" },
-                { nom_icono: $translate.instant("Bomba"), class: "cs-icon-bomba" },
-                { nom_icono: $translate.instant("Alarma Gral"), class: "cs-icon-alarma-gral" },
-                { nom_icono: $translate.instant("Moto Bomba"), class: "cs-icon-motobomba" },
-                { nom_icono: $translate.instant("Electro Bomba"), class: "cs-icon-electrobomba" },
-                { nom_icono: $translate.instant("Tanque Agua"), class: "cs-icon-tanqueagua" },
-                { nom_icono: $translate.instant("Control Acceso"), class: "cs-icon-controlacceso" },
-                { nom_icono: $translate.instant("Amplicación Extinción"), class: "cs-icon-ampliacionextincion" },
+            { nom_icono: $translate.instant("Detector Humo"), class: "cs-icon-detector-humo" },
+            { nom_icono: $translate.instant("Pulsador"), class: "fab fa-uber" },
+            { nom_icono: $translate.instant("Espejo"), class: "cs-icon-espejo" },
+            { nom_icono: $translate.instant("Flash"), class: "cs-icon-flash" },
+            { nom_icono: $translate.instant("Lineal"), class: "cs-icon-lineal" },
+            { nom_icono: $translate.instant("Sirena"), class: "fas fa-volume-up" },
+            { nom_icono: $translate.instant("Central"), class: "cs-icon-central" },
+            { nom_icono: $translate.instant("Campana"), class: "cs-icon-campana" },
+            { nom_icono: $translate.instant("Bomba"), class: "cs-icon-bomba" },
+            { nom_icono: $translate.instant("Alarma Gral"), class: "cs-icon-alarma-gral" },
+            { nom_icono: $translate.instant("Moto Bomba"), class: "cs-icon-motobomba" },
+            { nom_icono: $translate.instant("Electro Bomba"), class: "cs-icon-electrobomba" },
+            { nom_icono: $translate.instant("Tanque Agua"), class: "cs-icon-tanqueagua" },
+            { nom_icono: $translate.instant("Control Acceso"), class: "cs-icon-controlacceso" },
+            { nom_icono: $translate.instant("Amplicación Extinción"), class: "cs-icon-ampliacionextincion" },
 
-                { nom_icono: $translate.instant("Detector"), class: "fab fa-ubuntu" },
-                { nom_icono: $translate.instant("Puerta"), class: "fas fa-door-open" },
-                { nom_icono: $translate.instant("Lector huella"), class: "fas fa-fingerprint" },
-                { nom_icono: $translate.instant("Extinguidor"), class: "fas fa-fire-extinguisher" },
-                { nom_icono: $translate.instant("Cámara"), class: "fas fa-video" },
-                { nom_icono: $translate.instant("Extinguidor"), class: "fas fa-fire-extinguisher" },
+            { nom_icono: $translate.instant("Detector"), class: "fab fa-ubuntu" },
+            { nom_icono: $translate.instant("Puerta"), class: "fas fa-door-open" },
+            { nom_icono: $translate.instant("Lector huella"), class: "fas fa-fingerprint" },
+            { nom_icono: $translate.instant("Extinguidor"), class: "fas fa-fire-extinguisher" },
+            { nom_icono: $translate.instant("Cámara"), class: "fas fa-video" },
+            { nom_icono: $translate.instant("Extinguidor"), class: "fas fa-fire-extinguisher" },
             ];
         };
     }])

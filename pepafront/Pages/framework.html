@@ -22,8 +22,8 @@
         <div class="dropdown-menu" uib-dropdown-menu role="menu">
           <a ng-if="!body.isLogged" class="dropdown-item" ng-click="body.callLogin(true)"><i
               class="fas fa-sign-in-alt">&nbsp;</i><span translate>Ingresar</span></a>
-          <a ng-if="body.isLogged" class="dropdown-item" ui-sref=".logout"><i class="fas fa-sign-out-alt">&nbsp;</i><span
-              translate>Salir</span></a>
+          <a ng-if="body.isLogged" class="dropdown-item" ui-sref=".logout"><i
+              class="fas fa-sign-out-alt">&nbsp;</i><span translate>Salir</span></a>
           <div class="dropdown-divider"></div>
           <a ng-repeat="menu in body.menu" class="dropdown-item" ui-sref="{{menu.id}}({action:'lista'})">
             <i class="fa fa-{{menu.icon}}">&nbsp;</i><span ng-if="menu.name">{{menu.name}}</span>
@@ -39,16 +39,19 @@
 
       <div class="collapse navbar-collapse flex-column align-items-end">
         <div class="navbar-nav">
-              <ui-select ng-if="body.isLogged" class="btn btn-outline-light btn-sm" id="cod_ou" name="cod_ou" title="{{'Empresa'|translate}}"
-                style="width:14vw; padding-top: 0; padding-bottom: 0; color: white;" ng-model="body.cod_ou"
-                ng-change="body.fcambiaSelOU()" xng-options="item.cod_ou as item.nom_ou for item in body.codOuList" >
-                <ui-select-match placeholder="{{'Empresa'|translate}}"><span ng-bind="$select.selected.nom_ou"></span></ui-select-match>
-                <ui-select-choices repeat="item.cod_ou as item in body.codOuList | filter: $select.search">
-                  <div ng-bind-html="item.nom_ou | highlight: $select.search"></div>
-                </ui-select-choices>
-              </ui-select>
-              <button ng-if="! body.isLogged" class="btn btn-outline-light btn-sm mx-1" ng-click="body.callLogin(true)"><i
-              class="fa fa-user" translate translate-attr-title="Ingresar">&nbsp;</i><span translate>Ingresar<span></button>
+          <ui-select ng-if="body.isLogged" class="btn btn-outline-light btn-sm" id="cod_ou" name="cod_ou"
+            title="{{'Empresa'|translate}}" style="width:14vw; padding-top: 0; padding-bottom: 0; color: white;"
+            ng-model="body.cod_ou" ng-change="body.fcambiaSelOU()"
+            xng-options="item.cod_ou as item.nom_ou for item in body.codOuList">
+            <ui-select-match placeholder="{{'Empresa'|translate}}"><span
+                ng-bind="$select.selected.nom_ou"></span></ui-select-match>
+            <ui-select-choices repeat="item.cod_ou as item in body.codOuList | filter: $select.search">
+              <div ng-bind-html="item.nom_ou | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+          <button ng-if="! body.isLogged" class="btn btn-outline-light btn-sm mx-1" ng-click="body.callLogin(true)"><i
+              class="fa fa-user" translate translate-attr-title="Ingresar">&nbsp;</i><span
+              translate>Ingresar<span></button>
 
           <button ng-if="body.isLogged" class="btn btn-outline-danger btn-sm mx-1" ui-sref=".logout" translate
             translate-attr-title="Salir">Salir</button>
@@ -62,7 +65,7 @@
               aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle title="Menu" translate>Menu</button>
             <div class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu">
               <a ng-repeat="menu in body.menu" class="dropdown-item" ui-sref="{{menu.id}}({action:'lista'})">
-                <i class="fa fa-{{menu.icon}}"></i>&nbsp;<span ng-if="menu.name">{{menu.name}}</span>
+                <i class="fa fa-{{menu.icon}}">&nbsp;</i><span ng-if="menu.name">{{menu.name}}</span>
                 <div ng-if="menu.divider" class="dropdown-divider"></div>
               </a>
             </div>
@@ -71,6 +74,24 @@
           <button ng-model="body.bell" class="btn {{body.btn_bell_class}} mx-1 {{body.shake_bell_class}} btn-sm"
             ng-click="body.switchAudio()" title="Alarma"><i class="fa fa-bell"></i>
           </button>
+
+
+
+          <div class="drowdown" role="menu" uib-dropdown>
+            <button class="btn btn-outline-light dropdown-toggle mx-1 btn-sm" type="button" data-toggle="collapse" aria-haspopup="true"
+              aria-expanded="false" uib-dropdown-toggle title="menu">
+              <i class="fa fa-globe"></i>&nbsp;<span translate>Idioma</span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+              <li><a class="dropdown-item" href="#" ng-click="body.changeLanguage('es')">
+                  <i class="fa fa-flag" style="color: red;"></i> <span translate>Español</span>
+                </a></li>
+              <li><a class="dropdown-item" href="#" ng-click="body.changeLanguage('it')">
+                  <i class="fa fa-flag" style="color: green;"></i> <span translate>Italiano</span>
+                </a></li>
+            </ul>
+          </div>
+
 
         </div>
       </div>

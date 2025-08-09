@@ -10,9 +10,9 @@ const bodyDefault = {
     bindings: {},
     controllerAs: "body",
     controller: ['store', '$q', 'datosBack', '$scope', '$sce', '$filter', '$state',
-        'cfg', 'auth', 'ModalService', 'globalData', 'localData', '$transitions', 'sounds', 'realTimeData', 'captureMedia','broadcast','$interval','$translate',
+        'cfg', 'auth', 'ModalService', 'globalData', 'localData', '$transitions', 'sounds', 'realTimeData', 'captureMedia','broadcast','$interval','$translate','LanguageService',
         function (store, $q, datosBack, $scope, $sce, $filter,
-            $state, cfg, auth, ModalService, globalData, localData, $transitions, sounds, realTimeData, captureMedia, broadcast, $interval,$translate) {
+            $state, cfg, auth, ModalService, globalData, localData, $transitions, sounds, realTimeData, captureMedia, broadcast, $interval,$translate,LanguageService) {
 
             const vm = this;
 
@@ -156,6 +156,8 @@ const bodyDefault = {
             };
 
             vm.callLogin = auth.callLogin;
+
+            vm.changeLanguage = LanguageService.setLanguage;
 
             $scope.$on('estados', function (event, args) {
                 if (!args.context.EstadoDen)
