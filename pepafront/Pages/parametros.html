@@ -1,6 +1,6 @@
 <div class="titulo_menu">{{parametros.form_title}}</div>
 <uib-tabset active="parametros.active" class="bg-local-black">
-  <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+  <uib-tab index="0" heading="{{'Grilla'|translate}}" ui-sref=".({action:'lista'})">
     <div class="w-100">
       <grilla gridoptions="parametros.gridOptions" onclick-edit="parametros.toggle(accion)"
         onclick-add="parametros.toggle(accion)" onclick-copy="parametros.toggle(accion)"
@@ -9,7 +9,7 @@
         />
     </div>
   </uib-tab>
-  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="{{'Detalle'|translate}}">
     <div class="container-fluid">
       <div class="row justify-content-md-center w-100">
         <div class="col-md-6">
@@ -48,7 +48,7 @@
         <div class="row justify-content-md-center w-100">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="den_parametro" class="col-sm-10 label-adjust" translate>Parámetro <span
+              <label for="den_parametro" class="col-sm-10 label-adjust" translate>Parámetro<span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="den_parametro" name="den_parametro"
                 translate translate-attr-placeholder="Parámetro" ng-model="parametros.parametro.den_parametro" ng-required="true"
@@ -58,7 +58,7 @@
             </div>
 
             <div class="form-group">
-              <label for="val_parametro" class="col-sm-10 label-adjust" translate>Valor <span
+              <label for="val_parametro" class="col-sm-10 label-adjust" translate>Valor<span
                   class="field-required">*</span></label>
               <textarea class="form-control form-control-sm" id="val_parametro" name="val_parametro" translate translate-attr-placeholder="Valor"
                 style="width: 400px; height: 200px;" ng-model="parametros.parametro.val_parametro"
@@ -82,7 +82,7 @@
           <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
           <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
           <button dtcancela active-tab="parametros.active" hide-tab="parametros.hide" type="button"
-            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+            class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
           <button type="button" class="btn btn-outline-success btn-sm"
             ng-class="{'modal-button-primary': frmParametros.$valid, 'modal-button-primary-disabled': !(frmParametros.$valid && frmParametros.$dirty)} "
             ng-disabled="!(frmParametros.$dirty)" click-and-disable="parametros.ok()">&#160;<span translate>Grabar</span>&#160;</button>
@@ -91,8 +91,10 @@
     </div>
   </uib-tab>
 
-  <uib-tab index="5" ui-sref=".({action:'mensajeria'})" heading="Prueba Chat">
+  <uib-tab index="5" ui-sref=".({action:'mensajeria'})" heading="{{'Prueba Chat'|translate}}">
+
     <div class="container-fluid">
+    <p>HOLA</p>
       <ng-form name="frmParametros3" class="form-horizontal" novalidate ng-validator>
         <div class="row justify-content-md-center w-100">
           <div class="col-md-6">
@@ -110,7 +112,7 @@
           <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
           <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
           <button dtcancela hide-tab="parametros.hide" type="button"
-            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+            class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
           <button type="button" class="btn btn-outline-success btn-sm"
             ng-class="{'modal-button-primary': frmParametros3.$valid, 'modal-button-primary-disabled': !(frmParametros3.$valid && frmParametros3.$dirty)} "
             click-and-disable="parametros.sendchattest()">&#160;<span translate>Enviar</span>&#160;</button>
@@ -118,7 +120,7 @@
       </ng-form>
     </div>
   </uib-tab>
-  <uib-tab index="3" ui-sref=".({action:'mail'})" heading="Prueba Mail">
+  <uib-tab index="3" ui-sref=".({action:'mail'})" heading="{{'Prueba Mail'|translate}}">
     <div class="container-fluid">
       <ng-form name="frmParametros2" class="form-horizontal" novalidate ng-validator>
         <div class="row justify-content-md-center w-100">
@@ -156,7 +158,7 @@
           <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
           <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
           <button dtcancela hide-tab="parametros.hide" type="button"
-            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+            class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
           <button type="button" class="btn btn-outline-success btn-sm"
             ng-class="{'modal-button-primary': frmParametros2.$valid, 'modal-button-primary-disabled': !(frmParametros2.$valid && frmParametros2.$dirty)} "
             click-and-disable="parametros.sendmailtest()">&#160;<span  translate>Enviar</span>&#160;</button>
@@ -165,7 +167,7 @@
     </div>
   </uib-tab>
 
-  <uib-tab index="4" ui-sref=".({action:'procesos'})" heading="Gestión de procesos" class="clearfix">
+  <uib-tab index="4" ui-sref=".({action:'procesos'})" heading="{{'Gestión de procesos'|translate}}" class="clearfix">
     <div class="container-fluid">
       <ng-form name="frmProcesos" class="form-horizontal" novalidate ng-validator>
         <div class="row justify-content-md-center w-100">
@@ -191,7 +193,7 @@
         <div class="modal-footer p-2">
           <button type="button" class="btn btn-outline-success btn-sm"
             ng-class="{'modal-button-primary': frmProcesos.$valid, 'modal-button-primary-disabled': !(frmProcesos.$valid && frmProcesos.$dirty)} "
-            click-and-disable="parametros.resetDaemon()" translate>Reiniciar</button>
+            click-and-disable="parametros.resetDaemon()"><span translate>Reiniciar</span></button>
         </div>
       </ng-form>
     </div>

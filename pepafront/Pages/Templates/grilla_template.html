@@ -44,15 +44,15 @@
     <div class="d-flex mt-1 mb-1 justify-content-between">
       <div class="">
         <button class="btn btn-outline-primary btn-sm" ng-show="vm.addHasCallback()" ui-sref=".({action:'agrega'})"
-          xng-click="vm.onclickAdd({accion: 'add', selected: selected})" translate>Agregar</button>
+          xng-click="vm.onclickAdd({accion: 'add', selected: selected})" ><span translate>Agregar</span></button>
         <button class="btn btn-outline-light btn-sm" ng-show="vm.copyHasCallback() "
-          ng-click="vm.gotoSREF('.',{action: vm.copySref });" translate>Copiar</button>
+          ng-click="vm.gotoSREF('.',{action: vm.copySref });"><span translate>Copiar</span></button>
         <button class="btn btn-outline-warning btn-sm btn-detail" ng-show="vm.editHasCallback() "
-          ng-click="vm.gotoSREF('.',{action:'edita'});" translate>Modificar</button>
+          ng-click="vm.gotoSREF('.',{action:'edita'});" ><span translate>Modificar</span></button>
         <button class="btn btn-outline-danger btn-sm btn-delete" ng-show="vm.deleteHasCallback()"
-          ng-click="vm.onclickDelete({selected: vm.getSelected()})" translate>Eliminar</button>
+          ng-click="vm.onclickDelete({selected: vm.getSelected()})"><span translate>Eliminar</span></button>
         <button class="btn btn-outline-default btn-sm btn-detail" ng-show="vm.detailHasCallback()"
-          ng-click="vm.onclickDetail({selected: vm.getSelected()})" translate>Detalle</button>
+          ng-click="vm.onclickDetail({selected: vm.getSelected()})"><span translate>Detalle</span></button>
         <div class="btn-group" role="group" uib-dropdown ng-show="vm.exportHasCallback()">
           
           <button id="single-button" type="button" class="btn btn-outline-info btn-sm dropdown-toggle"
@@ -68,7 +68,7 @@
       <div class="">
         <ul uib-pagination total-items="vm.totalItems" items-per-page="vm.pageSize" ng-change="vm.cargaGrilla()" ng-model="vm.pageNumber"
           max-size="4" class="pagination-sm" boundary-links="true" num-pages="vm.totalPages" force-ellipses="true"
-          last-text="Última" next-text="Siguiente" first-text="Primera" previous-text="Anterior"
+          last-text="{{'Última' | translate}}" next-text="{{'Siguiente' | translate}}" first-text="{{'Primera' | translate}}" previous-text="{{'Anterior' | translate}}"
           style="margin-bottom: 0px;"></ul>
       </div>
       <div class="m-1 text-right"><span translate>Total:</span><span> {{ vm.totalItems}}</span>

@@ -5,8 +5,8 @@ const feriadosasisComponent =
   bindings: {
   },
   controllerAs: "feriadosasis",
-  controller: ['$timeout', 'datosBack', '$state',
-    function ($timeout, datosBack, $state) {
+  controller: ['$timeout', 'datosBack', '$state','$translate',
+    function ($timeout, datosBack, $state, $translate) {
       const vm = this;
       vm.form_title = 'Feriados (Asis)';
       vm.feriado = {};
@@ -79,7 +79,7 @@ const feriadosasisComponent =
 
         switch (action) {
           case 'agrega':
-            vm.action_title = 'Alta';
+            vm.action_title = $translate.instant('Alta');;
             
             vm.noteditable = false;
             vm.hide = false;
@@ -87,7 +87,7 @@ const feriadosasisComponent =
             break;
           case 'edita':
             if (dtkey && dtkey.length > 0) {
-              vm.action_title = 'Modificación';
+              vm.action_title = $translate.instant('Modificación');
               vm.noteditable = true;
               datosBack.detalle('feriadosasis', dtkey)
                 .then(function (response) {

@@ -1,6 +1,6 @@
 <div class="titulo_menu">{{unidadesorganiz.form_title}}</div>
 <uib-tabset active="unidadesorganiz.active" class="bg-local-black">
-    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <uib-tab index="0" heading="{{'Grilla'|translate}}" ui-sref=".({action:'lista'})">
         <div class="w-100">
             <grilla gridoptions="unidadesorganiz.gridOptions"
                     onclick-edit="unidadesorganiz.toggle(accion)"
@@ -13,7 +13,7 @@
                     />
         </div>
     </uib-tab>
-    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="{{'Detalle'|translate}}">
         <div class="container-fluid">
             <div class="row justify-content-md-center w-100">
                 <div class="col col-md-8">
@@ -124,7 +124,7 @@
                 <div class="modal-footer p-2">
                     <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
                     <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
-                    <button dtcancela hide-tab="unidadesorganiz.hide" type="button" class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                    <button dtcancela hide-tab="unidadesorganiz.hide" type="button" class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
                     <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmOU.$valid, 'modal-button-primary-disabled': !(frmOU.$valid && frmOU.$dirty)} " ng-disabled="!(frmOU.$dirty)" click-and-disable="unidadesorganiz.ok()">&#160;<span  translate>Grabar</span>&#160;</button>
                 </div>
             </ng-form>

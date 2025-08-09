@@ -1,6 +1,6 @@
 <div class="titulo_menu">{{registros.form_title}}</div>
 <uib-tabset active="registros.active" class="bg-local-black">
-  <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+  <uib-tab index="0" heading="{{'Grilla'|translate}}" ui-sref=".({action:'lista'})">
     <div class="w-100">
       <grilla gridoptions="registros.gridOptions" 
         onclick-edit="registros.toggle(accion)" onclick-add="registros.toggle(accion)"
@@ -10,7 +10,7 @@
         />
     </div>
   </uib-tab>
-  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="{{'Detalle'|translate}}">
     <div class="container-fluid">
       <div class="row justify-content-md-center w-100">
         <div class="col-md-6">
@@ -295,7 +295,7 @@
           <span class="legend-line">(<span class="field-required">*</span><span>: campo requerido</span>)</span>
           <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
           <button dtcancela hide-tab="registros.hide" type="button"
-            class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+            class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
           <button type="button" class="btn btn-outline-success btn-sm"
             ng-class="{'modal-button-primary': frmRegistros.$valid, 'modal-button-primary-disabled': !(frmRegistros.$valid && frmRegistros.$dirty)} "
             ng-disabled="!(frmRegistros.$dirty)" click-and-disable="registros.ok()">&#160;<span>Grabar</span>&#160;</button>
@@ -354,7 +354,7 @@
         </div>
         <div class="modal-footer p-2">
           <span class="legend-line">(<span class="field-required">*</span><span>: campo requerido</span>)</span>
-          <button dtcancela type="button" class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+          <button dtcancela type="button" class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
           <button type="button" class="btn btn-outline-success btn-sm"
             ng-class="{'modal-button-primary': frmUpdateReg.$valid, 'modal-button-primary-disabled': !(frmUpdateReg.$valid && frmUpdateReg.$dirty)} "
             ng-disabled="!(frmUpdateReg.$dirty)"

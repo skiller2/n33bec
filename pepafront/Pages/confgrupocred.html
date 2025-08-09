@@ -1,7 +1,7 @@
 <div class="titulo_menu">{{confgrupocred.form_title}}</div>
 
 <uib-tabset active="confgrupocred.active" class="bg-local-black">
-    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <uib-tab index="0" heading="{{'Grilla'|translate}}" ui-sref=".({action:'lista'})">
         <div class="w-100">
             <grilla gridoptions="confgrupocred.gridOptions"
                     onclick-edit="confgrupocred.toggle(accion)"
@@ -14,7 +14,7 @@
                     />
         </div>
     </uib-tab>
-    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="{{'Detalle'|translate}}">
         <div class="container-fluid">
                 <div class="row justify-content-md-center w-100">
                     <div class="col-md-6">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="modal-footer p-2">
                     <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
-                    <button dtcancela hide-tab="confgrupocred.hide" type="button" class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                    <button dtcancela hide-tab="confgrupocred.hide" type="button" class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
                     <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmConfGrupoCred.$valid, 'modal-button-primary-disabled': !(frmConfGrupoCred.$valid && frmConfGrupoCred.$dirty)} " ng-disabled="!(frmConfGrupoCred.$dirty)" click-and-disable="confgrupocred.ok()">&#160;<span translate>Grabar</span>&#160;</button>
                 </div>
             </ng-form>

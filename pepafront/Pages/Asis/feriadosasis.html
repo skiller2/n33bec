@@ -2,7 +2,7 @@
 
 <uib-tabset active="feriados.active" class="bg-local-black">
     <button type="button" class="btn btn-outline-warning btn-sm" click-and-disable="feriados.updateFeriados()">&#160;Actualiza Feriados&#160;</button>
-    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <uib-tab index="0" heading="{{'Grilla'|translate}}" ui-sref=".({action:'lista'})">
         <div class="w-100">
             <grilla gridoptions="feriados.gridOptions"
                     onclick-edit="feriados.toggle(accion)"
@@ -14,7 +14,7 @@
                     />
         </div>
     </uib-tab>
-    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="{{'Detalle'|translate}}">
         <div class="container-fluid">
             <div class="row justify-content-md-center w-100">
                 <div class="col-md-6">
@@ -60,7 +60,7 @@
                 <div class="modal-footer p-2">
                     <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
                     <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
-                    <button dtcancela hide-tab="feriados.hide" type="button" active-tab="feriados.active" hide-tab="feriados.hide" class="btn btn-outline-danger btn-sm">Cancelar</button>
+                    <button dtcancela hide-tab="feriados.hide" type="button" active-tab="feriados.active" hide-tab="feriados.hide" class="btn btn-outline-danger btn-sm"><span>Cancelar</span></button>
                     <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmFeriadosAsis.$valid, 'modal-button-primary-disabled': !(frmFeriadosAsis.$valid && frmFeriadosAsis.$dirty)} " ng-disabled="!(frmFeriadosAsis.$dirty)" click-and-disable="feriados.ok()">&#160;Grabar&#160;</button>
                 </div>
             </ng-form>

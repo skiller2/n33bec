@@ -1,7 +1,7 @@
 <div class="titulo_menu" translate>Habilitaciones</div>
 
 <uib-tabset active="habilitaciones.active" class="bg-local-black">
-  <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+  <uib-tab index="0" heading="{{'Grilla'|translate}}" ui-sref=".({action:'lista'})">
     <div class="w-100">
       <!--  <div>
                 <button type="file" ngf-select="habilitaciones.uploadFiles($file, $invalidFiles)"
@@ -25,7 +25,7 @@
         style="height: 520px;" />
     </div>
   </uib-tab>
-  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+  <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="{{'Detalle'|translate}}">
     <div class="container-fluid">
       <div class="row justify-content-md-center w-100">
         <div class="col-lg-3 col-md-6">
@@ -485,7 +485,7 @@
           <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
           <button dtcancela hide-tab="habilitaciones.hide" id="btn_cancel" type="button"
             class="btn btn-outline-danger btn-sm"
-            ng-click="habilitaciones.habilitacion = {};frmHabilitaciones.$setPristine();frmHabilitaciones.$setUntouched()" translate>Cancelar</button>
+            ng-click="habilitaciones.habilitacion = {};frmHabilitaciones.$setPristine();frmHabilitaciones.$setUntouched()" ><span translate>Cancelar</span></button>
           <button type="button" class="btn btn-outline-success btn-sm"
             ng-class="{'modal-button-primary': frmHabilitaciones.$valid, 'modal-button-primary-disabled': !(frmHabilitaciones.$valid && frmHabilitaciones.$dirty)} "
             ng-disabled="!(frmHabilitaciones.$dirty)"
@@ -573,7 +573,7 @@
           <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
           <button dtcancela hide-tab="habilitaciones.hide" id="btn_cancel" type="button"
             class="btn btn-outline-danger btn-sm"
-            ng-click="habilitaciones.habilitacionimp = {};frmHabilitacionesImporta.$setPristine();frmHabilitacionesImporta.$setUntouched()" translate>Cancelar</button>
+            ng-click="habilitaciones.habilitacionimp = {};frmHabilitacionesImporta.$setPristine();frmHabilitacionesImporta.$setUntouched()" ><span translate>Cancelar</span></button>
           <button type="button" class="btn btn-outline-success btn-sm"
             ng-class="{'modal-button-primary': frmHabilitaciones.$valid, 'modal-button-primary-disabled': !(frmHabilitacionesImporta.$valid && frmHabilitacionesImporta.$dirty)} "
             ng-disabled="!(frmHabilitacionesImporta.$dirty)"

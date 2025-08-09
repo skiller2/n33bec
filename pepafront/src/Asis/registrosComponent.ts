@@ -5,8 +5,8 @@ const registrosComponent =
   bindings: {
   },
   controllerAs: "registros",
-  controller: ['localData', 'datosBack', '$state', '$timeout',
-    function (localData, datosBack, $state, $timeout) {
+  controller: ['localData', 'datosBack', '$state', '$timeout','$translate',
+    function (localData, datosBack, $state, $timeout, $translate) {
       const vm = this;
       vm.form_title = 'Registros';
       vm.registro = {};
@@ -111,7 +111,7 @@ const registrosComponent =
 
         switch (action) {
           case 'agrega':
-            vm.action_title = 'Alta';
+            vm.action_title = $translate.instant('Alta');;
             
             vm.noteditable = false;
             vm.hide = false;
@@ -119,7 +119,7 @@ const registrosComponent =
             break;
           case 'edita':
             if (dtkey && dtkey.length > 0) {
-              vm.action_title = 'Modificación';
+              vm.action_title = $translate.instant('Modificación');
               vm.noteditable = true;
               datosBack.detalle('registros', dtkey)
                 .then(function (response) {

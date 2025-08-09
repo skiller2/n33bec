@@ -8,8 +8,8 @@
 </div>
 <webcamx channel="channel" on-streaming="onSuccess()" on-error="onError(err)" on-stream="onStream(stream)" style="width:100%" ></webcamx>
 <div class="btn-group btn-group-responsive" role="group">
-  <button class="btn btn-sm btn-outline-secondary" ng-click="takeSnapshot()" translate>Tomar foto</button>
-  <button class="btn btn-sm btn-outline-secondary" ng-click="adjuntar()" ng-show="showadjuntar" translate>Adjuntar</button>
-  <button class="btn btn-sm btn-outline-secondary" ng-click="borrarContenido()" translate>Limpiar</button>
+  <button class="btn btn-sm btn-outline-secondary" ng-click="takeSnapshot()"><span translate>Tomar foto</span></button>
+  <button class="btn btn-sm btn-outline-secondary" ng-click="adjuntar()" ng-show="showadjuntar"><span translate>Adjuntar</span></button>
+  <button class="btn btn-sm btn-outline-secondary" ng-click="borrarContenido()"><span translate>Limpiar</span></button>
 </div>
 <input id="adjunta_imagen" ng-show="false" type="file" accept="image/*"/>

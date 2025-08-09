@@ -5,10 +5,10 @@ const tiponovedadComponent =
   bindings: {
   },
   controllerAs: "tiponovedad",
-  controller: ['localData', 'datosBack', '$state', '$timeout',
-    function (localData, datosBack, $state, $timeout) {
+  controller: ['localData', 'datosBack', '$state', '$timeout','$translate',
+    function (localData, datosBack, $state, $timeout, $translate) {
       const vm = this;
-      vm.form_title = 'Tipo Novedad';
+      vm.form_title = $translate.instant('Tipo Novedad');
       vm.novedad = {};
       vm.novedad_dt = {};
       vm.action_title = '';
@@ -80,7 +80,7 @@ const tiponovedadComponent =
 
         switch (action) {
           case 'agrega':
-            vm.action_title = 'Alta';
+            vm.action_title = $translate.instant('Alta');;
             
             vm.noteditable = false;
             vm.hide = false;
@@ -88,7 +88,7 @@ const tiponovedadComponent =
             break;
           case 'edita':
             if (dtkey && dtkey.length > 0) {
-              vm.action_title = 'Modificación';
+              vm.action_title = $translate.instant('Modificación');
               vm.noteditable = true;
               datosBack.detalle('tiponovedad', dtkey)
                 .then(function (response) {

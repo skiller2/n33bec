@@ -5,8 +5,8 @@ const empleadosComponent =
   bindings: {
   },
   controllerAs: "empleados",
-  controller: ['localData', 'datosBack', '$state', '$timeout',
-    function (localData, datosBack, $state,$timeout) {
+  controller: ['localData', 'datosBack', '$state', '$timeout','$translate',
+    function (localData, datosBack, $state,$timeout,$translate) {
       const vm = this;
       vm.form_title = 'Empleados';
       vm.empleado = {};
@@ -96,7 +96,7 @@ const empleadosComponent =
 
         switch (action) {
           case 'agrega':
-            vm.action_title = 'Alta';
+            vm.action_title =$translate.instant('Alta');
             
             vm.noteditable = false;
             vm.hide = false;
@@ -106,7 +106,7 @@ const empleadosComponent =
             break;
           case 'copia':
             if (dtkey && dtkey.length > 0) {
-              vm.action_title = 'Alta';
+              vm.action_title =$translate.instant('Alta');;
               vm.noteditable = false;
               datosBack.detalle('empleados', dtkey)
                 .then(function (response) {
@@ -121,7 +121,7 @@ const empleadosComponent =
             break;
           case 'edita':
             if (dtkey && dtkey.length > 0) {
-              vm.action_title = 'Modificación';
+              vm.action_title = $translate.instant('Modificación');
               vm.noteditable = true;
               datosBack.detalle('empleados', dtkey)
                 .then(function (response) {

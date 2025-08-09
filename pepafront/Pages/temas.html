@@ -1,7 +1,7 @@
 <div class="titulo_menu">{{temas.form_title}}</div>
 
 <uib-tabset active="temas.active" class="bg-local-black">
-    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <uib-tab index="0" heading="{{'Grilla'|translate}}" ui-sref=".({action:'lista'})">
         <div class="w-100">
             <grilla gridoptions="temas.gridOptions" onclick-edit="temas.toggle(accion)"
                 onclick-add="temas.toggle(accion)" onclick-copy="temas.toggle(accion)"
@@ -9,7 +9,7 @@
                 class="d-flex flex-column w-100" style="height: 520px;" />
         </div>
     </uib-tab>
-    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="{{'Detalle'|translate}}">
         <div class="container-fluid">
             <div class="row justify-content-md-center w-100">
 
@@ -448,7 +448,7 @@
                     <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
                     <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
                     <button dtcancela hide-tab="temas.hide" type="button"
-                        class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                        class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
                     <button type="submit" class="btn btn-outline-success btn-sm"
                         ng-class="{'modal-button-primary': temas.frmTemas.$valid, 'modal-button-primary-disabled': !(temas.frmTemas.$valid && temas.frmTemas.$dirty)}"
                         ng-disabled="!(temas.frmTemas.$dirty)"
@@ -492,7 +492,7 @@
             </div>
 
 
-            <button class="btn btn-primary btn-xs" ng-click="temas.sendCommand(temas.send)" translate>Ejecuta comando</button>
+            <button class="btn btn-primary btn-xs" ng-click="temas.sendCommand(temas.send)" ><span translate>Ejecuta comando</span></button>
 
 
 
@@ -524,7 +524,7 @@
                     ng-model="temas.send.extra_data"></textarea>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary btn-xs" ng-click="temas.runEvent(temas.send,'')" translate>Ejecuta evento</button>
+                <button class="btn btn-primary btn-xs" ng-click="temas.runEvent(temas.send,'')" ><span translate>Ejecuta evento</span></button>
                 <button ng-if="temas.val_NO" class="btn btn-primary btn-xs"
                     ng-click="temas.runEvent(temas.send,temas.val_NO)" ><span translate>Ejecuta evento valor Normal:</span> {{ temas.val_NO }}</button>
                 <button ng-if="temas.val_AL" class="btn btn-primary btn-xs"

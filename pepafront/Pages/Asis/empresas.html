@@ -1,7 +1,7 @@
 <div class="titulo_menu">{{empresas.form_title}}</div>
 <uib-tabset active="empresas.active" class="bg-local-black">
     <button type="button" class="btn btn-outline-warning btn-sm" click-and-disable="empresas.updateEmpresas()">&#160;Actualiza Organización&#160;</button>
-    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <uib-tab index="0" heading="{{'Grilla'|translate}}" ui-sref=".({action:'lista'})">
         <div class="w-100">
             <grilla gridoptions="empresas.gridOptions"
                     urlback="empresas"
@@ -10,7 +10,7 @@
                     />
         </div>
     </uib-tab>
-    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="{{'Detalle'|translate}}">
         <div class="container-fluid">
             <div class="row justify-content-md-center w-100">
                 <div class="col-md-6">

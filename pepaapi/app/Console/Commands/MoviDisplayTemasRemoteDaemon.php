@@ -185,7 +185,7 @@ class MoviDisplayTemasRemoteDaemon extends Command
     {
         $cod_daemon = basename(__FILE__, ".php");
 
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => "Inicio proceso " . $cod_daemon));
+        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon])));
 
         $context = array(
             'msgtext' => "",

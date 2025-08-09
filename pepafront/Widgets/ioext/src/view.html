@@ -3,16 +3,16 @@
         <div class="{{widgetioext.io.led}}"></div>
     </div>
     <div class="form-group">
-        <label for="valor">Equipo</label>
+        <label for="valor" translate>Equipo</label>
         <span>{{config.cod_equipo}}</span>
     </div>
     <div class="form-group">
-        <label for="valor">Estado</label>        
+        <label for="valor" translate>Estado</label>        
         <span ng-show="config.direction == 'IN'">{{widgetioext.io.des_valor}}</span>
         <button ng-show="config.direction == 'OUT'" type="button" class="btn {{widgetioext.io.button}} btn-grid" ng-click="widgetioext.setData(widgetioext.io.nro,widgetioext.io.val)">{{widgetioext.io.val}}</button>
     </div>
     <div class="form-group">
-        <label for="contador">Contador</label>
+        <label for="contador" translate>Contador</label>
         <span>{{widgetioext.io.count}}</span>
     </div>    
 </div>

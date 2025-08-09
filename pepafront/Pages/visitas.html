@@ -1,7 +1,7 @@
 <div class="titulo_menu">Habilitación Visita</div>
 
 <uib-tabset active="visitas.active" class="bg-local-black">
-    <uib-tab index="0" heading="Grilla" ui-sref=".({action:'lista'})">
+    <uib-tab index="0" heading="{{'Grilla'|translate}}" ui-sref=".({action:'lista'})">
         <div class="w-100">
             <grilla gridoptions="visitas.gridOptions" filtroextra="visitas.filtroextra"
                 onclick-edit="visitas.toggle(accion)" onclick-add="visitas.toggle(accion)"
@@ -11,7 +11,7 @@
                 api="visitas.grilla=API" check-ou="true" class="d-flex flex-column w-100" style="height: 520px;" />
         </div>
     </uib-tab>
-    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="Detalle">
+    <uib-tab index="1" ui-sref=".({action:'detalle'})" heading="{{'Detalle'|translate}}">
         <div class="container-fluid">
             <div class="row justify-content-md-center w-100">
                 <div class="col-lg-4 col-md-6">
@@ -516,7 +516,7 @@
                 <div class="modal-footer p-2">
                     <span class="legend-line">(<span class='field-required'>*</span>: campo requerido)</span>
                     <button dtcancela hide-tab="visitas.hide" type="button"
-                        class="btn btn-outline-danger btn-sm" translate>Cancelar</button>
+                        class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
                     <button type="button" class="btn btn-outline-success btn-sm"
                         ng-class="{'modal-button-primary': frmHabilitaciones.$valid, 'modal-button-primary-disabled': !(frmHabilitaciones.$valid && frmHabilitaciones.$dirty)} "
                         ng-disabled="!(frmHabilitaciones.$dirty)"
