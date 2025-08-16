@@ -45,7 +45,7 @@ module.exports = {
             'Access-Control-Allow-Origin': 'https://drive.google.com',
         },
         proxy: {
-            '/api': {
+            '/apiLoc': {
                 target: 'http://localhost:8091/public',
                 //                target: 'http://localhost:9002',
                 headers: {
@@ -78,8 +78,8 @@ module.exports = {
                 secure: true,
                 changeOrigin: true,
             },
-            '/apiX': { //FourSeasons
-                target: 'http://10.8.0.7/',
+            '/api': { //FourSeasons
+                target: 'http://10.8.0.21/',
                 secure: true,
                 changeOrigin: true,
             },

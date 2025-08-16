@@ -2024,7 +2024,7 @@ angular.module('appServices', [])
 
 
             $rootScope.$broadcast('pantalla', {
-                message: $translate.instant('Buscando dispositivos de captura de imagen'),
+                message: $translate.instant("Buscando dispositivos de captura de imagen"),
                 level: 'info',
                 level_class: 'info',
                 level_img: 'info',
