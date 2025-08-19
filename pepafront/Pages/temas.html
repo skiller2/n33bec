@@ -15,7 +15,8 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="cod_tema_dt" class="col-sm-10 label-adjust" translate>Identificación Componente</label>
+                        <label for="cod_tema_dt" class="col-sm-10 label-adjust" translate>Identificación
+                            Componente</label>
                         <input type="text" class="form-control form-control-sm" id="cod_tema_dt" name="cod_tema_dt"
                             ng-model="temas.tema_dt.cod_tema" readonly>
                     </div>
@@ -28,15 +29,24 @@
 
                     <div class="form-group">
                         <label for="cod_sector_dt" class="col-sm-10 label-adjust" translate>Sector</label>
-                        <select class="form-control form-control-sm" id="cod_sector_dt" name="cod_sector_dt"
-                            ng-model="temas.tema_dt.cod_sector" disabled
-                            ng-options="item.cod_sector as item.nom_tema for item in temas.sectoresList">
-                        </select>
+
+                        <ui-select ng-model="temas.tema_dt.cod_sector" class="form-control form-control-sm" disabled>
+                            <ui-select-match ui-lock-choice="true" placeholder="{{'Sector'|translate}}"><span ng-bind="$select.selected.nom_tema"></span></ui-select-match>
+                            <ui-select-choices repeat="sector.id as sector in temas.sectoresList | filter: $select.search">
+                                <div ng-bind-html="sector.nom_tema | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
+
                     </div>
 
                     <div class="form-group ">
-                        <label for="cod_clase_dt" class="col-sm-10 label-adjust" translate>Clase <span
+                        <label for="cod_clase_dt" class="col-sm-10 label-adjust" translate>Clase<span
                                 class="field-required">*</span></label>
+
+
+
+
                         <select class="form-control form-control-sm" id="cod_clase_dt" name="cod_clase_dt"
                             ng-model="temas.tema_dt.cod_clase" disabled
                             ng-options="item.cod_clase as item.nom_clase for item in temas.clasesList">
@@ -55,7 +65,8 @@
                     <div class="form-group ">
                         <label for="url_envio_dt" class="col-sm-10 label-adjust" translate>URL Envío</label>
                         <input type="text" class="form-control form-control-sm" id="url_envi_dt" name="url_envio_dt"
-                            translate translate-attr-placeholder="URL Envío" ng-model="temas.tema_dt.url_envio" readonly>
+                            translate translate-attr-placeholder="URL Envío" ng-model="temas.tema_dt.url_envio"
+                            readonly>
                     </div>
 
                     <div class="form-group ">
@@ -65,25 +76,29 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_mostrar_en_panel_dt" class="col-sm-10 label-adjust" translate>Mostrar En Panel</label>
+                        <label for="ind_mostrar_en_panel_dt" class="col-sm-10 label-adjust" translate>Mostrar En
+                            Panel</label>
                         <input class="checkbox" type="checkbox" id="ind_mostrar_en_panel_dt"
                             name="ind_mostrar_en_panel_dt" ng-model="temas.tema_dt.ind_mostrar_en_panel" disabled>
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_registra_evento_dt" class="col-sm-10 label-adjust" translate>Registra Evento</label>
+                        <label for="ind_registra_evento_dt" class="col-sm-10 label-adjust" translate>Registra
+                            Evento</label>
                         <input class="checkbox" type="checkbox" id="ind_registra_evento_dt"
                             name="ind_registra_evento_dt" ng-model="temas.tema_dt.ind_registra_evento" disabled>
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_display_evento_dt" class="col-sm-10 label-adjust" translate>Muestra Evento Display</label>
+                        <label for="ind_display_evento_dt" class="col-sm-10 label-adjust" translate>Muestra Evento
+                            Display</label>
                         <input class="checkbox" type="checkbox" id="ind_display_evento_dt" name="ind_display_evento_dt"
                             ng-model="temas.tema_dt.ind_display_evento" disabled>
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_notifica_evento_dt" class="col-sm-10 label-adjust" translate>Notifica Evento</label>
+                        <label for="ind_notifica_evento_dt" class="col-sm-10 label-adjust" translate>Notifica
+                            Evento</label>
                         <input class="checkbox" type="checkbox" id="ind_notifica_evento_dt"
                             name="ind_notifica_evento_dt" ng-model="temas.tema_dt.ind_notifica_evento" disabled>
                     </div>
@@ -123,7 +138,8 @@
                     <div class="form-group ">
                         <label for="pos_img_x_dt" class="col-sm label-adjust" translate>Pos. X (px)</label>
                         <input type="text" class="form-control form-control-sm" id="pos_img_x_dt" name="pos_img_x_dt"
-                            translate translate-attr-placeholder="Posición X" ng-model="temas.tema_dt.json_posicion_img.left" readonly>
+                            translate translate-attr-placeholder="Posición X"
+                            ng-model="temas.tema_dt.json_posicion_img.left" readonly>
                     </div>
 
                 </div>
@@ -132,7 +148,8 @@
                     <div class="form-group ">
                         <label for="pos_img_y_dt" class="col-sm label-adjust" translate>Pos. Y (px)</label>
                         <input type="text" class="form-control form-control-sm" id="pos_img_y_dt" name="pos_img_y_dt"
-                            translate translate-attr-placeholder="Posición Y" ng-model="temas.tema_dt.json_posicion_img.top" readonly>
+                            translate translate-attr-placeholder="Posición Y"
+                            ng-model="temas.tema_dt.json_posicion_img.top" readonly>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -140,8 +157,8 @@
                     <div class="form-group ">
                         <label for="pos_img_tam_dt" class="col-sm label-adjust" translate>Tamaño</label>
                         <input type="text" class="form-control form-control-sm" id="pos_img_tam_dt"
-                            name="pos_img_tam_dt" translate translate-attr-placeholder="Tamaño" ng-model="temas.tema_dt.json_posicion_img.width"
-                            readonly>
+                            name="pos_img_tam_dt" translate translate-attr-placeholder="Tamaño"
+                            ng-model="temas.tema_dt.json_posicion_img.width" readonly>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -215,10 +232,11 @@
             <div class="row justify-content-md-center w-100">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
+                        <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de
+                            componentes</label>
                         <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt"
-                            name="cant_cod_tema_dt" translate translate-attr-placeholder="Cantidad" ng-model="temas.sector.cant_cod_tema"
-                            readonly>
+                            name="cant_cod_tema_dt" translate translate-attr-placeholder="Cantidad"
+                            ng-model="temas.sector.cant_cod_tema" readonly>
                     </div>
                 </div>
             </div>
@@ -232,45 +250,58 @@
 
                     <div class="col-md-4">
                         <div class="form-group" ng-class="{'has-warning' : temas.frmTemas.cod_tema.$dirty}">
-                            <label for="cod_tema" class="col-sm-10 label-adjust" translate>Identificación Componente<span
-                                    class="field-required">*</span></label>
+                            <label for="cod_tema" class="col-sm-10 label-adjust" translate>Identificación
+                                Componente<span class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="cod_tema" name="cod_tema"
-                                translate translate-attr-placeholder="Identificación Componente" ng-model="temas.tema.cod_tema"
-                                ng-required="true" xng-readonly="temas.noteditable">
+                                translate translate-attr-placeholder="Identificación Componente"
+                                ng-model="temas.tema.cod_tema" ng-required="true" xng-readonly="temas.noteditable">
                             <span class="help-inline"
-                                ng-show="temas.frmTemas.cod_tema.$invalid && temas.frmTemas.cod_tema.$touched" translate>Debe ingresar una identificación de componente</span>
+                                ng-show="temas.frmTemas.cod_tema.$invalid && temas.frmTemas.cod_tema.$touched"
+                                translate>Debe ingresar una identificación de componente</span>
                         </div>
 
                         <div class="form-group">
                             <label for="nom_tema" class="col-sm-10 label-adjust" translate>Etiqueta <span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="nom_tema" name="nom_tema"
-                                translate translate-attr-placeholder="Tema" ng-model="temas.tema.nom_tema" ng-required="true">
+                                translate translate-attr-placeholder="Tema" ng-model="temas.tema.nom_tema"
+                                ng-required="true">
                             <span class="help-inline"
-                                ng-show="temas.frmTemas.nom_tema.$invalid && temas.frmTemas.nom_tema.$touched" translate>Debe ingresar una Etiqueta</span>
+                                ng-show="temas.frmTemas.nom_tema.$invalid && temas.frmTemas.nom_tema.$touched"
+                                translate>Debe ingresar una Etiqueta</span>
                         </div>
 
                         <div class="form-group ">
-                            <label for="cod_sector" class="col-sm-10 label-adjust" translate>Sector <span
+                            <label for="cod_sector" class="col-sm-10 label-adjust" translate>Sector<span
                                     class="field-required">*</span></label>
-                            <select class="form-control form-control-sm" id="cod_sector" name="cod_sector"
-                                ng-model="temas.tema.cod_sector" ng-required="true"
-                                ng-change="temas.loadSectorImg(temas.tema.cod_sector)"
-                                ng-options="item.cod_sector as item.nom_tema for item in temas.sectoresList">
-                            </select>
+
+                        <ui-select ng-model="temas.tema.cod_sector" 
+                            class="form-control form-control-sm"  aria-hidden=true>
+                            <ui-select-match ui-lock-choice="true" placeholder="{{'Sector'|translate}}">
+                            <span ng-bind="$select.selected.nom_tema"></span> 
+                            </ui-select-match>
+                            
+                            <ui-select-choices
+                                repeat="sector.id as sector in temas.sectoresList | filter: $select.search">
+                                <div ng-bind-html="sector.nom_tema | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+
                             <span class="help-inline"
-                                ng-show="temas.frmTemas.cod_sector.$invalid && temas.frmTemas.cod_sector.$touched" translate>Debe seleccionar un Sector</span>
+                                ng-show="temas.frmTemas.cod_sector.$invalid && temas.frmTemas.cod_sector.$touched"
+                                translate>Debe seleccionar un Sector</span>
                         </div>
 
                         <div class="form-group ">
-                            <label for="cod_clase" class="col-sm-10 label-adjust" translate>Clase <span
+                            <label for="cod_clase" class="col-sm-10 label-adjust" translate>Clase<span
                                     class="field-required">*</span></label>
                             <select class="form-control form-control-sm" id="cod_clase" name="cod_clase"
                                 ng-model="temas.tema.cod_clase" ng-required="true"
                                 ng-options="item.cod_clase as item.nom_clase for item in temas.clasesList">
                             </select>
                             <span class="help-inline"
-                                ng-show="temas.frmTemas.cod_clase.$invalid && temas.frmTemas.cod_clase.$touched" translate>Debe seleccionar una Clase</span>
+                                ng-show="temas.frmTemas.cod_clase.$invalid && temas.frmTemas.cod_clase.$touched"
+                                translate>Debe seleccionar una Clase</span>
                         </div>
 
 
@@ -282,48 +313,56 @@
                                 ng-options="item.id as item.name for item in temas.tipoUsoList">
                             </select>
                             <span class="help-inline"
-                                ng-show="temas.frmTemas.cod_tipo_uso.$invalid && temas.frmTemas.cod_tipo_uso.$touched" translate>Debe seleccionar un Tipo Uso</span>
+                                ng-show="temas.frmTemas.cod_tipo_uso.$invalid && temas.frmTemas.cod_tipo_uso.$touched"
+                                translate>Debe seleccionar un Tipo Uso</span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group ">
                             <label for="url_envio" class="col-sm-10 label-adjust" translate>URL Envío</label>
                             <input type="text" class="form-control form-control-sm" id="url_envio" name="url_envio"
-                                translate translate-attr-placeholder="URL Envío" ng-model="temas.tema.url_envio" ng-required="false">
+                                translate translate-attr-placeholder="URL Envío" ng-model="temas.tema.url_envio"
+                                ng-required="false">
                             <span class="help-inline"
-                                ng-show="temas.frmTemas.url_envio.$invalid && temas.frmTemas.url_envio.$touched" translate>Debe seleccionar URL envío</span>
+                                ng-show="temas.frmTemas.url_envio.$invalid && temas.frmTemas.url_envio.$touched"
+                                translate>Debe seleccionar URL envío</span>
                         </div>
 
                         <div class="form-group ">
                             <label for="des_ubicacion" class="col-sm-10 label-adjust" translate>Ubicación <span
                                     class="field-required">*</span></label>
                             <input type="text" class="form-control form-control-sm" id="des_ubicacion"
-                                name="des_ubicacion" translate translate-attr-placeholder="Ubicación" ng-model="temas.tema.des_ubicacion"
-                                ng-required="true">
+                                name="des_ubicacion" translate translate-attr-placeholder="Ubicación"
+                                ng-model="temas.tema.des_ubicacion" ng-required="true">
                             <span class="help-inline"
-                                ng-show="temas.frmTemas.des_ubicacion.$invalid && temas.frmTemas.des_ubicacion.$touched" translate>Debe seleccionar una Ubicación</span>
+                                ng-show="temas.frmTemas.des_ubicacion.$invalid && temas.frmTemas.des_ubicacion.$touched"
+                                translate>Debe seleccionar una Ubicación</span>
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_mostrar_en_panel" class="col-sm-10 label-adjust" translate>Mostrar En Panel</label>
+                            <label for="ind_mostrar_en_panel" class="col-sm-10 label-adjust" translate>Mostrar En
+                                Panel</label>
                             <input class="checkbox" type="checkbox" id="ind_mostrar_en_panel"
                                 name="ind_mostrar_en_panel" ng-model="temas.tema.ind_mostrar_en_panel">
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_registra_evento" class="col-sm-10 label-adjust" translate>Registra Evento</label>
+                            <label for="ind_registra_evento" class="col-sm-10 label-adjust" translate>Registra
+                                Evento</label>
                             <input class="checkbox" type="checkbox" id="ind_registra_evento" name="ind_registra_evento"
                                 ng-model="temas.tema.ind_registra_evento">
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_display_evento" class="col-sm-10 label-adjust" translate>Muestra Evento Display</label>
+                            <label for="ind_display_evento" class="col-sm-10 label-adjust" translate>Muestra Evento
+                                Display</label>
                             <input class="checkbox" type="checkbox" id="ind_display_evento" name="ind_display_evento"
                                 ng-model="temas.tema.ind_display_evento">
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_notifica_evento" class="col-sm-10 label-adjust" translate>Notifica Evento</label>
+                            <label for="ind_notifica_evento" class="col-sm-10 label-adjust" translate>Notifica
+                                Evento</label>
                             <input class="checkbox" type="checkbox" id="ind_notifica_evento" name="ind_notifica_evento"
                                 ng-model="temas.tema.ind_notifica_evento">
                         </div>
@@ -370,7 +409,8 @@
                         <div class="form-group ">
                             <label for="pos_img_x" class="col-sm-10 label-adjust" translate>Pos. X (px)</label>
                             <input type="text" class="form-control form-control-sm" id="pos_img_x" name="pos_img_x"
-                                translate translate-attr-placeholder="Posición X" ng-model="temas.tema.json_posicion_img.left"
+                                translate translate-attr-placeholder="Posición X"
+                                ng-model="temas.tema.json_posicion_img.left"
                                 ng-change="temas.onChangeIconData(temas.tema)" numbers-only>
                         </div>
                     </div>
@@ -379,7 +419,8 @@
                         <div class="form-group ">
                             <label for="pos_img_y" class="col-sm-10 label-adjust" translate>Pos. Y (px)</label>
                             <input type="text" class="form-control form-control-sm" id="pos_img_y" name="pos_img_y"
-                                translate translate-attr-placeholder="Posición Y" ng-model="temas.tema.json_posicion_img.top"
+                                translate translate-attr-placeholder="Posición Y"
+                                ng-model="temas.tema.json_posicion_img.top"
                                 ng-change="temas.onChangeIconData(temas.tema)" numbers-only>
                         </div>
                     </div>
@@ -388,7 +429,8 @@
                         <div class="form-group ">
                             <label for="pos_img_tam" class="col-sm-10 label-adjust" translate>Tamaño (px)</label>
                             <input type="text" class="form-control form-control-sm" id="pos_img_tam" name="pos_img_tam"
-                                translate translate-attr-placeholder="Tamaño" ng-model="temas.tema.json_posicion_img.width"
+                                translate translate-attr-placeholder="Tamaño"
+                                ng-model="temas.tema.json_posicion_img.width"
                                 ng-change="temas.onChangeIconData(temas.tema)" numbers-only>
                         </div>
                     </div>
@@ -447,12 +489,12 @@
                 <div class="modal-footer p-2">
                     <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
                     <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
-                    <button dtcancela hide-tab="temas.hide" type="button"
-                        class="btn btn-outline-danger btn-sm" ><span translate>Cancelar</span></button>
+                    <button dtcancela hide-tab="temas.hide" type="button" class="btn btn-outline-danger btn-sm"><span
+                            translate>Cancelar</span></button>
                     <button type="submit" class="btn btn-outline-success btn-sm"
                         ng-class="{'modal-button-primary': temas.frmTemas.$valid, 'modal-button-primary-disabled': !(temas.frmTemas.$valid && temas.frmTemas.$dirty)}"
-                        ng-disabled="!(temas.frmTemas.$dirty)"
-                        click-and-disable="temas.ok()">&#160;<span translate>Grabar</span>&#160;</button>
+                        ng-disabled="!(temas.frmTemas.$dirty)" click-and-disable="temas.ok()">&#160;<span
+                            translate>Grabar</span>&#160;</button>
                 </div>
             </form>
         </div>
@@ -461,9 +503,14 @@
         <div class="col-md-6 col-lg-5">
             <div class="form-group">
                 <label for="send_cod_tema" class="col-sm-10 label-adjust" translate>Componente</label>
-                <select class="form-control form-control-sm" id="send_cod_tema" ng-model="temas.send.cod_tema"
-                    ng-options="key as value.cod_tema for (key,value) in temas.listaTemas">
-                </select>
+
+
+                <ui-select id="send_cod_tema" ng-model="temas.send.cod_tema" class="form-control form-control-sm">
+                    <ui-select-match ui-lock-choice="true" placeholder="{{'Tema'|translate}}"><span ng-bind="$select.selected.value.des_tema"></span></ui-select-match>
+                    <ui-select-choices repeat="tema.key as (key,tema) in temas.listaTemas | filter: $select.search"">
+                        <div ng-bind-html="tema.value.des_tema | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
             </div>
 
             <div class="form-group">
@@ -492,7 +539,8 @@
             </div>
 
 
-            <button class="btn btn-primary btn-xs" ng-click="temas.sendCommand(temas.send)" ><span translate>Ejecuta comando</span></button>
+            <button class="btn btn-primary btn-xs" ng-click="temas.sendCommand(temas.send)"><span translate>Ejecuta
+                    comando</span></button>
 
 
 
@@ -502,13 +550,15 @@
         <div class="col-md-6 col-lg-5">
             <div class="form-group">
                 <label for="send_cod_tema" class="col-sm-10 label-adjust" translate>Componente</label>
-                <select class="form-control form-control-sm" id="send_cod_tema" ng-model="temas.send.cod_tema"
-                    ng-change="temas.onChangeTema(temas.send.cod_tema)">
-                    <option ng-repeat="(key,tema) in temas.listaTemas" value="{{tema.cod_tema}}"
-                        title="{{tema.cod_tema}}">
-                        {{tema.nom_tema}}
-                    </option>
-                </select>
+
+
+                <ui-select id="send_cod_tema" ng-model="temas.send.cod_tema" class="form-control form-control-sm" ng-change="temas.onChangeTema(temas.send.cod_tema)">
+                    <ui-select-match ui-lock-choice="true" placeholder="{{'Tema'|translate}}"><span ng-bind="$select.selected.value.des_tema"></span></ui-select-match>
+                    <ui-select-choices repeat="tema.key as (key,tema) in temas.listaTemas | filter: $select.search"">
+                        <div ng-bind-html="tema.value.des_tema | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+
                 <div class="form-group">
                     <label class="col-sm-10 label-adjust" translate>Código componente</label>
                     <input type="text" class="form-control form-control-sm" ng-model="temas.send.cod_tema" readonly>
@@ -524,13 +574,17 @@
                     ng-model="temas.send.extra_data"></textarea>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary btn-xs" ng-click="temas.runEvent(temas.send,'')" ><span translate>Ejecuta evento</span></button>
+                <button class="btn btn-primary btn-xs" ng-click="temas.runEvent(temas.send,'')"><span translate>Ejecuta
+                        evento</span></button>
                 <button ng-if="temas.val_NO" class="btn btn-primary btn-xs"
-                    ng-click="temas.runEvent(temas.send,temas.val_NO)" ><span translate>Ejecuta evento valor Normal:</span> {{ temas.val_NO }}</button>
+                    ng-click="temas.runEvent(temas.send,temas.val_NO)"><span translate>Ejecuta evento valor
+                        Normal:</span> {{ temas.val_NO }}</button>
                 <button ng-if="temas.val_AL" class="btn btn-primary btn-xs"
-                    ng-click="temas.runEvent(temas.send,temas.val_AL)" ><span translate>Ejecuta evento valor Alarma:</span> {{ temas.val_AL }}</button>
+                    ng-click="temas.runEvent(temas.send,temas.val_AL)"><span translate>Ejecuta evento valor
+                        Alarma:</span> {{ temas.val_AL }}</button>
                 <button ng-if="temas.valor_omision" class="btn btn-primary btn-xs"
-                    ng-click="temas.runEvent(temas.send,temas.valor_omision)" ><span translate>Ejecuta evento valor Omisión:</span> {{ temas.valor_omision }}</button>
+                    ng-click="temas.runEvent(temas.send,temas.valor_omision)"><span translate>Ejecuta evento valor
+                        Omisión:</span> {{ temas.valor_omision }}</button>
             </div>
         </div>
     </uib-tab>

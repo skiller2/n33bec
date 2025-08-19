@@ -191,6 +191,7 @@ const temasComponent =
                             datosBack.detalle('temas', dtkey, false)
                                 .then(function (response) {
                                     vm.tema = response.data;
+                                    vm.tema.cod_sector = Number(response.data.cod_sector)
                                     vm.tema.cod_tema = '';
                                     vm.tema.tipo_habilitaciones = response.data.tipo_habilitaciones;
                                     vm.hide = false;
@@ -214,6 +215,8 @@ const temasComponent =
                             datosBack.detalle('temas', dtkey, false)
                                 .then(function (response) {
                                     vm.tema = response.data;
+                                    vm.tema.cod_sector = Number(response.data.cod_sector)
+
                                     vm.tema.tipo_habilitaciones = response.data.tipo_habilitaciones;
                                     vm.hide = false;
                                     vm.tema.img_tema = "";
@@ -266,6 +269,7 @@ const temasComponent =
                     datosBack.detalle('temas', dtkey, false)
                         .then(function (response) {
                             vm.tema_dt = response.data;
+                            vm.tema_dt.cod_sector = Number(response.data.cod_sector)
                             vm.tema_dt.tipo_habilitaciones = response.data.tipo_habilitaciones;
                             //                            vm.sector_imgiconos = vm.tema_dt.json_posicion_img;
                             vm.tema_dt.img_hash = btoa(JSON.stringify(dtkey));

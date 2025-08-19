@@ -30,7 +30,7 @@
 
                     <div class="form-group">
                         <label for="obj_permisos" class="col-sm-10 label-adjust" translate>Permisos</label>
-                        <ui-select multiple ng-model="usuarios.usuario.obj_permisos" append-to-body="true"
+                        <ui-select multiple ng-model="usuarios.usuario_dt.obj_permisos" append-to-body="true"
                             close-on-select="false" disabled="">
                             <ui-select-match ui-lock-choice="true"  placeholder="{{'Permiso'|translate}}"><span>{{$item.nom}}</span></ui-select-match>
                             <ui-select-choices
@@ -67,7 +67,9 @@
                         <label for="lector_dt" class="col-sm-10 label-adjust" translate>Lector</label>
                         <ui-select class="form-control form-control-sm" id="lector_dt" name="lector_dt"
                             ng-model="usuarios.usuario_dt.cod_tema_lector" disabled=""
-                            ng-options="key as value.descripcion for (key,value) in usuarios.lectores">
+                            ng-options="key as value.descripcion for (key,value) in usuarios.lectores"
+                            
+                            >
                         </ui-select>
                     </div>
 
@@ -88,17 +90,17 @@
 
                     <div class="form-group ">
                         <label for="sector_default_dt" class="col-sm-10 label-adjust" translate>Sector Default Visita</label>
-                        <ui-select class="form-control form-control-sm" id="sector_default_dt" name="sector_default_dt"
-                            ng-model="usuarios.usuario_dt.sector_default" disabled=""
-                            xng-options="item.cod_sector as item.nom_sector for item in usuarios.obj_sectores">
-                            <ui-select-match placeholder="{{'Sector'|translate}}"><span
-                                    ng-bind="$select.selected.nom_sector"></span></ui-select-match>
-                            <ui-select-choices
-                                repeat="item.cod_sector as item in usuarios.obj_sectores | filter: $select.search">
-                                <div ng-bind-html="item.nom_sector | highlight: $select.search"></div>
-                            </ui-select-choices>
+                            <ui-select class="form-control form-control-sm" id="sector_default_dt" name="sector_default_dt"
+                                ng-model="usuarios.usuario_dt.sector_default" disabled=""
+                                >
+                                <ui-select-match placeholder="{{'Sector'|translate}}"><span
+                                        ng-bind="$select.selected.nom_sector"></span></ui-select-match>
+                                <ui-select-choices
+                                    repeat="item.cod_sector as item in usuarios.obj_sectores | filter: $select.search">
+                                    <div ng-bind-html="item.nom_sector | highlight: $select.search"></div>
+                                </ui-select-choices>
 
-                        </ui-select>
+                            </ui-select>
                     </div>
 
                     <div class="form-group">
@@ -107,7 +109,7 @@
                             ng-model="usuarios.usuario_dt.esquema_default" disabled=""
                             xng-options="item.cod_esquema_acceso as item.des_esquema_acceso for item in usuarios.obj_esquemas"
                             >
-                            <ui-select-match placeholder="{{'Esquema'|translate}}"><span>{{$item.des_esquema_acceso}}</span></ui-select-match>
+                            <ui-select-match ui-lock-choice="true" placeholder="{{'Esquema'|translate}}"><span>{{$select.selected.des_esquema_acceso}}</span></ui-select-match>
                             <ui-select-choices
                                 repeat="esquema.cod_esquema_acceso as esquema in usuarios.obj_esquemas | filter: $select.search">
                                 <div ng-bind-html="esquema.des_esquema_acceso | highlight: $select.search"></div>
@@ -225,7 +227,8 @@
                             <label for="cod_tema_lector" class="col-sm-10 label-adjust" translate>Lector</label>
                             <ui-select class="form-control form-control-sm" id="cod_tema_lector" name="cod_tema_lector"
                                 ng-model="usuarios.usuario.cod_tema_lector">
-                                <option value="" translate>No requiere</option>
+                                   <ui-select-no-choice translate>No requiere</ui-select-no-choice>
+
                                 <ui-select-match placeholder="{{'Lector'|translate}}"><span
                                         ng-bind="$select.selected.value"></span></ui-select-match>
                                 <ui-select-choices
