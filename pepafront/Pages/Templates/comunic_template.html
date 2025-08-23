@@ -2,7 +2,7 @@
 <div class="row justify-content-md-center w-100">
   <div class="col-md-4">
     <div class="form-group">
-      <label for="url_check" class="col-sm-10 label-adjust" translate>URL a verificar<span class="field-required">*</span></label>
+      <label for="url_check" class="col-sm-10 label-adjust" ><span translate>URL a verificar</span><span class="field-required"> *</span></label>
       <input type="text" class="form-control form-control-sm" id="url_check" name="url_check" translate translate-attr-placeholder="url"
         ng-model="comunic.json_parametros.url_check" ng-required="true">
     </div>
@@ -13,7 +13,7 @@
         translate translate-attr-placeholder="intervalo seg" ng-model="comunic.json_parametros.intervalo_seg" ng-required="true">
     </div>
     <div class="form-group">
-      <label for="comunic_count" class="col-sm-10 label-adjust" translate>Contador <span class="field-required">*</span></label>
+      <label for="comunic_count" class="col-sm-10 label-adjust" ><span translate>Contador</span><span class="field-required"> *</span></label>
       <select class="form-control form-control-sm" ng-model="comunic.json_parametros.count" ng-required="true">
         <option value="true" translate>Sí</option>
         <option value="false" translate>No</option>
@@ -40,14 +40,14 @@
     </div>
 
     <div class="form-group">
-        <label for="ind_manual" class="col-sm-10 label-adjust" translate>Permite modificación manual<span class="field-required">*</span></label>
+        <label for="ind_manual" class="col-sm-10 label-adjust" ><span translate>Permite modificación manual</span><span class="field-required"> *</span></label>
         <select class="form-control form-control-sm" ng-model="comunic.json_parametros.ind_manual" ng-required="true">
             <option value="1">Sí</option>
             <option value="0">No</option>
         </select>
     </div>
     <div class="form-group">
-        <label for="ind_auto_reset" class="col-sm-10 label-adjust" translate>Restaura automáticamente<span class="field-required">*</span></label>
+        <label for="ind_auto_reset" class="col-sm-10 label-adjust" ><span translate>Restaura automáticamente</span><span class="field-required"> *</span></label>
         <select class="form-control form-control-sm" ng-model="comunic.json_parametros.auto_reset" ng-required="true">
             <option value="1">Sí</option>
             <option value="0">No</option>

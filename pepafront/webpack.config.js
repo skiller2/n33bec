@@ -78,8 +78,13 @@ module.exports = {
                 secure: true,
                 changeOrigin: true,
             },
-            '/api': { //FourSeasons
+            '/apiFS': { //FourSeasons
                 target: 'http://10.8.0.21/',
+                secure: true,
+                changeOrigin: true,
+            },
+            '/api': { //Demo Italia
+                target: 'http://192.168.80.235/',
                 secure: true,
                 changeOrigin: true,
             },

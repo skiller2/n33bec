@@ -23,19 +23,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_persona_dt" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
+                        <label for="nom_persona_dt" class="col-sm-10 label-adjust"><span translate>Nombre</span><span class="field-required"> *</span></label>
                         <input type="text" class="form-control form-control-sm" id="nom_persona_dt" name="nom_persona_dt" translate translate-attr-placeholder="Nombre"
                                ng-model="personas.persona_dt.nom_persona" readonly="">
                     </div>
 
                     <div class="form-group">
-                        <label for="ape_persona_dt" class="col-sm-10 label-adjust" translate>Apellido <span class="field-required">*</span></label>
+                        <label for="ape_persona_dt" class="col-sm-10 label-adjust"><span translate>Apellido</span><span class="field-required"> *</span></label>
                         <input type="text" class="form-control form-control-sm" id="ape_persona_dt" name="ape_persona_dt" translate translate-attr-placeholder="Apellido"
                                ng-model="personas.persona_dt.ape_persona" readonly="">
                     </div>
 
                     <div class="form-group">
-                        <label for="cod_sexo_dt" class="col-sm-10 label-adjust" translate>Sexo <span class="field-required">*</span></label>
+                        <label for="cod_sexo_dt" class="col-sm-10 label-adjust"><span translate>Sexo</span><span class="field-required"> *</span></label>
                         <select class="form-control form-control-sm" id="cod_sexo_dt" name="cod_sexo_dt"
                                 ng-model="personas.persona_dt.cod_sexo" disabled=""
                                 ng-options="item.id as item.name for item in personas.tipoSexo">
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cod_tipo_doc_dt" class="col-sm-10 label-adjust" translate>Tipo Documento <span class="field-required">*</span></label>
+                        <label for="cod_tipo_doc_dt" class="col-sm-10 label-adjust"><span translate>Tipo Documento</span><span class="field-required"> *</span></label>
                         <select class="form-control form-control-sm" id="cod_tipo_doc_dt" name="cod_tipo_doc_dt"
                                 ng-model="personas.persona_dt.cod_tipo_doc" disabled=""
                                 ng-options="item.id as item.name for item in personas.tipoDocumento">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        <label for="nro_documento_dt" class="col-sm-10 label-adjust" translate>Nro. Documento <span class="field-required">*</span></label>
+                        <label for="nro_documento_dt" class="col-sm-10 label-adjust"><span translate>Nro. Documento</span><span class="field-required"> *</span></label>
                         <input type="text" class="form-control form-control-sm" id="nro_documento_dt" name="nro_documento_dt" translate translate-attr-placeholder="Nro. Documento"
                                ng-model="personas.persona_dt.nro_documento" readonly="">
                     </div>
@@ -136,21 +136,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nom_persona" class="col-sm-10 label-adjust" translate>Nombre <span class="field-required">*</span></label>
+                            <label for="nom_persona" class="col-sm-10 label-adjust" ><span translate>Nombre</span><span class="field-required"> *</span></label>
                             <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona" translate translate-attr-placeholder="Nombre"
                                    ng-model="personas.persona.nom_persona" ng-required="true">
                             <span class="help-inline" ng-show="frmPersonas.nom_persona.$invalid && frmPersonas.nom_persona.$touched" translate>Debe ingresar un Nombre</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="ape_persona" class="col-sm-10 label-adjust" translate>Apellido <span class="field-required">*</span></label>
+                            <label for="ape_persona" class="col-sm-10 label-adjust" ><span translate>Apellido</span><span class="field-required"> *</span></label>
                             <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona" translate translate-attr-placeholder="Apellido"
                                    ng-model="personas.persona.ape_persona" ng-required="true">
                             <span class="help-inline" ng-show="frmPersonas.ape_persona.$invalid && frmPersonas.ape_persona.$touched" translate>Debe ingresar un Apellido</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="cod_sexo" class="col-sm-10 label-adjust" translate>Sexo <span class="field-required">*</span></label>
+                            <label for="cod_sexo" class="col-sm-10 label-adjust"><span translate>Sexo</span><span class="field-required"> *</span></label>
                             <select class="form-control form-control-sm" id="cod_sexo" name="cod_sexo"
                                     ng-model="personas.persona.cod_sexo" ng-required="true"
                                     ng-options="item.id as item.name for item in personas.tipoSexo">
@@ -159,7 +159,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="cod_tipo_doc" class="col-sm-10 label-adjust" translate>Tipo Documento <span class="field-required">*</span></label>
+                            <label for="cod_tipo_doc" class="col-sm-10 label-adjust" ><span translate>Tipo Documento</span><span class="field-required"> *</span></label>
                             <select class="form-control form-control-sm" id="cod_tipo_doc" name="cod_tipo_doc"
                                     ng-model="personas.persona.cod_tipo_doc" ng-required="true"
                                     ng-options="item.id as item.name for item in personas.tipoDocumento">
@@ -169,7 +169,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="form-group">
-                            <label for="nro_documento" class="col-sm-10 label-adjust" translate>Nro. Documento <span class="field-required">*</span></label>
+                            <label for="nro_documento" class="col-sm-10 label-adjust"><span translate>Nro. Documento</span><span class="field-required"> *</span></label>
                             <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento" translate translate-attr-placeholder="Nro. Documento"
                                    ng-model="personas.persona.nro_documento" ng-required="true">
                             <span class="help-inline" ng-show="frmPersonas.nro_documento.$invalid && frmPersonas.nro_documento.$touched" translate>Debe ingresar un Nro. Documento</span>
@@ -208,12 +208,12 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="form-group">
-                            <label for="img_persona" class="col-sm-10 label-adjust" translate>Foto <span class="field-required">*</span></label>
+                            <label for="img_persona" class="col-sm-10 label-adjust"><span translate>Foto</span><span class="field-required"> *</span></label>
                             <capture-image id="img_persona" class="form-control form-control-img" ng-model="personas.persona.img_persona" showadjuntar="true" device-num="0" />
                         </div>
                         
                         <div class="form-group">
-                            <label for="img_documento" class="col-sm-10 label-adjust" translate>Documento <span class="field-required">*</span></label>
+                            <label for="img_documento" class="col-sm-10 label-adjust" ><span translate>Documento</span><span class="field-required"> *</span></label>
                             <capture-image id="img_documento" class="form-control form-control-img" ng-model="personas.persona.img_documento" showadjuntar="true" device-num="1" />
                         </div>
                     </div>

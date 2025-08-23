@@ -66,7 +66,7 @@
           </div>
 
           <div class="form-group">
-            <label for="cod_sexo_dt" class="col-sm-10 label-adjust">Sexo <span class="field-required">*</span></label>
+            <label for="cod_sexo_dt" class="col-sm-10 label-adjust"><span translate>Sexo</span><span class="field-required"> *</span></label>
             <select class="form-control form-control-sm" id="cod_sexo_dt" name="cod_sexo_dt"
               ng-model="empleados.empleado_dt.cod_sexo" disabled=""
               ng-options="item.id as item.name for item in empleados.tipoSexo">
@@ -74,7 +74,7 @@
           </div>
 
           <div class="form-group">
-            <label for="email_dt" class="col-sm-10 label-adjust">E-mail <span class="field-required">*</span></label>
+            <label for="email_dt" class="col-sm-10 label-adjust"><span translate>E-mail</span><span class="field-required"> *</span></label>
             <input type="email_dt" class="form-control form-control-sm" id="email_dt" name="email_dt"
               translate translate-attr-placeholder="Correo electrónico" ng-model="empleados.empleado_dt.email" readonly="">
           </div>
@@ -191,7 +191,7 @@
             </div>
 
             <div class="form-group">
-              <label for="cod_sexo" class="col-sm-10 label-adjust">Sexo <span class="field-required">*</span></label>
+              <label for="cod_sexo" class="col-sm-10 label-adjust"><span translate>Sexo</span><span class="field-required"> *</span></label>
               <select class="form-control form-control-sm" id="cod_sexo" name="cod_sexo"
                 ng-model="empleados.empleado.cod_sexo" ng-required="true"
                 ng-options="item.id as item.name for item in empleados.tipoSexo">
@@ -242,7 +242,7 @@
       </ng-form>
     </div>
   </uib-tab>
-  <uib-tab index="3" ui-sref=".({action:'horarios'})" heading="Horarios">
+  <uib-tab index="3" ui-sref=".({action:'horarios'})" heading="{{'Horarios'|translate}}">
     <div class="container-fluid">
       <ng-form name="frmEmpleados2" class="form-horizontal" novalidate ng-validator>
         <div class="row justify-content-md-center w-100">

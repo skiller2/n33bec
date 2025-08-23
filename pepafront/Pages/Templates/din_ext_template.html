@@ -49,7 +49,7 @@
 
 
         <div class="form-group">
-            <label for="din_count" class="col-sm-10 label-adjust" translate>Contador<span class="field-required">*</span></label>
+            <label for="din_count" class="col-sm-10 label-adjust" ><span translate>Contador</span><span class="field-required"> *</span></label>
             <select class="form-control form-control-sm" ng-model="dinext.json_parametros.count" ng-required="true">
                 <option value="true" translate>Sí</option>
                 <option value="false" translate>No</option>
@@ -58,25 +58,25 @@
     </div>
     <div class="col-md-4">  
         <div class="form-group">
-            <label for="io" class="col-sm-10 label-adjust" translate>GPIO<span class="field-required">*</span></label>
+            <label for="io" class="col-sm-10 label-adjust" ><span translate>GPIO</span><span class="field-required"> *</span></label>
             <input type="text" class="form-control form-control-sm" id="io" name="io" translate translate-attr-placeholder="GPIO" ng-model="dinext.json_parametros.io" ng-required="true">
         </div>
         <div class="form-group">
-            <label for="ind_manual" class="col-sm-10 label-adjust"  translate>Permite modificación manual<span class="field-required">*</span></label>
+            <label for="ind_manual" class="col-sm-10 label-adjust"  ><span translate>Permite modificación manual</span><span class="field-required"> *</span></label>
             <select class="form-control form-control-sm" ng-model="dinext.json_parametros.ind_manual" ng-required="true">
                 <option value="1" translate>Sí</option>
                 <option value="0" translate>No</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="ind_auto_reset" class="col-sm-10 label-adjust" translate>Restaura automáticamente<span class="field-required">*</span></label>
+            <label for="ind_auto_reset" class="col-sm-10 label-adjust" ><span translate>Restaura automáticamente</span><span class="field-required"> *</span></label>
             <select class="form-control form-control-sm" ng-model="dinext.json_parametros.auto_reset" ng-required="true">
                 <option value="1" translate>Sí</option>
                 <option value="0" translate>No</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="bus_id" class="col-sm-10 label-adjust" translate>Identificador del bus<span class="field-required">*</span></label>
+            <label for="bus_id" class="col-sm-10 label-adjust" ><span translate>Identificador del bus</span><span class="field-required"> *</span></label>
             <input type="text" class="form-control form-control-sm" id="bus_id" name="bus_id" translate translate-attr-placeholder="Identificador del bus" ng-model="dinext.json_parametros.bus_id" ng-required="true">
         </div>
 

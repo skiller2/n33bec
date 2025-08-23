@@ -150,7 +150,7 @@
           </div>
 
           <div class="form-group">
-            <label for="cod_sexo_dt" class="col-sm-10 label-adjust">Sexo <span class="field-required">*</span></label>
+            <label for="cod_sexo_dt" class="col-sm-10 label-adjust"><span translate>Sexo</span><span class="field-required"> *</span></label>
             <select class="form-control form-control-sm" id="cod_sexo_dt" name="cod_sexo_dt"
               ng-model="habilitaciones.habilitacion_dt.cod_sexo" disabled=""
               ng-options="item.id as item.name for item in habilitaciones.tipoSexo">
@@ -158,7 +158,7 @@
           </div>
 
           <div class="form-group">
-            <label for="email_dt" class="col-sm-10 label-adjust" translate>E-mail <span class="field-required">*</span></label>
+            <label for="email_dt" class="col-sm-10 label-adjust" ><span translate>E-mail</span><span class="field-required"> *</span></label>
             <input type="email_dt" class="form-control form-control-sm" id="email_dt" name="email_dt"
               translate translate-attr-placeholder="Correo electrónico" ng-model="habilitaciones.habilitacion_dt.email" readonly="">
           </div>
@@ -413,7 +413,7 @@
             </div>
 
             <div class="form-group">
-              <label for="cod_sexo" class="col-sm-10 label-adjust">Sexo <span class="field-required">*</span></label>
+              <label for="cod_sexo" class="col-sm-10 label-adjust"><span translate>Sexo</span><span class="field-required"> *</span></label>
               <select class="form-control form-control-sm" id="cod_sexo" name="cod_sexo"
                 ng-model="habilitaciones.habilitacion.cod_sexo" ng-required="true"
                 ng-options="item.id as item.name for item in habilitaciones.tipoSexo">
@@ -445,7 +445,7 @@
           </div>
           <div class="col-lg-3 col-md-6">
             <div class="form-group">
-              <label for="img_persona" class="col-sm-10 label-adjust" translate>Foto <span class="field-required">*</span></label>
+              <label for="img_persona" class="col-sm-10 label-adjust" ><span translate>Foto</span><span class="field-required"> *</span></label>
               <capture-image id="img_persona" class="form-control form-control-img"
                 ng-model="habilitaciones.habilitacion.img_persona" showadjuntar="true" showstream="false"
                 device-num="0" />
@@ -494,7 +494,7 @@
       </ng-form>
     </div>
   </uib-tab>
-  <uib-tab index="3" ui-sref=".({action:'importa'})" heading="Importa tarjetas">
+  <uib-tab index="3" ui-sref=".({action:'importa'})" heading="{{'Importa tarjetas'|translate}}">
     <div class="container-fluid">
       <ng-form name="frmHabilitacionesImporta" class="form-horizontal" novalidate ng-validator>
         <div class="row justify-content-md-center w-100">

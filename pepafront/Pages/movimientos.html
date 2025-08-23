@@ -1,6 +1,6 @@
 <div class="titulo_menu" translate>Movimientos</div>
 <uib-tabset active="movimientos.active" class="bg-local-black">    
-    <uib-tab index="0" heading="Permanentes OK" ui-sref=".({action:'permanentes'})">
+    <uib-tab index="0" heading="{{'Permanentes OK'|translate}}" ui-sref=".({action:'permanentes'})">
         <div class="bg-local-permitidos w-100">
             <grilla gridoptions="movimientos.gridOptionsPermanentes"
                     filtroextra="movimientos.filtroextra"
@@ -12,7 +12,7 @@
                     />
         </div>
     </uib-tab>
-    <uib-tab index="1" heading="Temporales OK" ui-sref=".({action:'temporales'})">
+    <uib-tab index="1" heading="{{'Temporales OK'|translate}}" ui-sref=".({action:'temporales'})">
         <div class="bg-local-permitidos w-100">
             <grilla gridoptions="movimientos.gridOptionsTemporales"
                     filtroextra="movimientos.filtroextra"
@@ -24,7 +24,7 @@
                     />
         </div>
     </uib-tab>
-    <uib-tab index="2" heading="Rechazados" ui-sref=".({action:'rechazados'})">
+    <uib-tab index="2" heading="{{'Rechazados'|translate}}" ui-sref=".({action:'rechazados'})">
         <div class="bg-local-rechazados w-100">
             <grilla gridoptions="movimientos.gridOptionsRechazados"
                     filtroextra="movimientos.filtroextra"
@@ -136,7 +136,7 @@
             </ng-form>
         </div>
     </uib-tab>
-    <uib-tab index="4" ui-sref=".({action:'leetarjeta'})" heading="Leer Tarjeta">
+    <uib-tab index="4" ui-sref=".({action:'leetarjeta'})" heading="{{'Leer Tarjeta'|translate}}">
         <div class="col-md-6 col-lg-5">
             <div class="form-group">
                 <label for="cod_credencial" class="col-sm-10 label-adjust" translate>Cód. Tarjeta</label>

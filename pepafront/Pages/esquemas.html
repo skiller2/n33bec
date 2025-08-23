@@ -19,20 +19,20 @@
             <div class="row justify-content-md-center w-100">
                 <div class="col-md-6 col-lg-5">
                     <div class="form-group">
-                        <label for="cod_esquema_acceso_dt" class="col-sm-10 label-adjust" translate>Cód. Esquema Acceso <span class="field-required">*</span></label>
+                        <label for="cod_esquema_acceso_dt" class="col-sm-10 label-adjust" ><span translate>Cód. Esquema Acceso</span><span class="field-required"> *</span></label>
                         <input type="text" class="form-control form-control-sm" id="cod_esquema_acceso_dt" name="cod_esquema_acceso_dt" translate translate-attr-placeholder="Cód. Esquema Acceso"
                                ng-model="esquemas.esquema_dt.cod_esquema_acceso" readonly="">
                     </div>
 
                     <div class="form-group">
-                        <label for="cod_ou_dt" class="col-sm-10 label-adjust" translate>Organización <span class="field-required">*</span></label>
+                        <label for="cod_ou_dt" class="col-sm-10 label-adjust" ><span translate>Organización</span><span class="field-required"> *</span></label>
                         <select class="form-control form-control-sm" id="cod_ou_dt" name="cod_ou_dt" disabled="" ng-model="esquemas.esquema_dt.cod_ou" 
                                 ng-options="item.cod_ou as item.nom_ou for item in esquemas.cod_ou">
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="des_esquema_acceso_dt" class="col-sm-10 label-adjust" translate>Descripción <span class="field-required">*</span></label>
+                        <label for="des_esquema_acceso_dt" class="col-sm-10 label-adjust" ><span translate>Descripción</span><span class="field-required"> *</span></label>
                         <input  class="form-control form-control-sm" id="des_esquema_acceso_dt" name="des_esquema_acceso_dt" translate translate-attr-placeholder="Descripción"
                                 ng-model="esquemas.esquema_dt.des_esquema_acceso" readonly="">
                     </div>
@@ -75,14 +75,14 @@
                 <div class="row justify-content-md-center w-100">
                     <div class="col-md-6 col-lg-5">
                         <div class="form-group">
-                            <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" translate>Cód. Esquema Acceso <span class="field-required">*</span></label>
+                            <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" ><span translate>Cód. Esquema Acceso</span><span class="field-required"> *</span></label>
                             <input type="text" class="form-control form-control-sm" id="cod_esquema_acceso" name="cod_esquema_acceso" translate translate-attr-placeholder="Cód. Esquema Acceso"
                                    ng-model="esquemas.esquema.cod_esquema_acceso" ng-required="true" ng-readonly="esquemas.noteditable">
                             <span class="help-inline" ng-show="frmEsquemas.cod_esquema_acceso.$invalid && frmEsquemas.cod_esquema_acceso.$touched" translate>Debe ingresar un Cód. Esquema Acceso</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="cod_ou" class="col-sm-10 label-adjust" translate>Organización <span class="field-required">*</span></label>
+                            <label for="cod_ou" class="col-sm-10 label-adjust" ><span translate>Organización</span><span class="field-required"> *</span></label>
                             <select class="form-control form-control-sm" id="cod_ou" name="cod_ou" ng-disabled="esquemas.disabled"
                                     ng-model="esquemas.esquema.cod_ou" ng-required="true"
                                     ng-options="item.cod_ou as item.nom_ou for item in esquemas.cod_ou">
@@ -91,7 +91,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="des_esquema_acceso" class="col-sm-10 label-adjust">Descripción <span class="field-required">*</span></label>
+                            <label for="des_esquema_acceso" class="col-sm-10 label-adjust"><span translate>Descripción</span><span class="field-required"> *</span></label>
                             <input  class="form-control form-control-sm" id="des_esquema_acceso" name="des_esquema_acceso" translate translate-attr-placeholder="Descripción"
                                     ng-model="esquemas.esquema.des_esquema_acceso" ng-required="true">
                             <span class="help-inline" ng-show="frmEsquemas.des_esquema_acceso.$invalid && frmEsquemas.des_esquema_acceso.$touched" translate>Debe ingresar una descripción</span>
