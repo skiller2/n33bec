@@ -10,9 +10,9 @@ const bodyDefault = {
     bindings: {},
     controllerAs: "body",
     controller: ['store', '$q', 'datosBack', '$scope', '$sce', '$filter', '$state',
-        'cfg', 'auth', 'ModalService', 'globalData', 'localData', '$transitions', 'sounds', 'realTimeData', 'captureMedia','broadcast','$interval','$translate','LanguageService',
+        'cfg', 'auth', 'ModalService', 'globalData', 'localData', '$transitions', 'sounds', 'realTimeData', 'captureMedia', 'broadcast', '$interval', '$translate', 'LanguageService',
         function (store, $q, datosBack, $scope, $sce, $filter,
-            $state, cfg, auth, ModalService, globalData, localData, $transitions, sounds, realTimeData, captureMedia, broadcast, $interval,$translate,LanguageService) {
+            $state, cfg, auth, ModalService, globalData, localData, $transitions, sounds, realTimeData, captureMedia, broadcast, $interval, $translate, LanguageService) {
 
             const vm = this;
 
@@ -22,13 +22,7 @@ const bodyDefault = {
 
             localData.getTarjetaFormat();
 
-            localData.getMenuParam(true).then(function (resultado) {
-                vm.menu = resultado;
-
-            }).catch(function () {
-                vm.menu = [];
-            });
-
+            loadMenu()
 
             //            vm.menu = localData.getMenu();
             vm.id_disp_origen = '';
@@ -88,16 +82,16 @@ const bodyDefault = {
 
 
 
-        /*         $interval(function () {
-                    broadcast.send("pantalla", {
-                        message: 'Prueba de servicio de broadcast',
-                        level: 'info',
-                        level_class: 'info',
-                        level_img: 'info',
-                        timeStamp: new Date(),
-                    });
-                }, 5000); */
-                
+                /*         $interval(function () {
+                            broadcast.send("pantalla", {
+                                message: 'Prueba de servicio de broadcast',
+                                level: 'info',
+                                level_class: 'info',
+                                level_img: 'info',
+                                timeStamp: new Date(),
+                            });
+                        }, 5000); */
+
 
             };
 
@@ -146,6 +140,22 @@ const bodyDefault = {
                 }
             });
 
+            function loadMenu() {
+                localData.getMenuParam(true).then(function (resultado) {
+                    const lang = LanguageService.getLanguage()
+
+                    if (resultado[lang]) {
+                        vm.menu = resultado[lang]
+                    } else if (resultado.es) {
+                        vm.menu = resultado.es
+                    } else {
+                        vm.menu = resultado
+                    }
+                }).catch(function () {
+                    vm.menu = [];
+                });
+            }
+
             vm.fcambiaSelOU = function () {
                 globalData.setOU(vm.cod_ou).then(function () { }).catch(function () {
                     vm.cod_ou = '';
@@ -157,7 +167,11 @@ const bodyDefault = {
 
             vm.callLogin = auth.callLogin;
 
-            vm.changeLanguage = LanguageService.setLanguage;
+            vm.changeLanguage = function (lang) {
+                LanguageService.setLanguage(lang)
+                loadMenu()
+
+            }
 
             $scope.$on('estados', function (event, args) {
                 if (!args.context.EstadoDen)
@@ -191,7 +205,7 @@ const bodyDefault = {
                 }
             });
 
-                
+
             vm.switchAudio = function () {
                 sounds.stop();
                 vm.btn_bell_class = 'btn-outline-light';
@@ -207,3 +221,4 @@ const bodyDefault = {
 };
 
 export default bodyDefault;
+

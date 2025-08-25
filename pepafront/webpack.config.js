@@ -84,7 +84,7 @@ module.exports = {
                 changeOrigin: true,
             },
             '/api': { //Demo Italia
-                target: 'http://192.168.80.235/',
+                target: 'http://10.8.0.22/', //'http://192.168.80.235/',
                 secure: true,
                 changeOrigin: true,
             },
