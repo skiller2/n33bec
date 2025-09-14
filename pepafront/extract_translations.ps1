@@ -1,11 +1,17 @@
 # Script de PowerShell para extraer cadenas de traducción usando múltiples regex
 
 # Configuración
-$directoryPath = ".\src"  # Ruta del proyecto (ajusta según tu estructura)
+$directoryPath = ".\"  # Ruta del proyecto (ajusta según tu estructura)
 $fileExtensions = @("*.ts", "*.html")  # Extensiones de archivos a buscar
 $outputFile = "extracted-translations.json"  # Archivo de salida para todas las traducciones
 $newTranslationsFile = "new-translations.json"  # Archivo para cadenas nuevas
 $localeItFile = ".\langs\locale-it.json"  # Ruta al archivo locale-it.json existente
+
+$startDelimiter = '{{'  # Delimitador de apertura HTML (ajusta si usas '<%')
+$endDelimiter = '}}'    # Delimitador de cierre HTML
+# Escapar delimitadores para regex
+$escapedStart = [regex]::Escape($startDelimiter)
+$escapedEnd = [regex]::Escape($endDelimiter)
 
 # Lista de expresiones regulares basadas en el objeto regexs proporcionado
 $regexPatterns = @(
@@ -16,6 +22,7 @@ $regexPatterns = @(
     '\{\{.*?\s*(?:::)?([^?]*\?[^:]*:[^|}]*)(\s*\|\s*translate(?::.*?)?)?\s*\}\}',  # HtmlFilterTernary
     '<(?:[^>"]|"(?:[^"]|\\/")*")*\stranslate(?:>|\s[^>]*>)([^<]*)',             # HtmlDirective
 #    '<(?:[^>"]|"(?:[^"]|\\/")*")*\stranslate=''([^\']*)''[^>]*>([^<]*)',        # HtmlDirectiveSimpleQuote
+    "$escapedStart\\s*(?:::)?'((?:\\\\.|[^'\\\\])*?)'\\s*\\|\\s*translate(?:\\:.*?)?\\s*$escapedEnd",  # HtmlFilterSimpleQuote (línea 19 corregida)
     '<(?:[^>"]|"(?:[^"]|\\/")*")*\stranslate="([^"]*)"[^>]*>([^<]*)',           # HtmlDirectiveDoubleQuote
     'translate="((?:\\.|[^"\\])*)".*angular-plural-extract="((?:\\.|[^"\\])*)"', # HtmlDirectivePluralLast
     'angular-plural-extract="((?:\\.|[^"\\])*)".*translate="((?:\\.|[^"\\])*)"', # HtmlDirectivePluralFirst
