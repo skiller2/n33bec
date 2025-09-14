@@ -27,7 +27,7 @@ const grillaComponent = {
     require: {
         //modelCtrl: 'ngModel' 
     },
-    controller: ['$element', 'cfg', 'datosBack', '$q', '$interval', '$state', 'ModalService', '$window', '$timeout', '$scope', function ($element, cfg, datosBack, $q, $interval, $state, ModalService, $window, $timeout, $scope) {
+    controller: ['$element', 'cfg', 'datosBack', '$q', '$interval', '$state', 'ModalService', '$window', '$timeout', '$scope','$translate', function ($element, cfg, datosBack, $q, $interval, $state, ModalService, $window, $timeout, $scope,$translate) {
         const vm = this;
 
         vm.sort = [];
@@ -307,7 +307,7 @@ const grillaComponent = {
             if (sel.length > 0) {
                 $state.go(path, params);
             } else {
-                ModalService.alertMessage('Debe seleccionar un registro', 'Error', 'danger', []);
+                ModalService.alertMessage($translate.instant('Debe seleccionar un registro'), $translate.instant('Alerta'), 'danger', []);
             }
         };
 

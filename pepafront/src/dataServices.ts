@@ -1585,7 +1585,7 @@ angular.module('appServices', [])
                 const saveprom = $q.defer();
                 let msg_error = 'Error grabando datos';
                 if (clave.length > 1) {
-                    ModalService.alertMessage($translate.instant('Debe seleccionar un solo registro'), 'Alerta', 'warning');
+                    ModalService.alertMessage($translate.instant('Debe seleccionar un solo registro'), $translate.instant('Alerta'), 'warning');
                     saveprom.reject($translate.instant('Debe seleccionar un solo registro'));
                 } else {
                     const url = cfg.webApiBaseUrl + path;
@@ -1611,7 +1611,7 @@ angular.module('appServices', [])
                         if (response.data.error) {
                             msg_error = response.data.error;
                         }
-                        ModalService.alertMessage(msg_error, 'Error', 'danger', response)
+                        ModalService.alertMessage(msg_error, $translate.instant('Error'), 'danger', response)
                             .then(function () { })
                             .catch(function () { })
                             .finally(function () {
@@ -1650,7 +1650,7 @@ angular.module('appServices', [])
                     if (response.data.error) {
                         msg_error = response.data.error;
                     }
-                    ModalService.alertMessage(msg_error, 'Error', 'danger', response);
+                    ModalService.alertMessage(msg_error, $translate.instant('Error'), 'danger', response);
                     $log.debug(response);
                     deferred.reject(msg_error);
                 }).finally(function () {
@@ -1665,7 +1665,7 @@ angular.module('appServices', [])
                 const msg_error = $translate.instant('Error obteniendo lista');
                 // var mybody = angular.element(document).find('body');
                 if (filterJson.error !== undefined && filterJson.error !== '') {
-                    ModalService.alertMessage(filterJson.error, 'Error', 'danger');
+                    ModalService.alertMessage(filterJson.error, $translate.instant('Error'), 'danger');
                 } else {
 
                     spinCounter.setSpinCounterAdd(1);
@@ -1695,7 +1695,7 @@ angular.module('appServices', [])
                         }).catch(function (msg, code) {
                             if (msg.status !== -1) {
                                 if (msg.status != 401)
-                                    ModalService.alertMessage(msg_error, 'Error', 'danger', msg);
+                                    ModalService.alertMessage(msg_error, $translate.instant('Error'), 'danger', msg);
                                 deferred.reject(msg_error);
                             }
 
@@ -1721,7 +1721,7 @@ angular.module('appServices', [])
                         deferred.resolve(response);
                     }).catch(function (response, code) {
                         if (response.status != 401)
-                            ModalService.alertMessage(msg_error, 'Error', 'danger', response);
+                            ModalService.alertMessage(msg_error, $translate.instant('Error'), 'danger', response);
                         deferred.reject(msg_error);
                     }).finally(function () {
                         spinCounter.setSpinCounterDel(1);
@@ -1738,7 +1738,7 @@ angular.module('appServices', [])
                 const deferred = $q.defer();
                 let msg_error = $translate.instant('Error eliminando registro');
                 if (clave.length > 1) {
-                    ModalService.alertMessage($translate.instant('Debe seleccionar un solo registro'), 'Alerta', 'warning');
+                    ModalService.alertMessage($translate.instant('Debe seleccionar un solo registro'), $translate.instant('Alerta'), 'warning');
                     deferred.reject($translate.instant('Debe seleccionar un solo registro'));
                 } else {
                     if (clave.length > 0) {
@@ -1756,14 +1756,14 @@ angular.module('appServices', [])
                                     if (error.data.error) {
                                         msg_error = error.data.error;
                                     }
-                                    ModalService.alertMessage(msg_error, 'Error', 'danger', error);
+                                    ModalService.alertMessage(msg_error, $translate.instant('Error'), 'danger', error);
                                     deferred.reject(msg_error);
                                 }
                             }).finally(function () {
                                 spinCounter.setSpinCounterDel(1);
                             });
                     } else {
-                        ModalService.alertMessage($translate.instant('Debe seleccionar un registro'), 'Alerta', 'warning');
+                        ModalService.alertMessage($translate.instant('Debe seleccionar un registro'), $translate.instant('Alerta'), 'warning');
                         deferred.reject($translate.instant('Debe seleccionar un registro'));
                     }
                 }
@@ -1794,14 +1794,14 @@ angular.module('appServices', [])
                                 msg_error = response.data.error;
                             }
                             if (!ignore404 && response.status != "404")
-                                ModalService.alertMessage(msg_error, 'Error', 'danger', response);
+                                ModalService.alertMessage(msg_error, $translate.instant('Error'), 'danger', response);
                             deferred.reject(msg_error);
                         }).finally(function () {
                             spinCounter.setSpinCounterDel(1);
                         });
                 } else {
                     deferred.reject($translate.instant('Debe seleccionar un registro'));
-                    ModalService.alertMessage('Debe seleccionar un registro', 'Alerta', 'warning');
+                    ModalService.alertMessage($translate.instant('Debe seleccionar un registro'), $translate.instant('Alerta'), 'warning');
                 }
 
                 return deferred.promise;
@@ -1859,7 +1859,7 @@ angular.module('appServices', [])
                 const deferred = $q.defer();
                 const filterJson = loadOptions.filtro;
                 if (filterJson.error !== undefined && filterJson.error !== '') {
-                    ModalService.alertMessage(filterJson.error, 'Error', 'danger');
+                    ModalService.alertMessage(filterJson.error, $translate.instant('Error'), 'danger');
                 } else {
                     const cod_ou = globalData.getOULocal();
                     window.location.href = cfg.webApiBaseUrl + loadOptions.path + '/' + tipo + '?filtro=' + JSON.stringify(filterJson) + '&sort=' + JSON.stringify(loadOptions.sort) + '&token=' + store.get('token') + '&cod_ou=' + cod_ou;
@@ -1887,7 +1887,7 @@ angular.module('appServices', [])
                         }
 
                         if (showErrorDialog && response.status != 401) {
-                            ModalService.alertMessage(msg_error, 'Error', 'danger', response);
+                            ModalService.alertMessage(msg_error, $translate.instant('Error'), 'danger', response);
                         }
                         $log.debug(response);
                         deferred.reject(msg_error);
@@ -1928,7 +1928,7 @@ angular.module('appServices', [])
                         msg_error = response.data.error;
                     }
                     if (response.status != 401)
-                        ModalService.alertMessage(msg_error, 'Error', 'danger', response)
+                        ModalService.alertMessage(msg_error, $translate.instant('Error'), 'danger', response)
                             .then(function () { })
                             .catch(function () { })
                             .finally(function () {

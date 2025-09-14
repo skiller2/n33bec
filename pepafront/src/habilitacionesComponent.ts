@@ -463,7 +463,7 @@ const habilitacionesComponent =
                         model.nro_documento_ant = response.data.datosPersona.nro_documento;
                         if (!ind_credencial) {
                             if (response.data.datosCred.length > 1) {
-                                // ModalService.alertMessage('La persona tiene mas de una credencial','Error','danger',response);
+                                // ModalService.alertMessage('La persona tiene mas de una credencial',$translate.instant('Error'),'danger',response);
                                 model.vacredenciales = response.data.datosCred;
                             } else {
                                 if (model.cod_credencial === '') {

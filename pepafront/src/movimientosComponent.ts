@@ -140,7 +140,7 @@ const movimientosComponent = {
                                 if ($state.current.url === '/dt') {
                                     $state.go('^');
                                 }
-                                ModalService.alertMessage('No se encontraron datos de la persona', 'Alerta', 'warning');
+                                ModalService.alertMessage($translate.instant('No se encontraron datos de la persona'), $translate.instant('Alerta'), 'warning');
                             } else {
                                 vm.persona = response.data.datosPersona;
                                 vm.persona.stm_movimiento = response.data.clave;

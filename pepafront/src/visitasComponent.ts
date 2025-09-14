@@ -431,12 +431,12 @@ const visitasComponent =
                         ctrl.obs_habilitacion = response.data.datosPersona.obs_habilitacion;
 
                         if (response.data.vccredenciales !== '') {
-                            ModalService.alertMessage(response.data.vccredenciales, 'Alerta', 'warning');
+                            ModalService.alertMessage(response.data.vccredenciales, $translate.instant('Alerta'), 'warning');
                         }
 
                         if (!ind_credencial) {
                             if (response.data.datosCred.length > 1) {
-                                ModalService.alertMessage($translate.instant('La persona tiene mas de una credencial'),'Error','danger',response);
+                                ModalService.alertMessage($translate.instant('La persona tiene mas de una credencial'),$translate.instant('Error'),'danger',response);
                                 ctrl.vacredenciales = response.data.datosCred;
                             } else {
                                 if (ctrl.cod_credencial === '') {
