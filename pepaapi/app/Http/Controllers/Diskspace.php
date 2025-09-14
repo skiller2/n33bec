@@ -33,8 +33,8 @@ class Diskspace extends Controller
 
     public function getData($selected_disk)
     {
-        $disco[0] = array("x"=> "Utilizado","y"=>0);
-        $disco[1] = array("x"=> "Disponible","y"=>0);
+        $disco[0] = array("x"=> __("Utilizado"),"y"=>0);
+        $disco[1] = array("x"=> __("Disponible"),"y"=>0);
         
         $selected_disk = json_decode($selected_disk,true);        
         $selected_disk = ($selected_disk != "") ? $selected_disk : "/";

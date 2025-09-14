@@ -15,8 +15,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="cod_tema_dt" class="col-sm-10 label-adjust" translate>Identificación
-                            Componente</label>
+                        <label for="cod_tema_dt" class="col-sm-10 label-adjust" translate>Identificación Componente</label>
                         <input type="text" class="form-control form-control-sm" id="cod_tema_dt" name="cod_tema_dt"
                             ng-model="temas.tema_dt.cod_tema" readonly>
                     </div>
@@ -76,29 +75,25 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_mostrar_en_panel_dt" class="col-sm-10 label-adjust" translate>Mostrar En
-                            Panel</label>
+                        <label for="ind_mostrar_en_panel_dt" class="col-sm-10 label-adjust" translate>Mostrar en Panel</label>
                         <input class="checkbox" type="checkbox" id="ind_mostrar_en_panel_dt"
                             name="ind_mostrar_en_panel_dt" ng-model="temas.tema_dt.ind_mostrar_en_panel" disabled>
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_registra_evento_dt" class="col-sm-10 label-adjust" translate>Registra
-                            Evento</label>
+                        <label for="ind_registra_evento_dt" class="col-sm-10 label-adjust" translate>Registra Evento</label>
                         <input class="checkbox" type="checkbox" id="ind_registra_evento_dt"
                             name="ind_registra_evento_dt" ng-model="temas.tema_dt.ind_registra_evento" disabled>
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_display_evento_dt" class="col-sm-10 label-adjust" translate>Muestra Evento
-                            Display</label>
+                        <label for="ind_display_evento_dt" class="col-sm-10 label-adjust" translate>Muestra Evento Display</label>
                         <input class="checkbox" type="checkbox" id="ind_display_evento_dt" name="ind_display_evento_dt"
                             ng-model="temas.tema_dt.ind_display_evento" disabled>
                     </div>
 
                     <div class="input-group">
-                        <label for="ind_notifica_evento_dt" class="col-sm-10 label-adjust" translate>Notifica
-                            Evento</label>
+                        <label for="ind_notifica_evento_dt" class="col-sm-10 label-adjust" translate>Notifica Evento</label>
                         <input class="checkbox" type="checkbox" id="ind_notifica_evento_dt"
                             name="ind_notifica_evento_dt" ng-model="temas.tema_dt.ind_notifica_evento" disabled>
                     </div>
@@ -232,8 +227,7 @@
             <div class="row justify-content-md-center w-100">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de
-                            componentes</label>
+                        <label for="cant_cod_tema_dt" class="col-sm-10 label-adjust" translate>Cantidad de componentes</label>
                         <input type="text" class="form-control form-control-sm" id="cant_cod_tema_dt"
                             name="cant_cod_tema_dt" translate translate-attr-placeholder="Cantidad"
                             ng-model="temas.sector.cant_cod_tema" readonly>
@@ -339,29 +333,25 @@
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_mostrar_en_panel" class="col-sm-10 label-adjust" translate>Mostrar En
-                                Panel</label>
+                            <label for="ind_mostrar_en_panel" class="col-sm-10 label-adjust" translate>Mostrar en Panel</label>
                             <input class="checkbox" type="checkbox" id="ind_mostrar_en_panel"
                                 name="ind_mostrar_en_panel" ng-model="temas.tema.ind_mostrar_en_panel">
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_registra_evento" class="col-sm-10 label-adjust" translate>Registra
-                                Evento</label>
+                            <label for="ind_registra_evento" class="col-sm-10 label-adjust" translate>Registra Evento</label>
                             <input class="checkbox" type="checkbox" id="ind_registra_evento" name="ind_registra_evento"
                                 ng-model="temas.tema.ind_registra_evento">
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_display_evento" class="col-sm-10 label-adjust" translate>Muestra Evento
-                                Display</label>
+                            <label for="ind_display_evento" class="col-sm-10 label-adjust" translate>Muestra Evento Display</label>
                             <input class="checkbox" type="checkbox" id="ind_display_evento" name="ind_display_evento"
                                 ng-model="temas.tema.ind_display_evento">
                         </div>
 
                         <div class="input-group">
-                            <label for="ind_notifica_evento" class="col-sm-10 label-adjust" translate>Notifica
-                                Evento</label>
+                            <label for="ind_notifica_evento" class="col-sm-10 label-adjust" translate>Notifica Evento</label>
                             <input class="checkbox" type="checkbox" id="ind_notifica_evento" name="ind_notifica_evento"
                                 ng-model="temas.tema.ind_notifica_evento">
                         </div>
@@ -538,8 +528,7 @@
             </div>
 
 
-            <button class="btn btn-primary btn-xs" ng-click="temas.sendCommand(temas.send)"><span translate>Ejecuta
-                    comando</span></button>
+            <button class="btn btn-primary btn-xs" ng-click="temas.sendCommand(temas.send)"><span translate>Ejecuta comando</span></button>
 
 
 
@@ -573,17 +562,13 @@
                     ng-model="temas.send.extra_data"></textarea>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary btn-xs" ng-click="temas.runEvent(temas.send,'')"><span translate>Ejecuta
-                        evento</span></button>
+                <button class="btn btn-primary btn-xs" ng-click="temas.runEvent(temas.send,'')"><span translate>Ejecuta evento</span></button>
                 <button ng-if="temas.val_NO" class="btn btn-primary btn-xs"
-                    ng-click="temas.runEvent(temas.send,temas.val_NO)"><span translate>Ejecuta evento valor
-                        Normal:</span> {{ temas.val_NO }}</button>
+                    ng-click="temas.runEvent(temas.send,temas.val_NO)"><span translate>Ejecuta evento valor Normal</span>: {{ temas.val_NO }}</button>
                 <button ng-if="temas.val_AL" class="btn btn-primary btn-xs"
-                    ng-click="temas.runEvent(temas.send,temas.val_AL)"><span translate>Ejecuta evento valor
-                        Alarma:</span> {{ temas.val_AL }}</button>
+                    ng-click="temas.runEvent(temas.send,temas.val_AL)"><span translate>Ejecuta evento valor Alarma</span>: {{ temas.val_AL }}</button>
                 <button ng-if="temas.valor_omision" class="btn btn-primary btn-xs"
-                    ng-click="temas.runEvent(temas.send,temas.valor_omision)"><span translate>Ejecuta evento valor
-                        Omisión:</span> {{ temas.valor_omision }}</button>
+                    ng-click="temas.runEvent(temas.send,temas.valor_omision)"><span translate>Ejecuta evento valor Omisión</span>: {{ temas.valor_omision }}</button>
             </div>
         </div>
     </uib-tab>
