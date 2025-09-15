@@ -1,7 +1,7 @@
 'use strict';
 const tiponovedadComponent =
 {
-  template: require('../../Pages/Asis/tiponovedad.html'),
+  template: require('.././Pages/Asis/tiponovedad.html'),
   bindings: {
   },
   controllerAs: "tiponovedad",

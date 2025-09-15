@@ -1,7 +1,7 @@
 'use strict';
 
 const appAoutComponent = {
-    template: require('../Pages/Templates/aout_template.html'),
+    template: require('./Pages/Templates/aout_template.html'),
     controllerAs: "aout",
     controller: AOUTController,
     bindings: {

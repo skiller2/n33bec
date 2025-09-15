@@ -3,7 +3,7 @@
     
 const movicredsectoresComponent =
 {
-  template: require('../Pages/movicredsectores.html'),
+  template: require('./Pages/movicredsectores.html'),
   bindings: {
   },
   controllerAs: "movicredsectores",

@@ -1,7 +1,7 @@
 'use strict';
 const empresasComponent =
 {
-  template: require('../../Pages/Asis/empresas.html'),
+  template: require('.././Pages/Asis/empresas.html'),
   bindings: {
   },
   controllerAs: "empresas",

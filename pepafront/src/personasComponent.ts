@@ -1,7 +1,7 @@
 'use strict';
 const personasComponent =
 {
-    template: require('../Pages/personas.html'),
+    template: require('./Pages/personas.html'),
     bindings: {
     },
     controllerAs: "personas",

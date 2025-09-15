@@ -1,7 +1,7 @@
 'use strict';
 
 const movimientosComponent = {
-    template: require('../Pages/movimientos.html'),
+    template: require('./Pages/movimientos.html'),
     bindings: {},
     controllerAs: "movimientos",
     controller: ['localData', 'datosBack', 'ModalService', '$state', '$scope', '$timeout','$translate',

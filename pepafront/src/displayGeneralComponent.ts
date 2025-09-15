@@ -3,7 +3,7 @@
 
 import angular from "angular";
 const displayGeneralComponent = {
-    template: require("../Pages/display_general.html"),
+    template: require("./Pages/display_general.html"),
     bindings: {
         //      cod_tema: '<codTema',
         //      cod_sector: '<codSector',
@@ -41,7 +41,7 @@ const displayGeneralComponent = {
 
             $templateCache.put(
                 "tree_grid.html",
-                require("../Pages/Templates/tree_grid_template.html")
+                require("./Pages/Templates/tree_grid_template.html")
             );
             vm.sectorestree = [];
             vm.ind_listado = false;

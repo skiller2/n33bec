@@ -3,7 +3,7 @@ import angular from 'angular';
 
 
 const aptosfisicosComponent = {
-    template: require('../Pages/aptosfisicos.html'),
+    template: require('./Pages/aptosfisicos.html'),
     bindings: {},
     controllerAs: "aptosfisicos",
     controller: ['localData', 'datosBack', '$state','$timeout','$translate',

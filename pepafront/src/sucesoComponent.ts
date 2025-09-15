@@ -1,7 +1,7 @@
 'use strict';
 
 const appSucesoComponent = {
-    template: require('../Pages/Templates/suceso_template.html'),
+    template: require('./Pages/Templates/suceso_template.html'),
     controllerAs: "suceso",
     controller: SucesoController,
     bindings: {

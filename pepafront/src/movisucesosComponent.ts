@@ -1,7 +1,7 @@
 'use strict';
 const movisucesosComponent =
 {
-  template: require('../Pages/movisucesos.html'),
+  template: require('./Pages/movisucesos.html'),
   bindings: {
   },
   controllerAs: "movisucesos",

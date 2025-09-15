@@ -2,7 +2,7 @@
 import angular from "angular";
 
 const adjuntarImgComponent = {
-    template: require('../Pages/Templates/adjuntar_template.html'),
+    template: require('./Pages/Templates/adjuntar_template.html'),
     controllerAs: "adjuntarImg",
     bindings: {
         ngModel: '<',

@@ -49,8 +49,8 @@
               <div ng-bind-html="item.nom_ou | highlight: $select.search"></div>
             </ui-select-choices>
           </ui-select>
-          <button ng-if="! body.isLogged" class="btn btn-outline-light btn-sm mx-1" ng-click="body.callLogin(true)"><i
-              class="fa fa-user" translate translate-attr-title="Ingresar">&nbsp;</i><span
+          <button ng-if="! body.isLogged" class="btn btn-outline-light btn-sm mx-1" ng-click="body.callLogin(true)" translate translate-attr-title="Ingresar"><i
+              class="fa fa-user">&nbsp;</i><span
               translate>Ingresar<span></button>
 
           <button ng-if="body.isLogged" class="btn btn-outline-danger btn-sm mx-1" ui-sref=".logout" translate

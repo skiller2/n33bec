@@ -3,7 +3,7 @@
 
 const esquemasComponent =
 {
-    template: require('../Pages/esquemas.html'),
+    template: require('./Pages/esquemas.html'),
     bindings: {
     },
     controllerAs: "esquemas",

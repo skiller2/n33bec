@@ -3,7 +3,7 @@ import angular from "angular";
 import moment from "moment";
 
 const grillaComponent = {
-    template: require('../Pages/Templates/grilla_template.html'),
+    template: require('./Pages/Templates/grilla_template.html'),
     controllerAs: "vm",
     bindings: {
         gridoptions: '<',

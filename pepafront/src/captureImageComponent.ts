@@ -2,7 +2,7 @@
 import angular, { element } from "angular";
 
 const captureImageComponent = {
-    template: require('../Pages/Templates/capture_image.html'),
+    template: require('./Pages/Templates/capture_image.html'),
 //    selector : "capture-image",
         require: {
             ngModel: "ngModel"

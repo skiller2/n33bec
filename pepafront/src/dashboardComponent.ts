@@ -9,7 +9,7 @@ import { defaultCipherList } from "constants";
 */
 const dashboardComponent = {
     //    selector: 'bodyComponent', //body-component
-    template: require('../Pages/dashboard.html'),
+    template: require('./Pages/dashboard.html'),
     bindings: {},
     controllerAs: "dashboard",
     controller: ['$scope', 'store', '$timeout', '$window', 'globalData', 'auth', function ($scope, store, $timeout, $window, globalData, auth) {

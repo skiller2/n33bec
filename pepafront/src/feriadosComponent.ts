@@ -1,7 +1,7 @@
 'use strict';
 const feriadosComponent =
 {
-  template: require('../Pages/feriados.html'),
+  template: require('./Pages/feriados.html'),
   bindings: {
   },
   controllerAs: "feriados",

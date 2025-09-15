@@ -48,7 +48,7 @@ angular.module('appServices', [])
                     onEnter: function () {
                         var modalInstance = $uibModal.open({
                             windowClass: 'modal-center',
-                            template: require('../Pages/signin.html'),
+                            template: require('./Pages/signin.html'),
                             controller: ['auth', '$uibModalInstance', function (auth, $uibModalInstance) {
                                 const $ctrl = this;
                                 let clickRestartCount = 0;
@@ -405,7 +405,7 @@ angular.module('appServices', [])
                     onEnter: function () {
                         vm.modalInstance = $uibModal.open({
                             windowClass: 'modal-center',
-                            template: require('../Pages/detalletemas.html'),
+                            template: require('./Pages/detalletemas.html'),
                             controller: ['detalletemas', '$uibModalInstance', function (detalletemas, $uibModalInstance) {
                                 const $ctrl = this;
                                 $ctrl.detalletemas = detalletemas;
@@ -1434,7 +1434,7 @@ angular.module('appServices', [])
             modal: true,
             keyboard: true,
             modalFade: true,
-            windowTemplate: require('../Pages/window_modal.html'),
+            windowTemplate: require('./Pages/window_modal.html'),
             templateUrl: null,
             controller: null,
             resolve: {
@@ -1488,7 +1488,7 @@ angular.module('appServices', [])
             }
 
             const modalOptions = {
-                template: require('../Pages/Templates/alert_modal_template.html'),
+                template: require('./Pages/Templates/alert_modal_template.html'),
                 resolve: {
                     modal_parametros() {
                         return {
@@ -1512,7 +1512,7 @@ angular.module('appServices', [])
         this.confirmaCancela = function (message, title) {
 
             const modalOptions = {
-                template: require('../Pages/Templates/confirma_cancela_template.html'),
+                template: require('./Pages/Templates/confirma_cancela_template.html'),
                 resolve: {
                     modal_parametros() {
                         return {
@@ -1952,12 +1952,12 @@ angular.module('appServices', [])
     .service('sounds', ['datosBack', function (datosBack) {
         const self = this;
         self.alarmSnd = new Audio();
-        self.alarmSnd.src = require("../Content/alarma.ogg");
+        self.alarmSnd.src = require("./Content/alarma.ogg");
         self.alarmSnd.loop = true;
 
 
         self.keypresssnd = new Audio();
-        self.keypresssnd.src = require("../Content/keypress.wav");
+        self.keypresssnd.src = require("./Content/keypress.wav");
         self.keypresssnd.loop = false;
 
         self.stop = function () {

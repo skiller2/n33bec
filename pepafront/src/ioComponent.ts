@@ -1,7 +1,7 @@
 'use strict';
 const ioComponent =
 {
-    template: require('../Pages/io.html'),
+    template: require('./Pages/io.html'),
     bindings: {
     },
     controllerAs: "io",

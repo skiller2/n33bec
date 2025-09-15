@@ -4,7 +4,7 @@ import angular from "angular";
 
 const logViewerComponent =
 {
-    template: require('../Pages/logviewer.html'),
+    template: require('./Pages/logviewer.html'),
     bindings: {
     },
     controllerAs: "logviewer",

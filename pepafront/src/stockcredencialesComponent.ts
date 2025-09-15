@@ -1,7 +1,7 @@
 'use strict';
 const stockcredencialesComponent =
 {
-    template: require('../Pages/stockcredenciales.html'),
+    template: require('./Pages/stockcredenciales.html'),
     bindings: {
     },
     controllerAs: "stockcredenciales",

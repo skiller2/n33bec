@@ -1,7 +1,7 @@
 'use strict';
 const parametrosComponent =
 {
-  template: require('../Pages/parametros.html'),
+  template: require('./Pages/parametros.html'),
   bindings: {
   },
   controllerAs: "parametros",

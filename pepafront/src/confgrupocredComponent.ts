@@ -2,7 +2,7 @@
 import angular from 'angular';
 
 const confgrupocredComponent =  {
-    template: require('../Pages/confgrupocred.html'),
+    template: require('./Pages/confgrupocred.html'),
     bindings: {},
     controllerAs: "confgrupocred",
     controller: ['localData', 'datosBack', '$state', '$timeout','$translate',

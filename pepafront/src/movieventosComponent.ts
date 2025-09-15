@@ -1,7 +1,7 @@
 'use strict';
 
 const movieventosComponent= {
-    template: require('../Pages/movieventos.html'),
+    template: require('./Pages/movieventos.html'),
     bindings: {},
     controllerAs: "movieventos",
     controller: ['$timeout', 'datosBack', '$state','$translate',

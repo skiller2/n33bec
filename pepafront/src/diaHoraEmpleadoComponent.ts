@@ -2,7 +2,7 @@
 import angular from "angular";
 
 const diaHoraEmpleadoComponent = {
-    template: require('../Pages/Templates/dia_hora_template.html'),
+    template: require('./Pages/Templates/dia_hora_template.html'),
     controllerAs: "vm",
     bindings: {
         ngModel: '<',

@@ -1,7 +1,7 @@
 'use strict';
 import angular from "angular";
 const appConsoleComponent = {
-    template: require('../Pages/Templates/console_template.html'),
+    template: require('./Pages/Templates/console_template.html'),
     controllerAs: "console",
     //    bindings: {},
     controller: ConsoleController

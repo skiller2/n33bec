@@ -5,7 +5,7 @@ import angular from "angular";
 
 const testComponent =
 {
-    template: require('../Pages/test.html'),
+    template: require('./Pages/test.html'),
     bindings: {
     },
     controllerAs: "test",

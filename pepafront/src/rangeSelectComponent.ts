@@ -3,7 +3,7 @@
 import angular from "angular";
 
 const rangeSelectComponent = {
-    template: require('../Pages/Templates/range_select_template.html'),
+    template: require('./Pages/Templates/range_select_template.html'),
     controllerAs: "vm",
     bindings: {
         JSONdata: '=ngModel',

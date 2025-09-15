@@ -1,7 +1,7 @@
 'use strict';
 
 const appDinExtComponent = {
-    template: require('../Pages/Templates/din_ext_template.html'),
+    template: require('./Pages/Templates/din_ext_template.html'),
     controllerAs: "dinext",
     controller: DINEXTController,
     bindings: {

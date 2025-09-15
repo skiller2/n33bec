@@ -1,6 +1,6 @@
 'use strict';
 const displaySucesosComponent = {
-    template: require('../Pages/display_sucesos.html'),
+    template: require('./Pages/display_sucesos.html'),
     bindings: {},
     controllerAs: "displaySucesos",
     controller:
@@ -10,7 +10,7 @@ const displaySucesosComponent = {
                 const vm = this;
                 let timer: any;
 
-                $templateCache.put('tree_grid.html', require("../Pages/Templates/tree_grid_template.html"));
+                $templateCache.put('tree_grid.html', require("./Pages/Templates/tree_grid_template.html"));
 
                 vm.sucesotree = [];
                 vm.ind_listado = false;

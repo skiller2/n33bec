@@ -1,7 +1,7 @@
 # Script de PowerShell para extraer cadenas de traducción usando múltiples regex
 
 # Configuración
-$directoryPath = ".\"  # Ruta del proyecto (ajusta según tu estructura)
+$directoryPath = ".\src"  # Ruta del proyecto (ajusta según tu estructura)
 $fileExtensions = @("*.ts", "*.html")  # Extensiones de archivos a buscar
 $outputFile = "extracted-translations.json"  # Archivo de salida para todas las traducciones
 $newTranslationsFile = "new-translations.json"  # Archivo para cadenas nuevas
@@ -19,7 +19,7 @@ $regexPatterns = @(
     '\\/\\*\\s*i18nextract\\s*\\*\\/"((?:\\.|[^"\\])*)"',      # commentDoubleQuote
     '\{\{.*?\s*(?:::)?''((?:\\.|[^''\\])*)''\s*\|\s*translate(?::.*?)?\s*\}\}',  # HtmlFilterSimpleQuote (simplificado, asume delimitadores {{}})
     '\{\{.*?\s*(?:::)?"((?:\\.|[^"\\])*)"\s*\|\s*translate(?::.*?)?\s*\}\}',    # HtmlFilterDoubleQuote
-    '\{\{.*?\s*(?:::)?([^?]*\?[^:]*:[^|}]*)(\s*\|\s*translate(?::.*?)?)?\s*\}\}',  # HtmlFilterTernary
+#    '\{\{.*?\s*(?:::)?([^?]*\?[^:]*:[^|}]*)(\s*\|\s*translate(?::.*?)?)?\s*\}\}',  # HtmlFilterTernary
     '<(?:[^>"]|"(?:[^"]|\\/")*")*\stranslate(?:>|\s[^>]*>)([^<]*)',             # HtmlDirective
 #    '<(?:[^>"]|"(?:[^"]|\\/")*")*\stranslate=''([^\']*)''[^>]*>([^<]*)',        # HtmlDirectiveSimpleQuote
     "$escapedStart\\s*(?:::)?'((?:\\\\.|[^'\\\\])*?)'\\s*\\|\\s*translate(?:\\:.*?)?\\s*$escapedEnd",  # HtmlFilterSimpleQuote (línea 19 corregida)
@@ -27,7 +27,7 @@ $regexPatterns = @(
     'translate="((?:\\.|[^"\\])*)".*angular-plural-extract="((?:\\.|[^"\\])*)"', # HtmlDirectivePluralLast
     'angular-plural-extract="((?:\\.|[^"\\])*)".*translate="((?:\\.|[^"\\])*)"', # HtmlDirectivePluralFirst
     'ng-bind-html="\s*''((?:\\.|[^''\\])*)''\s*\|\s*translate(?::.*?)?\s*"',     # HtmlNgBindHtml
-    'ng-bind-html="\s*([^?]*?[^:]*:[^|}]*)(\s*\|\s*translate(?::.*?)?)?\s*"',    # HtmlNgBindHtmlTernary
+#    'ng-bind-html="\s*([^?]*?[^:]*:[^|}]*)(\s*\|\s*translate(?::.*?)?)?\s*"',    # HtmlNgBindHtmlTernary
     '\$translate\(\s*''((?:\\.|[^''\\])*)''[^)]*\)',                            # JavascriptServiceSimpleQuote
     '\$translate\(\s*"((?:\\.|[^"\\])*)"[^)]*\)',                               # JavascriptServiceDoubleQuote
     '\$translate\((?:\s*\[\s*(?:(?:''(?:(?:\\.|[^.*''\\])*)'')\s*,*\s*)+]\s*)\)',  # JavascriptServiceArraySimpleQuote

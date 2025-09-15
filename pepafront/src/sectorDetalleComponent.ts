@@ -2,7 +2,7 @@
 import angular from "angular";
 
 const sectorDetalleComponent = {
-    template: require('../Pages/Templates/sector_detalle.html'),
+    template: require('./Pages/Templates/sector_detalle.html'),
     bindings: {
         cod_tema: '<codTema',
         cod_sector: '<codSector',

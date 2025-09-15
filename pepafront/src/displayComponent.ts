@@ -4,7 +4,7 @@ import moment from "moment";
 
 
 const displayComponent = {
-    template: require('../Pages/display.html'),
+    template: require('./Pages/display.html'),
     bindings: {},
     controllerAs: "display",
     controller:

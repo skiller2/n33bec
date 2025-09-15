@@ -3,7 +3,7 @@ import angular from "angular";
 
 const appTipoUsoComponent = {
 //    selector:"app-tipo-uso",
-    template: require('../Pages/Templates/tipo_uso_template.html'),
+    template: require('./Pages/Templates/tipo_uso_template.html'),
     controllerAs: "tipouso",
     controller: TipoUsoController,
     bindings: {

@@ -2,7 +2,7 @@
 import angular from "angular";
 
 const adjuntarFileComponent = {
-    template: require('../Pages/Templates/adjuntar_file_template.html'),
+    template: require('./Pages/Templates/adjuntar_file_template.html'),
     controllerAs: "adjuntarFile",
     bindings: {
         ngModel: '<',

@@ -2,7 +2,7 @@
 
 const sectoresComponent =
 {
-    template: require('../Pages/sectores.html'),
+    template: require('./Pages/sectores.html'),
     bindings: {
     },
     controllerAs: "sectores",

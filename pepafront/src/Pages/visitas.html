@@ -54,8 +54,8 @@
                     </div>
 
                     <div class="form-group" ng-show="visitas.ind_muestra_tipohab">
-                        <label for="tipo_visita_dt" class="col-sm-10 label-adjust" translate>Tipo Habilitación <span
-                                class="field-required">*</span></label>
+                        <label for="tipo_visita_dt" class="col-sm-10 label-adjust" translate>Tipo Habilitación<span
+                                class="field-required"> *</span></label>
                         <ui-select class="form-control form-control-sm" id="tipo_credencial_dt" name="tipo_visita_dt"
                             ng-model="visitas.visita_dt.tipo_habilitacion" disabled=""
                             xng-options="item.id as item.name for item in visitas.tipoHabilitacion">
@@ -140,8 +140,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cod_tipo_doc_dt" class="col-sm-10 label-adjust" translate>Tipo Doc. <span
-                                class="field-required">*</span></label>
+                        <label for="cod_tipo_doc_dt" class="col-sm-10 label-adjust" translate>Tipo Doc.<span
+                                class="field-required"> *</span></label>
                         <ui-select class="form-control form-control-sm" id="cod_tipo_doc_dt" name="cod_tipo_doc_dt"
                             disabled="" ng-model="visitas.visita_dt.cod_tipo_doc" ng-required="true"
                             xng-options="item.id as item.name for item in visitas.tipoDocumento">
@@ -172,16 +172,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_persona_dt" class="col-sm-10 label-adjust" translate>Nombre <span
-                                class="field-required">*</span></label>
+                        <label for="nom_persona_dt" class="col-sm-10 label-adjust" translate>Nombre<span
+                                class="field-required"> *</span></label>
                         <input type="text" class="form-control form-control-sm" id="nom_persona_dt"
                             name="nom_persona_dt" translate translate-attr-placeholder="Nombre" ng-model="visitas.visita_dt.nom_persona"
                             readonly="">
                     </div>
 
                     <div class="form-group">
-                        <label for="cod_sexo_dt" class="col-sm-10 label-adjust" translate>Sexo <span
-                                class="field-required">*</span></label>
+                        <label for="cod_sexo_dt" class="col-sm-10 label-adjust" translate>Sexo<span
+                                class="field-required"> *</span></label>
                         <ui-select class="form-control form-control-sm" id="cod_sexo_dt" name="cod_sexo_dt"
                             ng-model="visitas.visita_dt.cod_sexo" disabled=""
                             xng-options="item.id as item.name for item in visitas.tipoSexo">
@@ -194,8 +194,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email_dt" class="col-sm-10 label-adjust" translate>E-mail <span
-                                class="field-required">*</span></label>
+                        <label for="email_dt" class="col-sm-10 label-adjust" translate>E-mail<span
+                                class="field-required"> *</span></label>
                         <input type="email" class="form-control form-control-sm" id="email_dt" name="email_dt"
                             translate translate-attr-placeholder="Correo electrónico" ng-model="visitas.visita_dt.email" readonly="">
                     </div>
@@ -216,8 +216,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="img_documento_dt" class="col-sm-10 label-adjust" translate>Documento <span
-                                class="field-required">*</span></label>
+                        <label for="img_documento_dt" class="col-sm-10 label-adjust" translate>Documento<span
+                                class="field-required"> *</span></label>
                         <div class="form-control form-control-img"><img id="img_documento_dt"
                                 ng-src="{{visitas.visita_dt.img_documento}}"
                                 ng-show="visitas.visita_dt.img_documento" /></div>
@@ -237,8 +237,8 @@
                 <div class="row justify-content-md-center w-100">
                     <div class="col-lg-4 col-md-6">
                         <div class="form-group" ng-class="{'has-warning' : frmHabilitaciones.cod_credencial.$dirty}">
-                            <label for="cod_credencial" class="col-sm-10 label-adjust" translate>Cód. Tarjeta <span
-                                    class="field-required">*</span></label>
+                            <label for="cod_credencial" class="col-sm-10 label-adjust" translate>Cód. Tarjeta<span
+                                    class="field-required"> *</span></label>
                             <input ng-model-options="{updateOn: 'blur'}" ng-change="visitas.fbuscaCredencial()"
                                 type="text" class="form-control form-control-sm" id="cod_credencial"
                                 name="cod_credencial" ng-model="visitas.visita.cod_credencial" ng-required="true"
@@ -250,8 +250,8 @@
                             ng-show="frmHabilitaciones.habilitacion.obs_tarjeta != ''">{{visitas.visita.obs_tarjeta}}</span>
 
                         <div class="form-group">
-                            <label for="cod_ou_contacto" class="col-sm-10 label-adjust" translate>Organización <span
-                                    class="field-required">*</span></label>
+                            <label for="cod_ou_contacto" class="col-sm-10 label-adjust" translate>Organización<span
+                                    class="field-required"> *</span></label>
                             <ui-select class="form-control form-control-sm" id="cod_ou_contacto" name="cod_ou_contacto"
                                 ng-change="visitas.limpiarContacto()" ng-model="visitas.visita.cod_ou_contacto"
                                 ng-required="true" xng-options="item.cod_ou as item.nom_ou for item in visitas.ouList">
@@ -285,8 +285,8 @@
                         </div>
 
                         <div class="form-group" ng-show="visitas.ind_muestra_tipohab">
-                            <label for="tipo_habilitacion" class="col-sm-10 label-adjust" translate>Tipo Habilitación <span
-                                    class="field-required">*</span></label>
+                            <label for="tipo_habilitacion" class="col-sm-10 label-adjust" translate>Tipo Habilitación<span
+                                    class="field-required"> *</span></label>
                             <ui-select class="form-control form-control-sm" id="tipo_credencial"
                                 name="tipo_habilitacion" ng-model="visitas.visita.tipo_habilitacion" ng-required="true"
                                 ng-disabled="visitas.noteditable"
@@ -366,8 +366,8 @@
                         </div>
 
                         <div ng-hide="visitas.ind_visita_simplificada" class="form-group">
-                            <label for="sel_sectores" class="col-sm-10 label-adjust" translate>Sectores <span
-                                    class="field-required">*</span></label>
+                            <label for="sel_sectores" class="col-sm-10 label-adjust" translate>Sectores<span
+                                    class="field-required"> *</span></label>
                             <ui-select multiple ui-hide-choices ng-model="visitas.visita.sectoresSel" id="sel_sectores"
                                 name="sel_sectores" append-to-body="false" ng-required="true" close-on-select="false">
                                 <ui-select-match ui-lock-choice="$item.estado === 'inactivo'"  placeholder="{{'Sector'|translate}}"><span>{{$item.nom_sector}}</span></ui-select-match>

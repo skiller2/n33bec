@@ -250,7 +250,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Prueba',
             filename: 'index.html',
-            template: './Pages/app.html',
+            template: './src/Pages/app.html',
             inject: 'body',
             hash: true,
             /*            minify: {

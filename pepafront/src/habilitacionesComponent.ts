@@ -5,7 +5,7 @@ import angular from "angular";
 
 const habilitacionesComponent =
 {
-    template: require('../Pages/habilitaciones.html'),
+    template: require('./Pages/habilitaciones.html'),
     bindings: {
     },
     controllerAs: "habilitaciones",

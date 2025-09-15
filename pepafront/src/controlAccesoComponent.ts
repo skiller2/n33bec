@@ -2,7 +2,7 @@
 
 const controlAccesoComponent =
 {
-    template: require('../Pages/Templates/control_acceso.html'),
+    template: require('./Pages/Templates/control_acceso.html'),
     bindings: {
         onClose: '&'
     },

@@ -3,7 +3,7 @@
 import angular from "angular";
         
 const display2Component = {
-    template: require('../Pages/display2.html'),
+    template: require('./Pages/display2.html'),
     bindings: {},
     controllerAs: "display2",
     controller: ['$scope', 'realTimeData', '$sce', '$filter', 'datosBack','$translate',
@@ -29,13 +29,13 @@ const display2Component = {
 
             $scope.$on('io', function (event, args) {
                 if (args.context.io_name === vm.io_name03) {
-                    vm.d03src = '../Content/Images/d03' + args.context.color + '.png';
+                    vm.d03src = './Content/Images/d03' + args.context.color + '.png';
                 }
                 if (args.context.io_name === vm.io_name04) {
-                    vm.d04src = '../Content/Images/d04' + args.context.color + '.png';
+                    vm.d04src = './Content/Images/d04' + args.context.color + '.png';
                 }
                 if (args.context.io_name === vm.io_name17) {
-                    vm.d07src = '../Content/Images/d07' + args.context.color + '.png';
+                    vm.d07src = './Content/Images/d07' + args.context.color + '.png';
                 }
 
             });
@@ -58,19 +58,19 @@ const display2Component = {
 
                 datosBack.getData('io/1234/' + vm.io_name03, false, false).then(function (response) {
                     if (response.io_name === vm.io_name03) {
-                        vm.d03src = '../Content/Images/d03' + response.color + '.png';
+                        vm.d03src = './Content/Images/d03' + response.color + '.png';
                     }
                 }).catch(function (data) { });
 
                 datosBack.getData('io/1234/' + vm.io_name04, false, false).then(function (response) {
                     if (response.io_name === vm.io_name04) {
-                        vm.d04src = '../Content/Images/d04' + response.color + '.png';
+                        vm.d04src = './Content/Images/d04' + response.color + '.png';
                     }
                 }).catch(function (data) { });
 
                 datosBack.getData('io/1234/' + vm.io_name17, false, false).then(function (response) {
                     if (response.io_name === vm.io_name17) {
-                        vm.d07src = '../Content/Images/d07' + response.color + '.png';
+                        vm.d07src = './Content/Images/d07' + response.color + '.png';
                     }
                 }).catch(function (data) { });
 

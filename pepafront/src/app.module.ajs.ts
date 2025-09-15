@@ -25,10 +25,10 @@ import 'angular-dashboard-framework/dist/angular-dashboard-framework.min.css';
 import 'ui-select/dist/select.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../Content/ui-grid-app.css';
-import '../Content/log-viewer-app.css';
+import './Content/ui-grid-app.css';
+import './Content/log-viewer-app.css';
 import 'angular-clock/dist/angular-clock.css'
-import '../Content/estilo.css';
+import './Content/estilo.css';
 
 //import '@fortawesome/fontawesome-free/js/brands';
 //import '@fortawesome/fontawesome-free/js/fontawesome';
@@ -94,14 +94,14 @@ import displayComponent from "./displayComponent";
 import displaySectorComponent from "./displaySectorComponent";
 
 
-import '../Widgets/diskspace/src/diskspace.ts';
-import '../Widgets/io/src/io.ts';
-import '../Widgets/io_lista/src/io_lista.ts';
-import '../Widgets/display_area54/src/display_area54.ts';
-import '../Widgets/ioext/src/ioext.ts';
-import '../Widgets/movimientos/src/movimientos.ts';
-import '../Widgets/processor/src/processor.ts';
-import '../Widgets/weather/src/weather';
+import './Widgets/diskspace/src/diskspace.ts';
+import './Widgets/io/src/io.ts';
+import './Widgets/io_lista/src/io_lista.ts';
+import './Widgets/display_area54/src/display_area54.ts';
+import './Widgets/ioext/src/ioext.ts';
+import './Widgets/movimientos/src/movimientos.ts';
+import './Widgets/processor/src/processor.ts';
+import './Widgets/weather/src/weather';
 
 import 'angular-bootstrap-grid-tree';
 import "angular-bootstrap-nav-tree";
@@ -250,7 +250,7 @@ angular.module(MODULE_NAME,
                     url: '/about',
                     views: {
                         about: {
-                            template: require('../Pages/about.html'),
+                            template: require('./Pages/about.html'),
                         },
                     },
                 })
@@ -264,7 +264,7 @@ angular.module(MODULE_NAME,
                     url: '/about',
                     views: {
                         "logout": {
-                            template: require('../Pages/about.html'),
+                            template: require('./Pages/about.html'),
                         },
                     },
                 })

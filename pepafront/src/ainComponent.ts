@@ -1,7 +1,7 @@
 'use strict';
 
 const appAinComponent = {
-    template: require('../Pages/Templates/ain_template.html'),
+    template: require('./Pages/Templates/ain_template.html'),
     controllerAs: "ain",
     controller: AINController,
     bindings: {

@@ -1,7 +1,7 @@
 'use strict';
        
 const displaySectorComponent = {
-    template: require('../Pages/display_sector.html'),
+    template: require('./Pages/display_sector.html'),
     bindings: {},
     controllerAs: "display",
     controller:
@@ -9,7 +9,7 @@ const displaySectorComponent = {
             function ($scope, realTimeData, datosBack, $state, $timeout) {
 
                 const vm = this;
-                const fotouser = require('../Content/Images/user.svg');
+                const fotouser = require('./Content/Images/user.svg');
 
                 let timer;
                 let cod_sector = '';

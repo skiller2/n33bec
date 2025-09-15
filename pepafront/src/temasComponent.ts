@@ -5,7 +5,7 @@ import angular from "angular";
 
 const temasComponent =
 {
-    template: require('../Pages/temas.html'),
+    template: require('./Pages/temas.html'),
     bindings: {
     },
     controllerAs: "temas",

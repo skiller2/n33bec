@@ -1,7 +1,7 @@
 'use strict';
 const usuariosComponent =
 {
-    template: require('../Pages/usuarios.html'),
+    template: require('./Pages/usuarios.html'),
     bindings: {
     },
     controllerAs: "usuarios",

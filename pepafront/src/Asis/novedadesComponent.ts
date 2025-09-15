@@ -1,7 +1,7 @@
 'use strict';
 const novedadesComponent =
 {
-  template: require('../../Pages/Asis/novedades.html'),
+  template: require('.././Pages/Asis/novedades.html'),
   bindings: {
   },
   controllerAs: "novedades",

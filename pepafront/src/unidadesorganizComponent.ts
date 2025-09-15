@@ -2,7 +2,7 @@
    
 const unidadesorganizComponent =
 {
-  template: require('../Pages/unidadesorganiz.html'),
+  template: require('./Pages/unidadesorganiz.html'),
   bindings: {
   },
   controllerAs: "unidadesorganiz",

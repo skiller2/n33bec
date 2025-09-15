@@ -4,7 +4,7 @@ import angular from "angular";
 
 const visitasComponent =
 {
-    template: require('../Pages/visitas.html'),
+    template: require('./Pages/visitas.html'),
     bindings: {
     },
     controllerAs: "visitas",

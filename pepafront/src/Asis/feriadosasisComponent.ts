@@ -1,7 +1,7 @@
 'use strict';
 const feriadosasisComponent =
 {
-  template: require('../../Pages/Asis/feriadosasis.html'),
+  template: require('.././Pages/Asis/feriadosasis.html'),
   bindings: {
   },
   controllerAs: "feriadosasis",

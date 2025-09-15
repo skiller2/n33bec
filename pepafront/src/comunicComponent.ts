@@ -1,7 +1,7 @@
 'use strict';
 
 const appComunicComponent = {
-    template: require('../Pages/Templates/comunic_template.html'),
+    template: require('./Pages/Templates/comunic_template.html'),
     controllerAs: "comunic",
     controller: ComunicController,
     bindings: {

@@ -1,7 +1,7 @@
 'use strict';
 const empleadosComponent =
 {
-  template: require('../../Pages/Asis/empleados.html'),
+  template: require('.././Pages/Asis/empleados.html'),
   bindings: {
   },
   controllerAs: "empleados",

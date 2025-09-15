@@ -1,7 +1,7 @@
 'use strict';
 
 const appDinComponent = {
-    template: require('../Pages/Templates/din_template.html'),
+    template: require('./Pages/Templates/din_template.html'),
     controllerAs: "din",
     controller: DINController,
     bindings: {

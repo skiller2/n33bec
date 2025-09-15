@@ -1,7 +1,7 @@
 'use strict';
 
 const appDoutComponent = {
-    template: require('../Pages/Templates/dout_template.html'),
+    template: require('./Pages/Templates/dout_template.html'),
     controllerAs: "dout",
     controller: DOUTController,
     bindings: {

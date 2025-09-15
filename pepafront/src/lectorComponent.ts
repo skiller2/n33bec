@@ -1,7 +1,7 @@
 'use strict';
 
 const appLectorComponent = {
-    template: require('../Pages/Templates/lector_template.html'),
+    template: require('./Pages/Templates/lector_template.html'),
     controllerAs: "lector",
     controller: LectorController,
     bindings: {

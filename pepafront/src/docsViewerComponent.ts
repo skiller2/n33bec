@@ -2,7 +2,7 @@
 import angular, { element } from "angular";
 import { chmod } from "fs";
 const docsViewerComponent= {
-        template: require('../Pages/Templates/docs_viewer.html'),
+        template: require('./Pages/Templates/docs_viewer.html'),
         require: {
             //            ngModel: "ngModel"
         },
