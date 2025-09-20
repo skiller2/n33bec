@@ -144,17 +144,17 @@ class TemaListener
                         break;
                     case 'R':
                         $level = "success";
-                        $des_valor = "Resetea contador";
+                        $des_valor = __("Resetea contador");
                         $ind_activa_audio = 0;
                         break;
                     case 'N':
                         $level = "success";
-                        $des_valor = "Normalizado";
+                        $des_valor = __("Normalizado");
                         $ind_activa_audio = 0;
                         break;
                     default:
                         $level = "success";
-                        $des_valor = "Desconocido";
+                        $des_valor = __("Desconocido");
                         $ind_activa_audio = 0;
                         break;
                 }
@@ -186,7 +186,7 @@ class TemaListener
                             break;
                     }
                 } catch (\Exception $e) {
-                    Log::channel("eventos")->info("Error grabando ult suceso " . $event->cod_tema . " " . $e->getMessage(), array($event->event_data));
+                    Log::channel("eventos")->info(__("Error grabando ult suceso")." " . $event->cod_tema . " " . $e->getMessage(), array($event->event_data));
                 }
                 $obs = ($des_observaciones != "") ? ", obs: " . $des_observaciones : "";
                 $valor_str = (is_array($valor)) ? json_encode($valor) : $valor;
@@ -271,7 +271,7 @@ class TemaListener
                     $incre = Cache::get("COUNT_" . self::config_tag . $cod_tema);
                     $count = $incre + 1;
                     Cache::forever("COUNT_" . self::config_tag . $cod_tema, $count);
-                    $contador_msg = ", contador:$count";
+                    $contador_msg = ", ".__("contador").":$count";
                 }
                 $auto_reset = $this->temas[$cod_tema]["auto_reset"];
                 //                $des_valor = ($valor == 1) ? $this->temas[$cod_tema]["val_1"] : $this->temas[$cod_tema]["val_0"];
@@ -287,7 +287,7 @@ class TemaListener
                     if ($vaResultado) {
                         foreach ($vaResultado as $aborrar)
                             $aborrar->delete();
-                        $des_observaciones .= " reposición automática";
+                        $des_observaciones .= " ".__("reposición automática");
                     }
                 }
                 $obs = ($des_observaciones != "") ? ", obs: " . $des_observaciones : "";
@@ -338,7 +338,7 @@ class TemaListener
                     $incre = Cache::get("COUNT_" . self::config_tag . $cod_tema);
                     $count = $incre + 1;
                     Cache::forever("COUNT_" . self::config_tag . $cod_tema, $count);
-                    $contador_msg = ", contador:$count";
+                    $contador_msg = ", ".__("contador").":$count";
                 }
                 $des_valor = $valor . $this->temas[$cod_tema]['measure_unit'];
                 $level = $this->temas[$cod_tema]['color_val'];
@@ -383,7 +383,7 @@ class TemaListener
                     $incre = Cache::get("COUNT_" . self::config_tag . $cod_tema);
                     $count = $incre + 1;
                     Cache::forever("COUNT_" . self::config_tag . $cod_tema, $count);
-                    $contador_msg = ", contador:$count";
+                    $contador_msg = ", ".__("contador").":$count";
                 }
                 $accion_type = (isset($this->temas[$cod_tema]["accion_type"])) ? $this->temas[$cod_tema]["accion_type"] : "local";
                 $bus_id = (isset($this->temas[$cod_tema]["bus_id"])) ? $this->temas[$cod_tema]["bus_id"] : "";
@@ -393,7 +393,7 @@ class TemaListener
                         $gpio = (isset($this->temas[$cod_tema]["io"])) ? $this->temas[$cod_tema]["io"] : "";
                         $url_envio = "";
                         if ($gpio == "") {
-                            Log::channel("eventos")->info("Error gpio no configurado para " . $cod_tema, array($this->temas[$cod_tema]));
+                            Log::channel("eventos")->info(__("Error gpio no configurado para")." " . $cod_tema, array($this->temas[$cod_tema]));
                             return;
                         }
 
@@ -427,7 +427,7 @@ class TemaListener
                         break;
                     case "bus":
                         if ($bus_id == "") {
-                            Log::channel("eventos")->info("Error Identificador del bus no configurado para " . $cod_tema, array($this->temas[$cod_tema]));
+                            Log::channel("eventos")->info(__("Error Identificador del bus no configurado para")." " . $cod_tema, array($this->temas[$cod_tema]));
                             return;
                         }
 
@@ -442,7 +442,7 @@ class TemaListener
                         break;
                     case "cai":
                         if ($bus_id == "") {
-                            Log::channel("eventos")->info("Error Identificador del bus no configurado para " . $cod_tema, array($this->temas[$cod_tema]));
+                            Log::channel("eventos")->info(__("Error Identificador del bus no configurado para")." " . $cod_tema, array($this->temas[$cod_tema]));
                             return;
                         }
 
@@ -509,7 +509,7 @@ class TemaListener
             try {
                 MoviEventos::store($event);
             } catch (\Exception $e) {
-                Log::channel("eventos")->info("Error grabando evento " . $cod_tema . " " . $e->getMessage(), array($event->event_data));
+                Log::channel("eventos")->info(__("Error grabando evento")." " . $cod_tema . " " . $e->getMessage(), array($event->event_data));
             }
         }
 
@@ -523,7 +523,7 @@ class TemaListener
                     try {
                         MoviDisplayTemas::store($event);
                     } catch (\Exception $e) {
-                        Log::channel("eventos")->info("Error grabando evento " . $cod_tema . " " . $e->getMessage(), array($event->event_data));
+                        Log::channel("eventos")->info(__("Error grabando evento")." " . $cod_tema . " " . $e->getMessage(), array($event->event_data));
                     }
                     break;
             }

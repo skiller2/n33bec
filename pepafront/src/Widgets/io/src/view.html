@@ -3,7 +3,7 @@
         <div class="{{widgetio.io.led}}"></div>
     </div>
     <div class="form-group">
-        <label for="valor">Estado</label>        
+        <label for="valor" translate>Estado</label>        
         <span ng-show="config.ionro.direction == 'IN'">{{widgetio.io.des_valor}}</span>
         <button ng-show="config.ionro.direction == 'OUT'" type="button" class="btn {{widgetio.io.button}} btn-grid" ng-click="widgetio.setData(widgetio.io.io_name,widgetio.io.value)">{{widgetio.io.des_valor}}</button>
     </div>
@@ -12,7 +12,7 @@
         <span>{{widgetio.io.value}}</span>
     </div>
     <div class="form-group" ng-show="config.ind_muestra_contador">
-        <label>Contador</label>
+        <label translate>Contador</label>
         <span>{{widgetio.io.count}}</span>
     </div>
 </div>
