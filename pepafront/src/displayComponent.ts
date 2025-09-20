@@ -95,7 +95,7 @@ const displayComponent = {
                 
                 vm.fireAlarm = function () {
                     vm.button = 'btn-danger';
-                    vm.des_valor = $translate.instant("ALARMA");
+                    vm.des_valor = $translate.instant("Alarma").toUpperCase();
                     //22-6
                     const hora = parseInt(moment(Date.now()).format("hh"));
                     //if (hora > 22 && hora < 6) {
@@ -105,7 +105,7 @@ const displayComponent = {
 
                 vm.stopAlarm = function () {
                     vm.button = 'btn-success';
-                    vm.des_valor = $translate.instant("NORMAL");
+                    vm.des_valor = $translate.instant("Normal").toUpperCase();
                     sounds.stop();
                 }
                 /*

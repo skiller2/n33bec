@@ -194,8 +194,8 @@ const displayGeneralComponent = {
                 ind_desconexion,
                 ind_exclusion
             ) => {
-                vm.des_valor_alarma = $translate.instant("NORMAL");
-                vm.des_valor_falla = $translate.instant("NORMAL");
+                vm.des_valor_alarma =$translate.instant("Normal").toUpperCase();
+                vm.des_valor_falla = $translate.instant("Normal").toUpperCase();
                 vm.cs_shaker_alarpre = "";
                 vm.cs_shaker_falla = "";
                 vm.button_alarma = "cs-btn-normal";
@@ -203,11 +203,11 @@ const displayGeneralComponent = {
 
                 if (ind_alarma_gral) {
                     vm.button_alarma = "cs-btn-alarma";
-                    vm.des_valor_alarma = $translate.instant("ALARMA");
+                    vm.des_valor_alarma = $translate.instant("Alarma").toUpperCase();
                     vm.cs_shaker_alarpre = "shaker";
                 } else if (ind_alarmatec_gral) {
                     vm.button_alarma = "cs-btn-alarma";
-                    vm.des_valor_alarma = $translate.instant("ALARMA TÉCNICA");
+                    vm.des_valor_alarma = $translate.instant("Alarma Técnica").toUpperCase();
                     vm.cs_shaker_alarpre = "shaker";
                 } else if (ind_prealarma_gral) {
                     vm.button_alarma = "cs-btn-prealarma";
@@ -217,7 +217,7 @@ const displayGeneralComponent = {
 
                 if (ind_falla_gral) {
                     vm.button_falla = "cs-btn-falla";
-                    vm.des_valor_falla = $translate.instant("FALLA");
+                    vm.des_valor_falla = $translate.instant("Falla").toUpperCase();
                     vm.cs_shaker_falla = "shaker";
                 } else if (ind_desconexion) {
                     vm.button_falla = "cs-btn-desconexion";

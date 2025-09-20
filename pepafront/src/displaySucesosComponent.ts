@@ -41,7 +41,7 @@ const displaySucesosComponent = {
                     },
                     {
                         field: "ind_alarmatec",
-                        displayName: "Alarma Técnica",
+                        displayName: $translate.instant("Alarma Técnica"),
                         class: "cs-w-15 text-center",
                         bodyclass: "text-center",
                         sortable: true,
@@ -52,7 +52,7 @@ const displaySucesosComponent = {
                     },
                     {
                         field: "ind_alarma text-center",
-                        displayName: "Alarma",
+                        displayName: $translate.instant("Alarma"),
                         class: "cs-w-15 ",
                         bodyclass: "text-center",
                         sortable: true,
@@ -63,7 +63,7 @@ const displaySucesosComponent = {
                     },
                     {
                         field: "ind_prealarma",
-                        displayName: "Pre Alarma",
+                        displayName: $translate.instant("Pre Alarma"),
                         class: "cs-w-15 text-center",
                         bodyclass: "text-center",
                         sortable: true,
@@ -74,7 +74,7 @@ const displaySucesosComponent = {
                     },
                     {
                         field: "ind_falla",
-                        displayName: "Falla",
+                        displayName: $translate.instant("Falla"),
                         class: "cs-w-15 text-center",
                         bodyclass: "text-center",
                         sortable: true,
@@ -85,7 +85,7 @@ const displaySucesosComponent = {
                     {
                         field: "cant_activacion",
                         class: "cs-w-15 text-right",
-                        displayName: "Cantidad",
+                        displayName: $translate.instant("Cantidad"),
                         bodyclass: "text-right",
                         sortable: true,
                         sortingType: "number"
@@ -168,8 +168,8 @@ const displaySucesosComponent = {
                     video: null // Will reference the video element on success
                 };
                 const resetClases = () => {
-                    vm.des_valor_alarma = 'SIN CONEXIÓN';
-                    vm.des_valor_falla = 'SIN CONEXIÓN';
+                    vm.des_valor_alarma = $translate.instant("SIN CONEXIÓN");
+                    vm.des_valor_falla = $translate.instant("SIN CONEXIÓN");
                     vm.button_alarma = 'btn-dark';
                     vm.button_falla = 'btn-dark';
                     vm.cs_shaker_alarpre = "";
@@ -189,8 +189,8 @@ const displaySucesosComponent = {
   
                     datosBack.getData('displaysucesos/listasec', true, false).then(function (response: { lista: any; ind_alarma_gral: any; ind_alarmatec_gral: any; ind_prealarma_gral: any; ind_falla_gral: any; }) {
                         vm.lista = response.lista;
-                        vm.des_valor_alarma = "NORMAL";
-                        vm.des_valor_falla = "NORMAL";
+                        vm.des_valor_alarma = $translate.instant("Normal").toUpperCase();
+                        vm.des_valor_falla = $translate.instant("Normal").toUpperCase();
                         vm.cs_shaker_alarpre = "";
                         vm.cs_shaker_falla = "";
                         vm.button_alarma = "cs-btn-normal";
@@ -198,11 +198,11 @@ const displaySucesosComponent = {
 
                         if (response.ind_alarma_gral) {
                             vm.button_alarma = "cs-btn-alarma";
-                            vm.des_valor_alarma = $translate.instant("ALARMA");
+                            vm.des_valor_alarma = $translate.instant("Alarma").toUpperCase();
                             vm.cs_shaker_alarpre = "shaker";
                         } else if (response.ind_alarmatec_gral) {
                             vm.button_alarma = "cs-btn-alarma";
-                            vm.des_valor_alarma = $translate.instant("ALARMA TÉCNICA");
+                            vm.des_valor_alarma = $translate.instant("Alarma Técnica").toUpperCase();
                             vm.cs_shaker_alarpre = "shaker";
                         } else if (response.ind_prealarma_gral) {
                             vm.button_alarma = "cs-btn-prealarma";
@@ -212,7 +212,7 @@ const displaySucesosComponent = {
 
                         if (response.ind_falla_gral) {
                             vm.button_falla = "cs-btn-falla";
-                            vm.des_valor_falla = $translate.instant("FALLA");
+                            vm.des_valor_falla = $translate.instant("Falla").toUpperCase();
                             vm.cs_shaker_falla = "shaker";
                         }
 
