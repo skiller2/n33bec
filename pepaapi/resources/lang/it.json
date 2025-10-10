@@ -361,5 +361,13 @@
     "Valor": "Valore",
     "Valor Analógico": "Valore Analogico",
     "Ya existe una habilitación temporal con el número de DNI indicado": "Esiste già un'abilitazione temporanea con il numero di documento indicato",
-    "Último reporte": "Ultimo rapporto"
+    "Último reporte": "Ultimo rapporto",
+    "Evento": "Evento",
+    "Normal": "Normale",
+    "Ignorado":"Ignorato",
+    "Alarma":"Allarme",
+    "PreAlarma":"Preallarme",
+    "Alarma Técnica":"Allarme tecnico",
+    "Desconexión":"Disconnessione",
+    "Falla":"Fallimento"
 }

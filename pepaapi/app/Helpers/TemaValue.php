@@ -21,63 +21,63 @@ class TemaValue {
         $val_IG=(isset($detail['val_IG']))? $detail['val_IG'] : "NODEF";
 
         if ($val_NO == "*"){
-            $des_valor ="Normal";
+            $des_valor = __("Normal");
             $color = "cs-alert-NO";
             $tipo_evento = "NO";
         } else
         if ($val_EV == "*") {
-            $des_valor ="Evento";
+            $des_valor = __("Evento");
             $color = "cs-alert-EV";
             $tipo_evento = "EV";
         }else
         if ($val_IG == "*") {
-            $des_valor ="Ignorado";
+            $des_valor = __("Ignorado");
             $color = "";
             $tipo_evento = "IG";
         } else
         if (strcmp($valor,$val_NO)==0){
-            $des_valor ="Normal";
+            $des_valor = __("Normal");
             $color = "cs-alert-NO";
             $tipo_evento = "NO";
         } else
         if (strcmp($valor,$val_AL)==0){
-            $des_valor ="Alarma";
+            $des_valor = __("Alarma");
             $color = "cs-alert-AL";
             $tipo_evento = "AL";
         } else
         if (strcmp($valor,$val_PA)==0){
-            $des_valor ="PreAlarma";
+            $des_valor = __("PreAlarma");
             $color = "cs-alert-PA";
             $tipo_evento = "PA";
         } else
         if (strcmp($valor,$val_AT)==0){
-            $des_valor ="Alarma Técnica";
+            $des_valor = __("Alarma Técnica");
             $color = "cs-alert-AT";
             $tipo_evento = "AT";
         } else
         if (strcmp($valor,$val_DE)==0){
-            $des_valor ="Desconexión";
+            $des_valor = __("Desconexión");
             $color = "cs-alert-DE";
             $tipo_evento = "DE";
         } else
         if (strcmp($valor,$val_FA)==0){
-            $des_valor ="Falla";
+            $des_valor = __("Falla");
             $color = "cs-alert-FA";
             $tipo_evento = "FA";
         } else
         if (strcmp($valor,$val_EV)==0) {
-            $des_valor ="Evento";
+            $des_valor = __("Evento");
             $color = "cs-alert-EV";
             $tipo_evento = "EV";
         } else
         if (strcmp($valor,$val_IG)==0) {
-            $des_valor ="Ignorado";
+            $des_valor = __("Ignorado");
             $color = "";
             $tipo_evento = "IG";
         }
 
         else {
-            $des_valor ="Falla";
+            $des_valor = __("Falla");
             $color = "cs-alert-FA";
             $tipo_evento = "FA";
         } 

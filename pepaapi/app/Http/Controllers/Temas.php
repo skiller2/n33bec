@@ -410,7 +410,7 @@ class Temas extends Controller
         $temanr->save();
 
 
-        return response(['ok' => __('El componente fue creado satisfactoriamente con identificador :COD_TEMA',['COD_TEMA'=>$tema->cod_tema]) . $temanr->cod_tema], Response::HTTP_OK);
+        return response(['ok' => __('El componente fue creado satisfactoriamente con identificador :COD_TEMA',['COD_TEMA'=>$temanr->cod_tema])], Response::HTTP_OK);
     }
 
 
