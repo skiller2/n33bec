@@ -262,11 +262,12 @@ class Parametros extends Controller
     public function listDaemons()
     {
         $vadaemons = array(
-            array("cod_daemon" => "MoviDisplayTemasDaemon", "nom_daemon" => __("Gestiona Comando y Control"), "des_daemon" => __("También procesa audio evacuación")),
+            array("cod_daemon" => "MoviDisplayTemasDaemon", "nom_daemon" => __("Gestiona Comando y Control"), "des_daemon" => __("")),
             array("cod_daemon" => "ActuadoresDaemon", "nom_daemon" => __("Gestiona actuadores"), "des_daemon" => __("Procesa llamador y strobo")),
             array("cod_daemon" => "Area54Daemon", "nom_daemon" => __("Gestiona centrales incendio"), "des_daemon" => __("")),
             array("cod_daemon" => "Rs485Daemon", "nom_daemon" => __("Gestiona paneles"), "des_daemon" => __("")),
-            array("cod_daemon" => "DelayedTemaDaemon", "nom_daemon" => __("Control de dispositivos"), "des_daemon" => __(""))
+            array("cod_daemon" => "DelayedTemaDaemon", "nom_daemon" => __("Control de dispositivos"), "des_daemon" => __("")),
+            array("cod_daemon" => "AudioEvacDaemon", "nom_daemon" => __("Audio Evacuación"), "des_daemon" => __("Procesa audio evacuación"))
         );
         return response($vadaemons, Response::HTTP_OK);
     }

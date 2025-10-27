@@ -29,7 +29,7 @@ use Amp\Websocket\Parser\Rfc6455ParserFactory;
 use function Amp\delay;
 use Amp\Parallel\Worker\createWorker;
 
-class MoviDisplayTemasDaemon extends Command
+class AudioEvacDaemon extends Command
 {
 
     /**
@@ -37,18 +37,18 @@ class MoviDisplayTemasDaemon extends Command
      *
      * @var string
      */
-    protected $signature = 'command:MoviDisplayTemasDaemon
+    protected $signature = 'command:AudioEvacDaemon
                             {--debug : Print debug information to console}
                             {--linea= : Línea de captura}
                             {--tema= : Componente}
-                            Ej: php artisan command:MoviDisplayTemasDaemon --linea=BLA BLA SENSOR1 XXXX';
+                            Ej: php artisan command:AudioEvacDaemon --linea=BLA BLA SENSOR1 XXXX';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'MoviDisplayTemas Processing daemon';
+    protected $description = 'AudioEvacDaemon Processing daemon';
 
 
     /**
@@ -118,11 +118,9 @@ class MoviDisplayTemasDaemon extends Command
     public function audioevac($ind_modo_prueba,$cod_tema_disparo){
 
         $mdt = new MoviDisplayTemas;
-        $evento_avisador = (stripos($this->temas[$cod_tema_disparo]['nom_tema'], "AVI") !== false || $this->temas[$cod_tema_disparo]['cod_clase']=="AVIS"  ) ? true : false;
-        sleep(1);
+        $evento_avisador = (stripos($this->temas[$cod_tema_disparo]['nom_tema'], "AVI") !== false) ? true : false;
         $res = $mdt->getLista();
         $vasectores = array();
-
         foreach ($res as $record){
             $cod_tema=          $record->cod_tema;
             $cod_sector=        $record->cod_sector;
@@ -151,7 +149,7 @@ class MoviDisplayTemasDaemon extends Command
                         $level = "PREALM";
 
                     $extra_data = sprintf("CHG:PEPA\0%s:%s\0",$level,$cod_referencia);
-                    $event_data = array("valor" => $valor, "des_observaciones" => $level." ".$cod_referencia." ".$extra_data, "extra_data"=> $extra_data);
+                    $event_data = array("valor" => $valor, "des_observaciones" => $level." ".$cod_referencia, "extra_data"=> $extra_data);
                     event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
                 }
             }
@@ -220,7 +218,7 @@ class MoviDisplayTemasDaemon extends Command
                     }
                 }
             }
-//            $this->printDebugInfo('Proceso: ' . var_Export($payloadDecoded,true));
+            $this->printDebugInfo('Proceso: ' . var_Export($payloadDecoded,true));
 
             $cod_tema = (isset($payloadDecoded['context']['cod_tema'])?$payloadDecoded['context']['cod_tema']:"");
             if ($cod_tema) {
