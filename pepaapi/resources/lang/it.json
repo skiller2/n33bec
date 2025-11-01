@@ -370,5 +370,13 @@
     "PreAlarma":"Preallarme",
     "Alarma Técnica":"Allarme tecnico",
     "Desconexión":"Disconnessione",
-    "Falla":"Fallimento"
+    "Falla":"Fallimento",
+    "Fin actualización permisos de acceso":"Fine dell'aggiornamento dei permessi di accesso",
+    "Inicio compilación de permisos":"Avvia la compilazione dei permessi",
+    "Inicio actualización permisos de acceso":"Inizia ad aggiornare i permessi di accesso",
+    "Actualizando permisos de acceso":"Aggiornamento delle autorizzazioni di accesso",
+    "Error accediendo desde el equipo maestro":"Errore durante l'accesso dal computer master",
+    "Fin actualización permisos desde equipo maestro":"Fine dell'aggiornamento delle autorizzazioni dalla macchina master",
+    "Inicio actualización permisos desde equipo maestro":"Avviare l'aggiornamento delle autorizzazioni dal computer master",
+    "Configuración actualizada":"Impostazioni aggiornate"
 }
