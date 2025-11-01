@@ -90,7 +90,7 @@ class ActuadoresDaemon extends Command
 
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
                 $this->printDebugInfo($context['msgtext']);
-                EventLoop::stop();
+                exit(); //EventLoop::stop();
             }
         }
     }
@@ -186,7 +186,7 @@ class ActuadoresDaemon extends Command
 
             if (isset($payloadDecoded['context']["cod_daemon"]) && $payloadDecoded['context']["cod_daemon"] == $cod_daemon) {
                 if (isset($payloadDecoded['context']['command'])  && $payloadDecoded['context']['command'] == "reset")
-                EventLoop::stop();
+                exit(); //EventLoop::stop();
             }
         }
     }

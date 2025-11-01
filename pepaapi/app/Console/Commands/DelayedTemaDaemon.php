@@ -334,8 +334,7 @@ class DelayedTemaDaemon extends Command
                 $command = strtolower((isset($payloadDecoded['context']['command'])) ? $payloadDecoded['context']['command'] : "empty");
                 switch ($command) {
                     case 'reset':
-                        //EventLoop::stop();
-                        exit();
+                        exit(); //EventLoop::stop();
                         break;
                     
                     default:

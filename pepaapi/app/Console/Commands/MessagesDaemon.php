@@ -86,7 +86,7 @@ class MessagesDaemon extends Command
 
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
                 $this->printDebugInfo($context['msgtext']);
-                EventLoop::stop();
+                exit(); //EventLoop::stop();
             }
         }
     }

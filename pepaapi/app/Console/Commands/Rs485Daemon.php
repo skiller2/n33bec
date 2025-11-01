@@ -128,8 +128,7 @@ class Rs485Daemon extends Command
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
                 $this->printDebugInfo($context['msgtext']);
 
-                //EventLoop::stop();
-                exit();
+                exit(); //EventLoop::stop();
             }
         }
     }
@@ -362,8 +361,7 @@ class Rs485Daemon extends Command
                 $command = strtolower((isset($payloadDecoded['context']['command'])) ? $payloadDecoded['context']['command'] : "empty");
                 switch ($command) {
                     case 'reset':
-                        //EventLoop::stop();
-                        exit();
+                        exit(); //EventLoop::stop();
                         break;
                     
                     default:
@@ -458,8 +456,7 @@ class Rs485Daemon extends Command
                             $this->printDebugInfo($context['msgtext']);
                     */
 //                        $this->poolEvents->shutdown();
-                        //EventLoop::stop();
-                        exit();
+                        exit(); //EventLoop::stop();
                         return;
                     }
                 )

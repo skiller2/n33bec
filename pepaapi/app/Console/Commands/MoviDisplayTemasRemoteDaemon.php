@@ -112,7 +112,8 @@ class MoviDisplayTemasRemoteDaemon extends Command
         if (Cache::get(self::confVersion) != $this->daemon_conf_ver) {
             $this->loadConfigData();
             if ($this->remotoshash != $remotoshash)
-            EventLoop::stop();
+                exit(); //EventLoop::stop();
+
         }
     }
 
