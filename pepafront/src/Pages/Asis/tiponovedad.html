@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="modal-footer p-2">
-                <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+                <span class="legend-line">(<span class="field-required">*</span>: <span translate>campo requerido<span>)</span>
             </div>
         </div>
     </uib-tab>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="modal-footer p-2">
-                    <span class="legend-line">(<span class="field-required">*</span>: campo requerido)</span>
+                    <span class="legend-line">(<span class="field-required">*</span>: <span translate>campo requerido<span>)</span>
                     <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
                     <button dtcancela hide-tab="tiponovedad.hide" type="button" class="btn btn-outline-danger btn-sm"><span>Cancelar</span></button>
                     <button type="button" class="btn btn-outline-success btn-sm" ng-class="{'modal-button-primary': frmTipoNovedad.$valid, 'modal-button-primary-disabled': !(frmTipoNovedad.$valid && frmTipoNovedad.$dirty)} " ng-disabled="!(frmTipoNovedad.$dirty)" click-and-disable="tiponovedad.ok()">&#160;Grabar&#160;</button>
