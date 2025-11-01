@@ -15,7 +15,7 @@
       <div class="row justify-content-md-center w-100">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="cod_empresa_dt" class="col-sm-10 label-adjust" translate>Organización<span
+            <label for="cod_empresa_dt" class="col-sm-10 label-adjust" ><span translate>Organización</span><span
                 class="field-required">*</span></label>
             <select class="form-control form-control-sm" id="cod_empresa_dt" name="cod_empresa_dt"
               ng-model="registros.registro_dt.cod_empresa" ng-required="true" disabled
@@ -24,14 +24,14 @@
           </div>
 
           <div class="form-group">
-            <label for="des_empleado_dt" class="col-sm-10 label-adjust" translate>Empleado<span
+            <label for="des_empleado_dt" class="col-sm-10 label-adjust" ><span translate>Empleado</span><span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="des_empleado_dt" name="des_empleado_dt"
               translate translate-attr-placeholder="Empleado" ng-model="registros.registro_dt.des_empleado" readonly>
           </div>
 
           <div class="form-group input-append date first-avail">
-            <label for="fec_registro_dt" class="col-sm-10 label-adjust" translate>Fecha Registro<span
+            <label for="fec_registro_dt" class="col-sm-10 label-adjust" ><span translate>Fecha Registro</span><span
                 class="field-required">*</span></label>
             <input type="date" class="form-control form-control-sm" id="fec_registro_dt" name="fec_registro_dt" ng-required="true"
               readonly ng-model="registros.registro_dt.fec_registro" fmtdatetimesql/>
@@ -160,7 +160,7 @@
           <div class="col-md-6">
 
             <div class="form-group">
-              <label for="cod_empresa" class="col-sm-10 label-adjust" translate>Organización<span
+              <label for="cod_empresa" class="col-sm-10 label-adjust" ><span translate>Organización</span><span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="cod_empresa" name="cod_empresa"
                 ng-model="registros.registro.cod_empresa" ng-required="true" ng-disabled="registros.noteditable"
@@ -172,7 +172,7 @@
             </div>
 
             <div class="form-group" ng-show="registros.action == 'agrega'">
-              <label for="sel_empleado" class="col-sm-10 label-adjust" translate>Empleados<span
+              <label for="sel_empleado" class="col-sm-10 label-adjust" ><span translate>Empleados</span><span
                   class="field-required">*</span></label>
               <ui-select multiple ui-hide-choices ng-model="registros.registro.empleadosSel" id="sel_empleado"
                 name="sel_empleado" append-to-body="false" ng-required="true" close-on-select="false">
@@ -187,7 +187,7 @@
             </div>
 
             <div class="form-group" ng-show="registros.action != 'agrega'">
-              <label for="des_empleado" class="col-sm-10 label-adjust" translate>Empleado<span
+              <label for="des_empleado" class="col-sm-10 label-adjust" ><span translate>Empleado</span><span
                   class="field-required">*</span></label>
               <input type="text" class="form-control form-control-sm" id="des_empleado" name="des_empleado"
                 translate translate-attr-placeholder="Empleado" ng-model="registros.registro.des_empleado" readonly>
@@ -195,7 +195,7 @@
 
             <div class="form-group input-append date first-avail"
               ng-class="{'has-warning' : frmRegistros.fec_registro.$dirty}">
-              <label for="fec_registro" class="col-sm-10 label-adjust" translate>Fecha Registro<span
+              <label for="fec_registro" class="col-sm-10 label-adjust" ><span translate>Fecha Registro</span><span
                   class="field-required">*</span></label>
               <input type="date" class="form-control form-control-sm" id="fec_registro" name="fec_registro"
                 ng-required="true" ng-readonly="registros.noteditable" ng-model="registros.registro.fec_registro" fmtdatetimesql/>
@@ -311,7 +311,7 @@
           <div class="col-md-6">
 
             <div class="form-group">
-              <label for="cod_empresa_ur" class="col-sm-10 label-adjust" translate>Organización<span
+              <label for="cod_empresa_ur" class="col-sm-10 label-adjust" ><span translate>Organización</span><span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="cod_empresa_ur" name="cod_empresa_ur"
                 ng-model="registros.update_reg.cod_empresa" ng-required="true"
@@ -323,7 +323,7 @@
 
             <div class="form-group input-append date first-avail"
               ng-class="{'has-warning' : frmUpdateReg.fec_desde_ur.$dirty}">
-              <label for="fec_desde_ur" class="col-sm-10 label-adjust" translate>Fecha Desde<span
+              <label for="fec_desde_ur" class="col-sm-10 label-adjust" ><span translate>Fecha Desde</span><span
                   class="field-required">*</span></label>
               <input type="date" class="form-control form-control-sm" id="fec_desde_ur" name="fec_desde_ur"
                 ng-required="true" ng-model="registros.update_reg.fec_desde" fmtdatetimesql/>
@@ -333,7 +333,7 @@
 
             <div class="form-group input-append date first-avail"
               ng-class="{'has-warning' : frmUpdateReg.fec_hasta_ur.$dirty}">
-              <label for="fec_hasta_ur" class="col-sm-10 label-adjust" translate>Fecha Hasta<span
+              <label for="fec_hasta_ur" class="col-sm-10 label-adjust" ><span translate>Fecha Hasta</span><span
                   class="field-required">*</span></label>
               <input type="date" class="form-control form-control-sm" id="fec_hasta_ur" name="fec_hasta_ur"
                 ng-required="true" ng-model="registros.update_reg.fec_hasta" fmtdatetimesql/>
@@ -342,7 +342,7 @@
             </div>
 
             <div class="form-group">
-              <label for="procesos" class="col-sm-10 label-adjust" translate>Procesos<span
+              <label for="procesos" class="col-sm-10 label-adjust" ><span translate>Procesos</span><span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="procesos" name="procesos"
                   ng-model="registros.registro.proceso" ng-required="true"

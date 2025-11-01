@@ -30,7 +30,7 @@
       <div class="row justify-content-md-center w-100">
         <div class="col-lg-3 col-md-6">
           <div class="form-group">
-            <label for="cod_ou_contacto_dt" class="col-sm-10 label-adjust" translate>Organización<span
+            <label for="cod_ou_contacto_dt" class="col-sm-10 label-adjust"><span translate>Organización</span><span
                 class="field-required">*</span></label>
             <select class="form-control form-control-sm" id="cod_ou_contacto_dt" name="cod_ou_contacto_dt" disabled=""
               ng-model="habilitaciones.habilitacion_dt.cod_ou_contacto"
@@ -39,14 +39,14 @@
           </div>
 
           <div class="form-group">
-            <label for="cod_credencial_dt" class="col-sm-10 label-adjust" translate>Cód Tarjeta<span
+            <label for="cod_credencial_dt" class="col-sm-10 label-adjust" ><span translate>Cód Tarjeta</span><span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="cod_credencial_dt" name="cod_credencial_dt"
               readonly="" ng-model="habilitaciones.habilitacion_dt.cod_credencial" formatted="ftTarjeta">
           </div>
 
           <div class="form-group" ng-show="habilitaciones.ind_muestra_tipocred">
-            <label for="tipo_credencial_dt" class="col-sm-10 label-adjust" translate>Tipo Tarjeta<span
+            <label for="tipo_credencial_dt" class="col-sm-10 label-adjust" ><span translate>Tipo Tarjeta</span><span
                 class="field-required">*</span></label>
             <select class="form-control form-control-sm" id="tipo_credencial_dt" name="tipo_credencial_dt"
               ng-model="habilitaciones.habilitacion_dt.tipo_credencial" disabled=""
@@ -55,7 +55,7 @@
           </div>
 
           <div class="form-group" ng-show="habilitaciones.ind_muestra_tipohab">
-            <label for="tipo_habilitacion_dt" class="col-sm-10 label-adjust" translate>Tipo Habilitación<span
+            <label for="tipo_habilitacion_dt" class="col-sm-10 label-adjust" ><span translate>Tipo Habilitación</span><span
                 class="field-required">*</span></label>
             <select class="form-control form-control-sm" id="tipo_credencial_dt" name="tipo_habilitacion_dt"
               ng-model="habilitaciones.habilitacion_dt.tipo_habilitacion" disabled=""
@@ -79,7 +79,7 @@
           </div>
 
           <div class="form-group">
-            <label for="cod_esquema_acceso_dt" class="col-sm-10 label-adjust" translate>Esquema de Acceso<span
+            <label for="cod_esquema_acceso_dt" class="col-sm-10 label-adjust" ><span translate>Esquema de Acceso</span><span
                 class="field-required">*</span></label>
             <select class="form-control form-control-sm" id="cod_esquema_acceso_dt" name="cod_esquema_acceso_dt"
               ng-model="habilitaciones.habilitacion_dt.cod_esquema_acceso" disabled=""
@@ -88,7 +88,7 @@
           </div>
 
           <div class="form-group">
-            <label for="sel_sectores_dt" class="col-sm-10 label-adjust" translate>Sectores<span
+            <label for="sel_sectores_dt" class="col-sm-10 label-adjust" ><span translate>Sectores</span><span
                 class="field-required">*</span></label>
             <ui-select multiple ng-model="habilitaciones.habilitacion_dt.sectoresSel" append-to-body="true" disabled=""
               close-on-select="false">
@@ -129,21 +129,21 @@
           </div>
 
           <div class="form-group">
-            <label for="nro_documento_dt" class="col-sm-10 label-adjust" translate>DNI Persona<span
+            <label for="nro_documento_dt" class="col-sm-10 label-adjust" ><span translate>DNI Persona</span><span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="nro_documento_dt" name="nro_documento_dt"
               translate translate-attr-placeholder="DNI Persona" ng-model="habilitaciones.habilitacion_dt.nro_documento" readonly="">
           </div>
 
           <div class="form-group">
-            <label for="ape_persona_dt" class="col-sm-10 label-adjust" translate>Apellido<span
+            <label for="ape_persona_dt" class="col-sm-10 label-adjust" ><span translate>Apellido</span><span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="ape_persona_dt" name="ape_persona_dt"
               translate translate-attr-placeholder="Apellido" ng-model="habilitaciones.habilitacion_dt.ape_persona" readonly="">
           </div>
 
           <div class="form-group">
-            <label for="nom_persona_dt" class="col-sm-10 label-adjust" translate>Nombre<span
+            <label for="nom_persona_dt" class="col-sm-10 label-adjust" ><span translate>Nombre</span><span
                 class="field-required">*</span></label>
             <input type="text" class="form-control form-control-sm" id="nom_persona_dt" name="nom_persona_dt"
               translate translate-attr-placeholder="Nombre" ng-model="habilitaciones.habilitacion_dt.nom_persona" readonly="">
@@ -178,14 +178,14 @@
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="form-group">
-            <label for="img_persona_dt" class="col-sm-10 label-adjust" translate>Foto<span
+            <label for="img_persona_dt" class="col-sm-10 label-adjust" ><span translate>Foto</span><span
                 class="field-required">*</span></label>
             <div class="form-control form-control-img"><img id="img_persona_dt"
                 ng-src="{{habilitaciones.habilitacion_dt.img_persona}}"
                 ng-show="habilitaciones.habilitacion_dt.img_persona" /></div>
           </div>
           <div class="form-group">
-            <label for="img_documento_dt" class="col-sm-10 label-adjust" translate>Documento<span
+            <label for="img_documento_dt" class="col-sm-10 label-adjust" ><span translate>Documento</span><span
                 class="field-required">*</span></label>
             <div class="form-control form-control-img"><img id="img_documento_dt"
                 ng-src="{{habilitaciones.habilitacion_dt.img_documento}}"
@@ -230,7 +230,7 @@
         <div class="row justify-content-md-center w-100">
           <div class="col-lg-3 col-md-6">
             <div class="form-group">
-              <label for="cod_ou_contacto" class="col-sm-10 label-adjust" translate>Organización<span
+              <label for="cod_ou_contacto" class="col-sm-10 label-adjust" ><span translate>Organización</span><span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="cod_ou_contacto" name="cod_ou_contacto"
                 ng-change="habilitaciones.limpiarContacto()" ng-model="habilitaciones.habilitacion.cod_ou_contacto"
@@ -241,7 +241,7 @@
             </div>
 
             <div class="form-group" ng-class="{'has-warning' : frmHabilitaciones.cod_credencial_nueva.$dirty}">
-              <label for="cod_credencial_nueva" class="col-sm-10 label-adjust" translate>Cód. Tarjeta<span
+              <label for="cod_credencial_nueva" class="col-sm-10 label-adjust" ><span translate>Cód. Tarjeta</span><span
                   class="field-required">*</span></label>
               <input ng-model-options="{updateOn: 'blur'}" ng-change="habilitaciones.fbuscaCredencial()" type="text"
                 class="form-control form-control-sm" id="cod_credencial_nueva" name="cod_credencial_nueva"
@@ -253,7 +253,7 @@
               ng-show="frmHabilitaciones.habilitacion.obs_tarjeta != ''">{{habilitaciones.habilitacion.obs_tarjeta}}</span>
 
             <div class="form-group" ng-show="habilitaciones.ind_muestra_tipocred">
-              <label for="tipo_credencial" class="col-sm-10 label-adjust" translate>Tipo Tarjeta<span
+              <label for="tipo_credencial" class="col-sm-10 label-adjust" ><span translate>Tipo Tarjeta</span><span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="tipo_credencial" name="tipo_credencial"
                 ng-model="habilitaciones.habilitacion.tipo_credencial" ng-required="true"
@@ -264,7 +264,7 @@
             </div>
 
             <div class="form-group" ng-show="habilitaciones.ind_muestra_tipohab">
-              <label for="tipo_habilitacion" class="col-sm-10 label-adjust" translate>Tipo Habilitación<span
+              <label for="tipo_habilitacion" class="col-sm-10 label-adjust" ><span translate>Tipo Habilitación</span><span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="tipo_credencial" name="tipo_habilitacion"
                 ng-model="habilitaciones.habilitacion.tipo_habilitacion" ng-required="true"
@@ -312,7 +312,7 @@
               ng-show="frmHabilitaciones.habilitacion.obs_visitas_contacto != ''">{{habilitaciones.habilitacion.obs_visitas_contacto}}</span>
 
             <div class="form-group">
-              <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" translate>Esquema de Acceso<span
+              <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" ><span translate>Esquema de Acceso</span><span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="cod_esquema_acceso" name="cod_esquema_acceso"
                 ng-model="habilitaciones.habilitacion.cod_esquema_acceso" ng-required="true"
@@ -323,7 +323,7 @@
             </div>
 
             <div class="form-group">
-              <label for="sel_sectores" class="col-sm-10 label-adjust" translate>Sectores<span
+              <label for="sel_sectores" class="col-sm-10 label-adjust" ><span translate>Sectores</span><span
                   class="field-required"> *</span></label>
               <ui-select multiple ui-hide-choices ng-model="habilitaciones.habilitacion.sectoresSel" id="sel_sectores"
                 name="sel_sectores" append-to-body="false" ng-required="true" close-on-select="false">
@@ -384,7 +384,7 @@
             </div>
 
             <div class="form-group">
-              <label for="nro_documento" class="col-sm-10 label-adjust" translate>DNI Persona<span
+              <label for="nro_documento" class="col-sm-10 label-adjust" ><span translate>DNI Persona</span><span
                   class="field-required"> *</span></label>
               <input type="text" class="form-control form-control-sm" id="nro_documento" name="nro_documento"
                 translate translate-attr-placeholder="DNI Persona" ng-model="habilitaciones.habilitacion.nro_documento" ng-required="true">
@@ -395,7 +395,7 @@
             </div>
 
             <div class="form-group">
-              <label for="ape_persona" class="col-sm-10 label-adjust" translate>Apellido<span
+              <label for="ape_persona" class="col-sm-10 label-adjust" ><span translate>Apellido</span><span
                   class="field-required"> *</span></label>
               <input type="text" class="form-control form-control-sm" id="ape_persona" name="ape_persona"
                 translate translate-attr-placeholder="Apellido" ng-model="habilitaciones.habilitacion.ape_persona" ng-required="true">
@@ -404,7 +404,7 @@
             </div>
 
             <div class="form-group">
-              <label for="nom_persona" class="col-sm-10 label-adjust" translate>Nombre<span
+              <label for="nom_persona" class="col-sm-10 label-adjust" ><span translate>Nombre</span><span
                   class="field-required"> *</span></label>
               <input type="text" class="form-control form-control-sm" id="nom_persona" name="nom_persona"
                 translate translate-attr-placeholder="Nombre" ng-model="habilitaciones.habilitacion.nom_persona" ng-required="true">
@@ -451,7 +451,7 @@
                 device-num="0" />
             </div>
             <div class="form-group">
-              <label for="img_documento" class="col-sm-10 label-adjust" translate>Documento<span
+              <label for="img_documento" class="col-sm-10 label-adjust" ><span translate>Documento</span><span
                   class="field-required"> *</span></label>
               <capture-image id="img_documento" class="form-control form-control-img"
                 ng-model="habilitaciones.habilitacion.img_documento" showadjuntar="true" showstream="false"
@@ -500,7 +500,7 @@
         <div class="row justify-content-md-center w-100">
           <div class="col-lg-3 col-md-3">
             <div class="form-group">
-              <label for="cod_ou_contacto" class="col-sm-10 label-adjust" translate>Organización<span
+              <label for="cod_ou_contacto" class="col-sm-10 label-adjust" ><span translate>Organización</span><span
                   class="field-required"> *</span></label>
               <select class="form-control form-control-sm" id="cod_ou_contacto" name="cod_ou_contacto"
                 ng-change="habilitaciones.limpiarContacto()" ng-model="habilitaciones.habilitacionimp.cod_ou_contacto"
@@ -511,7 +511,7 @@
             </div>
 
             <div class="form-group" ng-show="habilitaciones.ind_muestra_tipohab">
-              <label for="tipo_habilitacion" class="col-sm-10 label-adjust" translate>Tipo Habilitación<span
+              <label for="tipo_habilitacion" class="col-sm-10 label-adjust" ><span translate>Tipo Habilitación</span><span
                   class="field-required"> *</span></label>
               <select class="form-control form-control-sm" id="tipo_credencial" name="tipo_habilitacion"
                 ng-model="habilitaciones.habilitacionimp.tipo_habilitacion" ng-required="true"
@@ -531,7 +531,7 @@
             </div>
 
             <div class="form-group">
-              <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" translate>Esquema de Acceso<span
+              <label for="cod_esquema_acceso" class="col-sm-10 label-adjust" ><span translate>Esquema de Acceso</span><span
                   class="field-required">*</span></label>
               <select class="form-control form-control-sm" id="cod_esquema_acceso" name="cod_esquema_acceso"
                 ng-model="habilitaciones.habilitacionimp.cod_esquema_acceso" ng-required="true"
@@ -542,7 +542,7 @@
             </div>
 
             <div class="form-group">
-              <label for="sel_sectores" class="col-sm-10 label-adjust" translate>Sectores<span
+              <label for="sel_sectores" class="col-sm-10 label-adjust" ><span translate>Sectores</span><span
                   class="field-required"> *</span></label>
               <ui-select multiple ui-hide-choices ng-model="habilitaciones.habilitacionimp.sectoresSel"
                 id="sel_sectores" name="sel_sectores" append-to-body="false" ng-required="true" close-on-select="false">

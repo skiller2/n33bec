@@ -64,7 +64,7 @@ class ActualizaHabiAcceso extends Command
             if (!isset($this->habiAccesoParams['temas'])) $this->habiAccesoParams['temas'] = '';
         }
         $this->daemon_conf_ver = Cache::get(self::confVersion);
-        $this->printDebugInfo("Configuración actualizada a " . $this->daemon_conf_ver);
+        $this->printDebugInfo(__("Configuración actualizada a ") . $this->daemon_conf_ver);
     }
 
     /**
@@ -382,9 +382,9 @@ class ActualizaHabiAcceso extends Command
 
         $this->loadConfigData();
         if (Cache::get("EstadoHabiAccesoDispo")) {
-            $this->printDebugInfo("Configuración actualizada");
+            $this->printDebugInfo(__("Configuración actualizada"));
             $context = array(
-                "msgtext" => "Configuración actualizada",
+                "msgtext" => __("Configuración actualizada"),
                 "EstadoVal" => true,
                 "EstadoDen" => "HabiAcceso",
                 "EstadoColor" => "green"
@@ -399,7 +399,7 @@ class ActualizaHabiAcceso extends Command
                 $lastUpdate = $this->getLastUpdate();
                 if ($lastUpdate != Cache::get('lastSync') || $lastUpdate == "0000-00-00 00:00:00") {
                     $context = array(
-                        "msgtext" => "Inicio actualización permisos desde equipo maestro",
+                        "msgtext" => __("Inicio actualización permisos desde equipo maestro"),
                         "EstadoVal" => false,
                         "EstadoDen" => "HabiAcceso",
                         "EstadoColor" => "yellow"
@@ -417,7 +417,7 @@ class ActualizaHabiAcceso extends Command
                         Cache::forever("EstadoHabiAccesoDispo", true);
 
                         $context = array(
-                            "msgtext" => "Fin actualización permisos desde equipo maestro",
+                            "msgtext" => __("Fin actualización permisos desde equipo maestro"),
                             "EstadoVal" => true,
                             "EstadoDen" => "HabiAcceso",
                             "EstadoColor" => "green"
@@ -429,7 +429,7 @@ class ActualizaHabiAcceso extends Command
                         Log::channel(self::logFileName)->error($e->getMessage(), array());
 
                         $context = array(
-                            "msgtext" => "Error accediendo desde el equipo maestro",
+                            "msgtext" => __("Error accediendo desde el equipo maestro"),
                             "EstadoVal" => false,
                             "EstadoDen" => "HabiAcceso",
                             "EstadoColor" => "red"
@@ -441,9 +441,9 @@ class ActualizaHabiAcceso extends Command
 
                 }
             } else if (!Cache::get("EstadoHabiAccesoDispo")) {
-                $this->printDebugInfo("Actualizando permisos de acceso");
+                $this->printDebugInfo(__("Actualizando permisos de acceso"));
                 $context = array(
-                    "msgtext" => "Inicio actualización permisos de acceso",
+                    "msgtext" => __("Inicio actualización permisos de acceso"),
                     "EstadoVal" => false,
                     "EstadoDen" => "HabiAcceso",
                     "EstadoColor" => "red"
@@ -451,14 +451,14 @@ class ActualizaHabiAcceso extends Command
                 Broadcast::driver('fast-web-socket')->broadcast(["estados", "pantalla"], 'warning',  $context);
 
 
-                $this->printDebugInfo("Inicio compilación de permisos");
+                $this->printDebugInfo(__("Inicio compilación de permisos"));
                 HabiAccesos::checkhabiAcceso(false);
-                $this->printDebugInfo("Fin compilación de permisos");
+                $this->printDebugInfo(__("Fin compilación de permisos"));
 
-                $this->printDebugInfo("Fin actualización permisos de acceso");
+                $this->printDebugInfo(__("Fin actualización permisos de acceso"));
                 Cache::forever("EstadoHabiAccesoDispo", true);
                 $context = array(
-                    "msgtext" => "Fin actualización permisos de acceso",
+                    "msgtext" => __("Fin actualización permisos de acceso"),
                     "EstadoVal" => true,
                     "EstadoDen" => "HabiAcceso",
                     "EstadoColor" => "green"
