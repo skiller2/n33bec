@@ -56,6 +56,23 @@ class ImagenesSectores extends Controller {
             ->withHeaders(['Content-Type' => $info['mime']]);
     }
 
+    public static function getAbility($metodo)
+    {
+        switch ($metodo){
+            case "index":
+            case "store":
+            case "update":
+            case "delete":
+            case "gridOptions":
+            case "detalle":
+                return "ab_config";
+            default:
+                return "";
+        }
+    }
+
+
+
     public function getImgData($cod_tema_sector,$img_hash)
     {
         $cod_tema_sector = base64_decode($cod_tema_sector);

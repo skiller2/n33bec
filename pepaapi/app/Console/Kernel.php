@@ -25,7 +25,6 @@ class Kernel extends ConsoleKernel
 //      Commands\WebSocketServer::class,
       Commands\MessagesDaemon::class,
       Commands\CredencialesDaemon::class,
-      Commands\MoviDisplayTemasDaemon::class,
       Commands\AudioEvacDaemon::class,
       Commands\ActuadoresDaemon::class,
       Commands\SincronizaAsistencia::class,

@@ -51,6 +51,8 @@ class Sectores extends Controller
     public static function cleanCaches()
     {
         Cache::forget("SECTORES");
+        Cache::forever("daemon_conf_ver", (int)Cache::get("daemon_conf_ver") + 1);
+        Cache::forever("EstadoHabiAccesoDispo", false);
 
         $context = array(
             'msgtext' => __("Configuración sectores actualizada"),

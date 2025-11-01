@@ -146,6 +146,7 @@
     "El feriado fue creado satisfactoriamente con fecha :FEC_FERIADO": "Il giorno festivo è stato creato con successo con data :FEC_FERIADO",
     "El Grupo de Tarjetas fue creado satisfactoriamente con id :COD_GRUPO": "Il gruppo di carte è stato creato con successo con id :COD_GRUPO",
     "El Parámetro :DEN_PARAMETRO fue creado satisfactoriamente": "Il parametro :DEN_PARAMETRO è stato creato con successo",
+    "Parámetro TEMA_AUDIOEVAC tema :COD_TEMA_AUDIOEVAC no registrado": "Parametro TEMA_AUDIOEVAC :COD_TEMA_AUDIOEVAC non registrato",
     "El registro :FEC_REGISTRO fue creado satisfactoriamente": "Il registro :FEC_REGISTRO è stato creato con successo",
     "El sector fue creado satisfactoriamente con identificador :COD_SECTOR": "Il settore è stato creato con successo con identificatore :COD_SECTOR",
     "El Suceso :COD_TEMA fue creado satisfactoriamente": "L'evento :COD_TEMA è stato creato con successo",

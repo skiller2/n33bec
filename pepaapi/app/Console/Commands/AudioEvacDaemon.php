@@ -48,7 +48,7 @@ class AudioEvacDaemon extends Command
      *
      * @var string
      */
-    protected $description = 'AudioEvacDaemon Processing daemon';
+    protected $description = 'MoviDisplayTemas Processing daemon';
 
 
     /**
@@ -99,7 +99,7 @@ class AudioEvacDaemon extends Command
         $this->cod_tema_audioevac = strtolower(ConfigParametro::get("TEMA_AUDIOEVAC", false));
 
         if ($this->cod_tema_audioevac && !isset($this->temas[$this->cod_tema_audioevac])) {
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert',  array("msgtext" => "Parámetro TEMA_AUDIOEVAC tema ".$this->cod_tema_audioevac." no registrado"));
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert',  array("msgtext" => __("Parámetro TEMA_AUDIOEVAC tema :COD_TEMA_AUDIOEVAC no registrado",['COD_TEMA_AUDIOEVAC'=>$this->cod_tema_audioevac])));
             $this->cod_tema_audioevac = "";
         }
 
@@ -107,7 +107,7 @@ class AudioEvacDaemon extends Command
         $this->daemon_conf_ver = Cache::get(self::confVersion);
         $this->sectores = ConfigParametro::getSectores();
 
-        $tmp_confighash = hash("sha256", $this->tema_local . $this->cod_tema_audioevac);
+        $tmp_confighash = hash("sha256", $this->tema_local . $this->cod_tema_audioevac. var_export($this->sectores,true));
         if ($this->confighash != $tmp_confighash) {
             $this->confighash = $tmp_confighash;
             return true;
@@ -118,9 +118,11 @@ class AudioEvacDaemon extends Command
     public function audioevac($ind_modo_prueba,$cod_tema_disparo){
 
         $mdt = new MoviDisplayTemas;
-        $evento_avisador = (stripos($this->temas[$cod_tema_disparo]['nom_tema'], "AVI") !== false) ? true : false;
+        $evento_avisador = (stripos($this->temas[$cod_tema_disparo]['nom_tema'], "AVI") !== false || $this->temas[$cod_tema_disparo]['cod_clase']=="AVIS"  ) ? true : false;
+        sleep(1);
         $res = $mdt->getLista();
         $vasectores = array();
+
         foreach ($res as $record){
             $cod_tema=          $record->cod_tema;
             $cod_sector=        $record->cod_sector;
@@ -149,7 +151,7 @@ class AudioEvacDaemon extends Command
                         $level = "PREALM";
 
                     $extra_data = sprintf("CHG:PEPA\0%s:%s\0",$level,$cod_referencia);
-                    $event_data = array("valor" => $valor, "des_observaciones" => $level." ".$cod_referencia, "extra_data"=> $extra_data);
+                    $event_data = array("valor" => $valor, "des_observaciones" => $level." ".$cod_referencia." ".$extra_data, "extra_data"=> $extra_data);
                     event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
                 }
             }
@@ -218,7 +220,7 @@ class AudioEvacDaemon extends Command
                     }
                 }
             }
-            $this->printDebugInfo('Proceso: ' . var_Export($payloadDecoded,true));
+//            $this->printDebugInfo('Proceso: ' . var_Export($payloadDecoded,true));
 
             $cod_tema = (isset($payloadDecoded['context']['cod_tema'])?$payloadDecoded['context']['cod_tema']:"");
             if ($cod_tema) {
