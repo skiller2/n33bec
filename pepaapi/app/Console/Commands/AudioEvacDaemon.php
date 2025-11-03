@@ -6,19 +6,19 @@ use Illuminate\Console\Command;
 use App\Helpers\ConfigParametro;
 use Illuminate\Support\Facades\Cache;
 use App\Events\TemaEvent;
+use App\Events\EventAsyncTask;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Broadcast;
 use Revolt\EventLoop;
-use Amp\Parallel\Worker\Task;
-use Amp\Parallel\Worker\Environment;
-use Amp\Parallel\Worker\DefaultPool;
+//use Amp\Parallel\Worker\Task;
+//use Amp\Parallel\Worker\Environment;
 use Amp\Parallel\Context\Parallel;
 use Amp\Delayed;
 use App\MoviDisplayTema;
 use App\Helpers\TemaValue;
 use Carbon\Carbon;
 use App\Http\Controllers\MoviDisplayTemas;
-
+//use Amp\Parallel\Worker\WorkerPool;
 use Amp\Websocket\Options;
 use Amp\Websocket\Client\Rfc6455ConnectionFactory;
 use Amp\Websocket\Client\Rfc6455Connector;
@@ -27,7 +27,7 @@ use Amp\Websocket\PeriodicHeartbeatQueue;
 use Amp\Websocket\ConstantRateLimit;
 use Amp\Websocket\Parser\Rfc6455ParserFactory;
 use function Amp\delay;
-use Amp\Parallel\Worker\createWorker;
+use Amp\Parallel\Worker;
 
 class AudioEvacDaemon extends Command
 {
@@ -67,6 +67,7 @@ class AudioEvacDaemon extends Command
     protected $daemon_conf_ver = "";
     const confVersion = "daemon_conf_ver";
     const config_tag = "iolast_";
+    //private WorkerPool $pool;
 
 
     protected function printDebugInfo($text, $status = "info")
@@ -152,7 +153,10 @@ class AudioEvacDaemon extends Command
 
                     $extra_data = sprintf("CHG:PEPA\0%s:%s\0",$level,$cod_referencia);
                     $event_data = array("valor" => $valor, "des_observaciones" => $level." ".$cod_referencia." ".$extra_data, "extra_data"=> $extra_data);
-                    event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
+
+                    $task = new EventAsyncTask($cod_tema, $event_data);
+                    Worker\submit($task); 
+
                 }
             }
         }
@@ -261,6 +265,13 @@ class AudioEvacDaemon extends Command
     {
         $this->temp_dir = sys_get_temp_dir();
         $this->loadConfigData();
+
+//        $builder = new WorkerPoolBuilder();
+//        $builder->withWorkerLimit(4);        
+//        $this->$pool = $builder->build(); // Usa configuración por defecto
+
+
+
         //        $factory = new BootstrapWorkerFactory(__DIR__ . '/daemon.php');
         //        $this->poolEvents = new DefaultPool(10, $factory);
 

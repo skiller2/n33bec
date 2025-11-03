@@ -9,6 +9,7 @@ use Amp\Parallel\Worker\Task;
 use Amp\Sync\Channel;
 use Amp\Cancellation;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Event;
 
 
 class EventAsync485AreaTask implements Task
@@ -34,7 +35,7 @@ class EventAsync485AreaTask implements Task
     {
         require_once __DIR__ . '/../../bootstrap/app.php';
         $kernel = app()->make(\Illuminate\Contracts\Console\Kernel::class);
-        $kernel->output();
+        $kernel->bootstrap();
         $status = 0;
 
         $evento = json_decode($this->buffline, true);
@@ -76,7 +77,7 @@ class EventAsync485AreaTask implements Task
                     } else {
                         $event_data = array("valor" => $valor);
                         $cod_tema = $this->base_topic . "/" .  $post;
-                        event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
+                        Event::dispatch(new TemaEvent($cod_tema, Carbon::now(), $event_data));
                     }
 
                     break;
@@ -94,7 +95,7 @@ class EventAsync485AreaTask implements Task
 
                         $des_observaciones = implode("; ", $evts);
                         $event_data = array("valor" => $valor, "des_valor" => $valor, "des_observaciones" => $des_observaciones);
-                        event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
+                        Event::dispatch(new TemaEvent($cod_tema, Carbon::now(), $event_data));
                     } else if ($valor != Cache::get(self::config_tag . $cod_tema)) {
                         $evts = array();
                         $evts[$key] = $desc;
@@ -102,14 +103,14 @@ class EventAsync485AreaTask implements Task
 
                         $des_observaciones = implode("; ", $evts);
                         $event_data = array("valor" => $valor, "des_valor" => $valor, "des_observaciones" => $des_observaciones);
-                        event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
+                        Event::dispatch(new TemaEvent($cod_tema, Carbon::now(), $event_data));
                     } else if (!isset($evts[$key])) {
                         $evts[$key] = $desc;
                         Cache::forever(self::config_tag . $cod_tema . "ext", $evts);
 
                         $des_observaciones = implode("; ", $evts);
                         $event_data = array("valor" => $valor, "des_valor" => $valor, "des_observaciones" => $des_observaciones);
-                        event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
+                        Event::dispatch(new TemaEvent($cod_tema, Carbon::now(), $event_data));
                     }
 
                     break;

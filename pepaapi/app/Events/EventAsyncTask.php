@@ -9,6 +9,7 @@ use Amp\Parallel\Worker\Task;
 use Amp\Sync\Channel;
 use Amp\Cancellation;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Event;
 
 
 class EventAsyncTask implements Task
@@ -28,6 +29,10 @@ class EventAsyncTask implements Task
 
     public function run(Channel $channel, Cancellation $cancellation): mixed
     {
-        event(new TemaEvent($this->cod_tema, Carbon::now(), $this->event_data));
+        require_once __DIR__ . '/../../bootstrap/app.php';
+        $kernel = app()->make(\Illuminate\Contracts\Console\Kernel::class);
+        $kernel->bootstrap();
+        Event::dispatch(new TemaEvent($this->cod_tema, Carbon::now(), $this->event_data));
+        return true;
     }
 }

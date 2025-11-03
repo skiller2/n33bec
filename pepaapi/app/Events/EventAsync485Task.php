@@ -9,6 +9,7 @@ use Amp\Parallel\Worker\Task;
 use Amp\Sync\Channel;
 use Amp\Cancellation;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Event;
 
 class EventAsync485Task implements Task
 {
@@ -35,7 +36,7 @@ class EventAsync485Task implements Task
     {
         require_once __DIR__ . '/../../bootstrap/app.php';
         $kernel = app()->make(\Illuminate\Contracts\Console\Kernel::class);
-        $kernel->output();
+        $kernel->bootstrap();
 
         $evento = json_decode($this->buffline, true);
         $post = "";
@@ -62,7 +63,7 @@ class EventAsync485Task implements Task
                 } else {
                     $event_data = array("valor" => $valor);
                     $cod_tema = $this->base_topic . "/" . $origin . "/" . $post;
-                    event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
+                    Event::dispatch(new TemaEvent($cod_tema, Carbon::now(), $event_data));
                 }
                 break;
             default:
@@ -83,7 +84,7 @@ class EventAsync485Task implements Task
                         break;
                     }
                 }
-                event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
+                Event::dispatch(new TemaEvent($cod_tema, Carbon::now(), $event_data));
                 break;
         }
         return 0;

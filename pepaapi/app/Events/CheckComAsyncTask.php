@@ -10,6 +10,7 @@ use Amp\Sync\Channel;
 use Amp\Cancellation;
 use Carbon\Carbon;
 use function Amp\delay;
+use Illuminate\Support\Facades\Event;
 
 
 class CheckComAsyncTask implements Task
@@ -31,7 +32,7 @@ class CheckComAsyncTask implements Task
     {
         require_once __DIR__ . '/../../bootstrap/app.php';
         $kernel = app()->make(\Illuminate\Contracts\Console\Kernel::class);
-        $kernel->output();
+        $kernel->bootstrap();
  
         $valor = 1;
         $des_observaciones = "";
@@ -59,7 +60,7 @@ class CheckComAsyncTask implements Task
         $event_data = array("valor" => $valor, "des_observaciones" => $des_observaciones);
 
         if ($valor != Cache::get($this->config_tag . $this->cod_tema))
-            event(new TemaEvent($this->cod_tema, Carbon::now(), $event_data));
+            Event::dispatch(new TemaEvent($this->cod_tema, Carbon::now(), $event_data));
 
         return 0;
     }
