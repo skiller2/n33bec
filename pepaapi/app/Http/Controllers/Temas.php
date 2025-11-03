@@ -737,7 +737,7 @@ class Temas extends Controller
         $cod_tema = $request->input('cod_tema');
         $valor = $request->input('valor');
         $extra_data = $request->input('extra_data');
-        $des_observaciones = "ejecución manual";
+        $des_observaciones = __("ejecución manual");
         $vatemas = ConfigParametro::getTemas();
         if(!isset($vatemas[$cod_tema]))
             return response(['error'=> __("Tema :COD_TEMA no reconocido",['COD_TEMA'=>$cod_tema])], Response::HTTP_CONFLICT);
@@ -776,7 +776,7 @@ class Temas extends Controller
         $direccion = $res['direccion'];
         $color = $res['color'];
 
-        return response(['ok' => "Evento procesado",'des_valor'=>$des_valor, 'color'=>$color, 'count'=>$count], Response::HTTP_OK);
+        return response(['ok' => __("Evento procesado"),'des_valor'=>$des_valor, 'color'=>$color, 'count'=>$count], Response::HTTP_OK);
     }
 
 

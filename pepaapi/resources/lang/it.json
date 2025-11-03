@@ -378,5 +378,6 @@
     "Error accediendo desde el equipo maestro":"Errore durante l'accesso dal computer master",
     "Fin actualización permisos desde equipo maestro":"Fine dell'aggiornamento delle autorizzazioni dalla macchina master",
     "Inicio actualización permisos desde equipo maestro":"Avviare l'aggiornamento delle autorizzazioni dal computer master",
-    "Configuración actualizada":"Impostazioni aggiornate"
+    "Configuración actualizada":"Impostazioni aggiornate",
+    "ejecución manual":"esecuzione manuale"
 }
