@@ -152,7 +152,8 @@ class AudioEvacDaemon extends Command
                         $level = "PREALM";
 
                     $extra_data = sprintf("CHG:PEPA\0%s:%s\0",$level,$cod_referencia);
-                    $event_data = array("valor" => $valor, "des_observaciones" => $level." ".$cod_referencia." ".$extra_data, "extra_data"=> $extra_data);
+                    //$event_data = array("valor" => $valor, "des_observaciones" => $level." ".$cod_referencia." ".$extra_data, "extra_data"=> $extra_data);
+                    $event_data = array("valor" => $level, "des_observaciones" => $extra_data, "extra_data"=> $extra_data);
 
                     $task = new EventAsyncTask($cod_tema, $event_data);
                     Worker\submit($task); 

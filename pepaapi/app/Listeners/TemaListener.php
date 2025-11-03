@@ -108,7 +108,7 @@ class TemaListener
         $event->event_data['tipo_evento'] = "";
 
         //        $msgenvio = ($url_envio) ? ", envío a $url_envio" : "";
-        $msgenvio = ($url_envio) ? ", envío remoto" : "";
+        $msgenvio = ($url_envio) ? ", ".__("envío remoto") : "";
 
         switch ($this->temas[$cod_tema]['cod_tipo_uso']) {
             case "LECTOR":
@@ -720,7 +720,7 @@ class TemaListener
                     fwrite($socket, substr($sendMsg, 9));
                 }
             } catch (\Exception $e) {
-                $msg = sprintf("Envio a %s %s %s (%s)", $this->temas[$cod_tema]['nom_tema'], $url_envio, $error_str, $error_no);
+                $msg = sprintf(__("Envio a")." %s %s %s (%s)", $this->temas[$cod_tema]['nom_tema'], $url_envio, $error_str, $error_no);
                 Log::channel("eventos")->info($msg, array($this->temas[$cod_tema]));
                 $context = array(
                     'msgtext' => $msg,
