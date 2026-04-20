@@ -397,15 +397,18 @@ class TemaListener
                             return;
                         }
 
-                        $rasp_io = new GPIO();
+                        //$rasp_io = new GPIO();
 
                         try {
-                            $pin = $rasp_io->getOutputPin($gpio);
+                            //$pin = $rasp_io->getOutputPin($gpio);
                             if ($valor == 1) {
                                 $valor_fin = 0;
+
+                                $output = shell_exec("/var/www/html/pepaapi/bin/gpios $gpio 1");
                                 $pin->setValue(PinInterface::VALUE_HIGH);
                             } else {
                                 $valor_fin = 1;
+                                $output = shell_exec("/var/www/html/pepaapi/bin/gpios $gpio 0");
                                 $pin->setValue(PinInterface::VALUE_LOW);
                             }
                         } catch (\Exception $e) {

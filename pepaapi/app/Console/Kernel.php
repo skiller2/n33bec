@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
       Commands\CredencialesDaemon::class,
       Commands\AudioEvacDaemon::class,
       Commands\ActuadoresDaemon::class,
+      Commands\ModBusDaemon::class,
       Commands\SincronizaAsistencia::class,
       Commands\VencimientoAptoFDaemon::class,
       Commands\MoviDisplayTemasRemoteDaemon::class,

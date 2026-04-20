@@ -1,0 +1,9 @@
+"files.exclude": {
+			"**/dist": true,
+			"**/node_modules": true
+		},
+		"php.version": "8.4",
+
+		"terminal.integrated.env.windows": {
+			"PATH": "c:\\Program Files (x86)\\PHP\\8.4.20\\php.exe;${env:PATH}"
+		}

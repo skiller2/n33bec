@@ -1,0 +1,3 @@
+#!/bin/bash
+sudo gpioset 0 $1=$2
+

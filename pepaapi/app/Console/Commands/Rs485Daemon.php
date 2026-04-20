@@ -108,6 +108,8 @@ class Rs485Daemon extends Command
     const confVersion = "daemon_conf_ver";
     const config_tag = "iolast_";
 
+
+    private $comdisp=null;
     protected function printDebugInfo($text, $status = "info")
     {
         if ($this->option('debug')) {
