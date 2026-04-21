@@ -130,7 +130,7 @@ class Temas extends Controller
             $order = isset($sort['order']) ? $sort['order'] : $order;
         }
 
-        $tablaOrden = self::getTablanr($fieldName);
+        $tablaOrden = self::getTablaNR($fieldName);
         $query = MoviTemaNoRegis::select(
             'moviTemasNoRegis.cod_tema',
             'moviTemasNoRegis.nom_tema',
@@ -149,7 +149,7 @@ class Temas extends Controller
                 if ($valor != "" && $nombre != "" && $operacion != "") {
                     if ($operacion == "LIKE")
                         $valor = "%" . $valor . "%";
-                    $tabla = self::getTabla($nombre);
+                    $tabla = self::getTablaNR($nombre);
                     $query->where($tabla . $nombre, $operacion, $valor);
                 }
             }
@@ -158,7 +158,7 @@ class Temas extends Controller
         return $query->orderBy($tablaOrden . $fieldName, $order)->paginate($pageSize);
     }
 
-    private static function getTablanr($campo)
+    private static function getTablaNR($campo)
     {
         $tabla = "";
         switch ($campo) {
