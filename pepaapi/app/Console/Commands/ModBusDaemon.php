@@ -9,26 +9,20 @@ use App\Events\TemaEvent;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Broadcast;
 use Revolt\EventLoop;
-use Amp\Parallel\Worker\Task;
-use Amp\Parallel\Worker\Environment;
-use Amp\Parallel\Worker\DefaultPool;
-use Amp\Parallel\Context\Parallel;
-use Amp\Delayed;
-use Amp\Parallel\Worker\BootstrapWorkerFactory;
-use Amp\Process\Process;
-use Amp\Websocket\Options;
 use Amp\Websocket\Client\Rfc6455ConnectionFactory;
 use Amp\Websocket\Client\Rfc6455Connector;
 use Amp\Websocket\Client\WebsocketHandshake;
 use Amp\Websocket\PeriodicHeartbeatQueue;
 use Amp\Websocket\ConstantRateLimit;
 use Amp\Websocket\Parser\Rfc6455ParserFactory;
-use Amp\Parallel\Worker\createWorker;
-use App\MoviDisplayTema;
-use App\Helpers\TemaValue;
+use Illuminate\Support\Facades\Event;
+
 use Carbon\Carbon;
-use App\Http\Controllers\MoviDisplayTemas;
-use function Amp\delay;
+
+use ModbusTcpClient\Network\BinaryStreamConnection;
+use ModbusTcpClient\Utils\Packet;
+use ModbusTcpClient\Packet\ModbusFunction\ReadHoldingRegistersRequest;
+use ModbusTcpClient\Packet\RtuConverter;
 
 class ModBusDaemon extends Command
 {
@@ -62,7 +56,7 @@ class ModBusDaemon extends Command
     private $temas;
     private $tema_local;
     private $confighash;
-    private $config=array();
+    private $config = array();
     const logFileName = "modbusdaemon";
     const channel = "movidisplaytema";
     protected $daemon_conf_ver = "";
@@ -75,6 +69,7 @@ class ModBusDaemon extends Command
         if ($this->option('debug')) {
             Log::channel(self::logFileName)->info($text, array());
         }
+        echo $text . "\n";
         return true;
     }
 
@@ -86,7 +81,7 @@ class ModBusDaemon extends Command
                     'msgtext' => __("ModBus, actualizando configuración")
                 );
 
-                Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
+                Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', $context);
                 $this->printDebugInfo($context['msgtext']);
                 exit(); //
             }
@@ -98,13 +93,12 @@ class ModBusDaemon extends Command
         $this->tema_local = strtolower(ConfigParametro::get("TEMA_LOCAL", false));
         $this->temas = ConfigParametro::getTemas();
         $modbus = ConfigParametro::get("MODBUS", true);
-        
+
         foreach ($modbus as $mbconfig) {
-            $ip= $mbconfig["ip"];
-            $port= $mbconfig["port"];
+            $ip = $mbconfig["ip"];
+            $port = $mbconfig["port"];
             $subtema = $mbconfig["subtema"];
-            $tema = $this->tema_local . "/" . $subtema;
-            $this->config[] = array("ip"=>$ip, "port"=>$port, "tema"=>$tema);
+            $this->config[] = array("ip" => $ip, "port" => $port, "subtema" => $subtema);
         }
 
         $tmp_confighash = hash("sha256", $this->tema_local . json_encode($this->config));
@@ -119,7 +113,7 @@ class ModBusDaemon extends Command
     {
         $cod_daemon = basename(__FILE__, ".php");
 
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon])));
+        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', array("msgtext" => __("Inicio proceso :COD_DAEMON", ['COD_DAEMON' => $cod_daemon])));
 
         $context = array(
             'msgtext' => "",
@@ -127,7 +121,7 @@ class ModBusDaemon extends Command
             'cod_daemon' => $cod_daemon,
             'command' => 'start'
         );
-        Broadcast::driver('fast-web-socket')->broadcast(["procesos"], "info",  $context);
+        Broadcast::driver('fast-web-socket')->broadcast(["procesos"], "info", $context);
 
         $connectionFactory = new Rfc6455ConnectionFactory(
             heartbeatQueue: new PeriodicHeartbeatQueue(
@@ -143,11 +137,11 @@ class ModBusDaemon extends Command
             frameSplitThreshold: 2 ** 14, // 16 KiB
             closePeriod: 0.5, // 0.5 seconds
         );
-        
+
         $connector = new Rfc6455Connector($connectionFactory);
         $constr = "ws://localhost:80/wssub/procesos/0/1/2/3/4/5/6?token='da'&cod_usuario='fds'";
         $handshake = (new WebSocketHandshake($constr));
-        $lastTimeStamp =  Cache::get($cod_daemon . "timestamp");
+        $lastTimeStamp = Cache::get($cod_daemon . "timestamp");
 
         $this->printDebugInfo('Conectando con ' . $constr);
 
@@ -166,19 +160,182 @@ class ModBusDaemon extends Command
             Cache::forever($cod_daemon . "timestamp", $lastTimeStamp);
 
             if (isset($payloadDecoded['context']["cod_daemon"]) && $payloadDecoded['context']["cod_daemon"] == $cod_daemon) {
-                if (isset($payloadDecoded['context']['command'])  && $payloadDecoded['context']['command'] == "reset")
-                exit(); //EventLoop::stop();
+                if (isset($payloadDecoded['context']['command']) && $payloadDecoded['context']['command'] == "reset")
+                    exit(); //EventLoop::stop();
             }
         }
     }
 
-    public function modbus($config)
-    {
-        echo "inicio ".var_export($config, true)."\n";
+    //Debe llamarse por cada $config donde tengo ip port y tema.   Debe hacer un loop de pooling leyendo cada 1 segundo y hacer un echo de los valores
 
-        $cod_daemon = basename(__FILE__, ".php");
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon]) ));
+
+
+    public function modbus(array $config): void
+    {
+        $ip = $config['ip'];
+        $port = $config['port'];
+        $subtema = $config['subtema'];
+        $unitId = $config['id'] ?? 1;
+        $cant = $config['cant'] ?? 10;
+        $timeoutseg = 10;
+        $connection = null;
+        $running = false;
+
+        $this->printDebugInfo("MODBUS iniciado $ip:$port ($subtema)");
+
+        $lastValidRxTs = time();
+        $timeoutEmitted = true;
+
+        $loop = function () use (&$connection, &$running, &$loop, $ip, $port, $subtema, $unitId, $cant, &$lastValidRxTs, &$timeoutEmitted, $timeoutseg) {
+            // 🔒 evitar reentrancia
+            if ($running) {
+                return;
+            }
+            $running = true;
+
+            try {
+
+                $now = time();
+
+                if (($now - $lastValidRxTs) >= $timeoutseg && !$timeoutEmitted) {
+
+                    $eventoOffline = [
+                        'valor' => 0,
+                        'des_valor' => 'SIN COMUNICACIÓN MODBUS (>5 min)',
+                        'measure_unit' => 'status',
+                    ];
+
+                    $cod_tema = $this->tema_local . '/' . $subtema . '/status';
+
+                    Event::dispatch(
+                        new TemaEvent($cod_tema, Carbon::now(), $eventoOffline)
+                    );
+
+                    $this->printDebugInfo(
+                        "MODBUS TIMEOUT 5min → evento OFFLINE emitido para $ip:$port",
+                        'error'
+                    );
+
+                    $timeoutEmitted = true;
+                }
+
+                if ($connection === null) {
+                    $this->printDebugInfo("MODBUS conectando a $ip:$port");
+                    $connection = BinaryStreamConnection::getBuilder()
+                        ->setPort($port)
+                        ->setHost($ip)
+                        ->setReadTimeoutSec(10) // increase read timeout to 3 seconds
+                        ->setIsCompleteCallback(function ($binaryData, $streamIndex) {
+                            return Packet::isCompleteLengthRTU($binaryData);
+                        })
+                        ->build()
+                        ->connect();
+                }
+
+
+
+                $request = new ReadHoldingRegistersRequest(
+                    startAddress: 300,
+                    quantity: $cant,
+                    unitId: $unitId
+                );
+
+                $write = RtuConverter::toRtu($request);
+
+                $binaryResponse = $connection->sendAndReceive($write);
+
+
+                if ($timeoutEmitted) {
+                    $this->printDebugInfo(
+                        "MODBUS RECOVERY $ip:$port → evento ONLINE emitido",
+                        'info'
+                    );
+
+                    $eventoOnline = [
+                        'valor' => 1,
+                        'des_valor' => 'COMUNICACIÓN RESTAURADA',
+                        'measure_unit' => 'status',
+                    ];
+
+                    $cod_tema = $this->tema_local . '/' . $subtema . '/status';
+
+                    Event::dispatch(
+                        new TemaEvent($cod_tema, Carbon::now(), $eventoOnline)
+                    );
+
+                    $timeoutEmitted = false;
+                }
+
+
+                $lastValidRxTs = time();
+                $timeoutEmitted = false;
+
+                $response = RtuConverter::fromRtu($binaryResponse);
+
+                for ($i = 0; $i < $cant; $i++) {
+                    $word = $response->getWordAt($i);
+                    $valor = $word->getInt16();
+                    $canal = $i + 1;
+                    $tema = $subtema . "/" . $canal;
+
+                    $cacheKey = self::config_tag . $tema;
+                    if (Cache::get($cacheKey) !== $valor) {
+                        Cache::forever($cacheKey, $valor);
+
+                        $event_data = array(
+                            "valor" => $valor,
+                            'des_valor' => (string) $valor,
+                            'measure_unit' => 'nose',
+                        );
+
+                        $cod_tema = $this->tema_local . "/" . $tema;
+
+                        Event::dispatch(new TemaEvent($cod_tema, Carbon::now(), $event_data));
+
+                        /*
+                                                event(new TemaEvent(
+                                                    $temafull,
+                                                    Carbon::now(),
+                                                    [
+                                                        'valor' => $value,
+                                                        'des_valor' => (string) $value,
+                                                        'measure_unit' => 'nose',
+                                                    ]
+                                                ));
+                                                */
+                    }
+                    $cacheKey = self::config_tag . $tema;
+                }
+
+
+
+            } catch (\Throwable $e) {
+
+                $this->printDebugInfo(
+                    "MODBUS ERROR $ip:$port → " . $e->getMessage(),
+                    'error'
+                );
+
+                if ($connection) {
+                    try {
+                        $connection->close();
+                        $connection = null;
+                    } catch (\Throwable $e) {
+                    }
+                }
+
+            } finally {
+                $running = false;
+
+                // ✅ programar siguiente ciclo SOLO cuando terminó
+                EventLoop::delay(1, $loop);
+            }
+        };
+
+        // arrancar primer ciclo
+        EventLoop::defer($loop);
     }
+
 
 
 
@@ -204,14 +361,21 @@ class ModBusDaemon extends Command
             return;
         }
 
-        EventLoop::repeat($sInterval = 1, function() { $this->checkConfigData();    }  );
-        EventLoop::delay(2, function(){ $this->busmsg();});
 
+
+        EventLoop::repeat($sInterval = 1, function () {
+            $this->checkConfigData();
+        });
+        EventLoop::delay(2, function () {
+            $this->busmsg();
+        });
 
         foreach ($this->config as $config) {
-            EventLoop::delay(2, function() use ($config) { $this->modbus($config);});
+            EventLoop::delay(2, function () use ($config) {
+                $this->modbus($config);
+            });
         }
         EventLoop::run();
-    }    
+    }
     //End Handle
 }
