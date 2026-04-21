@@ -40,7 +40,7 @@ class ActuadoresDaemon extends Command
      */
     protected $signature = 'command:ActuadoresDaemon
                             {--debug : Print debug information to console}
-                            {--linea= : Línea de captura}
+                            {--linea= : Lí­nea de captura}
                             {--tema= : Componente}
                             Ej: php artisan command:ActuadoresDaemon --linea=BLA BLA SENSOR1 XXXX';
 
@@ -65,19 +65,18 @@ class ActuadoresDaemon extends Command
     private $cod_tema_rele_alarma;
     private $cod_tema_rele_falla;
     private $confighash;
-
-    private $tiempo_seg;
-    private $tiempo_seg_estrobo;
-    private $valor_ini;
-    private $valor_fin;
-    private $sectores;
     const logFileName = "actuadorestema";
     const channel = "movidisplaytema";
     protected $daemon_conf_ver = "";
     const confVersion = "daemon_conf_ver";
     const config_tag = "iolast_";
 
-
+    private $sectores;
+    private $tiempo_seg;
+    private $tiempo_seg_estrobo;
+    private $valor_ini;
+    private $valor_fin;
+    
     protected function printDebugInfo($text, $status = "info")
     {
         if ($this->option('debug')) {
@@ -124,6 +123,7 @@ class ActuadoresDaemon extends Command
             Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert',  array("msgtext" => __("Parámetro ACTUADORES tema :COD_TEMA_RELE_ESTROBO no registrado",['COD_TEMA_RELE_ESTROBO'=>$this->cod_tema_rele_estrobo])));
             $this->cod_tema_rele_estrobo = "";
         }
+
         $this->tiempo_seg = (isset($actuadores['tiempo_seg'])) ? $actuadores['tiempo_seg'] : "3";
         $this->tiempo_seg_estrobo = (isset($actuadores['tiempo_seg_estrobo'])) ? $actuadores['tiempo_seg_estrobo'] : "30";
         $this->valor_ini = (isset($actuadores['valor_ini'])) ? $actuadores['valor_ini'] : "1";
@@ -143,7 +143,7 @@ class ActuadoresDaemon extends Command
     {
         $cod_daemon = basename(__FILE__, ".php");
 
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon])));
+        //Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon])));
 
         $context = array(
             'msgtext' => "",
@@ -178,6 +178,8 @@ class ActuadoresDaemon extends Command
         $connection = $connector->connect($handshake);
         foreach ($connection as $message) {
             $payload = $message->buffer();
+
+//$this->printDebugInfo('procesobus ' . $payload);
             $payloadDecoded = json_decode($payload, true);
 
             $tmpmsg = $payloadDecoded['context']["msgtext"];
@@ -243,10 +245,19 @@ class ActuadoresDaemon extends Command
                 continue;
             }
 
+
+	    
+
             if (isset($payloadDecoded['context']["cod_tema"])) {
                 $cod_tema = $payloadDecoded['context']['cod_tema'];
                 $valor = isset($payloadDecoded['context']['valor'])?$payloadDecoded['context']['valor']:"";
                 if (!$cod_tema) continue;
+
+
+if ($this->cod_tema_rele_estrobo == $cod_tema || 
+    $this->cod_tema_rele_falla == $cod_tema ||
+    $this->cod_tema_rele_alarma == $cod_tema
+) continue;
                 $stm_evento = $payloadDecoded['timeStamp'];
                 $ind_modo_prueba = Cache::get("ind_modo_prueba", 0);
                 $res = TemaValue::get($this->temas[$cod_tema], $valor);
@@ -286,6 +297,7 @@ class ActuadoresDaemon extends Command
                         }
 
                         if ($ind_modo_prueba == true){
+
                             $msg = __("Llamador, ignora llamada :TIPO_EVENTO, sector :NOM_SECTOR, alarmas activas :CONTADOR_SECTOR_ALARM, cantidad dispositivos :CANT_TEMAS_SECTOR, prueba :IND_MODO_PRUEBA, avisador :EVENTO_AVISADOR",['TIPO_EVENTO'=>$tipo_evento,'NOM_SECTOR'=>$nom_sector,'CONTADOR_SECTOR_ALARM'=>$contador_sector_alarm,'CANT_TEMAS_SECTOR'=>$cant_temas_sector,'IND_MODO_PRUEBA'=>$ind_modo_prueba]);
                             Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => $msg));
                             break;
