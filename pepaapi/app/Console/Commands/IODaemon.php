@@ -98,7 +98,7 @@ class IODaemon extends Command {
         $this->timezone = ConfigParametro::get('TIMEZONE_INFORME', false);
 
         $this->daemon_conf_ver = Cache::get(self::confVersion);
-        $this->printDebugInfo("Configuración actualizada a " . $this->daemon_conf_ver);
+        $this->printDebugInfo("ConfiguraciÃ³n actualizada a " . $this->daemon_conf_ver);
     }
 
     public function checkConfigData()
@@ -106,7 +106,7 @@ class IODaemon extends Command {
         if (Cache::get(self::confVersion) != $this->daemon_conf_ver) {
             if ($this->loadConfigData()) {
                 $context = array(
-                    'msgtext' => __("Proceso GPIOs actualizando configuración")
+                    'msgtext' => __("Proceso GPIOs actualizando configuraciÃ³n")
                 );
 
                 Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
@@ -195,7 +195,7 @@ class IODaemon extends Command {
                 $io_nro = $this->option('io');
                 $value = $this->option('valor');
                 if (!isset($this->ios_conf[$io_nro]['cod_tema'])){
-                    $errmsg="GPIO: $io_nro, valor: $value, no localizado en la configuración";
+                    $errmsg="GPIO: $io_nro, valor: $value, no localizado en la configuraciÃ³n";
                     $this->printDebugInfo($errmsg);
                     echo $errmsg."\n";
                     return;
@@ -214,7 +214,7 @@ class IODaemon extends Command {
         } else {
 
 
-            $this->printDebugInfo("Inicio configuración IOS");
+            $this->printDebugInfo("Inicio configuraciÃ³n IOS");
             $io = new GPIO();
             $pinX = "";
             // Create an interrupt watcher
@@ -238,14 +238,14 @@ class IODaemon extends Command {
                         switch ($value["cod_tipo_uso"]) {
                             case "DINEXT":
                             case "DIN":
-                                $pinX = $io->getInputPin($io_nro);
-                                $pinX->setEdge(InputPinInterface::EDGE_BOTH);
-                                $interruptWatcher->register($pinX, array($this, 'procesopines'));
-                                $io_value = $pinX->getValue();
+//                                $pinX = $io->getInputPin($io_nro);
+//                                $pinX->setEdge(InputPinInterface::EDGE_BOTH);
+//                                $interruptWatcher->register($pinX, array($this, 'procesopines'));
+//                                $io_value = $pinX->getValue();
                                 break;
                             case "DOUT":
-                                $pinX = $io->getOutputPin($io_nro);
-                                $io_value = $pinX->getValue();
+//                                $pinX = $io->getOutputPin($io_nro);
+//                                $io_value = $pinX->getValue();
                                 break;
                             case "AIN":
                                 $io_value = 0;
