@@ -57,7 +57,7 @@ class ModBusDaemon extends Command
     private $tema_local;
     private $confighash;
     private $config = array();
-    const logFileName = "modbusdaemon";
+    const logFileName = "modbus";
     const channel = "movidisplaytema";
     protected $daemon_conf_ver = "";
     const confVersion = "daemon_conf_ver";
@@ -69,7 +69,7 @@ class ModBusDaemon extends Command
         if ($this->option('debug')) {
             Log::channel(self::logFileName)->info($text, array());
         }
-        echo $text . "\n";
+        //echo $text . "\n";
         return true;
     }
 

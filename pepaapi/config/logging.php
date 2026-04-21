@@ -82,6 +82,14 @@ return [
             'days' => 14,
         ],
 
+        'modbus' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/modbus.log'),
+            'level' => 'debug',
+            'days' => 14,
+        ],
+
+
         'syncmov' => [
             'driver' => 'daily',
             'path' => storage_path('logs/syncmov.log'),
