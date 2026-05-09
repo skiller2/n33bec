@@ -61,6 +61,8 @@ import 'ui-bootstrap4';
 import 'ui-select';
 import 'ng-file-upload';
 
+
+
 //import 'angular-translate';
 //import 'angular-translate-loader-static-files';
 
@@ -72,8 +74,9 @@ import Sortable from 'sortablejs';
 import * as moment from 'moment';
 
 
-import './dataServices';
-import './directives';
+import './dataServices.ts';
+import './cdiService.ts';
+import './directives.ts';
 
 import appTipoUsoComponent from "./tipoUsoComponent";
 import appLectorComponent from "./lectorComponent";
@@ -98,6 +101,7 @@ import './Widgets/diskspace/src/diskspace.ts';
 import './Widgets/io/src/io.ts';
 import './Widgets/io_lista/src/io_lista.ts';
 import './Widgets/display_area54/src/display_area54.ts';
+import './Widgets/cdi/src/cdi.ts';
 import './Widgets/ioext/src/ioext.ts';
 import './Widgets/movimientos/src/movimientos.ts';
 import './Widgets/processor/src/processor.ts';
@@ -178,6 +182,7 @@ angular.module(MODULE_NAME,
         'appDirectives',
         //        'appComponents',
         'appServices',
+        'cdiService',
         'ui.bootstrap.modal',
         'ui.bootstrap.typeahead',
         'adf.widget.weather',
@@ -186,6 +191,7 @@ angular.module(MODULE_NAME,
         'adf.widget.processor',
         'adf.widget.io_lista',
         'adf.widget.display_area54',
+        'adf.widget.cdi',
         'adf.widget.io',
         'adf.widget.ioext',
         'angular-jwt',

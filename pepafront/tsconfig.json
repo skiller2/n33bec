@@ -3,15 +3,16 @@
 //  "baseUrl": ".",
 
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "noEmit":true,
+    "allowImportingTsExtensions":true,
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "target": "ESNEXT",
-    "module":"esnext",    
+    "module":"nodenext",    
 //  "paths": { "*" : ["src/@custom_types/*"],},
     "typeRoots": [
       "node_modules/@types"

@@ -1,6 +1,6 @@
 {
     "name": "n33bec",
-    "version": "1.519.0",
+    "version": "1.535.0",
     "description": "Control de Acceso y Monitoreo",
     "main": "http://localhost:9000",
     "window": {
@@ -57,11 +57,11 @@
         "sass-loader": "^7.3.1",
         "style-loader": "^0.23.1",
         "svg-inline-loader": "^0.8.2",
-        "ts-loader": "^9.3.1",
+        "ts-loader": "^9.5.7",
         "tslint": "^5.20.1",
-        "typescript": "^3.9.3",
+        "typescript": "^6.0.3",
         "url-loader": "^1.1.2",
-        "webpack": "^5.74.0",
+        "webpack": "^5.106.2",
         "webpack-cli": "^4.10.0",
         "webpack-dev-server": "^4.9.3",
         "webpack-node-externals": "^1.7.2"

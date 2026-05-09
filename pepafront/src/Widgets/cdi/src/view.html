@@ -1,0 +1,669 @@
+<style>
+/* html,
+body,
+div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Arial; 
+} */
+
+.cdi-main {
+    height: calc(100vh - 36px);
+    overflow: auto;
+    overflow-y: scroll;
+    background-color: grey;
+}
+
+.etiquetap {
+    margin: 0px;
+}
+
+
+/* GENERALES */
+main.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.bar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 4px 8px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.bar-container.message {
+    align-items: center;
+    justify-content: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-header-title {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0px;
+    padding-left: 4px;
+    color: white;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-evenly;
+    background: whitesmoke;
+    padding: 8px;
+}
+
+/* GENERALES */
+
+/* NAVBAR */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    padding: 0;
+    background-color: whitesmoke;
+}
+
+.icon-container {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 25vw;
+}
+
+.icon-container.right {
+    justify-content: flex-end;
+}
+
+.icon-container.left {
+    justify-content: flex-start;
+}
+
+.icon {
+    height: 28px;
+    width: 28px;
+    padding: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon svg,
+.icon-svg {
+    height: 100%;
+    width: 100%;
+}
+
+.nombre {
+    color: #FE001A;
+    font-size: 24px;
+    padding: 4px;
+    margin: 0;
+}
+
+/* NAVBAR */
+
+/* ESTILO BOTONES */
+.barbutton {
+    height: 100%;
+    width: 100%;
+    /* width: 50px; */
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.barbutton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.buttons-separator {
+    height: 2px;
+    width: 100%;
+    background: rgb(224, 224, 224);
+    margin: 12px 0;
+}
+
+.barbutton svg {
+    height: 32px;
+    width: 32px;
+    margin: 4px;
+    padding: 0px;
+}
+
+.barbutton span {
+    font-size: 14px;
+}
+
+/* ESTILO BOTONES */
+
+/* ESTILO BARRAS */
+.bar {
+    display: none;
+    justify-content: space-between;
+    border: 1px solid;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.bar.show {
+    display: flex;
+}
+
+.bar.green {
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+    color: #0f5132;
+}
+
+.bar.red {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.bar.orange {
+    background-color: #fcd6a4;
+    border-color: #fbc784;
+    color: #7d4925;
+}
+
+.bar.yellow {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+}
+
+.bar-content-container {
+    display: flex;
+    align-items: center;
+}
+
+.bar-text {
+    font-size: 16px;
+}
+
+/* ESTILO BARRAS */
+
+/* MODAL STYLES */
+.modal-cdi   {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-cdi.show {
+    display: block;
+}
+
+.modal-cdi-content {
+    background-color: #dddee1;
+    border: 1px solid #d3d5d8;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 24px;
+}
+
+.modal-cdi-content.alert {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 160px;
+    width: 420px;
+    top: 25%;
+}
+
+.modal-cdi-content.loader-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-cdi-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    margin: 4px;
+    border: 2px solid black;
+    border-radius: 8px;
+    font-size: 20px;
+    height: 48px;
+    width: 84px;
+    cursor: pointer;
+}
+
+.modal-cdi-button:hover {
+    background-color: #e2e6ea;
+}
+
+.modal-cdi-header {
+    font-size: 40px;
+    margin: 0px;
+}
+
+.modal-cdi-row {
+    display: flex;
+    justify-content: center;
+}
+
+/* Loader spinner styles */
+.spinner-loader {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-loader.big {
+    width: 48px;
+    height: 48px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* END MODAL STYLES */    
+</style>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="icon-battery100" viewBox="0 0 32 32">
+        <path fill="#45a648" fill-opacity=".898"
+            d="M3.732 2.78c-1.235 0-2.228 1.077-2.228 2.415V7.59h13.111V5.195c0-1.338-.993-2.416-2.228-2.416H3.732zM1.504 8.474v7.115h13.111V8.475H1.504zm0 8v7.115h13.111v-7.115H1.504zm0 8v2.394c0 1.339.993 2.416 2.228 2.416h8.655c1.235 0 2.228-1.077 2.228-2.416v-2.394H1.504z"
+            paint-order="stroke markers fill" />
+        <path fill="#91908d"
+            d="M4.76 0c-.555 0-1 .446-1 1H2.434A2.428 2.428 0 0 0 0 3.434v25.195a2.428 2.428 0 0 0 2.434 2.434h11.252a2.428 2.428 0 0 0 2.433-2.434V3.434A2.428 2.428 0 0 0 13.686 1h-1.327a1 1 0 0 0-1.002-1H4.76zM3.28 2.014h9.56c1.365 0 2.463 1.14 2.463 2.556v22.924c0 1.416-1.098 2.555-2.463 2.555H3.28c-1.366 0-2.466-1.14-2.466-2.555V4.57c0-1.415 1.1-2.556 2.465-2.556z"
+            paint-order="markers fill stroke" />
+    </symbol>
+    <symbol id="icon-battery25" viewBox="0 0 32 32">
+        <path fill="#ee3039" fill-opacity=".898"
+            d="M1.504 24.475v2.394c0 1.339.993 2.416 2.228 2.416h8.655c1.235 0 2.228-1.077 2.228-2.416v-2.394z"
+            paint-order="stroke markers fill" />
+        <path fill="#91908d"
+            d="M4.76 0c-.555 0-1 .446-1 1H2.434A2.428 2.428 0 0 0 0 3.434v25.195a2.428 2.428 0 0 0 2.434 2.434h11.252a2.428 2.428 0 0 0 2.433-2.434V3.434A2.428 2.428 0 0 0 13.686 1h-1.327a1 1 0 0 0-1.002-1H4.76zM3.28 2.014h9.56c1.365 0 2.463 1.14 2.463 2.556v22.924c0 1.416-1.098 2.555-2.463 2.555H3.28c-1.366 0-2.466-1.14-2.466-2.555V4.57c0-1.415 1.1-2.556 2.465-2.556z"
+            paint-order="markers fill stroke" />
+    </symbol>
+    <symbol id="icon-battery50" viewBox="0 0 32 32">
+        <path fill="#fec83b" fill-opacity=".898"
+            d="M1.504 16.475v7.115h13.111v-7.115zm0 8v2.394c0 1.339.993 2.416 2.228 2.416h8.655c1.235 0 2.228-1.077 2.228-2.416v-2.394z"
+            paint-order="stroke markers fill" />
+        <path fill="#91908d"
+            d="M4.76 0c-.555 0-1 .446-1 1H2.434A2.428 2.428 0 0 0 0 3.434v25.195a2.428 2.428 0 0 0 2.434 2.434h11.252a2.428 2.428 0 0 0 2.433-2.434V3.434A2.428 2.428 0 0 0 13.686 1h-1.327a1 1 0 0 0-1.002-1H4.76zM3.28 2.014h9.56c1.365 0 2.463 1.14 2.463 2.556v22.924c0 1.416-1.098 2.555-2.463 2.555H3.28c-1.366 0-2.466-1.14-2.466-2.555V4.57c0-1.415 1.1-2.556 2.465-2.556z"
+            paint-order="markers fill stroke" />
+    </symbol>
+    <symbol id="icon-battery75" viewBox="0 0 32 32">
+        <path fill="#45a648" fill-opacity=".898"
+            d="M1.504 8.475v7.115h13.111V8.475zm0 8v7.115h13.111v-7.115zm0 8v2.394c0 1.339.993 2.416 2.228 2.416h8.655c1.235 0 2.228-1.077 2.228-2.416v-2.394z"
+            paint-order="stroke markers fill" />
+        <path fill="#91908d"
+            d="M4.76 0c-.555 0-1 .446-1 1H2.434A2.428 2.428 0 0 0 0 3.434v25.195a2.428 2.428 0 0 0 2.434 2.434h11.252a2.428 2.428 0 0 0 2.433-2.434V3.434A2.428 2.428 0 0 0 13.686 1h-1.327a1 1 0 0 0-1.002-1H4.76zM3.28 2.014h9.56c1.365 0 2.463 1.14 2.463 2.556v22.924c0 1.416-1.098 2.555-2.463 2.555H3.28c-1.366 0-2.466-1.14-2.466-2.555V4.57c0-1.415 1.1-2.556 2.465-2.556z"
+            paint-order="markers fill stroke" />
+    </symbol>
+    <symbol id="icon-batteryfault" viewBox="0 0 16.119 31.063">
+        <path fill="#fec83b" fill-opacity=".898"
+            d="M3.732 2.78c-1.235 0-2.228 1.077-2.228 2.415V7.59h13.11V5.195c0-1.338-.993-2.416-2.228-2.416H3.732zM1.504 8.474v7.115h13.11V8.475H1.505zm0 8v7.115h13.11v-7.115H1.505zm0 8v2.394c0 1.339.993 2.416 2.228 2.416h8.655c1.235 0 2.228-1.077 2.228-2.416v-2.394H1.505z"
+            paint-order="stroke markers fill" />
+        <path fill="#91908d"
+            d="M4.76 0c-.554 0-1 .446-1 1H2.434A2.428 2.428 0 0 0 0 3.434v25.195a2.428 2.428 0 0 0 2.434 2.433h11.252a2.428 2.428 0 0 0 2.433-2.433V3.434A2.428 2.428 0 0 0 13.686 1h-1.327a1 1 0 0 0-1.002-1H4.76zM3.28 2.014h9.56c1.365 0 2.463 1.14 2.463 2.556v22.924c0 1.416-1.098 2.555-2.463 2.555H3.28c-1.366 0-2.466-1.139-2.466-2.555V4.57c0-1.416 1.1-2.556 2.465-2.556z"
+            paint-order="markers fill stroke" />
+        <path d="M6.167 3.688h3.785l-.717 19.207h-2.35zm0 19.902h3.785v3.785H6.167z"
+            paint-order="markers fill stroke" />
+    </symbol>
+    <symbol id="icon-bell" viewBox="0 0 32 33">
+        <g paint-order="markers fill stroke">
+            <rect width="32" height="2.979" y="24.86" fill="#ea5859" rx="0" ry="0" />
+            <path fill="#ed3139" d="M11.096 27.84h9.808C20.904 32.96 16 33 16 33s-4.904-.04-4.904-5.16z" />
+            <path fill="#ea5859" d="M13.922 2.278S13.922 0 16 0c2.092 0 2.092 2.278 2.092 2.278z" />
+            <path fill="#ed3139"
+                d="M16 2.13v22.73H0c.023 0 2.308-.34 2.592-4.009C3.514 8.925 4.702 2.332 16 2.131zm0 0v22.73h16c-.023 0-2.308-.34-2.592-4.009C28.486 8.925 27.298 2.332 16 2.131z"
+                class="UnoptimicedTransforms" />
+        </g>
+    </symbol>
+    <symbol id="icon-camera" viewBox="0 0 26 32">
+        <g fill="none" paint-order="markers fill stroke">
+            <path fill="#3d5dab" d="M0 14.108h26v4.013l-2.141 2.906c0 14.512-21.718 14.789-21.718 0L0 18.121z" />
+            <path fill="#5d84c3"
+                d="M26 3.282v14.839c-7.608-4.405-18.392-4.348-26 0V3.282zm0 0c-7.608-4.405-18.392-4.348-26 0" />
+            <rect width="10.093" height="10.093" x="7.953" y="18.695" fill="#252525" rx=".918" ry=".918" />
+            <rect width="3.596" height="3.596" x="11.202" y="21.944" fill="#000" rx="1.798" ry="1.798" />
+        </g>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 32.208 26.307">
+        <path fill="#728d46" stroke="#000" stroke-width=".2"
+            d="M2.261 7.77c2.51 0 9.487 5.802 9.487 5.802l7.866-6.838c8.19-7.118 12.494-8.464 12.494-4.25 0 2.383-16.838 23.723-19.73 23.723-3.018 0-12.598-11.81-12.27-16.106.132-1.722.736-2.33 2.153-2.33Z" />
+    </symbol>
+    <symbol id="icon-disconnect" viewBox="0 0 32 29">
+        <g paint-order="markers fill stroke">
+            <path fill="#3aa548"
+                d="M4.885 1.074c-4.886 1.31-4.886 9.535 0 10.844h20.927a5.422 5.422 0 0 1-5.421-5.422 5.422 5.422 0 0 1 5.422-5.422H4.884z" />
+            <circle cx="25.812" cy="6.496" r="5.422" fill="none" stroke="#444" stroke-width=".4" />
+            <path fill="#ed3038"
+                d="M6.693 16.805a5.422 5.422 0 0 1 5.422 5.422 5.422 5.422 0 0 1-5.422 5.421h20.928c4.885-1.309 4.885-9.534 0-10.843H6.693z" />
+            <circle cx="-6.694" cy="22.226" r="5.422" fill="none" stroke="#444" stroke-width=".4"
+                style="font-variation-settings:normal;-inkscape-stroke:none" transform="scale(-1 1)" />
+        </g>
+    </symbol>
+    <symbol id="icon-extinguisher" viewBox="0 0 60 128">
+        <path fill="#b61017"
+            d="M17.1 28.4c4.8-4.9 6-5.4 10.2-6.4 1.5-.4 1.3-17.3 1.3-17.3h11.6v1.6s16 6.7 15.5 8.2c-.4 1.1-15.7-4.4-15.7-4.4-.2 4.4-.3 9.9.2 10 4.1 1.5 8 4.4 11.8 8.3v94.9a44.5 44.5 0 0 1-34.9 0z"
+            paint-order="markers fill stroke" />
+        <path fill="#24292b"
+            d="m17.6 99.7-4.7-.3c-.2 0-.1-2.1 0-2.2 0 0 .4-.1.2-1.8-.8-8.6-10.2-41-11.4-45.7A40 40 0 0 1 .1 35.4 28 28 0 0 1 3.6 24a33 33 0 0 1 25-13.6v3.4c-14 .5-20 7.1-23.4 14.7-4.1 11-2.3 14.7 3.3 32.8 2.8 8.9 8 35.8 8.2 35.8h.4c.6-.1.6 2.6.5 2.6z" />
+        <rect width="27.1" height="48.9" x="21.3" y="43.1" fill="#fff" stroke="#000" stroke-linejoin="round"
+            stroke-width=".3" paint-order="markers fill stroke" rx=".9" ry=".9" />
+        <path fill="#fff" d="M40 11.1v6.3c0 .5-8.9 0-8.9 0V11z" paint-order="markers fill stroke" />
+        <rect width="34.9" height="1.8" x="17.1" y="100.8" fill="#961b1f" paint-order="markers fill stroke" rx="0"
+            ry="0" />
+    </symbol>
+    <symbol id="icon-fault" viewBox="0 0 36 32">
+        <g paint-order="markers fill stroke">
+            <path fill="#de961a"
+                d="M18 0c.839-.225 18 30.165 18 30.165.521.873-.818 1.835-1.835 1.835H1.835C.818 32-.52 31.038 0 30.165 0 30.165 17.193.216 18 0Z" />
+            <path fill="#fde603" stroke="#000" stroke-linejoin="round" stroke-width=".5"
+                d="M18 2.47c.71-.19 15.222 25.508 15.222 25.508.44.739-.692 1.552-1.552 1.552H4.33c-.86 0-1.992-.813-1.552-1.552 0 0 14.54-25.326 15.222-25.509z" />
+            <rect width="3.135" height="3.135" x="16.432" y="24.988" rx="0" ry="0" />
+            <path d="M16.432 12.276h3.136l-.2 11.718h-2.735z" />
+        </g>
+    </symbol>
+    <symbol id="icon-extinction" viewBox="0 0 68 59">
+        <g transform="translate(0.000000,59.000000) scale(0.100000,-0.100000)" fill="#ed3139" stroke="none">
+            <path d="M60 540 c0 -41 -3 -50 -18 -50 -39 0 -42 -16 -42 -257 l0 -233 85 0
+85 0 0 229 c0 126 -3 236 -6 245 -3 9 -17 16 -30 16 -17 0 -24 6 -24 20 0 18
+7 20 85 20 78 0 85 -2 85 -20 0 -15 -7 -20 -25 -20 -14 0 -29 -8 -35 -19 -6
+-12 -10 -109 -10 -245 l0 -226 85 0 85 0 -2 243 -3 242 -27 3 c-20 2 -28 9
+-28 23 0 18 8 19 130 19 l130 0 0 -37 c0 -29 -8 -45 -37 -75 l-37 -38 89 0 89
+0 -37 38 c-32 33 -37 44 -37 85 l0 47 -145 0 c-138 0 -145 1 -145 20 0 13 -7
+20 -20 20 -13 0 -20 -7 -20 -20 0 -18 -7 -20 -85 -20 -78 0 -85 2 -85 20 0 15
+-7 20 -25 20 -23 0 -25 -3 -25 -50z m97 -417 c-1 -65 -3 -12 -3 117 0 129 2
+182 3 118 2 -65 2 -171 0 -235z m210 0 c-1 -65 -3 -12 -3 117 0 129 2 182 3
+118 2 -65 2 -171 0 -235z" />
+            <path d="M552 340 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z" />
+            <path d="M592 340 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z" />
+            <path d="M632 340 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z" />
+            <path d="M552 260 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z" />
+            <path d="M592 260 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z" />
+            <path d="M632 260 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z" />
+            <path d="M552 170 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z" />
+            <path d="M592 170 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z" />
+            <path d="M632 170 c0 -14 2 -19 5 -12 2 6 2 18 0 25 -3 6 -5 1 -5 -13z" />
+        </g>
+    </symbol>
+    <symbol id="icon-groundconnection" viewBox="0 0 36 32">
+        <g paint-order="markers fill stroke">
+            <path fill="#de961a" d="m18 .001 17.885 29.972-1.824 1.823H1.938L.115 29.973Z" />
+            <path fill="#fde603" stroke="#000" stroke-linejoin="round" stroke-width=".497"
+                d="M18 2.455C18.705 2.267 33.124 27.8 33.124 27.8c.437.734-.687 1.542-1.542 1.542H4.417c-.854 0-1.979-.808-1.542-1.542 0 0 14.447-25.164 15.125-25.346z" />
+            <path fill="#9b7615" d="M16.905 8.11h2.19v10.03h-2.19z" style="-inkscape-stroke:none"
+                transform="translate(.115) scale(.99359)" />
+            <g fill="#1c1304" transform="translate(.115) scale(.99359)">
+                <rect width="16.707" height="1.649" x="9.646" y="19.681" rx=".825" ry=".825"
+                    style="-inkscape-stroke:none" />
+                <rect width="12.707" height="1.649" x="11.646" y="22.681" rx=".825" ry=".825"
+                    style="-inkscape-stroke:none;font-variation-settings:normal" />
+                <rect width="6.96" height="1.649" x="14.42" y="25.681" rx=".825" ry=".825"
+                    style="-inkscape-stroke:none" />
+            </g>
+        </g>
+    </symbol>
+    <symbol id="icon-input" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+        <line x1="7" y1="9" x2="7" y2="9.01"></line>
+        <line x1="7" y1="13" x2="7" y2="13.01"></line>
+        <line x1="11" y1="9" x2="11" y2="9.01"></line>
+        <line x1="11" y1="13" x2="11" y2="13.01"></line>
+    </symbol>
+    <symbol id="icon-line" viewBox="0 0 24 24">
+        <polyline points="12 6 9 9 12 12 15 9 12 6"></polyline>
+        <polyline points="12 18 9 15 12 12 15 15 12 18"></polyline>
+    </symbol>
+    <symbol id="icon-networkfault" viewBox="0 0 34 34">
+        <g fill="none" stroke="#5d84c3" stroke-width="2" class="UnoptimicedTransforms" paint-order="markers fill stroke"
+            style="font-variation-settings:normal">
+            <path d="M17 1A16 16 0 0 0 1 17a16 16 0 0 0 16 16" style="font-variation-settings:normal" />
+            <path d="M17 1c-3.866 0-7.5 7.163-7.5 16s3.634 16 7.5 16M1 17h16" style="font-variation-settings:normal" />
+            <path d="M17 9.91c-5.523 0-12.163-1.648-12.163-3.305M17 24.09c-5.523 0-12.163 1.648-12.163 3.305"
+                style="font-variation-settings:normal" />
+        </g>
+        <g fill="none" stroke="#3d5dab" stroke-width="2" class="UnoptimicedTransforms" paint-order="markers fill stroke"
+            style="font-variation-settings:normal">
+            <path d="M17 1A16 16 0 0 0 1 17a16 16 0 0 0 16 16" style="font-variation-settings:normal"
+                transform="matrix(-1 0 0 1 34 0)" />
+            <path d="M17 1c-3.866 0-7.5 7.163-7.5 16s3.634 16 7.5 16M1 17h16" style="font-variation-settings:normal"
+                transform="matrix(-1 0 0 1 34 0)" />
+            <path d="M17 9.91c-5.523 0-12.163-1.648-12.163-3.305M17 24.09c-5.523 0-12.163 1.648-12.163 3.305"
+                style="font-variation-settings:normal" transform="matrix(-1 0 0 1 34 0)" />
+        </g>
+        <path fill="none" stroke="#ae1f23" stroke-linecap="square" stroke-opacity=".518" stroke-width="7.489"
+            d="m5.295 28.705 23.41-23.41m0 23.41L5.295 5.295" paint-order="markers fill stroke"
+            style="font-variation-settings:normal" />
+    </symbol>
+    <symbol id="icon-networknormal" viewBox="0 0 34 34">
+        <g fill="none" stroke="#5d84c3" stroke-width="2" class="UnoptimicedTransforms" paint-order="markers fill stroke"
+            style="font-variation-settings:normal">
+            <path d="M17 1A16 16 0 0 0 1 17a16 16 0 0 0 16 16" style="font-variation-settings:normal" />
+            <path d="M17 1c-3.866 0-7.5 7.163-7.5 16s3.634 16 7.5 16M1 17h16" style="font-variation-settings:normal" />
+            <path d="M17 9.91c-5.523 0-12.163-1.648-12.163-3.305M17 24.09c-5.523 0-12.163 1.648-12.163 3.305"
+                style="font-variation-settings:normal" />
+        </g>
+        <g fill="none" stroke="#3d5dab" stroke-width="2" class="UnoptimicedTransforms" paint-order="markers fill stroke"
+            style="font-variation-settings:normal">
+            <path d="M17 1A16 16 0 0 0 1 17a16 16 0 0 0 16 16" style="font-variation-settings:normal"
+                transform="matrix(-1 0 0 1 34 0)" />
+            <path d="M17 1c-3.866 0-7.5 7.163-7.5 16s3.634 16 7.5 16M1 17h16" style="font-variation-settings:normal"
+                transform="matrix(-1 0 0 1 34 0)" />
+            <path d="M17 9.91c-5.523 0-12.163-1.648-12.163-3.305M17 24.09c-5.523 0-12.163 1.648-12.163 3.305"
+                style="font-variation-settings:normal" transform="matrix(-1 0 0 1 34 0)" />
+        </g>
+    </symbol>
+    <symbol id="icon-powersupplyfault" viewBox="0 0 32 32">
+        <path fill="none" stroke="#797979" stroke-linecap="round" stroke-width="1.9"
+            d="M4.44 21.203c-3.9 3.211-2.064 9.787 2.37 9.71 4.436-.076 6.636-2.54 9.7-4.31 4.061-2.344 9.515-4.857 11.787 3.622" />
+        <path fill="#f9a11c" d="m17.794 3.169 8.612 13.016-5.19 3.434-8.612-13.016z"
+            paint-order="markers fill stroke" />
+        <path fill="#fecb3c"
+            d="m13.34 7.715 7.14 10.792c-7.25 4.796-9.756 1.007-9.756 1.007L8.598 16.3s-2.508-3.79 4.742-8.586z"
+            paint-order="markers fill stroke" />
+        <path fill="#feca3d" fill-opacity=".977" d="m8.598 16.301 2.126 3.213-5.932 3.924-2.125-3.212z"
+            paint-order="markers fill stroke" />
+        <path fill="#afb0b0" fill-opacity=".8"
+            d="M31.237 9.523 32 10.677l-6.425 4.251-.764-1.153zM24.935 0l.763 1.153-6.425 4.252-.763-1.153z"
+            paint-order="markers fill stroke" />
+    </symbol>
+    <symbol id="icon-powersupplynormal" viewBox="0 0 32 32">
+        <path fill="none" stroke="#797979" stroke-linecap="round" stroke-width="1.9"
+            d="M4.44 21.203c-3.9 3.211-2.064 9.787 2.37 9.71 4.436-.076 6.636-2.54 9.7-4.31 4.061-2.344 9.515-4.857 11.787 3.622" />
+        <path fill="#3ba548" d="m17.794 3.169 8.612 13.016-5.19 3.434-8.612-13.016z"
+            paint-order="markers fill stroke" />
+        <path fill="#8bb26e"
+            d="m13.34 7.715 7.14 10.792c-7.25 4.796-9.756 1.007-9.756 1.007L8.598 16.3s-2.508-3.79 4.742-8.586z"
+            paint-order="markers fill stroke" />
+        <path fill="#8bb26e" d="m8.598 16.301 2.126 3.213-5.932 3.924-2.125-3.212z" paint-order="markers fill stroke" />
+        <path fill="#afb0b0" fill-opacity=".8"
+            d="M31.237 9.523 32 10.677l-6.425 4.251-.764-1.153zM24.935 0l.763 1.153-6.425 4.252-.763-1.153z"
+            paint-order="markers fill stroke" />
+    </symbol>
+    <symbol id="icon-reset" viewBox="0 0 32 34">
+        <defs>
+            <marker id="marker-reset" markerHeight="11.842" markerUnits="userSpaceOnUse" markerWidth=".001" orient="0"
+                overflow="visible" preserveAspectRatio="none" refX=".321" refY="-.482" viewBox="0 0 5.324 6.155">
+                <path fill="context-stroke" fill-rule="evenodd" stroke="context-stroke" stroke-width=".5pt"
+                    d="M2.885 0-1.44 2.5v-5z" />
+            </marker>
+        </defs>
+        <path fill="none" stroke="#5d84c3" stroke-width="5.1" marker-end="url(#marker-reset)"
+            d="M5.246 24.54C.114 18.303 2.197 11.1 6.753 7.1c3.824-3.36 9.202-3.724 14.718-1.815"
+            style="display:inline;opacity:1;stroke:#5d84c3;stroke-width:4.5;stroke-dasharray:none;stroke-opacity:1" />
+        <path d="M16.635 10.082 22.889 6.9 22.734 0z"
+            style="display:inline;fill:#5d84c3;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+        <path d="m15.446 22.134-6.254 3.181.154 6.9z"
+            style="display:inline;fill:#d1d2d4;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+        <path fill="none" stroke="#5d84c3" stroke-width="5.1" marker-end="url(#marker-reset)"
+            d="M26.753 7.699c5.133 6.24 3.049 13.44-1.506 17.442-3.825 3.36-9.203 3.722-14.719 1.814"
+            style="display:inline;opacity:1;stroke:#d1d2d4;stroke-width:4.5;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-opacity:1" />
+    </symbol>
+    <symbol id="icon-test" viewBox="0 0 38.179 30.035">
+        <path fill="#c5c4c4" fill-opacity=".976"
+            d="M11.669.001c-.259 6.456-2.777 3.582-4.682 1.967L2.112 6.847c3.591 3.819 1.615 4.623-2.113 4.48v6.846c4.162-.14 5.523 1.133 1.863 4.768l5.017 5.017c2.77-2.961 4.502-3.02 4.38 2.043-.003.079 3.704-.008 3.704-.008v-8.158a6.838 6.838 0 0 1-6.837-6.838 6.838 6.838 0 0 1 6.837-6.838V.001z"
+            class="UnoptimicedTransforms" />
+        <path fill="#91908c"
+            d="M18.258.001c.259 6.456 2.777 3.582 4.682 1.967l4.875 4.879c-3.591 3.819-1.615 4.623 2.113 4.48v6.846c-4.162-.14-5.524 1.133-1.863 4.768l-5.018 5.017c-2.77-2.961-4.501-3.02-4.378 2.043.001.079-3.706-.008-3.706-.008v-8.158a6.838 6.838 0 0 0 6.838-6.838 6.838 6.838 0 0 0-6.838-6.838V.001z"
+            class="UnoptimicedTransforms" />
+        <path fill="#728d46"
+            d="M13.165 13.495c2.104 0 7.951 4.862 7.951 4.862l6.593-5.73c6.864-5.966 10.47-7.094 10.47-3.563 0 1.998-14.111 19.882-16.535 19.882-2.53 0-10.558-9.897-10.283-13.498.11-1.443.617-1.952 1.804-1.952z" />
+    </symbol>
+</svg>
+
+<!-- Configuration Error Message -->
+<div ng-if="!vm.isConfigured"
+    style="padding: 30px; text-align: center; background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; margin: 20px;">
+    <h3 style="color: #856404;">⚠️ Widget CDI no configurado</h3>
+</div>
+
+<!-- Status Bar Header -->
+<header ng-if="vm.isConfigured">
+    <nav class="status-bar">
+        <div class="icon-container left">
+            <span ng-repeat="icon in vm.statusBarIconsLeft" ng-bind-html="vm.getIcon(icon.name)" class="icon"
+                title="{{icon.alt}}"></span>
+        </div>
+
+        <h1 class="nombre">{{vm.installationName}}</h1>
+
+        <div class="icon-container right">
+            <span ng-repeat="icon in vm.statusBarIconsRight" ng-bind-html="vm.getIcon(icon.name)" class="icon"
+                title="{{icon.alt}}"></span>
+        </div>
+    </nav>
+</header>
+
+<!-- Main content -->
+<main class="cdi-main row" ng-if="vm.isConfigured">
+
+    <!-- Bars container (Lines and Inputs) -->
+    <div class="bar-container" ng-class="{message: vm.lines.length === 0 && vm.inputs.length === 0}">
+        <!-- Display bars only when not loading -->
+        <ng-show ng-if="vm.lines.length === 0 && vm.inputs.length === 0">
+            <h3 class="main-header-title">
+                {{vm.t('main.lineAndInputNormalization')}}
+            </h3>
+        </ng-show>
+
+        <!-- Lines -->
+        <div ng-repeat="line in vm.lines" ng-if="vm.shouldShowBar(line)"
+            class="bar show {{vm.getBarColor('line', line.status)}}">
+            <div class="bar-content-container">
+                <span ng-bind-html="vm.getIcon(vm.getBarIcon('line', line.status))" class="icon"></span>
+                <div class="bar-text">
+                    <strong>{{vm.getBarName('line')}} {{line.number}} {{vm.getStatusText(line.status)}}</strong>
+                    <div><span>{{line.alias}}</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inputs -->
+        <div ng-repeat="input in vm.inputs" ng-if="vm.shouldShowBar(input)"
+            class="bar show {{vm.getBarColor('input', input.status)}}">
+            <div class="bar-content-container">
+                <span ng-bind-html="vm.getIcon(vm.getBarIcon('input', input.status))" class="icon"></span>
+                <div class="bar-text">
+                    <strong>{{vm.getBarName('input')}} {{input.number}} {{vm.getStatusText(input.status)}}</strong>
+                    <div><span>{{input.alias}}</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buttons container -->
+    <div class="column button-container">
+        <!-- Acknowledge Button -->
+        <button class="barbutton" ng-click="vm.acknowledge()" ng-disabled="!vm.buttons.acknowledge" type="button">
+            <span ng-bind-html="vm.getIcon('check')"></span>
+            <span>{{vm.t('main.buttons.acknowledge')}}</span>
+        </button>
+
+        <div class="buttons-separator"></div>
+
+        <!-- Reset Button -->
+        <button class="barbutton" ng-click="vm.reset()" ng-disabled="!vm.buttons.reset" type="button">
+            <span ng-bind-html="vm.getIcon('reset')"></span>
+            <span>{{vm.t('main.buttons.reset')}}</span>
+        </button>
+
+        <div class="buttons-separator"></div>
+
+        <!-- Test Button -->
+        <button class="barbutton" ng-click="vm.test()" ng-disabled="!vm.buttons.test" type="button">
+            <span ng-bind-html="vm.getIcon('test')"></span>
+            <span>{{vm.t('main.buttons.test')}}</span>
+        </button>
+
+    </div>
+</main>
+
+<!-- Alert Modal -->
+<div class="modal-cdi" ng-class="{show: vm.alert.show}">
+    <div class="modal-cdi-content alert">
+        <div>
+            <div>
+                <h3 class="modal-cdi-header">{{vm.alert.title}}</h3>
+            </div>
+            <div>
+                <p class="etiquetap">{{vm.alert.content}}</p>
+            </div>
+        </div>
+        <div class="modal-cdi-row">
+            <button class="modal-button" ng-click="vm.closeAlert()" type="button">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Loader Modal -->
+<div class="modal-cdi" ng-class="{show: vm.showLoader}">
+    <div class="modal-cdi-content loader-modal">
+        <div>
+            <h3 class="modal-cdi-header">{{vm.loaderText}}</h3>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 48px;">
+                <div class="spinner-loader big"></div>
+            </div>
+        </div>
+    </div>
+</div>

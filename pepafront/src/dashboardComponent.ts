@@ -63,6 +63,13 @@ const dashboardComponent = {
                                 },
                                 title: 'Display Central Incendio',
                             },
+                            {
+                                type: 'cdi',
+                                config: {
+                                    tiempo_recarga_seg: '50',
+                                },
+                                title: 'Display CDI',
+                            },
 
                         ],
                     },

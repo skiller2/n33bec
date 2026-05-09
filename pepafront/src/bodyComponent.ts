@@ -7,6 +7,7 @@ const bodyDefault = {
 
     //    selector: 'bodyComponent', //body-component
     template: require('./Pages/framework.html'),
+    //templateUrl: '../src/Pages/framework.html',
     bindings: {},
     controllerAs: "body",
     controller: ['store', '$q', 'datosBack', '$scope', '$sce', '$filter', '$state',

@@ -5,7 +5,6 @@ const path = require('path');
 const CopyPlugin = require("copy-webpack-plugin");
 const WebPackAngularTranslate = require("webpack-angular-translate");
 
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {
     CleanWebpackPlugin
@@ -73,8 +72,8 @@ module.exports = {
                 secure: true,
                 changeOrigin: true,
             },
-            '/api9': { //Siderca GEAC Master
-                target: 'http://10.8.0.9/',
+            '/api': { //Siderca GEAC Master
+                target: 'http://10.8.0.11/',
                 secure: true,
                 changeOrigin: true,
             },
@@ -83,15 +82,20 @@ module.exports = {
                 secure: true,
                 changeOrigin: true,
             },
-            '/apiI': { //Demo Italia
-                target: 'http://10.8.0.22/', //'http://192.168.80.235/',
+            '/apiDemo': { //Demo Italia
+                target: 'http://192.168.80.235/', //'http://192.168.80.235/',
                 secure: true,
                 changeOrigin: true,
             },
-            '/api': { //Demo Italia
-                target: 'http://192.168.80.235/',
+
+            '/cdi': { //Demo Italia
+                target: 'http://192.168.80.180/', //'http://192.168.80.235/',
                 secure: true,
                 changeOrigin: true,
+                pathRewrite: {
+                    '^/cdi': ''
+                }
+
             },
 
             '/vid': { //Siderca GEAC Master
@@ -112,7 +116,16 @@ module.exports = {
             },
             '/wssub': {
                 //                target: 'http://localhost:9002',
-                target: 'ws://10.8.0.8/',
+                target: 'ws://10.8.0.11/',
+                ws: true,
+                secure: false,
+                changeOrigin: true,
+
+
+            },
+            '/wssubDemo': {
+                //                target: 'http://localhost:9002',
+                target: 'ws://192.168.80.235/',
                 ws: true,
                 secure: false,
                 changeOrigin: true,
@@ -184,7 +197,12 @@ module.exports = {
 
             {
                 test: [/\.html$/],
-                use: [{
+
+
+//                exclude: /app\.html$/, // index shell
+
+                use: [
+                {
 
                     loader: 'html-loader',
                     options: {
@@ -192,6 +210,8 @@ module.exports = {
                         attrs: ['source:src', 'img:src', 'use:xlink:href']
                     }
                 },
+
+
                 {
                     loader: WebPackAngularTranslate.htmlLoader()
                 }],

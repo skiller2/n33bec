@@ -48,6 +48,7 @@ angular.module('appServices', [])
                     onEnter: function () {
                         var modalInstance = $uibModal.open({
                             windowClass: 'modal-center',
+                            //templateUrl: '../src/Pages/signin.html',
                             template: require('./Pages/signin.html'),
                             controller: ['auth', '$uibModalInstance', function (auth, $uibModalInstance) {
                                 const $ctrl = this;
@@ -2288,7 +2289,7 @@ angular.module('appServices', [])
             { nom_icono: $translate.instant("Tanque Agua"), class: "cs-icon-tanqueagua" },
             { nom_icono: $translate.instant("Control Acceso"), class: "cs-icon-controlacceso" },
             { nom_icono: $translate.instant("Amplicación Extinción"), class: "cs-icon-ampliacionextincion" },
-
+            { nom_icono: $translate.instant("Detector Gas"), class: "cs-icon-detector-gas" },
             { nom_icono: $translate.instant("Detector"), class: "fab fa-ubuntu" },
             { nom_icono: $translate.instant("Puerta"), class: "fas fa-door-open" },
             { nom_icono: $translate.instant("Lector huella"), class: "fas fa-fingerprint" },
