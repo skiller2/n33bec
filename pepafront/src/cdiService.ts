@@ -5,12 +5,7 @@ import angular from "angular";
  * Handles all API calls to the backend
  * Falls back to mock data if available (for testing)
  */
-/**
- * CDI Widget API Service
- * Handles all API calls to the backend
- * Falls back to mock data if available (for testing)
- */
-angular.module('cdiService', [])
+angular.module('cdiService',[])
     .constant('CDI_CONFIG', {
         DEFAULT_LANGUAGE: 'es',
         POLLING_INTERVAL: 2500,
@@ -102,7 +97,7 @@ angular.module('cdiService', [])
                 }
             },
             main: {
-                lineAndInputNormalization: { es: "Lineas y entradas normalizadas", en: "Line and input normalization", pt: "Normalização de linhas e entradas", it: "Normalizzazione di linee e ingressi" },
+                lineAndInputNormalization: { es: "Equipo normalizado", en: "Device OK", pt: "Equipamento normalizado", it: "Dispositivo OK" },
                 buttons: {
                     acknowledge: { es: "Aceptacion", en: "Acknowledge", pt: "Reconhecimento", it: "Aceptazione" },
                     reset: { es: "Reset", en: "Reset", pt: "Reiniciar", it: "Ripristina" },
@@ -127,21 +122,21 @@ angular.module('cdiService', [])
             /**
              * Authenticate user with API
              */
-            authenticateUser: function (apiDomain, userId, userCode) {
+            authenticateUser: function (apiDomain:string, userId:string, userCode:number) {
                 return $http.get(apiDomain + '/api/config/usuarios', {
                     headers: { 'Content-Type': 'application/json' }
                 })
-                    .then(function (response) {
+                    .then(function (response:any) {
                         try {
                             const users = JSON.parse(atob(response.data.USR));
-                            const user = users.find(u => u.id === userId && u.code === userCode);
+                            const user = users.find((u: any) => u.id === userId && u.code === userCode);
                             return user ? { success: true, user: user } : { success: false };
                         } catch (e) {
                             console.error('Authentication parse error:', e);
                             return { success: false };
                         }
                     })
-                    .catch(function (error) {
+                    .catch(function (error:any) {
                         console.error('Authentication error:', error);
                         return $q.reject(error);
                     });
@@ -150,10 +145,10 @@ angular.module('cdiService', [])
             /**
              * Fetch bar status
              */
-            getBarStatus: function (apiDomain) {
+            getBarStatus: function (apiDomain:string) {
                 return $http.get(apiDomain + '/api/barstatus')
-                    .then(function (response) { return response.data; })
-                    .catch(function (error) {
+                    .then(function (response:any) { return response.data; })
+                    .catch(function (error:any) {
                         console.error('Bar status error:', error);
                         return $q.reject(error);
                     });
@@ -162,10 +157,10 @@ angular.module('cdiService', [])
             /**
              * Fetch lines and inputs
              */
-            getLinesStatus: function (apiDomain) {
+            getLinesStatus: function (apiDomain:string) {
                 return $http.get(apiDomain + '/api/linesstatus')
-                    .then(function (response) { return response.data; })
-                    .catch(function (error) {
+                    .then(function (response:any) { return response.data; })
+                    .catch(function (error:any) {
                         console.error('Lines status error:', error);
                         return $q.reject(error);
                     });
@@ -174,13 +169,13 @@ angular.module('cdiService', [])
             /**
              * Fetch installation name and general config
              */
-            getGeneralConfig: function (apiDomain) {
+            getGeneralConfig: function (apiDomain:string) {
                 return $http.get(apiDomain + '/api/config/general')
-                    .then(function (response) {
+                    .then(function (response:any) {
 
                         return response.data;
                     })
-                    .catch(function (error) {
+                    .catch(function (error:any) {
                         console.error('Config error:', error);
                         return $q.reject(error);
                     });
@@ -189,12 +184,12 @@ angular.module('cdiService', [])
             /**
              * Send acknowledge command
              */
-            sendAcknowledge: function (apiDomain, userId) {
+            sendAcknowledge: function (apiDomain:string, userId:string) {
                 return $http.post(apiDomain + '/api/cmd', {
                     cmdACK: { userId: userId }
                 })
-                    .then(function (response) { return response.data; })
-                    .catch(function (error) {
+                    .then(function (response:any) { return response.data; })
+                    .catch(function (error:any) {
                         console.error('Acknowledge error:', error);
                         return $q.reject(error);
                     });
@@ -203,12 +198,12 @@ angular.module('cdiService', [])
             /**
              * Send reset command
              */
-            sendReset: function (apiDomain, userId) {
+            sendReset: function (apiDomain:string, userId:number) {
                 return $http.post(apiDomain + '/api/cmd', {
                     cmdReset: { userId: userId }
                 })
-                    .then(function (response) { return response.data; })
-                    .catch(function (error) {
+                    .then(function (response:any) { return response.data; })
+                    .catch(function (error:any) {
                         console.error('Reset error:', error);
                         return $q.reject(error);
                     });
@@ -217,12 +212,12 @@ angular.module('cdiService', [])
             /**
              * Send test command
              */
-            sendTest: function (apiDomain, userId) {
+            sendTest: function (apiDomain:string, userId:number) {
                 return $http.post(apiDomain + '/api/cmd', {
                     cmdTest: { userId: userId }
                 })
-                    .then(function (response) { return response.data; })
-                    .catch(function (error) {
+                    .then(function (response:any) { return response.data; })
+                    .catch(function (error:any) {
                         console.error('Test error:', error);
                         return $q.reject(error);
                     });

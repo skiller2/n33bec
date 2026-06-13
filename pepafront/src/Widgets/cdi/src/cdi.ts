@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import './cdi.css';
 
 function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { title: string; description: string; controllerAs: string; controller: (string | ((datosBack: any, $scope: any, widget: any, globalData: any, auth: any, config: any, $interval: any, $timeout: any, CdiWidgetService: any, CDI_CONFIG: any) => void))[]; reload: boolean; template: any; titleTemplate: any; edit: { template: any; }; resolve: { config: (string | ((config: any) => any))[]; }; }) => void; }) {
     dashboardProvider
@@ -8,8 +7,9 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
             description: 'Display CDI',
             controllerAs: 'vm',
             // 'widget', 'globalData', 'auth', 'config',
-            controller: [ 'datosBack', '$scope', '$interval', '$sce', 'CdiWidgetService', 'CDI_CONFIG',
-                function (datosBack: any, $scope: any, $interval: any, $sce: any, CdiWidgetService: any, CDI_CONFIG: any) {
+            controller: ['$scope', '$interval', '$timeout', '$sce',  'CdiWidgetService', 'CDI_CONFIG',
+
+                function ($scope: any, $interval: any, $timeout: any, $sce: any, CdiWidgetService: any, CDI_CONFIG: any) {
 
                     // ==================== INITIALIZATION ====================
 
@@ -19,6 +19,7 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                             $interval.cancel(vm.refreshInterval);
                         }
                     });
+
 
 
 
@@ -33,6 +34,10 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     vm.isAuthenticated = false;
                     vm.showLoader = false;
                     vm.loaderText = '';
+                    vm.offline = false;
+                    vm.loading = true;
+                    let consecutiveErrors = 0;
+                    const OFFLINE_THRESHOLD = 2;
 
                     // Alert modal state
                     vm.alert = {
@@ -42,19 +47,12 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     };
 
                     // Widget state
-                    vm.installationName = '';
-                    vm.lines = [];
-                    vm.inputs = [];
-                    // DATOS DEMOSTRACION
-                    // vm.lines = [
-                    //     { number: 1, status: 2, enable: 1, alias: 'Pasillo Norte' },
-                    //     { number: 2, status: 6, enable: 1, alias: 'Cocina Central' },
-                    //     { number: 3, status: 8, enable: 1, alias: 'Depósito A' }
-                    // ];
-                    // vm.inputs = [
-                    //     { number: 1, status: 1, enable: 1, alias: 'Pulsador Emergencia' },
-                    //     { number: 2, status: 5, enable: 1, alias: 'Sensor Humo' }
-                    // ];
+                    vm.installationName = 'CDI';
+                    vm.bars = [];
+                    let currentLines: any[] = [];
+                    let currentInputs: any[] = [];
+                    let currentSystemBars: any[] = [];
+
                     vm.barStatus = {
                         // (left container)
                         alarm: false,
@@ -64,14 +62,10 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                         test: false,
                         extinction: false,
                         // (right container)
-                        battery: 0,
-                        powerSupply: false,
-                        network: false
+                        battery: 100,
+                        powerSupply: true,
+                        network: true
                     };
-
-                    // Cached icon arrays (to prevent infinite digest)
-                    vm.statusBarIconsLeft = [];
-                    vm.statusBarIconsRight = [];
 
                     // Previous barStatus to detect changes
                     let previousBarStatus = {} as any;
@@ -81,10 +75,17 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     let previousInputsData = {} as any;
 
                     vm.isConfigured = false;
+                    vm.isModular = false;
 
                     // Buttons state
                     vm.buttons = {
                         acknowledge: true,
+                        reset: false,
+                        test: false
+                    };
+
+                    vm.buttonsDisabledByCmd = {
+                        acknowledge: false,
                         reset: false,
                         test: false
                     };
@@ -106,12 +107,15 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                         if (vm.apiDomain && vm.userId && vm.userCode) {
                             vm.isConfigured = true;
                             authenticate();
+                            loadInitialData();
+                            loadStatusData();
+                            startAutoRefresh();
                         }
                     }
 
                     /**
-                     * Authenticate user with the API
-                     */
+                                     * Authenticate user with the API
+                                     */
                     function authenticate() {
                         CdiWidgetService.authenticateUser(vm.apiDomain, vm.userId, vm.userCode)
                             .then(function (result: any) {
@@ -120,14 +124,12 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                                     vm.buttons.reset = true;
                                     vm.buttons.test = true;
                                     console.log('User authenticated successfully');
-                                    loadInitialData();
-                                    startAutoRefresh();
                                 } else {
-                                    showAlert('Error', 'Authentication failed. Invalid credentials.');
+                                    showAlert('Error', 'Error de autenticación. Credenciales inválidas.');
                                 }
                             })
                             .catch(function (error: any) {
-                                showAlert('Error', 'Authentication error: ' + error.message);
+                                showAlert('Error', 'Error de autenticación');
                             });
                     }
 
@@ -143,39 +145,79 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                             .catch(function (error: any) {
                                 console.error('Error loading general config:', error);
                             });
-
-                        loadStatusData();
                     }
 
                     function loadStatusData() {
-                        CdiWidgetService.getBarStatus(vm.apiDomain)
+                        var barPromise = CdiWidgetService.getBarStatus(vm.apiDomain)
                             .then(function (data: any) {
                                 updateBarStatus(data.barstatus);
+                                return true;
                             })
                             .catch(function (error: any) {
                                 console.error('Error loading bar data:', error);
+                                return false;
                             });
 
-                        CdiWidgetService.getLinesStatus(vm.apiDomain)
+                        var linesPromise = CdiWidgetService.getLinesStatus(vm.apiDomain)
                             .then(function (data: any) {
-                                const lines = data['LINEAS'] || []
+
+                                // DATOS DEMOSTRACION
+                                // const lines = [
+                                //     { number: 1, status: 2, enable: 1, alias: 'Pasillo Norte' },
+                                //     { number: 2, status: 6, enable: 1, alias: 'Cocina Central' },
+                                //     { number: 3, status: 8, enable: 1, alias: 'Depósito A' }
+                                // ];
+                                // const inputs = [
+                                //     { number: 1, status: 1, enable: 1, alias: 'Pulsador Emergencia' },
+                                //     { number: 2, status: 5, enable: 1, alias: 'Sensor Humo' }
+                                // ];
+                                const lines = (data['LINEAS'] || [])
                                     .filter((line: any) => line.status !== 0);
-                                const inputs = data['ENTRADAS'] || []
+
+                                const inputs = (data['ENTRADAS'] || [])
                                     .filter((input: any) => input.status !== 0);
 
                                 if (!hasArrayChanged(previousLinesData, lines) && !hasArrayChanged(previousInputsData, inputs)) {
-                                    return;
+                                    return true;
                                 }
 
-                                vm.lines = orderLines(lines);
-                                vm.inputs = orderInputs(inputs);
+                                currentLines = orderLines(lines);
+                                currentInputs = orderInputs(inputs);
+                                updateBars();
 
                                 previousLinesData = angular.copy(lines);
                                 previousInputsData = angular.copy(inputs);
+                                return true;
                             })
                             .catch(function (error: any) {
                                 console.error('Error loading lines data:', error);
+                                return false;
                             });
+
+                        // Track consecutive errors across both calls
+                        (window as any).Promise.all([barPromise, linesPromise]).then(function (results: boolean[]) {
+                            var anyError = results.some(function (r) { return r === false; });
+                            if (anyError) {
+                                consecutiveErrors++;
+                                if (consecutiveErrors >= OFFLINE_THRESHOLD) {
+                                    vm.loading = false;
+                                    vm.offline = true;
+                                }
+                            } else {
+                                var wasOffline = vm.offline;
+                                consecutiveErrors = 0;
+                                vm.offline = false;
+                                vm.loading = false;
+
+                                // Reintentar si se recupero la conexion o falta cargar datos
+                                if (wasOffline || !vm.installationName) {
+                                    loadInitialData();
+                                }
+                                if (wasOffline || !vm.isAuthenticated) {
+                                    authenticate();
+                                }
+                            }
+                        });
                     }
 
                     function startAutoRefresh() {
@@ -209,6 +251,8 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     // ==================== RENDERING LOGIC ====================
 
                     function updateBarStatus(barStatus: any) {
+                        vm.isModular = barStatus.hasOwnProperty('MODULO_I1') || barStatus.hasOwnProperty('MODULO_I2') || barStatus.hasOwnProperty('MODULO_O1') || barStatus.hasOwnProperty('MODULO_O2');
+
                         vm.barStatus = {
                             alarm: barStatus['ALARMA'] || false,
                             fault: barStatus['FALLA'] || false,
@@ -218,7 +262,11 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                             extinction: barStatus['EXTINCION'] || false,
                             battery: barStatus['BATERIA'] || 0,
                             powerSupply: barStatus['ALIMENTACION'] || false,
-                            network: barStatus['RED'] || false
+                            network: barStatus['RED'] || false,
+                            mod_i1: barStatus['MODULO_I1'] || false,
+                            mod_i2: barStatus['MODULO_I2'] || false,
+                            mod_o1: barStatus['MODULO_O1'] || false,
+                            mod_o2: barStatus['MODULO_O2'] || false
                         };
                         updateStatusBarIcons();
                     }
@@ -233,40 +281,120 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                             previousBarStatus.extinction === vm.barStatus.extinction &&
                             previousBarStatus.battery === vm.barStatus.battery &&
                             previousBarStatus.powerSupply === vm.barStatus.powerSupply &&
-                            previousBarStatus.network === vm.barStatus.network) {
+                            previousBarStatus.network === vm.barStatus.network &&
+                            previousBarStatus.mod_i1 === vm.barStatus.mod_i1 &&
+                            previousBarStatus.mod_i2 === vm.barStatus.mod_i2 &&
+                            previousBarStatus.mod_o1 === vm.barStatus.mod_o1 &&
+                            previousBarStatus.mod_o2 === vm.barStatus.mod_o2) {
                             return;
                         }
 
-                        vm.statusBarIconsLeft = [];
-                        if (vm.barStatus.alarm) vm.statusBarIconsLeft.push({ name: 'bell', alt: 'Alarma' });
-                        if (vm.barStatus.fault) vm.statusBarIconsLeft.push({ name: 'fault', alt: 'Falla' });
-                        if (vm.barStatus.disconnect) vm.statusBarIconsLeft.push({ name: 'disconnect', alt: 'Desconexión' });
-                        if (vm.barStatus.ground) vm.statusBarIconsLeft.push({ name: 'groundconnection', alt: 'Tierra' });
-                        if (vm.barStatus.test) vm.statusBarIconsLeft.push({ name: 'test', alt: 'Test' });
-                        if (vm.barStatus.extinction) vm.statusBarIconsLeft.push({ name: 'extinction', alt: 'Extinción' });
+                        currentSystemBars = [];
+
+                        // if (vm.barStatus.alarm) currentSystemBars.push({ icon: 'bell', name: 'Alarma General', text: '', color: 'red' });
+                        // if (vm.barStatus.fault) currentSystemBars.push({ icon: 'fault', name: 'Falla General', text: '', color: 'yellow' });
+                        if (vm.barStatus.disconnect) currentSystemBars.push({ icon: 'disconnect', name: 'Falla', text: 'Desconexión', color: 'yellow' });
+                        if (vm.barStatus.ground) currentSystemBars.push({ icon: 'groundconnection', name: 'Falla', text: 'Fuga a tierra', color: 'yellow' });
+                        if (vm.barStatus.test) currentSystemBars.push({ icon: 'test', name: 'Equipo en prueba', text: '', color: 'green' });
+                        if (vm.barStatus.extinction) currentSystemBars.push({ icon: 'extinction', name: 'Extinción', text: '', color: 'red' });
 
                         const battery = vm.barStatus.battery;
-                        let batteryIcon = 'batteryfault';
-                        let batteryAlt = 'Batería: Falla';
+                        const batteryPercentage = battery.toString() + '%';
 
-                        if (battery === 100) { batteryIcon = 'battery100'; batteryAlt = 'Batería: 100%'; }
-                        else if (battery >= 75) { batteryIcon = 'battery75'; batteryAlt = 'Batería: 75%'; }
-                        else if (battery >= 50) { batteryIcon = 'battery50'; batteryAlt = 'Batería: 50%'; }
-                        else if (battery <= 25 && battery > 1) { batteryIcon = 'battery25'; batteryAlt = 'Batería: 25%'; }
 
-                        const powerIcon = vm.barStatus.powerSupply ? 'powersupplynormal' : 'powersupplyfault';
-                        const powerAlt = vm.barStatus.powerSupply ? 'Alimentación OK' : 'Falla de alimentación';
-                        const networkIcon = vm.barStatus.network ? 'networknormal' : 'networkfault';
-                        const networkAlt = vm.barStatus.network ? 'Red conectada' : 'Red desconectada';
+                        if (battery !== 100) {
+                            currentSystemBars.push({ icon: 'batteryfault', name: 'Batería', text: batteryPercentage, color: 'yellow' });
+                        }
 
-                        vm.statusBarIconsRight = [
-                            { name: batteryIcon, alt: batteryAlt },
-                            { name: powerIcon, alt: powerAlt },
-                            { name: networkIcon, alt: networkAlt }
-                        ];
+                        if (!vm.barStatus.powerSupply) {
+                            currentSystemBars.push({ icon: 'powersupplyfault', name: 'Alimentación', text: 'Falla', color: 'yellow' });
+                        }
+
+                        if (!vm.barStatus.network) {
+                            currentSystemBars.push({ icon: 'networkfault', name: 'Red', text: 'Falla', color: 'yellow' });
+                        }
+
+                        if (vm.isModular) {
+                            if (vm.barStatus.mod_i1 === false) currentSystemBars.push({ icon: 'disconnect', name: 'M_I1', text: 'Desconexión', color: 'yellow' });
+                            if (vm.barStatus.mod_i2 === false) currentSystemBars.push({ icon: 'disconnect', name: 'M_I2', text: 'Desconexión', color: 'yellow' });
+                            if (vm.barStatus.mod_o1 === false) currentSystemBars.push({ icon: 'disconnect', name: 'M_O1', text: 'Desconexión', color: 'yellow' });
+                            if (vm.barStatus.mod_o2 === false) currentSystemBars.push({ icon: 'disconnect', name: 'M_O2', text: 'Desconexión', color: 'yellow' });
+                        }
 
                         previousBarStatus = angular.copy(vm.barStatus);
+                        updateBars();
                     }
+
+                    function updateBars() {
+                        const tempBars: any[] = [];
+
+                        // Add system bars
+                        angular.forEach(currentSystemBars, function (bar) {
+                            tempBars.push({
+                                icon: bar.icon,
+                                color: bar.color,
+                                title: bar.name,
+                                text: bar.text
+                            });
+                        });
+
+                        // Add lines
+                        angular.forEach(currentLines, function (line) {
+                            if (vm.shouldShowBar(line)) {
+                                tempBars.push({
+                                    icon: vm.getBarIcon('line', line.status),
+                                    color: vm.getBarColor('line', line.status),
+                                    title: vm.getBarName('line') + ' ' + line.number + ' ' + vm.getStatusText(line.status),
+                                    text: line.alias
+                                });
+                            }
+                        });
+
+                        // Add inputs
+                        angular.forEach(currentInputs, function (input) {
+                            if (vm.shouldShowBar(input)) {
+                                let inputTitle = vm.getBarName('input') + ' ' + input.number;
+                                if (vm.isModular) {
+                                    let modNum = Math.ceil(input.number / 7);
+                                    let modName = 'M_I' + modNum;
+                                    let modInNum = ((input.number - 1) % 7) + 1;
+                                    inputTitle = modName + ' ' + vm.getBarName('input') + ' ' + modInNum;
+                                }
+                                tempBars.push({
+                                    icon: vm.getBarIcon('input', input.status),
+                                    color: vm.getBarColor('input', input.status),
+                                    title: inputTitle + ' ' + vm.getStatusText(input.status),
+                                    text: input.alias
+                                });
+                            }
+                        });
+                        // Priority order: Alarm (red), Pre-alarm (orange), Fault (yellow), Normal (green)
+                        const priority = {
+                            'red': 1,
+                            'orange': 2,
+                            'yellow': 3,
+                            'green': 4
+                        };
+
+                        tempBars.sort(function (a, b) {
+                            const pA = priority[a.color] || 99;
+                            const pB = priority[b.color] || 99;
+                            if (pA !== pB) return pA - pB;
+                            return a.title.localeCompare(b.title);
+                        });
+
+                        vm.bars = tempBars;
+                    }
+
+
+                    vm.getSystemColor = function () {
+                        if (!vm.bars || vm.bars.length === 0) return 'green';
+                        const colors = vm.bars.map(function (b) { return b.color; });
+                        if (colors.indexOf('red') !== -1) return 'red';
+                        if (colors.indexOf('orange') !== -1) return 'orange';
+                        if (colors.indexOf('yellow') !== -1) return 'yellow';
+                        return 'green';
+                    };
 
                     vm.getBarColor = function (type: string, status: number) {
                         if (type === 'line') {
@@ -278,6 +406,13 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                                 case 6: return 'yellow';
                                 case 7: return 'yellow';
                                 case 8: return 'yellow';
+                                case 19: return 'red';
+                                case 21: return 'red';
+                                case 22: return 'red';
+                                case 23: return 'red';
+                                case 24: return 'red';
+                                case 25: return 'red';
+                                case 26: return 'red';
                                 default: return 'green';
                             }
                         } else {
@@ -304,6 +439,13 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                                 case 6: return 'fault';
                                 case 7: return 'fault';
                                 case 8: return 'disconnect';
+                                case 19: return 'bell';
+                                case 21: return 'bell';
+                                case 22: return 'bell';
+                                case 23: return 'bell';
+                                case 24: return 'bell';
+                                case 25: return 'bell';
+                                case 26: return 'bell';
                                 default: return 'check';
                             }
                         } else {
@@ -347,9 +489,9 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                         });
                     }
 
-                    function orderInputs(inputs) {
+                    function orderInputs(inputs: any) {
                         const customOrder = { 12: 0, 9: 1, 1: 2, 4: 3, 5: 4, 0: 5 };
-                        return angular.copy(inputs).sort(function (a, b) {
+                        return angular.copy(inputs).sort(function (a: any, b: any) {
                             return (customOrder[a.status] ?? 99) - (customOrder[b.status] ?? 99);
                         });
                     }
@@ -360,8 +502,15 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
 
                     // ==================== BUTTON LOGIC ====================
 
+                    vm.buttonsDisabledByCmd = { acknowledge: false, reset: false, test: false };
+
                     vm.acknowledge = function () {
-                        if (!vm.buttons.acknowledge) return;
+                        if (!vm.buttons.acknowledge || vm.buttonsDisabledByCmd.acknowledge) return;
+                        vm.buttonsDisabledByCmd.acknowledge = true;
+                        $timeout(function () {
+                            vm.buttonsDisabledByCmd.acknowledge = false;
+                        }, 2000);
+
                         vm.showLoader = true;
                         vm.loaderText = CDI_CONFIG.DICTIONARY.modals.loader.header[vm.language];
                         CdiWidgetService.sendAcknowledge(vm.apiDomain, vm.userId)
@@ -376,7 +525,12 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     };
 
                     vm.reset = function () {
-                        if (!vm.buttons.reset) return;
+                        if (!vm.buttons.reset || vm.buttonsDisabledByCmd.reset) return;
+                        vm.buttonsDisabledByCmd.reset = true;
+                        $timeout(function () {
+                            vm.buttonsDisabledByCmd.reset = false;
+                        }, 2000);
+
                         vm.showLoader = true;
                         vm.loaderText = CDI_CONFIG.DICTIONARY.modals.loader.header[vm.language];
                         CdiWidgetService.sendReset(vm.apiDomain, vm.userId)
@@ -391,7 +545,12 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     };
 
                     vm.test = function () {
-                        if (!vm.buttons.test) return;
+                        if (!vm.buttons.test || vm.buttonsDisabledByCmd.test) return;
+                        vm.buttonsDisabledByCmd.test = true;
+                        $timeout(function () {
+                            vm.buttonsDisabledByCmd.test = false;
+                        }, 2000);
+
                         vm.showLoader = true;
                         vm.loaderText = CDI_CONFIG.DICTIONARY.modals.loader.header[vm.language];
                         CdiWidgetService.sendTest(vm.apiDomain, vm.userId)
@@ -409,10 +568,20 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                         vm.alert.show = true;
                         vm.alert.title = title;
                         vm.alert.content = content;
+
+                        if (vm.alertTimeout) {
+                            $timeout.cancel(vm.alertTimeout);
+                        }
+                        vm.alertTimeout = $timeout(function () {
+                            vm.alert.show = false;
+                        }, 3500);
                     }
 
                     vm.closeAlert = function () {
                         vm.alert.show = false;
+                        if (vm.alertTimeout) {
+                            $timeout.cancel(vm.alertTimeout);
+                        }
                     };
 
 
@@ -421,23 +590,13 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
 
 
 
-
                     vm.$onInit = function () {
 
                         updateStatusBarIcons();
                         initializeConfig();
                         console.log('CDI Widget initialized');
-                    };
-
-
+                    }
                     vm.$onInit()
-
-
-
-
-
-
-
 
                     /*
                     

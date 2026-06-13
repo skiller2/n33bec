@@ -72,7 +72,7 @@ module.exports = {
                 secure: true,
                 changeOrigin: true,
             },
-            '/api': { //Siderca GEAC Master
+            '/apiGeac': { //Siderca GEAC Master
                 target: 'http://10.8.0.11/',
                 secure: true,
                 changeOrigin: true,
@@ -82,7 +82,7 @@ module.exports = {
                 secure: true,
                 changeOrigin: true,
             },
-            '/apiDemo': { //Demo Italia
+            '/api': { //Demo Italia
                 target: 'http://192.168.80.235/', //'http://192.168.80.235/',
                 secure: true,
                 changeOrigin: true,
