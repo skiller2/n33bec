@@ -23,6 +23,17 @@ angular.module('cdiService',[])
                 "Normale", "Allarme", "Allarme", "Pre-allarme", "Allarme tecnico", "Macanza", "Linea aperta", "Linea corta", "Escluso", "Pulsante di download manuale del PDM", "Accettazione", "Ripristina", "Aborto", "Sistema inizializzato", "Sirena del silenzio", "Batteria scarica", "Batteria carica", "Mancanza di alimentazione", "Alimentazione OK", "Rapina"
             ]
         },
+        EVENT_TYPE: {
+            es: ["Sistema", "Entrada", "Linea", "Inalambrico", "Robo"],
+            en: ["System", "IN", "Line", "Wireless", "Robbery"],
+            pt: ["Sistema", "IN", "Linha", "Wireless", "Roubo"],
+            it: ["Sistema", "IN", "Linea", "Wireless", "Rapina"]
+        },
+        EVENT_NUMBER_SPECIAL: {
+            253: { es: "Local", en: "Local", pt: "Local", it: "Locale" },
+            254: { es: "Remoto", en: "Remote", pt: "Remoto", it: "Remoto" },
+            15: "M7IN (1)", 16: "M7IN (2)", 17: "MR3 (1)", 18: "MR3 (2)"
+        },
         DICTIONARY: {
             common: {
                 reset: { es: "Reiniciar", en: "Reset", pt: "Reiniciar", it: "Ripristina" },
@@ -116,17 +127,18 @@ angular.module('cdiService',[])
         }
 
     })
+
     .service('CdiWidgetService', ['$http', '$q', '$timeout', function ($http, $q, $timeout) {
 
         return {
             /**
              * Authenticate user with API
              */
-            authenticateUser: function (apiDomain:string, userId:string, userCode:number) {
+            authenticateUser: function (apiDomain: string, userId: string, userCode: number) {
                 return $http.get(apiDomain + '/api/config/usuarios', {
                     headers: { 'Content-Type': 'application/json' }
                 })
-                    .then(function (response:any) {
+                    .then(function (response: any) {
                         try {
                             const users = JSON.parse(atob(response.data.USR));
                             const user = users.find((u: any) => u.id === userId && u.code === userCode);
@@ -136,7 +148,7 @@ angular.module('cdiService',[])
                             return { success: false };
                         }
                     })
-                    .catch(function (error:any) {
+                    .catch(function (error: any) {
                         console.error('Authentication error:', error);
                         return $q.reject(error);
                     });
@@ -145,10 +157,10 @@ angular.module('cdiService',[])
             /**
              * Fetch bar status
              */
-            getBarStatus: function (apiDomain:string) {
-                return $http.get(apiDomain + '/api/barstatus')
-                    .then(function (response:any) { return response.data; })
-                    .catch(function (error:any) {
+            getBarStatus: function (apiDomain: string) {
+                return $http.get(apiDomain + '/api/barstatus', { timeout: 5000 })
+                    .then(function (response: any) { return response.data; })
+                    .catch(function (error: any) {
                         console.error('Bar status error:', error);
                         return $q.reject(error);
                     });
@@ -157,11 +169,20 @@ angular.module('cdiService',[])
             /**
              * Fetch lines and inputs
              */
-            getLinesStatus: function (apiDomain:string) {
-                return $http.get(apiDomain + '/api/linesstatus')
-                    .then(function (response:any) { return response.data; })
-                    .catch(function (error:any) {
+            getLinesStatus: function (apiDomain: string) {
+                return $http.get(apiDomain + '/api/linesstatus', { timeout: 5000 })
+                    .then(function (response: any) { return response.data; })
+                    .catch(function (error: any) {
                         console.error('Lines status error:', error);
+                        return $q.reject(error);
+                    });
+            },
+
+            getLstEvents: function (apiDomain: string) {
+                return $http.get(apiDomain + '/api/config/lstevents')
+                    .then(function (response: any) { return response.data; })
+                    .catch(function (error: any) {
+                        console.error('lstevents error:', error);
                         return $q.reject(error);
                     });
             },
@@ -169,13 +190,13 @@ angular.module('cdiService',[])
             /**
              * Fetch installation name and general config
              */
-            getGeneralConfig: function (apiDomain:string) {
+            getGeneralConfig: function (apiDomain: string) {
                 return $http.get(apiDomain + '/api/config/general')
-                    .then(function (response:any) {
+                    .then(function (response: any) {
 
                         return response.data;
                     })
-                    .catch(function (error:any) {
+                    .catch(function (error: any) {
                         console.error('Config error:', error);
                         return $q.reject(error);
                     });
@@ -184,12 +205,12 @@ angular.module('cdiService',[])
             /**
              * Send acknowledge command
              */
-            sendAcknowledge: function (apiDomain:string, userId:string) {
+            sendAcknowledge: function (apiDomain: string, userId: string) {
                 return $http.post(apiDomain + '/api/cmd', {
                     cmdACK: { userId: userId }
                 })
-                    .then(function (response:any) { return response.data; })
-                    .catch(function (error:any) {
+                    .then(function (response: any) { return response.data; })
+                    .catch(function (error: any) {
                         console.error('Acknowledge error:', error);
                         return $q.reject(error);
                     });
@@ -198,12 +219,12 @@ angular.module('cdiService',[])
             /**
              * Send reset command
              */
-            sendReset: function (apiDomain:string, userId:number) {
+            sendReset: function (apiDomain: string, userId: number) {
                 return $http.post(apiDomain + '/api/cmd', {
                     cmdReset: { userId: userId }
                 })
-                    .then(function (response:any) { return response.data; })
-                    .catch(function (error:any) {
+                    .then(function (response: any) { return response.data; })
+                    .catch(function (error: any) {
                         console.error('Reset error:', error);
                         return $q.reject(error);
                     });
@@ -212,12 +233,12 @@ angular.module('cdiService',[])
             /**
              * Send test command
              */
-            sendTest: function (apiDomain:string, userId:number) {
+            sendTest: function (apiDomain: string, userId: number) {
                 return $http.post(apiDomain + '/api/cmd', {
                     cmdTest: { userId: userId }
                 })
-                    .then(function (response:any) { return response.data; })
-                    .catch(function (error:any) {
+                    .then(function (response: any) { return response.data; })
+                    .catch(function (error: any) {
                         console.error('Test error:', error);
                         return $q.reject(error);
                     });
