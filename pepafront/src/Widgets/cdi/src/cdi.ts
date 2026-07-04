@@ -11,7 +11,7 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
 
                 function ($scope: any, $interval: any, $timeout: any, $sce: any, CdiWidgetService: any, CDI_CONFIG: any) {
 
-   // ==================== INITIALIZATION ====================
+                // ==================== INITIALIZATION ====================
 
                 $scope.$on('$destroy', function () {
                     console.log('CDI Widget destroyed');
@@ -38,6 +38,7 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                 vm.loading = true;
                 let consecutiveErrors = 0;
                 const OFFLINE_THRESHOLD = 2;
+                let statusRequestPending = false;
 
                 vm.trafficDot = '';
                 let trafficDotTimer: any = null;
@@ -57,6 +58,7 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                 // Widget state
                 vm.installationName = 'CDI';
                 vm.bars = [];
+                vm.lstEvents = [];
                 let currentLines: any[] = [];
                 let currentInputs: any[] = [];
                 let currentSystemBars: any[] = [];
@@ -72,7 +74,11 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     // (right container)
                     battery: 100,
                     powerSupply: true,
-                    network: true
+                    network: true,
+                    MR3_1: -1,
+                    MR3_2: -1,
+                    M7IN_1: -1,
+                    M7IN_2: -1
                 };
 
                 // Previous barStatus to detect changes
@@ -84,6 +90,7 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
 
                 vm.isConfigured = false;
                 vm.isModular = false;
+                vm.systemUnknown = true;
 
                 // Buttons state
                 vm.buttons = {
@@ -162,6 +169,15 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                         .catch(function (error: any) {
                             console.error('Error loading general config:', error);
                         });
+
+                    CdiWidgetService.getLstEvents(vm.apiDomain)
+                        .then(function (data: any) {
+                            vm.lstEvents = sortEventsByIndexDesc(
+                                (data?.LASTEVENTS || []).map((ev: any) => vm.translateEvent(ev))
+                            );
+                            $timeout(updateEventsScrollState, 50);
+                        })
+                        .catch(function () { vm.lstEvents = []; });
                 }
 
                 vm.getCenterUrl = function () {
@@ -169,11 +185,65 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     return 'https://cdi.efaisa.com.ar/' + mac;
                 };
 
+                function formatDate(str: any): string {
+                    if (!str) return '';
+                    var d = new Date(Number(str) * 1000);
+                    if (isNaN(d.getTime())) return '';
+                    function p2(n: number) { return n < 10 ? '0' + n : '' + n; }
+                    return p2(d.getDate()) + '/' + p2(d.getMonth() + 1) + ' ' + p2(d.getHours()) + ':' + p2(d.getMinutes());
+                }
+
+                vm.translateEvent = function (ev: any) {
+                    var lang = vm.language || 'es';
+
+                    var typeMap = CDI_CONFIG.EVENT_TYPE[lang] || CDI_CONFIG.EVENT_TYPE['es'];
+                    var type = (typeof ev.type === 'number' && typeMap[ev.type] != null)
+                        ? typeMap[ev.type] : ev.type;
+
+                    var numSpecial = CDI_CONFIG.EVENT_NUMBER_SPECIAL[ev.number];
+                    var number = numSpecial
+                        ? (typeof numSpecial === 'object' ? numSpecial[lang] : numSpecial)
+                        : ev.number;
+
+                    var statusArr = CDI_CONFIG.STATUS_LYE[lang] || CDI_CONFIG.STATUS_LYE['es'];
+                    var status = (typeof ev.status === 'number' && statusArr[ev.status] != null)
+                        ? statusArr[ev.status] : ev.status;
+
+                    return { date: formatDate(ev.date), rawDate: Number(ev.date), type: type, number: number, status: status, index: ev.index };
+                };
+
+                function sortEventsByIndexDesc(events: any[]) {
+                    return (events || []).slice().sort(function (a: any, b: any) {
+                        return (b.rawDate - a.rawDate) || (b.index - a.index);
+                    });
+                }
+
+                vm.confirm = { show: false };
+                let confirmTimeout: any = null;
+
+                vm.openCenter = function () {
+                    if (confirmTimeout) { $timeout.cancel(confirmTimeout); }
+                    vm.confirm.show = true;
+                    confirmTimeout = $timeout(function () {
+                        vm.confirm.show = false;
+                    }, 4000);
+                };
+
+                vm.confirmCenter = function () {
+                    if (confirmTimeout) { $timeout.cancel(confirmTimeout); }
+                    vm.confirm.show = false;
+                    window.open(vm.getCenterUrl(), '_blank');
+                };
+
                 function loadStatusData() {
+                    if (statusRequestPending) { return; }
+                    statusRequestPending = true;
+
                     var barPromise = CdiWidgetService.getBarStatus(vm.apiDomain)
                         .then(function (data: any) {
                             signalTraffic('get');
                             updateBarStatus(data.barstatus);
+                            vm.systemUnknown = false;
                             return true;
                         })
                         .catch(function (error: any) {
@@ -223,6 +293,7 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
 
                     // Track consecutive errors across both calls
                     (window as any).Promise.all([barPromise, linesPromise]).then(function (results: boolean[]) {
+                        statusRequestPending = false;
                         var anyError = results.some(function (r) { return r === false; });
                         if (anyError) {
                             consecutiveErrors++;
@@ -239,11 +310,23 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                             // Reintentar si se recupero la conexion o falta cargar datos
                             if (wasOffline || !vm.installationName) {
                                 loadInitialData();
+                            } else {
+                                CdiWidgetService.getLstEvents(vm.apiDomain)
+                                    .then(function (data: any) {
+                                        vm.lstEvents = sortEventsByIndexDesc(
+                                            (data?.LASTEVENTS || []).map((ev: any) => vm.translateEvent(ev))
+                                        );
+                                        
+                                        $timeout(updateEventsScrollState, 50);
+                                    })
+                                    .catch(function () {});
                             }
                             if (wasOffline || !vm.isAuthenticated) {
                                 authenticate();
                             }
                         }
+                    }).catch(function () {
+                        statusRequestPending = false;
                     });
                 }
 
@@ -291,10 +374,10 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                         batteryFault: barStatus['FLAGFBAT'] || false,
                         powerSupply: barStatus['ALIMENTACION'] || false,
                         network: barStatus['RED'] || false,
-                        mod_i1: barStatus['MODULO_I1'] || false,
-                        mod_i2: barStatus['MODULO_I2'] || false,
-                        mod_o1: barStatus['MODULO_O1'] || false,
-                        mod_o2: barStatus['MODULO_O2'] || false
+                        MR3_1: barStatus['MODULO_O1'] !== undefined ? barStatus['MODULO_O1'] : -1,
+                        MR3_2: barStatus['MODULO_O2'] !== undefined ? barStatus['MODULO_O2'] : -1,
+                        M7IN_1: barStatus['MODULO_I1'] !== undefined ? barStatus['MODULO_I1'] : -1,
+                        M7IN_2: barStatus['MODULO_I2'] !== undefined ? barStatus['MODULO_I2'] : -1
                     };
                     updateStatusBarIcons();
                 }
@@ -311,10 +394,10 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                         previousBarStatus.batteryFault === vm.barStatus.batteryFault &&
                         previousBarStatus.powerSupply === vm.barStatus.powerSupply &&
                         previousBarStatus.network === vm.barStatus.network &&
-                        previousBarStatus.mod_i1 === vm.barStatus.mod_i1 &&
-                        previousBarStatus.mod_i2 === vm.barStatus.mod_i2 &&
-                        previousBarStatus.mod_o1 === vm.barStatus.mod_o1 &&
-                        previousBarStatus.mod_o2 === vm.barStatus.mod_o2) {
+                        previousBarStatus.MR3_1 === vm.barStatus.MR3_1 &&
+                        previousBarStatus.MR3_2 === vm.barStatus.MR3_2 &&
+                        previousBarStatus.M7IN_1 === vm.barStatus.M7IN_1 &&
+                        previousBarStatus.M7IN_2 === vm.barStatus.M7IN_2) {
                         return;
                     }
 
@@ -333,8 +416,6 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
 
                     if (vm.barStatus.batteryFault) {
                         currentSystemBars.push({ icon: 'batteryfault', name: 'Batería', text: 'Falla ' + batteryPercentage, color: 'yellow' });
-                    } else if (battery !== 100) {
-                        currentSystemBars.push({ icon: 'battery', name: 'Batería', text: batteryPercentage, color: 'green' });
                     }
 
                     if (!vm.barStatus.powerSupply) {
@@ -346,10 +427,10 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     }
 
                     if (vm.isModular) {
-                        if (vm.barStatus.mod_i1 === false) currentSystemBars.push({ icon: 'disconnect', name: 'M_I1', text: 'Desconexión', color: 'yellow' });
-                        if (vm.barStatus.mod_i2 === false) currentSystemBars.push({ icon: 'disconnect', name: 'M_I2', text: 'Desconexión', color: 'yellow' });
-                        if (vm.barStatus.mod_o1 === false) currentSystemBars.push({ icon: 'disconnect', name: 'M_O1', text: 'Desconexión', color: 'yellow' });
-                        if (vm.barStatus.mod_o2 === false) currentSystemBars.push({ icon: 'disconnect', name: 'M_O2', text: 'Desconexión', color: 'yellow' });
+                        if (vm.barStatus.M7IN_1 === 0) currentSystemBars.push({ icon: 'disconnect', name: 'M_I1', text: 'Desconexión', color: 'yellow' });
+                        if (vm.barStatus.M7IN_2 === 0) currentSystemBars.push({ icon: 'disconnect', name: 'M_I2', text: 'Desconexión', color: 'yellow' });
+                        if (vm.barStatus.MR3_1 === 0) currentSystemBars.push({ icon: 'disconnect', name: 'M_O1', text: 'Desconexión', color: 'yellow' });
+                        if (vm.barStatus.MR3_2 === 0) currentSystemBars.push({ icon: 'disconnect', name: 'M_O2', text: 'Desconexión', color: 'yellow' });
                     }
 
                     previousBarStatus = angular.copy(vm.barStatus);
@@ -440,7 +521,29 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     if (el) el.addEventListener('scroll', updateScrollState);
                 }, 500);
 
+                vm.eventsScrollAtTop = true;
+                vm.eventsScrollAtBottom = false;
+
+                vm.scrollEvents = function (direction: number) {
+                    var el = document.getElementById('lstevents-scroll-container');
+                    if (el) el.scrollBy({ top: direction * 80, behavior: 'smooth' });
+                };
+
+                function updateEventsScrollState() {
+                    var el = document.getElementById('lstevents-scroll-container');
+                    if (!el) return;
+                    vm.eventsScrollAtTop = el.scrollTop <= 0;
+                    vm.eventsScrollAtBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+                    $scope.$applyAsync();
+                }
+
+                $timeout(function () {
+                    var el = document.getElementById('lstevents-scroll-container');
+                    if (el) el.addEventListener('scroll', updateEventsScrollState);
+                }, 500);
+
                 vm.getSystemColor = function () {
+                    if (vm.systemUnknown) return 'unknown';
                     if (!vm.bars || vm.bars.length === 0) return 'green';
                     const colors = vm.bars.map(function (b) { return b.color; });
                     if (colors.indexOf('red') !== -1) return 'red';
@@ -591,6 +694,7 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                         .then(function (response: any) {
                             signalTraffic('post');
                             vm.showLoader = false;
+                            vm.systemUnknown = true;
                             showAlert(CDI_CONFIG.DICTIONARY.modals.alert.reset.success.header[vm.language], CDI_CONFIG.DICTIONARY.modals.alert.reset.success.content[vm.language]);
                         })
                         .catch(function (error: any) {
@@ -652,6 +756,8 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     initializeConfig();
                     console.log('CDI Widget initialized');
                 }
+
+
                 vm.$onInit()
 
                     /*
