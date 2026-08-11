@@ -9,6 +9,7 @@ import ng from "angular";
 
 import "./icon-library/icon-library.css";
 import { MediaPlayer } from "dashjs";
+import MediaMTXWebRTCReader from "./MediaMTXWebRTCReader";
 import 'angular-translate';
 import 'angular-translate-loader-static-files';
 
@@ -16,18 +17,18 @@ import 'angular-translate-loader-static-files';
 angular.module('appServices', [])
     // Autenticar usuario
 
-    .factory('LocaleInterceptor',['LanguageService', function(LanguageService) {
-    return {
-        request: function(config) {
-        // Add the locale header
-        config.headers['Locale'] = LanguageService.getLanguage() || 'en-US'; // or use a custom locale value
-        return config;
-        }
-    };
+    .factory('LocaleInterceptor', ['LanguageService', function (LanguageService) {
+        return {
+            request: function (config) {
+                // Add the locale header
+                config.headers['Locale'] = LanguageService.getLanguage() || 'en-US'; // or use a custom locale value
+                return config;
+            }
+        };
     }])
 
-    .factory('auth', ['$http', 'store', 'cfg', 'jwtHelper', '$q', '$rootScope', '$stateRegistry', '$state', '$uibModal', 'localData', '$timeout', 'sounds', '$location', 'globalData', '$window', 'spinCounter', '$translate','LanguageService',
-        function ($http, store, cfg, jwtHelper, $q, $rootScope, $stateRegistry, $state, $uibModal, localData, $timeout, sounds, $location, globalData, $window, spinCounter, $translate,LanguageService) {
+    .factory('auth', ['$http', 'store', 'cfg', 'jwtHelper', '$q', '$rootScope', '$stateRegistry', '$state', '$uibModal', 'localData', '$timeout', 'sounds', '$location', 'globalData', '$window', 'spinCounter', '$translate', 'LanguageService',
+        function ($http, store, cfg, jwtHelper, $q, $rootScope, $stateRegistry, $state, $uibModal, localData, $timeout, sounds, $location, globalData, $window, spinCounter, $translate, LanguageService) {
             const auth = this;
             let decodedToken = (store.get('decodedToken')) ? store.get('decodedToken') : {};
             let codUsuario = (decodedToken.sub) ? decodedToken.sub : "";
@@ -1977,17 +1978,89 @@ angular.module('appServices', [])
     }])
 
 
-    .service('LanguageService',['$translate','store', function ($translate,store) {
+    .service('LanguageService', ['$translate', 'store', function ($translate, store) {
         let currentLanguage = 'es'; // idioma por defecto
         this.setLanguage = function (lang) {
             currentLanguage = lang;
             $translate.use(lang);
-            store.set('idioma',lang)
+            store.set('idioma', lang)
         };
 
         this.getLanguage = function () {
             return currentLanguage;
         };
+    }])
+
+
+    .service("webrtcVideoSvc", [function () {
+
+        const self = this;
+
+        self.reader = null;
+        self.stream = null;
+
+        self.start = function (id:string, whepUrl:string, options:any) {
+
+            const video: HTMLMediaElement | null = document.getElementById(id) as HTMLMediaElement;
+
+            if (!video) {
+                console.error("Video element not found:", id);
+                return;
+            }
+
+            self.stop();
+
+            self.reader = new MediaMTXWebRTCReader({
+                url: whepUrl,
+
+                user: options?.user || "",
+                pass: options?.pass || "",
+                token: options?.token || "",
+
+                onError: function (err:any) {
+                    console.error("WebRTC error:", err);
+                },
+
+                onTrack: function (evt:any) {
+
+                    if (!self.stream) {
+                        self.stream = new MediaStream();
+                        video.srcObject = self.stream;
+                    }
+
+                    self.stream.addTrack(evt.track);
+
+                    video.play().catch(function (err:any) {
+                        console.error("Video play error:", err);
+                    });
+                },
+
+                onDataChannel: function (evt:any) {
+                    console.log("Data channel:", evt.channel);
+                }
+            });
+        };
+
+        self.stop = function () {
+
+            try {
+                if (self.reader) {
+                    self.reader.close();
+                }
+            } catch (e) {
+            }
+
+            self.reader = null;
+
+            if (self.stream) {
+                self.stream.getTracks().forEach(function (track:any) {
+                    track.stop();
+                });
+            }
+
+            self.stream = null;
+        };
+
     }])
 
 

@@ -117,11 +117,15 @@
             </div>
             <div class="card-body d-flex justify-content-center">
 
+                <!--
                 <img ng-if="!ctrl.video_url.includes('.mpd')" alt="Video" class=""
                     style="max-width: 100%;max-height: 100;" ng-src="{{ctrl.video_url}}" />
 
+                <div ng-if="ctrl.video_url.includes('.mpd')">
 
-                <video id="dashVideo" ng-if="ctrl.video_url.includes('.mpd')" controls style="max-width: 100%;max-height: 100%; margin: auto; width: 80%;"></video>
+                -->
+
+                <video id="dashVideo" autoplay playsinline controls style="max-width: 100%;max-height: 100%; margin: auto; width: 80%;"></video>
 
 <!--
                 <video ng-if="ctrl.video_url.includes('.mpd')" data-dashjs-player autoplay controls

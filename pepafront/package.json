@@ -1,6 +1,6 @@
 {
     "name": "n33bec",
-    "version": "1.544.0",
+    "version": "1.549.0",
     "description": "Control de Acceso y Monitoreo",
     "main": "http://localhost:9000",
     "window": {
@@ -72,6 +72,7 @@
         "@types/node": "^12.12.42",
         "@uirouter/angularjs": "^1.0.26",
         "@uirouter/core": "^6.0.6",
+        "acorn": "^8.18.0",
         "angular": "^1.8.3",
         "angular-animate": "^1.8.3",
         "angular-bootstrap-grid-tree": "^0.4.0",

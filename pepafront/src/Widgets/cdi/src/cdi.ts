@@ -11,7 +11,7 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
 
                 function ($scope: any, $interval: any, $timeout: any, $sce: any, CdiWidgetService: any, CDI_CONFIG: any) {
 
-                // ==================== INITIALIZATION ====================
+  // ==================== INITIALIZATION ====================
 
                 $scope.$on('$destroy', function () {
                     console.log('CDI Widget destroyed');
@@ -182,15 +182,16 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
 
                 vm.getCenterUrl = function () {
                     var mac = vm.installationMac;
-                    return 'https://cdi.efaisa.com.ar/' + mac;
+                    return 'https://cdi-dev.efaisa.com.ar/' + mac;
                 };
 
-                function formatDate(str: any): string {
-                    if (!str) return '';
-                    var d = new Date(Number(str) * 1000);
+                function formatDate(ts: number): string {
+                    if (!ts) return '';
+                    const d = new Date(Number(ts) / 1000); // microsegundos -> milisegundos
                     if (isNaN(d.getTime())) return '';
-                    function p2(n: number) { return n < 10 ? '0' + n : '' + n; }
-                    return p2(d.getDate()) + '/' + p2(d.getMonth() + 1) + ' ' + p2(d.getHours()) + ':' + p2(d.getMinutes());
+                    const p2 = n => n < 10 ? '0' + n : '' + n;
+                    const p3 = n => n < 10 ? '00' + n : n < 100 ? '0' + n : '' + n;
+                    return p2(d.getDate()) + '/' + p2(d.getMonth() + 1) + '/' + String(d.getFullYear()) + ' ' + p2(d.getHours()) + ':' + p2(d.getMinutes()) + ':' + p2(d.getSeconds()) + '.' + p3(d.getMilliseconds());
                 }
 
                 vm.translateEvent = function (ev: any) {
@@ -316,10 +317,10 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                                         vm.lstEvents = sortEventsByIndexDesc(
                                             (data?.LASTEVENTS || []).map((ev: any) => vm.translateEvent(ev))
                                         );
-                                        
+
                                         $timeout(updateEventsScrollState, 50);
                                     })
-                                    .catch(function () {});
+                                    .catch(function () { });
                             }
                             if (wasOffline || !vm.isAuthenticated) {
                                 authenticate();
@@ -756,7 +757,6 @@ function RegisterDisplayCDI(dashboardProvider: { widget: (arg0: string, arg1: { 
                     initializeConfig();
                     console.log('CDI Widget initialized');
                 }
-
 
                 vm.$onInit()
 

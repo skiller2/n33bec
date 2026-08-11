@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Middleware\ComunicacionDispositivos;
+use Illuminate\Support\Facades\Broadcast;
 
 class MoviEventos extends Controller
 {
@@ -209,7 +211,8 @@ class MoviEventos extends Controller
         $valor_fin = $request->input('valor_fin');
         $tiempo_seg = $request->input('delay');
         $des_unidad_medida = $request->input('des_unidad_medida');
-
+        $check_card = $request->input('check_card');
+$lector=null;
         $stm_evento = ($stm_evento_input) ? Carbon::parse($stm_evento_input) : Carbon::now();
 
         $event_data = array(
@@ -220,9 +223,23 @@ class MoviEventos extends Controller
             "valor_fin" => $valor_fin,
             "origen" => "Remoto"
         );
-        if ($valor != Cache::get(self::config_tag . $cod_tema))
+        //if ($valor != Cache::get(self::config_tag . $cod_tema))
+
+        if ($check_card==1) {
+            $cd = new ComunicacionDispositivos();
+            $datacred = array("cod_tema" => $cod_tema, "valor" => hexdec($valor));
+            $lector = null;
+            $ret = $cd->leeCredencial($datacred);
+
+            if ($ret->status() == 200) {
+                $lector = $ret->original['rs485'];
+                if (isset($ret->original['channel']))
+                    Broadcast::driver('fast-web-socket')->broadcast([$ret->original['channel']], $ret->original['event'],  $ret->original['context']);
+            }
+
+        } else 
             event(new TemaEvent($cod_tema, $stm_evento, $event_data));
 
-        return response(['ok'=> __("El evento externo :COD_TEMA fue procesado satisfactoriamente",['COD_TEMA'=>$cod_tema])], Response::HTTP_OK);
+        return response(['ok'=> __("El evento externo :COD_TEMA fue procesado satisfactoriamente",['COD_TEMA'=>$cod_tema]),"lector"=>$lector], Response::HTTP_OK);
     }
 }

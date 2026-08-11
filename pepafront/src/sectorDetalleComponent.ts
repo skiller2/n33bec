@@ -9,7 +9,7 @@ const sectorDetalleComponent = {
         onClose: '&'
     },
     controllerAs: "ctrl",
-    controller: ['$element', '$scope', '$window', '$timeout', 'datosBack', '$attrs', '$sce', '$uibModal', 'iconsLibSvc','$filter','videoSvc', function ($element, $scope, $window, $timeout, datosBack, $attrs, $sce, $uibModal, iconsLibSvc, $filter,videoSvc) {
+    controller: ['$element', '$scope', '$window', '$timeout', 'datosBack', '$attrs', '$sce', '$uibModal', 'iconsLibSvc', '$filter', 'videoSvc', 'webrtcVideoSvc', function ($element, $scope, $window, $timeout, datosBack, $attrs, $sce, $uibModal, iconsLibSvc, $filter, videoSvc, webrtcVideoSvc) {
         const vm = this;
 
         vm.ind_video = false;
@@ -29,12 +29,13 @@ const sectorDetalleComponent = {
             vm.ind_detalle_temas = false;
             vm.ind_video = false;
             videoSvc.stop()
+            webrtcVideoSvc.stop()
             vm.video_url = '';
             vm.ind_documentos = true;
             $scope.$applyAsync();
         };
 
-        vm.showVideo = (url) => {
+        vm.showVideo = (url: string) => {
             vm.ind_detalle_temas = false;
             vm.ind_documentos = false;
             vm.video_url = url;
@@ -42,8 +43,9 @@ const sectorDetalleComponent = {
             $scope.$applyAsync();
 
             setTimeout(() => {
-                videoSvc.start("dashVideo",url)
-                
+                //videoSvc.start("dashVideo",url)
+                //url = "https://audioevac-siderca.efaisa.com.ar/camara/geac/whep"
+                webrtcVideoSvc.start("dashVideo", url, { token: "empty" })
             }, 250);
 
         };
@@ -57,14 +59,15 @@ const sectorDetalleComponent = {
             vm.showSectorIcons();
             vm.video_url = "";
             videoSvc.stop()
+            webrtcVideoSvc.stop()
             //            $scope.$applyAsync();
         }
 
-        vm.sendCMD = (cod_tema:string,cmd:string) => {
-            return datosBack.save('proceso', 'displaysucesos/cmdcentral', { cod_tema: cod_tema,cmd:cmd }, '')
+        vm.sendCMD = (cod_tema: string, cmd: string) => {
+            return datosBack.save('proceso', 'displaysucesos/cmdcentral', { cod_tema: cod_tema, cmd: cmd }, '')
                 .then(function () {
                     vm.btn_reset = false;
-                
+
                 })
                 .catch(function () { });
         }
@@ -77,6 +80,7 @@ const sectorDetalleComponent = {
                 vm.ind_detalle_temas = false;
                 vm.ind_video = false;
                 videoSvc.stop()
+                webrtcVideoSvc.stop()
                 vm.video_url = '';
                 vm.ind_documentos = false;
 
@@ -130,6 +134,7 @@ const sectorDetalleComponent = {
         vm.verEstadosIOs = (cod_sector: string) => {
             vm.ind_video = false;
             videoSvc.stop()
+            webrtcVideoSvc.stop()
             vm.video_url = '';
             vm.ind_documentos = false;
             vm.showSectorIcons();
@@ -167,8 +172,8 @@ const sectorDetalleComponent = {
                             this.ok();
                         }
 
-                        this.sendReset = () => { 
-                            vm.sendCMD(this.cod_tema,"reset");
+                        this.sendReset = () => {
+                            vm.sendCMD(this.cod_tema, "reset");
                             this.btn_reset_disabled = true;
                         }
                     },
@@ -232,7 +237,7 @@ const sectorDetalleComponent = {
                     vm.nom_sector = $filter('filter')(vm.sectorTree, { 'cod_tema_sector': cod_sector });
                     if (vm.nom_sector[0])
                         vm.nom_sector = vm.nom_sector[0].nom_sector;
-                    
+
                     if (vm.selected.img_hash != "") {
 
                         datosBack.getData('displaysucesos/sectorimgdata/' + btoa(cod_sector) + "/" + vm.selected.img_hash, true, false, true).then(function (response: any) {
@@ -263,13 +268,13 @@ const sectorDetalleComponent = {
                     vm.onCodSectorChange(vm.cod_sector);
 
             });
-/*
-            $scope.$watch(function () { return vm.cod_sector }, function (newValue, oldValue) {
-                vm.onCodSectorChange(newValue);
-            });
-*/
+            /*
+                        $scope.$watch(function () { return vm.cod_sector }, function (newValue, oldValue) {
+                            vm.onCodSectorChange(newValue);
+                        });
+            */
 
-//            vm.onCodSectorChange(vm.cod_sector);
+            //            vm.onCodSectorChange(vm.cod_sector);
 
         };
 
@@ -277,6 +282,7 @@ const sectorDetalleComponent = {
         vm.onCodSectorChange = (cod_sector) => {
             vm.ind_video = false;
             videoSvc.stop()
+            webrtcVideoSvc.stop()
             vm.video_url = "";
             vm.ind_detalle_temas = false;
             vm.ind_documentos = false;
@@ -296,6 +302,7 @@ const sectorDetalleComponent = {
             angular.element('.btnvideo').attr("disabled", "disabled");
             vm.ind_video = false;
             videoSvc.stop()
+            webrtcVideoSvc.stop()
             vm.video_url = "";
             vm.ind_detalle_temas = false;
             vm.ind_documentos = false;
