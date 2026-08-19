@@ -133,6 +133,15 @@ module.exports = {
 
             },
 
+            '/camara': {
+                target: 'http://10.8.0.3:80',
+                //target: 'ws://localhost:8090/',
+
+                //ws: true,
+                //secure: false
+
+            },
+
             /*
             '/wssub/pantalla/mi': {
 //                target: 'http://localhost:9002',

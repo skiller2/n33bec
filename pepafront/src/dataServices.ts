@@ -1999,7 +1999,20 @@ angular.module('appServices', [])
         self.reader = null;
         self.stream = null;
 
-        self.start = function (id:string, whepUrl:string, options:any) {
+        function buildUrl(pathOrUrl: string): string {
+            const clean = pathOrUrl.replace(/\/+$/, '');
+
+            // Absolute URL?
+            const url = /^https?:\/\//i.test(clean)
+                ? clean
+                : `${window.location.origin}${clean}`;
+
+            return url.endsWith('/whep')
+                ? url
+                : `${url}/whep`;
+        }
+
+        self.start = function (id: string, whepUrl: string, options: any) {
 
             const video: HTMLMediaElement | null = document.getElementById(id) as HTMLMediaElement;
 
@@ -2010,18 +2023,20 @@ angular.module('appServices', [])
 
             self.stop();
 
+
+            
             self.reader = new MediaMTXWebRTCReader({
-                url: whepUrl,
+                url: buildUrl(whepUrl),
 
                 user: options?.user || "",
                 pass: options?.pass || "",
                 token: options?.token || "",
 
-                onError: function (err:any) {
+                onError: function (err: any) {
                     console.error("WebRTC error:", err);
                 },
 
-                onTrack: function (evt:any) {
+                onTrack: function (evt: any) {
 
                     if (!self.stream) {
                         self.stream = new MediaStream();
@@ -2030,12 +2045,12 @@ angular.module('appServices', [])
 
                     self.stream.addTrack(evt.track);
 
-                    video.play().catch(function (err:any) {
+                    video.play().catch(function (err: any) {
                         console.error("Video play error:", err);
                     });
                 },
 
-                onDataChannel: function (evt:any) {
+                onDataChannel: function (evt: any) {
                     console.log("Data channel:", evt.channel);
                 }
             });
@@ -2053,7 +2068,7 @@ angular.module('appServices', [])
             self.reader = null;
 
             if (self.stream) {
-                self.stream.getTracks().forEach(function (track:any) {
+                self.stream.getTracks().forEach(function (track: any) {
                     track.stop();
                 });
             }

@@ -383,7 +383,8 @@ class ComunicacionDispositivos {
                 'nom_persona' => $nom_persona,
                 'ape_persona' => $ape_persona        
             );
-
+            $res_error['tipo_habilitacion']=$tipo_habilitacion;                
+            $res_error['ind_rechazo']=$ind_rechazo;                
             return response(['rs485' => $res_error, 'context'=>$context, 'event'=>'error','channel'=>'movcred'], Response::HTTP_OK);
         } else {
             
@@ -478,7 +479,6 @@ class ComunicacionDispositivos {
                 'cod_credencial' => $cod_credencial,
                 'cod_persona'=> $cod_persona,
                 'tipo_habilitacion' => $tipo_habilitacion, 
-                'cod_persona'=> $cod_persona,
                 'cod_tema' => $cod_tema_origen, 
                 'ind_rechazo' => $ind_rechazo,
                 'ind_movimiento' =>$ind_movimiento,
@@ -489,6 +489,8 @@ class ComunicacionDispositivos {
             );
             $context['msgtext']="Tarjeta: $tarjeta $des_credencial, Persona: $nro_documento $ape_persona $nom_persona, Organización: $nom_ou_hab, Tema: $nom_tema, Mov: $des_movimiento, Tipo Hab: $tipo_habilitacion, Sector: $muestro_sector";
 
+            $res_ok['tipo_habilitacion']=$tipo_habilitacion;                
+            $res_ok['ind_rechazo']="O";                
             return response(['rs485' => $res_ok, 'context'=>$context, 'event'=>'info','channel'=>'movcred'], Response::HTTP_OK);
         }
     }

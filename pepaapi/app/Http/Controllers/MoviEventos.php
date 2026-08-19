@@ -227,8 +227,11 @@ $lector=null;
 
         if ($check_card==1) {
             $cd = new ComunicacionDispositivos();
-            $datacred = array("cod_tema" => $cod_tema, "valor" => hexdec($valor));
+            $data24 = ($valor >> 1) & 0xFFFFFF;
+
+            $datacred = array("cod_tema" => $cod_tema, "valor" => $data24);
             $lector = null;
+
             $ret = $cd->leeCredencial($datacred);
 
             if ($ret->status() == 200) {
