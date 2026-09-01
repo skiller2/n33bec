@@ -263,6 +263,9 @@ class TemaListener
 
                 break;
             case "COMUNIC":
+                $intervalo_seg = $this->temas[$cod_tema]['intervalo_seg'] + 1;
+                Cache::put(self::config_tag . $cod_tema . "_comm", $valor, $intervalo_seg);
+                break;
             case "DIN":
             case "DINEXT":
 
@@ -496,11 +499,11 @@ class TemaListener
             $this->envioDispositivo($cod_tema, $url_envio, $event->event_data);
         else {
             if ($delay_seg > 0) {
-                $tmp = Cache::get('delayed', array());
+                $tmp = Cache::get("delayed", array());
                 $tmp[$cod_tema] = array(Carbon::now()->addSeconds($delay_seg), $valor_fin, 0);
                 Cache::forever("delayed", $tmp);
             } else {
-                $vaPendDelaytmp = Cache::get('delayed', array());
+                $vaPendDelaytmp = Cache::get("delayed", array());
                 unset($vaPendDelaytmp[$cod_tema]);
                 Cache::forever("delayed", $vaPendDelaytmp);
             }

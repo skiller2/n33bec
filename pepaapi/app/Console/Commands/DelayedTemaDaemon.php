@@ -38,8 +38,10 @@ use Amp\Websocket\PeriodicHeartbeatQueue;
 use Amp\Websocket\ConstantRateLimit;
 use Amp\Websocket\Parser\Rfc6455ParserFactory;
 use function Amp\delay;
-use Amp\Parallel\Worker\createWorker;
+use function React\Promise\Timer\timeout;
 
+use Amp\Parallel\Worker\createWorker;
+use Amp\Socket;
 
 
 use Illuminate\Support\Facades\Broadcast;
@@ -87,7 +89,7 @@ class DelayedTemaDaemon extends Command
     const logFileName = "delayedio";
     const config_tag = "iolast_";
     private $poolEvents;
-    
+
     protected function printDebugInfo($text, $status = "info")
     {
         if ($this->option('debug')) {
@@ -96,12 +98,14 @@ class DelayedTemaDaemon extends Command
         return true;
     }
 
+    private $internetCheckRunning = false;
+
     protected function loadConfigData()
     {
-        $this->tema_local    = strtolower(ConfigParametro::get("TEMA_LOCAL", false));
-        $this->temas         = ConfigParametro::getTemas('');
+        $this->tema_local = strtolower(ConfigParametro::get("TEMA_LOCAL", false));
+        $this->temas = ConfigParametro::getTemas('');
         $this->temas_comunic = ConfigParametro::getTemas('COMUNIC');
-        $this->timezone      = ConfigParametro::get('TIMEZONE_INFORME', false);
+        $this->timezone = ConfigParametro::get('TIMEZONE_INFORME', false);
         $this->daemon_conf_ver = Cache::get(self::confVersion);
         $this->printDebugInfo("Configuración actualizada a " . $this->daemon_conf_ver);
     }
@@ -112,6 +116,28 @@ class DelayedTemaDaemon extends Command
             $this->loadConfigData();
         }
     }
+
+
+
+    private function checkHost(string $host): bool
+    {
+        $context = (new Socket\ConnectContext())->withConnectTimeout(2000);
+        try {
+            $socket = Socket\connect(
+                $host . ':80',
+                $context
+            );
+
+            $socket->close();
+
+            return true;
+
+        } catch (\Throwable $e) {
+
+            return false;
+        }
+    }
+
 
     public function checkClock()
     {
@@ -125,31 +151,40 @@ class DelayedTemaDaemon extends Command
 
     public function checkInternetConexion()
     {
-        $retry = 3;
-        $vaaddr = array("www.google.com", "www.microsoft.com");
-        $cod_tema = $this->tema_local . "/internet_status";
+        if ($this->internetCheckRunning)
+            return;
 
-        $old_value = Cache::get(DelayedTemaDaemon::config_tag . $cod_tema);
-        $this->connected = false;
+        $this->internetCheckRunning = true;
+        try {
+            $retry = 3;
+            $vaaddr = array("www.google.com", "www.microsoft.com");
+            $cod_tema = $this->tema_local . "/internet_status";
 
-        while ($retry > 0) {
-            $retry--;
-            foreach ($vaaddr as $key => $addr) {
-                if (!$socket = @fsockopen($addr, 80, $num, $error, 5)) {
-                } else {
-                    $this->connected = true;
-                    $retry = 0;
-                    break;
+            $old_value = Cache::get(DelayedTemaDaemon::config_tag . $cod_tema);
+            $this->connected = false;
+
+            while ($retry > 0) {
+                $retry--;
+                foreach ($vaaddr as $key => $addr) {
+                    if ($this->checkHost($addr)) {
+                        $this->connected = true;
+                        $retry = 0;
+                        break;
+                    }
                 }
+                if ($retry > 0)
+                    delay(2);
             }
-            if ($retry > 0)
-                 delay(2);
+
+            if ($old_value != $this->connected) {
+                $event_data = array("valor" => ($this->connected) ? 1 : 0, "des_observaciones" => ($this->connected) ? "" : "Sin acceso a Internet");
+                event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
+            }
+
+        } finally {
+            $this->internetCheckRunning = false;
         }
 
-        if ($old_value != $this->connected) {
-            $event_data = array("valor" => ($this->connected) ? 1 : 0, "des_observaciones" => ($this->connected) ? "": "Sin acceso a Internet");
-            event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
-        }
     }
 
 
@@ -167,7 +202,7 @@ class DelayedTemaDaemon extends Command
                     $this->temas_comunic[$cod_tema]['next'] = Carbon::now()->addSeconds($intervalo_seg);
                 $stm_actual = Carbon::now();
                 if ($this->temas_comunic[$cod_tema]['next'] > $stm_actual) {
-                     delay(1);
+                    delay(1);
                     continue;
                 }
 
@@ -185,16 +220,17 @@ class DelayedTemaDaemon extends Command
                     //Lee el valor desde cache
                     $comm_value = Cache::get(DelayedTemaDaemon::config_tag . $cod_tema . "_comm");
                     $curr_value = Cache::get(DelayedTemaDaemon::config_tag . $cod_tema);
-                    if ($comm_value == NULL) $comm_value = 0;
+                    if ($comm_value == NULL)
+                        $comm_value = 0;
                     if ($curr_value != $comm_value) {
                         $event_data = array("valor" => $comm_value, "des_observaciones" => "Intervalo $intervalo_seg segundos");
                         event(new TemaEvent($cod_tema, Carbon::now(), $event_data));
                     }
                 }
-                 delay(1);
+                delay(1);
             }
             //$this->printDebugInfo('Loop topics done');            
-             delay(0.5);
+            delay(0.5);
         }
     }
 
@@ -231,28 +267,44 @@ class DelayedTemaDaemon extends Command
         }
     }
 
-
+    private $delayCheckRunning = false;
     public function delayTopicActions()
     {
-        $caNow = Carbon::now();
-        $vaPendDelay = Cache::get('delayed', array());
+        if ($this->delayCheckRunning)
+            return;
 
-        foreach ($vaPendDelay as $cod_tema => $tiempovalor) {
-            if ($caNow < $tiempovalor[0])
-                continue;
-            $valor = $tiempovalor[1];
-            $event_data = array(
-                "valor" => $valor,
-                "des_observaciones" => "",
-                "json_detalle" => ""
-            );
+        $this->delayCheckRunning = true;
+        try {
+            $caNow = Carbon::now();
+            $vaPendDelay = Cache::get("delayed", array());
+            $countpend = count($vaPendDelay);
+            if ($countpend>0)
+                $this->printDebugInfo("Pendientes $countpend");
+            
+            foreach ($vaPendDelay as $cod_tema => $tiempovalor) {
+                if ($caNow < $tiempovalor[0])
+                    continue;
+                $valor = $tiempovalor[1];
+                $event_data = array(
+                    "valor" => $valor,
+                    "des_observaciones" => "",
+                    "json_detalle" => ""
+                );
 
-            try {
-                $this->poolEvents->submit(new EventAsyncTask($cod_tema, $event_data));
-            } catch (Exception $e) {
-                echo ("Error" . $e->getMessage() . "  \n\n");
-                Log::channel(self::logFileName)->info("Error ejecutando tarea $cod_tema " . $e->getMessage(), array($cod_tema, $event_data));
+                try {
+                    //Demora porque levanta laravel por cada task
+                    //$this->poolEvents->submit(new EventAsyncTask($cod_tema, $event_data));
+                    
+                    event( new TemaEvent( $cod_tema, Carbon::now(), $event_data ));
+
+                    $this->printDebugInfo("trigger $cod_tema $valor");
+                } catch (Exception $e) {
+                    echo ("Error" . $e->getMessage() . "  \n\n");
+                    Log::channel(self::logFileName)->info("Error ejecutando tarea $cod_tema " . $e->getMessage(), array($cod_tema, $event_data));
+                }
             }
+        } finally {
+            $this->delayCheckRunning = false;
         }
     }
 
@@ -265,17 +317,29 @@ class DelayedTemaDaemon extends Command
     public function handle()
     {
         $this->loadConfigData();
-        $this->poolEvents =  \Amp\Parallel\Worker\createWorker();
+        $this->poolEvents = \Amp\Parallel\Worker\createWorker();
 
 
 
-        EventLoop::repeat($sInterval = 1, function() { $this->checkConfigData();    }  );
+        EventLoop::repeat($sInterval = 1, function () {
+            $this->checkConfigData();
+        });
 
-        EventLoop::repeat($sInterval = 2, function() { $this->checkInternetConexion();});
-        EventLoop::repeat($sInterval = 1, function() { $this->delayTopicRetencion();});
-        EventLoop::repeat($sInterval = 1, function() { $this->delayTopicActions();});
-        EventLoop::delay(1, function() { $this->busmsg();});
-        EventLoop::delay(1, function() { $this->checkReachTopic();});
+        EventLoop::repeat($sInterval = 2, function () {
+            $this->checkInternetConexion();
+        });
+        EventLoop::repeat($sInterval = 1, function () {
+            $this->delayTopicRetencion();
+        });
+        EventLoop::repeat($sInterval = 1, function () {
+            $this->delayTopicActions();
+        });
+        EventLoop::queue(function () {
+            $this->busmsg();
+        });
+        EventLoop::queue(function () {
+            $this->checkReachTopic();
+        });
         EventLoop::run();
     }
 
@@ -284,7 +348,7 @@ class DelayedTemaDaemon extends Command
     {
         $cod_daemon = basename(__FILE__, ".php");
 
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon])));
+        //Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon])));
 
         $context = array(
             'msgtext' => "",
@@ -292,7 +356,7 @@ class DelayedTemaDaemon extends Command
             'cod_daemon' => $cod_daemon,
             'command' => 'start'
         );
-        Broadcast::driver('fast-web-socket')->broadcast(["procesos"], "info",  $context);
+        Broadcast::driver('fast-web-socket')->broadcast(["procesos"], "info", $context);
 
         $connectionFactory = new Rfc6455ConnectionFactory(
             heartbeatQueue: new PeriodicHeartbeatQueue(
@@ -308,40 +372,44 @@ class DelayedTemaDaemon extends Command
             frameSplitThreshold: 2 ** 14, // 16 KiB
             closePeriod: 0.5, // 0.5 seconds
         );
-        
+
         $connector = new Rfc6455Connector($connectionFactory);
         $constr = "ws://localhost:80/wssub/procesos/0/1/2/3/4/5/6?token='da'&cod_usuario='fds'";
         $handshake = (new WebSocketHandshake($constr));
-        $lastTimeStamp =  Cache::get($cod_daemon . "timestamp");
 
-        $this->printDebugInfo('Conectando con ' . $constr);
+        while (true) {
+            try {
+                $lastTimeStamp = Cache::get($cod_daemon . "timestamp");
+                $this->printDebugInfo('Conectando con ' . $constr);
+                $connection = $connector->connect($handshake);
+                foreach ($connection as $message) {
+                    $payload = $message->buffer();
 
-        $connection = $connector->connect($handshake);
-        foreach ($connection as $message) {
-            $payload = $message->buffer();
-            $payloadDecoded = json_decode($payload, true);
+                    //$this->printDebugInfo('procesobus ' . $payload);
+                    $payloadDecoded = json_decode($payload, true);
+                    if (!isset($payloadDecoded['context']['msgtext'])) {
+                        continue;
+                    }
 
-            $tmpmsg = $payloadDecoded['context']["msgtext"];
-            if ($payloadDecoded['timeStamp'] . "-" . hash('sha256', $tmpmsg) <= $lastTimeStamp) {
-                $this->printDebugInfo('skip ' . $payloadDecoded['timeStamp'] . ' : ' . $tmpmsg);
-                continue;
-            }
+                    $tmpmsg = $payloadDecoded['context']["msgtext"];
+                    if ($payloadDecoded['timeStamp'] . "-" . hash('sha256', $tmpmsg) <= $lastTimeStamp) {
+                        $this->printDebugInfo('skip ' . $payloadDecoded['timeStamp'] . ' : ' . $tmpmsg);
+                        continue;
+                    }
 
-            $lastTimeStamp = $payloadDecoded['timeStamp'] . "-" . hash('sha256', $tmpmsg);
-            Cache::forever($cod_daemon . "timestamp", $lastTimeStamp);
+                    $lastTimeStamp = $payloadDecoded['timeStamp'] . "-" . hash('sha256', $tmpmsg);
+                    Cache::forever($cod_daemon . "timestamp", $lastTimeStamp);
 
-            if (isset($payloadDecoded['context']["cod_daemon"]) && $payloadDecoded['context']["cod_daemon"] == $cod_daemon) {
-                $command = strtolower((isset($payloadDecoded['context']['command'])) ? $payloadDecoded['context']['command'] : "empty");
-                switch ($command) {
-                    case 'reset':
-                        exit(); //EventLoop::stop();
-                        break;
-                    
-                    default:
-                        # code...
-                        break;
+                    if (isset($payloadDecoded['context']["cod_daemon"]) && $payloadDecoded['context']["cod_daemon"] == $cod_daemon) {
+                        if (isset($payloadDecoded['context']['command']) && $payloadDecoded['context']['command'] == "reset")
+                            exit(); //EventLoop::stop();
+                    }
                 }
+            } catch (\Throwable $e) {
+                Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert', array("msgtext" => __("Error de conexión :COD_DAEMON", ['COD_DAEMON' => $cod_daemon])));
+                $this->printDebugInfo('Error en busmsg: ' . $e->getMessage());
             }
+            delay(5);
         }
     }
 
@@ -357,19 +425,19 @@ class DelayedTemaDaemon extends Command
 
         switch ($unidad_medida_tiempo) {
             case "I":
-                $limit = $stm_ult_reporte->addMinutes($valor_tiempo_sin_reportar);
+                $limit = $stm_ult_reporte->copy()->addMinutes($valor_tiempo_sin_reportar);
                 break;
             case "H":
-                $limit = $stm_ult_reporte->addHours($valor_tiempo_sin_reportar);
+                $limit = $stm_ult_reporte->copy()->addHours($valor_tiempo_sin_reportar);
                 break;
             case "D":
-                $limit = $stm_ult_reporte->addDays($valor_tiempo_sin_reportar);
+                $limit = $stm_ult_reporte->copy()->addDays($valor_tiempo_sin_reportar);
                 break;
             case "M":
-                $limit = $stm_ult_reporte->addMonths($valor_tiempo_sin_reportar);
+                $limit = $stm_ult_reporte->copy()->addMonths($valor_tiempo_sin_reportar);
                 break;
             case "Y":
-                $limit = $stm_ult_reporte->addYears($valor_tiempo_sin_reportar);
+                $limit = $stm_ult_reporte->copy()->addYears($valor_tiempo_sin_reportar);
                 break;
         }
 

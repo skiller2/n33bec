@@ -120,7 +120,7 @@ class EventAsync485AreaTask implements Task
                 'msgtext' => __("Error decodificando tam: :tam, data :data",['tam'=>strlen($this->buffline),"data"=>$this->buffline])
             );
             Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
-            Log::channel(self::logFileName)->info($text, array());
+            Log::channel(self::logFileName)->info($this->buffline, array());
         }
         $kernel->terminate(null, $status);
         return $status;

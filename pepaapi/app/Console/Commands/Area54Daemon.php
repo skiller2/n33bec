@@ -88,7 +88,7 @@ class Area54Daemon extends Command
                     'msgtext' => __("Proceso BUS485AREA actualizando configuración")
                 );
 
-                Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
+                Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', $context);
                 $this->printDebugInfo($context['msgtext']);
                 exit();
             }
@@ -114,16 +114,19 @@ class Area54Daemon extends Command
                 break;
 
             $context = array(
-                'msgtext' => __("Conexión exitosa con :COMMAND_SHORT PID :PID" ,['COMMAND_SHORT'=>$command_short,'PID'=>$process->getPid()])
+                'msgtext' => __("Conexión exitosa con :COMMAND_SHORT PID :PID", ['COMMAND_SHORT' => $command_short, 'PID' => $process->getPid()])
             );
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', $context);
             $this->printDebugInfo($context['msgtext']);
 
             $stream = $process->getStdout();
 
-            while (null !== $chunk =  $stream->read() and $process->isRunning()) {
+            while (null !== $chunk = $stream->read() and $process->isRunning()) {
                 $linecache .= $chunk;
                 $len = strpos($linecache, "\n");
+
+                if (strlen($linecache) > 65536)
+                    $linecache="";
 
                 while ($len !== false) {
                     $line = substr($linecache, 0, $len);
@@ -132,22 +135,28 @@ class Area54Daemon extends Command
                     //echo "data: $line, WorkerCount $wc\n" ;
 
                     $line = mb_convert_encoding($line, "UTF-8", "ISO-8859-1");
-                    if (strlen($line) > 10)
-                        $this->poolEvents->submit(new EventAsync485AreaTask($tema_base, $line));
-
+                    if (strlen($line) > 10){
+                        try {
+                            $this->poolEvents->submit(
+                                new EventAsync485AreaTask($tema_base, $line)
+                            );
+                        } catch (\Throwable $e) {
+                            Log::error($e->getMessage());
+                        }
+                    }
 
                     $linecache = substr($linecache, $len + 1);
                     $len = strpos($linecache, "\n");
-//                     new Delayed(50);
+                    //                     new Delayed(50);
                 }
             }
 
-            $code =  $process->join();
-//            $process->__destruct();
+            $code = $process->join();
+            //            $process->__destruct();
             $context = array(
-                'msgtext' => __("Se cerró el proceso :COMMAND_SHORT con código :CODE",['COMMAND_SHORT'=>$command_short,'CODE'=>$code])
+                'msgtext' => __("Se cerró el proceso :COMMAND_SHORT con código :CODE", ['COMMAND_SHORT' => $command_short, 'CODE' => $code])
             );
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error', $context);
             $this->printDebugInfo($context['msgtext']);
 
             EventLoop::delay(5, function () use ($suspension): void {
@@ -173,21 +182,21 @@ class Area54Daemon extends Command
             $context = array(
                 'msgtext' => __("Error iniciando proceso BUS485AREA")
             );
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error', $context);
             $this->printDebugInfo($context['msgtext']);
 
             return;
         }
 
-        $write  = array(); //array($this->pipes[0]);
-        $read   = array($this->pipes[1], $this->pipes[2]);
+        $write = array(); //array($this->pipes[0]);
+        $read = array($this->pipes[1], $this->pipes[2]);
         $except = array();
 
         $context = array(
             'msgtext' => __("Conexión exitosa con BUS485AREA")
         );
 
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
+        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', $context);
         $this->printDebugInfo($context['msgtext']);
 
         while (false !== ($r = stream_select($read, $write, $except, null, $timeout))) {
@@ -197,7 +206,7 @@ class Area54Daemon extends Command
                         $context = array(
                             'msgtext' => __("Se cerró el proceso BUS485AREA")
                         );
-                        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
+                        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error', $context);
                         $this->printDebugInfo($context['msgtext']);
 
                         //Debo parar el proceso....
@@ -210,7 +219,7 @@ class Area54Daemon extends Command
                     }
                 }
             }
-//            new Delayed(50);
+            //            new Delayed(50);
         }
     }
 
@@ -219,7 +228,7 @@ class Area54Daemon extends Command
     {
         $cod_daemon = basename(__FILE__, ".php");
 
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon])));
+        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', array("msgtext" => __("Inicio proceso :COD_DAEMON", ['COD_DAEMON' => $cod_daemon])));
 
         $context = array(
             'msgtext' => "",
@@ -227,7 +236,7 @@ class Area54Daemon extends Command
             'cod_daemon' => $cod_daemon,
             'command' => 'start'
         );
-        Broadcast::driver('fast-web-socket')->broadcast(["procesos"], "info",  $context);
+        Broadcast::driver('fast-web-socket')->broadcast(["procesos"], "info", $context);
 
         $connectionFactory = new Rfc6455ConnectionFactory(
             heartbeatQueue: new PeriodicHeartbeatQueue(
@@ -243,85 +252,96 @@ class Area54Daemon extends Command
             frameSplitThreshold: 2 ** 14, // 16 KiB
             closePeriod: 0.5, // 0.5 seconds
         );
-        
+
         $connector = new Rfc6455Connector($connectionFactory);
         $constr = "ws://localhost:80/wssub/procesos/0/1/2/3/4/5/6?token='da'&cod_usuario='fds'";
         $handshake = (new WebSocketHandshake($constr));
-        $lastTimeStamp =  Cache::get($cod_daemon . "timestamp");
 
-        $this->printDebugInfo('Conectando con ' . $constr);
+        while (true) {
+            try {
 
-        $connection = $connector->connect($handshake);
-        foreach ($connection as $message) {
-            $payload = $message->buffer();
-            $payloadDecoded = json_decode($payload, true);
+                $lastTimeStamp = Cache::get($cod_daemon . "timestamp");
+                $this->printDebugInfo('Conectando con ' . $constr);
+                $connection = $connector->connect($handshake);
+                foreach ($connection as $message) {
+                    $payload = $message->buffer();
+                    $payloadDecoded = json_decode($payload, true);
+                    if (!isset($payloadDecoded['context']['msgtext'])) {
+                        continue;
+                    }
 
-            $tmpmsg = $payloadDecoded['context']["msgtext"];
-            if ($payloadDecoded['timeStamp'] . "-" . hash('sha256', $tmpmsg) <= $lastTimeStamp) {
-                $this->printDebugInfo('skip ' . $payloadDecoded['timeStamp'] . ' : ' . $tmpmsg);
-                continue;
-            }
+                    $tmpmsg = $payloadDecoded['context']["msgtext"];
+                    if ($payloadDecoded['timeStamp'] . "-" . hash('sha256', $tmpmsg) <= $lastTimeStamp) {
+                        $this->printDebugInfo('skip ' . $payloadDecoded['timeStamp'] . ' : ' . $tmpmsg);
+                        continue;
+                    }
 
-            $lastTimeStamp = $payloadDecoded['timeStamp'] . "-" . hash('sha256', $tmpmsg);
-            Cache::forever($cod_daemon . "timestamp", $lastTimeStamp);
+                    $lastTimeStamp = $payloadDecoded['timeStamp'] . "-" . hash('sha256', $tmpmsg);
+                    Cache::forever($cod_daemon . "timestamp", $lastTimeStamp);
 
-            if (isset($payloadDecoded['context']["cod_daemon"]) && $payloadDecoded['context']["cod_daemon"] == $cod_daemon) {
-                if (isset($payloadDecoded['context']['command'])) {
-                    switch (strtolower($payloadDecoded['context']['command'])) {
-                        case 'reset':
-                            exit();
-                            break;
-                        case 'bus':
-                            $subcommand = (isset($payloadDecoded['context']['subcommand'])) ? $payloadDecoded['context']['subcommand'] : "";
-                            $subtema = (isset($payloadDecoded['context']['bus_id'])) ? $payloadDecoded['context']['bus_id'] : "";
-                            $tema_base = $this->tema_local . "/" . $subtema;
-                            $notifica = false;
-                            if (isset($this->process[$tema_base])) {
-                                $write = "";
-                                switch ($subcommand) {
-                                    case 'reset':
-                                        $write = "1400";
-                                        $notifica = true;
-                                        break;
-                                    case 'ack':
-                                        $write = "1F00";
-                                        $notifica = true;
-                                        break;
-                                    case 'up':
-                                        $write = "0B00";
-                                        break;
-                                    case 'down':
-                                        $write = "0C00";
-                                        break;
-                                    case 'left':
-                                        $write = "0D00";
-                                        break;
-                                    case 'right':
-                                        $write = "0E00";
-                                        break;
-                                    default:
-                                        # code...
-                                        break;
-                                }
-                                if ($notifica) {
-                                    $context = array(
-                                        'msgtext' => __("Comando enviado :SUBCOMMAND",['SUBCOMMAND'=>$subcommand]),
-                                        'cod_tema' => "",
-                                        'cod_daemon' => $cod_daemon,
-                                        //'command' => 'start'
-                                    );
-                                    Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], "info",  $context);
-                                }
-                                $this->process[$tema_base]->getStdin()->write("$write\n");
+                    if (isset($payloadDecoded['context']["cod_daemon"]) && $payloadDecoded['context']["cod_daemon"] == $cod_daemon) {
+                        if (isset($payloadDecoded['context']['command'])) {
+                            switch (strtolower($payloadDecoded['context']['command'])) {
+                                case 'reset':
+                                    exit();
+                                    break;
+                                case 'bus':
+                                    $subcommand = (isset($payloadDecoded['context']['subcommand'])) ? $payloadDecoded['context']['subcommand'] : "";
+                                    $subtema = (isset($payloadDecoded['context']['bus_id'])) ? $payloadDecoded['context']['bus_id'] : "";
+                                    $tema_base = $this->tema_local . "/" . $subtema;
+                                    $notifica = false;
+                                    if (isset($this->process[$tema_base])) {
+                                        $write = "";
+                                        switch ($subcommand) {
+                                            case 'reset':
+                                                $write = "1400";
+                                                $notifica = true;
+                                                break;
+                                            case 'ack':
+                                                $write = "1F00";
+                                                $notifica = true;
+                                                break;
+                                            case 'up':
+                                                $write = "0B00";
+                                                break;
+                                            case 'down':
+                                                $write = "0C00";
+                                                break;
+                                            case 'left':
+                                                $write = "0D00";
+                                                break;
+                                            case 'right':
+                                                $write = "0E00";
+                                                break;
+                                            default:
+                                                # code...
+                                                break;
+                                        }
+                                        if ($notifica) {
+                                            $context = array(
+                                                'msgtext' => __("Comando enviado :SUBCOMMAND", ['SUBCOMMAND' => $subcommand]),
+                                                'cod_tema' => "",
+                                                'cod_daemon' => $cod_daemon,
+                                                //'command' => 'start'
+                                            );
+                                            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], "info", $context);
+                                        }
+                                        $this->process[$tema_base]->getStdin()->write("$write\n");
+                                    }
+
+                                    break;
+                                default:
+                                    # code...
+                                    break;
                             }
-
-                            break;
-                        default:
-                            # code...
-                            break;
+                        }
                     }
                 }
+            } catch (\Throwable $e) {
+                Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'alert', array("msgtext" => __("Error de conexión :COD_DAEMON", ['COD_DAEMON' => $cod_daemon])));
+                $this->printDebugInfo('Error en busmsg: ' . $e->getMessage());
             }
+            delay(5);
         }
     }
 
@@ -334,17 +354,18 @@ class Area54Daemon extends Command
         $executable = "";
         $area54conf = ConfigParametro::get('AREA54_CONF', false);
         $vaarea54conf = explode(",", $area54conf);
-        $licence =  ConfigParametro::get('LICENCIA', false);
-        $licence =  ($licence) ? $licence : "UNLICENCED";
-        $timeout =  5000;
+        $licence = ConfigParametro::get('LICENCIA', false);
+        $licence = ($licence) ? $licence : "UNLICENCED";
+        $timeout = 8000;
         $this->daemon_conf_ver = Cache::get(self::confVersion);
         $tmp_confighash = hash("sha256", $area54conf);
         if ($this->confighash != $tmp_confighash) {
             $this->confighash = $tmp_confighash;
-
+            $this->config = array();
             foreach ($vaarea54conf as $index => $config) {
                 $vaconfig = explode(":", $config);
-                if (count($vaconfig) < 2) continue;
+                if (count($vaconfig) < 3)
+                    continue;
                 $ipdev = $vaconfig[0];
                 $baudrateport = $vaconfig[1];
                 $subtema = $vaconfig[2];
@@ -360,7 +381,7 @@ class Area54Daemon extends Command
                         break;
                     case 'contact_id':
                         $executable = "contact_id";
-                        $timeout =  90000;
+                        $timeout = 90000;
 
                         break;
 
@@ -372,7 +393,7 @@ class Area54Daemon extends Command
                 if (stripos($ipdev, "null") !== false)
                     continue;
                 $this->config[$index]['command'] = dirname(__FILE__) . "/../../../bin/$executable $ipdev $baudrateport $timeout $licence";
-                $this->config[$index]['tema']    = $this->tema_local . "/" . $subtema;
+                $this->config[$index]['tema'] = $this->tema_local . "/" . $subtema;
             }
             return true;
         } else
@@ -389,9 +410,9 @@ class Area54Daemon extends Command
     {
         $this->temp_dir = sys_get_temp_dir();
         $this->loadConfigData();
-//        $factory = new BootstrapWorkerFactory(__DIR__ . '/daemon.php');
+        //        $factory = new BootstrapWorkerFactory(__DIR__ . '/daemon.php');
         //createWorker();
-        $this->poolEvents =  \Amp\Parallel\Worker\createWorker();
+        $this->poolEvents = \Amp\Parallel\Worker\createWorker();
 
 
 
@@ -404,7 +425,7 @@ class Area54Daemon extends Command
             $this->poolEvents->submit(new EventAsync485AreaTask($cod_tema, $linea));
             return;
         }
-       
+
         if (!defined('SIGINT'))
             define('SIGINT', 0);
         if (!defined('SIGTERM'))
@@ -425,7 +446,7 @@ class Area54Daemon extends Command
                         Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'warning',  $context);
                         $this->printDebugInfo($context['msgtext']);
                 */
-                //        $this->poolEvents->shutdown();
+                        //        $this->poolEvents->shutdown();
                         exit();
                         return;
                     }
@@ -433,12 +454,17 @@ class Area54Daemon extends Command
             );
         }
 
-        EventLoop::repeat($sInterval = 1, function() { $this->checkConfigData();    }  );
-        EventLoop::delay(2, function(){ $this->busmsg();});
+        EventLoop::repeat($sInterval = 1, function () {
+            $this->checkConfigData(); });
+
+        EventLoop::queue(function () {
+            $this->busmsg();
+        });
 
         foreach ($this->config as $config) {
             Cache::forever(self::config_tag . $config['tema'] . "display_area54", array());
-            EventLoop::delay(1, function() use ($config):void {$this->rs485areaproc(0,$config);});
+            EventLoop::queue(function () use ($config): void {
+                $this->rs485areaproc(0, $config); });
         }
 
         EventLoop::run();
