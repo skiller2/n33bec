@@ -232,7 +232,7 @@ $lector=null;
             $datacred = array("cod_tema" => $cod_tema, "valor" => $data24);
             $lector = null;
 
-            $ret = $cd->leeCredencial($datacred);
+            $ret = $cd->leeCredencial2($datacred);
 
             if ($ret->status() == 200) {
                 $lector = $ret->original['rs485'];

@@ -86,6 +86,7 @@ const displayGeneralComponent = {
                 return runner(null, node);
             }
 
+
             function getTree(
                 data: string | any[],
                 primaryIdName: string,
@@ -194,7 +195,7 @@ const displayGeneralComponent = {
                 ind_desconexion,
                 ind_exclusion
             ) => {
-                vm.des_valor_alarma =$translate.instant("Normal").toUpperCase();
+                vm.des_valor_alarma = $translate.instant("Normal").toUpperCase();
                 vm.des_valor_falla = $translate.instant("Normal").toUpperCase();
                 vm.cs_shaker_alarpre = "";
                 vm.cs_shaker_falla = "";
@@ -252,27 +253,51 @@ const displayGeneralComponent = {
                     });
             };
 
-            const isEqualsArr = (arr1: [any], arr2: [any]) => {
-                if (arr1?.length !== arr2?.length) return false;
+            const isEqualsArr = (arr1, arr2) => {
 
-                const props = ['cod_tema', 'cant_activacion', 'cod_sector', 'des_observaciones', 'nom_tema', 'stm_evento', 'tipo_evento']
+                if (arr1?.length !== arr2?.length) {
+                    return false;
+                }
 
-                for (let i = 0; i < arr1.length; i++) {
-                    const findit = arr2.find(r => r.cod_tema == arr1[i].cod_tema)
-                    if (!findit) {
-                        return false
+                const props = [
+                    'cod_tema',
+                    'cant_activacion',
+                    'cod_sector',
+                    'des_observaciones',
+                    'nom_tema',
+                    'stm_evento',
+                    'tipo_evento'
+                ];
+
+                const map = new Map();
+
+                arr2.forEach(item => {
+                    map.set(
+                        `${item.cod_tema}|${item.tipo_evento}`,
+                        item
+                    );
+                });
+
+                for (const item1 of arr1) {
+
+                    const item2 = map.get(
+                        `${item1.cod_tema}|${item1.tipo_evento}`
+                    );
+
+                    if (!item2) {
+                        return false;
                     }
-                    for (let j = 0; j < props.length; j++) {
-                        const prop = props[j];
-                        if (arr1[i][prop] !== findit[prop]) {
+
+                    for (const prop of props) {
+                        if (item1[prop] !== item2[prop]) {
                             return false;
                         }
                     }
                 }
-                return true
 
-            }
-
+                return true;
+            };
+            
             vm.showList = () => {
                 console.log('trigger showList')
                 if (vm.showListTimer) $timeout.cancel(vm.showListTimer);
@@ -281,6 +306,7 @@ const displayGeneralComponent = {
                     .then(function (response: any) {
 
                         if (!isEqualsArr(vm.alertas_old, response)) {
+                            console.log('trigger showList update', vm.alertas_old, response)
                             vm.ind_listado = true;
                             vm.ind_detalle = false;
                             vm.alertas = $filter("orderBy")(response, [

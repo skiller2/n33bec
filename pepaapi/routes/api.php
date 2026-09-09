@@ -43,6 +43,7 @@ Route::group(['middleware' => 'throttle:2500,1,normal'], function () {
     Route::get('/v1/temas/getEstadosLeds', 'Temas@getEstadosLeds');
     Route::get('/v1/habiaccesos/getLastUpdate', 'HabiAccesos@getLastUpdate');
     Route::get('/v1/habiaccesos/sync', 'HabiAccesos@getHabiAccesoSync');
+    Route::get('/v1/habiaccesos/tema', 'HabiAccesos@getHabiAccesoPorTema');
     Route::get('/v1/sectores/sync', 'Sectores@getSectoresSync');
     Route::get('/v1/sectoresxou/sync', 'Sectores@getSectoresxOUSync');
     Route::get('/v1/esquemas/sync', 'Esquemas@getEsquemasSync');
