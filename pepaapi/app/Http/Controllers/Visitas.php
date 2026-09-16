@@ -91,7 +91,6 @@ class Visitas extends Controller
             'habiCredPersona.cod_ou_emisora',
             'habiCredPersona.cod_persona_contacto',
             'habiCredPersona.cod_ou_hab',
-            'habiCredPersona.tipo_habilitacion',
             'habiCredGrupo.cod_grupo',
             'confGrupoCred.des_grupo',
             'maesUnidadesOrganiz.nom_ou',
@@ -632,6 +631,7 @@ class Visitas extends Controller
         HabiAcceso::addAuditoria($acceso, $auditoria);
         $acceso->stm_habilitacion_hasta = $stm_habilitacion_hasta;
         $acceso->save();
+        HabiAccesos::syncSnapshot($cod_credencial, array_keys($json_temas));        
 
         MoviPersConCred::where('cod_credencial', $cod_credencial)->orWhere('cod_persona', $cod_persona)->delete();
 
@@ -917,7 +917,8 @@ class Visitas extends Controller
 
         HabiCredPersona::where('cod_credencial', $cod_credencial)->delete();
         HabiCredSectores::where('cod_credencial', $cod_credencial)->delete();
-        HabiAcceso::where('cod_credencial', $cod_credencial)->delete();
+        HabiAccesos::delCredencialAcceso(array($cod_credencial));
+
         try {
             HabiCredGrupo::where('cod_credencial', $cod_credencial)->delete();
         } catch (Exception $e) {

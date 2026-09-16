@@ -236,7 +236,8 @@ class UnidadesOrganizativas extends Controller
         if(!empty($credenciales_a_borrar)){
             HabiCredPersona::whereIn('cod_credencial', $credenciales_a_borrar)->delete();
             HabiCredGrupo::whereIn('cod_credencial', $credenciales_a_borrar)->delete();
-            HabiAcceso::whereIn('cod_credencial', $credenciales_a_borrar)->delete();            
+            HabiAccesos::delCredencialAcceso($credenciales_a_borrar);
+           
         }
         HabiCredSectores::where('cod_ou',$cod_ou)->delete();
         HabiSectoresxOU::where('cod_ou',$cod_ou)->delete();        

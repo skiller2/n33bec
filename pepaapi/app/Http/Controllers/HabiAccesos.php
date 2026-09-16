@@ -11,9 +11,59 @@ use Illuminate\Support\Facades\Cache;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HabiAccesos extends Controller
 {
+    public static function syncSnapshot(
+        int $cod_credencial,
+        array $newTemas
+    ): void {
+
+        $oldTemas = DB::table('habiAccesoSnap')
+            ->where('cod_credencial', $cod_credencial)
+            ->pluck('cod_tema')
+            ->toArray();
+
+        $topicsAdded =
+            array_diff($newTemas, $oldTemas);
+
+        $topicsRemoved =
+            array_diff($oldTemas, $newTemas);
+
+        foreach ($topicsAdded as $tema) {
+
+            DB::table('habiAccesoSnap')
+                ->insertOrIgnore([
+                    'cod_tema' => $tema,
+                    'cod_credencial' => $cod_credencial,
+                ]);
+
+            DB::table('habiCredCambio')
+                ->insert([
+                    'cod_tema' => $tema,
+                    'cod_credencial' => $cod_credencial,
+                    'operation' => 'ADD'
+                ]);
+        }
+
+        foreach ($topicsRemoved as $tema) {
+
+            DB::table('habiAccesoSnap')
+                ->where('cod_tema', $tema)
+                ->where('cod_credencial', $cod_credencial)
+                ->delete();
+
+            DB::table('habiCredCambio')
+                ->insert([
+                    'tema' => $tema,
+                    'cod_credencial' => $cod_credencial,
+                    'operation' => 'DEL'
+                ]);
+        }
+    }
+
+
     function fcCardToWiegand26(int $fc, int $card): int
     {
         $data24 = (($fc & 0xFF) << 16) | ($card & 0xFFFF);
@@ -49,7 +99,162 @@ class HabiAccesos extends Controller
         $pageSize = $request->input('pageSize');
         return HabiAcceso::select()->simplePaginate($pageSize, ['*'], 'page', $page);
     }
+
     public function getHabiAccesoPorTema(Request $request)
+    {
+        $tema = $request->input('tema');
+        $baseTema = strtolower(ConfigParametro::get("TEMA_LOCAL", false));
+        $tema = rtrim($baseTema, '/') . '/' . ltrim($tema, '/');
+
+        $since = (int) $request->input('since', -1);
+        $changes = array();
+        $lastChangeId = 0;
+        $simular = $request->input('simular') ? true:false;
+
+        if ($simular) {
+
+            $since = (int) $request->input('since', -1);
+
+            if ($since == -1) {
+
+                $changes = [];
+
+                for ($i = 1; $i <= 30000; $i++) {
+
+                    $row = new \stdClass();
+                    $row->c = random_int(1, 67108863);
+                    $row->o = 'ADD';
+
+                    $changes[] = $row;
+                }
+
+                return response()->json([
+                    'last_change_id' => 1000,
+                    'changes' => $changes
+                ]);
+            }
+
+            $changes = [];
+
+            $changeId = $since;
+
+            // 500 ADD
+            for ($i = 0; $i < 500; $i++) {
+
+                $row = new \stdClass();
+                $row->id = ++$changeId;
+                $row->c = random_int(1, 67108863);
+                $row->o = 'ADD';
+
+                $changes[] = $row;
+            }
+
+            // 200 DEL
+            for ($i = 0; $i < 200; $i++) {
+
+                $row = new \stdClass();
+                $row->id = ++$changeId;
+                $row->c = random_int(1, 67108863);
+                $row->o = 'DEL';
+
+                $changes[] = $row;
+            }
+
+            // Casos conflictivos para probar
+            for ($i = 0; $i < 50; $i++) {
+
+                $card = random_int(1, 67108863);
+
+                $row = new \stdClass();
+                $row->id = ++$changeId;
+                $row->c = $card;
+                $row->o = 'ADD';
+                $changes[] = $row;
+
+                $row = new \stdClass();
+                $row->id = ++$changeId;
+                $row->c = $card;
+                $row->o = 'DEL';
+                $changes[] = $row;
+            }
+
+            return response()->json([
+                'last_change_id' => $changeId,
+                'changes' => $changes
+            ]);
+        }
+
+
+
+
+        /*
+        if (Cache::get("PANEL_$tema", -2)==$since)
+        return response()->json([
+            'last_change_id' => $lastChangeId,
+            'changes' => $changes->map(function ($row) {
+                unset($row->id);
+                unset($row->cod_tema);
+                unset($row->created_at);
+                return $row;
+            })
+        ]);
+        */
+
+        if ($since != -1) {
+            $changes = DB::table('habiCredCambio')
+                ->whereIn('cod_tema', array($tema . "/9/1", $tema . "/9/2"))
+                ->where('id', '>', $since)
+                ->orderBy('id')
+                ->get()
+                ->map(function ($row) {
+                    $credStr = sprintf('%08d', $row->cod_credencial);
+                    $fc = (int) substr($credStr, 0, -5);
+                    $card = (int) substr($credStr, -5);
+                    unset($row->cod_credencial);
+                    $row->c = $this->fcCardToWiegand26($fc, $card);
+                    $row->o = $row->operation;
+                    unset($row->operation);
+                    return $row;
+                })
+                ->keyBy('c')
+                ->sortBy('id')
+                ->values();
+            $lastRow = $changes->last();
+            $lastChangeId = $lastRow ? $lastRow->id : $since;
+        } else {
+            $changes = DB::table('habiAccesoSnap')
+                ->whereIn('cod_tema', array($tema . "/9/1", $tema . "/9/2"))
+                ->orderBy('cod_credencial')
+                ->get()
+                ->map(function ($row) {
+                    $credStr = sprintf('%08d', $row->cod_credencial);
+                    $fc = (int) substr($credStr, 0, -5);
+                    $card = (int) substr($credStr, -5);
+                    unset($row->cod_credencial);
+                    $row->c = $this->fcCardToWiegand26($fc, $card);
+                    $row->o = "ADD";
+                    return $row;
+                });
+            $lastChangeId = DB::table('habiCredCambio')
+                ->whereIn('cod_tema', [$tema . "/9/1", $tema . "/9/2"])
+                ->max('id') ?? 0;
+
+
+        }
+        //Cache::forever("PANEL_$tema", $lastChangeId);
+
+        return response()->json([
+            'last_change_id' => $lastChangeId,
+            'changes' => $changes->map(function ($row) {
+                unset($row->id);
+                unset($row->cod_tema);
+                unset($row->created_at);
+                return $row;
+            })
+        ]);
+    }
+
+    public function getHabiAccesoPorTemaOld(Request $request)
     {
         $tema = $request->input('tema');
         $tema = str_replace("/", "\\\\/", $tema);
@@ -66,6 +271,49 @@ class HabiAccesos extends Controller
                 $row->card_number = $this->fcCardToWiegand26($fc, $card);
                 return $row;
             });
+    }
+
+    public static function delCredencialAcceso(array $cod_credencial_arr)
+    {
+        $rows = DB::table('habiAccesoSnap')
+            ->whereIn(
+                'cod_credencial',
+                $cod_credencial_arr
+            )
+            ->get([
+                'cod_tema',
+                'cod_credencial'
+            ]);
+
+        $changes = [];
+
+        foreach ($rows as $row) {
+
+            $changes[] = [
+                'cod_tema' => $row->cod_tema,
+                'cod_credencial' => $row->cod_credencial,
+                'operation' => 'DEL',
+                'created_at' => now()
+            ];
+        }
+
+        if (!empty($changes)) {
+
+            DB::table('habiCredCambio')
+                ->insert($changes);
+        }
+
+        DB::table('habiAccesoSnap')
+            ->whereIn(
+                'cod_credencial',
+                $cod_credencial_arr
+            )
+            ->delete();
+
+        HabiAcceso::whereIn(
+            'cod_credencial',
+            $cod_credencial_arr
+        )->delete();
     }
 
     public static function checkhabiAcceso($checkFirst = false)
@@ -111,8 +359,10 @@ class HabiAccesos extends Controller
             ->leftjoin('maesUnidadesOrganiz', 'maesUnidadesOrganiz.cod_ou', '=', 'habiCredPersona.cod_ou_hab')
             ->leftjoin('maesPersonas as personaContacto', 'personaContacto.cod_persona', '=', 'habiCredPersona.cod_persona')
             ->get();
+
         foreach ($selHabiAcceso as $row) {
             $cod_credencial = $row['cod_credencial'];
+            $credencialesProcesadas[] = $row['cod_credencial'];
             $sectoresSel = HabiCredSectores::select('cod_sector')->where('cod_credencial', $cod_credencial)->get();
             $vaTemas = array();
             foreach ($sectoresSel as $cod) {
@@ -124,6 +374,7 @@ class HabiAccesos extends Controller
                 }
             }
             $json_temas = $vaTemas;
+            self::syncSnapshot($row['cod_credencial'], array_keys($json_temas));
 
             HabiAcceso::updateOrCreate(
                 [
@@ -155,6 +406,7 @@ class HabiAccesos extends Controller
                 ]
             );
         }
+
         Cache::forever("HabiAccesoLastUpdate", Carbon::now()->format('Y-m-d H:i:s'));
         return true;
     }

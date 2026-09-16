@@ -212,8 +212,6 @@ class Rs485Daemon extends Command
             );
             Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
             $this->printDebugInfo($context['msgtext']);
-            echo "notificado \n";
-
 
 
             $stream = $process->getStdout();

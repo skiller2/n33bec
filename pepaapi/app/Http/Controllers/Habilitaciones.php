@@ -14,6 +14,7 @@ use App\Imagen;
 use App\MoviPersConCred;
 use App\Persona;
 use App\UnidadesOrganiz;
+use App\Http\Controllers\HabiAccesos;
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\WriterFactory;
 use Carbon\Carbon;
@@ -883,6 +884,7 @@ class Habilitaciones extends Controller
         $acceso->stm_habilitacion_hasta = $stm_habilitacion_hasta;
         $acceso->save();
 
+        HabiAccesos::syncSnapshot($cod_credencial, array_keys($json_temas));        
         MoviPersConCred::where('cod_credencial', $cod_credencial)->orWhere('cod_persona', $cod_persona)->delete();
 
         DB::commit();
@@ -1198,7 +1200,7 @@ class Habilitaciones extends Controller
             $habiCredGrupo->save();
         }
 
-        HabiAcceso::where('cod_credencial', $cod_credencial)->delete();
+        HabiAccesos::delCredencialAcceso(array($cod_credencial));
 
         return response(['ok'=> __("Cód. Tarjeta reasignado :COD_CREDENCIAL_NUEVA",['COD_CREDENCIAL_NUEVA'=>$cod_credencial_nueva]) . $cod_credencial_nueva], Response::HTTP_OK);
     }
@@ -1217,7 +1219,7 @@ class Habilitaciones extends Controller
 
         HabiCredSectores::where('cod_credencial', $cod_credencial)->delete();
         HabiCredPersona::where('cod_credencial', $cod_credencial)->delete();
-        HabiAcceso::where('cod_credencial', $cod_credencial)->delete();
+        HabiAccesos::delCredencialAcceso(array($cod_credencial));
         try {
             HabiCredGrupo::where('cod_credencial', $cod_credencial)->delete();
         } catch (Exception $e) {

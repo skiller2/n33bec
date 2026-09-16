@@ -16,6 +16,8 @@ use App\MoviPersConCred;
 use App\PermanenteOK;
 use App\Rechazado;
 use App\TemporalOK;
+use App\Http\Controllers\HabiAccesos;
+
 use App\Traits\LibGeneral;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
@@ -53,18 +55,6 @@ class ComunicacionDispositivos {
 
         $this->loadConfigData();
 
-/*
-        if (!Cache::get("EstadoHabiAccesoDispo")){
-			HabiAcceso::checkhabiAcceso(false);
-			Cache::forever("EstadoHabiAccesoDispo",true);
-            $context=array(
-                'msgtext' => __("Componentes actualizados"),
-                "EstadoHabiAccesoDispo" => true, 
-                "colorEstado" => "green"
-            );
-            Broadcast::driver('fast-web-socket')->broadcast(["estados"], 'error',  $context);
-        }
-*/
     }
 
     public function loadConfigData(){
@@ -370,7 +360,7 @@ class ComunicacionDispositivos {
             if ($tipo_habilitacion == "T" && $eliminar_visita) {
                 HabiCredSectores::where('cod_credencial', $cod_credencial)->delete();
                 HabiCredPersona::where('cod_credencial', $cod_credencial)->delete();
-                HabiAcceso::where('cod_credencial', $cod_credencial)->delete();
+                HabiAccesos::delCredencialAcceso(array($cod_credencial));
             }
 
             $context=array(
@@ -464,7 +454,7 @@ class ComunicacionDispositivos {
             if ($ind_movimiento == "E" && $tipo_habilitacion == "T") {
                 HabiCredSectores::where('cod_credencial', $cod_credencial)->delete();
                 HabiCredPersona::where('cod_credencial', $cod_credencial)->delete();
-                HabiAcceso::where('cod_credencial', $cod_credencial)->delete();
+                HabiAccesos::delCredencialAcceso(array($cod_credencial));
                 MoviPersConCred::where('cod_credencial', $cod_credencial)->delete();
             }
             if ($ind_movimiento == "E" && $tipo_habilitacion == "P") {
@@ -729,7 +719,8 @@ class ComunicacionDispositivos {
             if ($tipo_habilitacion == "T" && $eliminar_visita) {
                 HabiCredSectores::where('cod_credencial', $cod_credencial)->delete();
                 HabiCredPersona::where('cod_credencial', $cod_credencial)->delete();
-                HabiAcceso::where('cod_credencial', $cod_credencial)->delete();
+                HabiAccesos::delCredencialAcceso(array($cod_credencial));
+
             }
 
             $context=array(
@@ -828,7 +819,7 @@ class ComunicacionDispositivos {
             if ($ind_movimiento == "E" && $tipo_habilitacion == "T") {
                 HabiCredSectores::where('cod_credencial', $cod_credencial)->delete();
                 HabiCredPersona::where('cod_credencial', $cod_credencial)->delete();
-                HabiAcceso::where('cod_credencial', $cod_credencial)->delete();
+                HabiAccesos::delCredencialAcceso(array($cod_credencial));
                 MoviPersConCred::where('cod_credencial', $cod_credencial)->delete();
             }
             if ($ind_movimiento == "E" && $tipo_habilitacion == "P") {
