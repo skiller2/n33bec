@@ -23,7 +23,7 @@ class MoviCredSector extends Model
 
     public function getTiempoPermanenciaAttribute() {
         $to = Carbon::now();
-        $from = Carbon::createFromFormat('Y-m-d H:s:i', $this->stm_ingreso);
+        $from = Carbon::createFromFormat('Y-m-d H:i:s.u', $this->stm_ingreso);
         $diff = str_pad($to->diffInHours($from),2,"0",STR_PAD_LEFT).":".  $to->diff($from)->format('%I');;
         return $diff;
     }
