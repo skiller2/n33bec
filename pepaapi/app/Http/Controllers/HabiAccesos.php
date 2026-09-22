@@ -100,6 +100,14 @@ class HabiAccesos extends Controller
         return HabiAcceso::select()->simplePaginate($pageSize, ['*'], 'page', $page);
     }
 
+    private function randomWiegand26(): int
+    {
+        $fc = random_int(0, 255);
+        $card = random_int(0, 65535);
+
+        return $this->fcCardToWiegand26($fc, $card);
+    }
+
     public function getHabiAccesoPorTema(Request $request)
     {
         $tema = $request->input('tema');
@@ -109,7 +117,7 @@ class HabiAccesos extends Controller
         $since = (int) $request->input('since', -1);
         $changes = array();
         $lastChangeId = 0;
-        $simular = $request->input('simular') ? true:false;
+        $simular = $request->input('simular') ? true : false;
 
         if ($simular) {
 
@@ -122,7 +130,7 @@ class HabiAccesos extends Controller
                 for ($i = 1; $i <= 30000; $i++) {
 
                     $row = new \stdClass();
-                    $row->c = random_int(1, 67108863);
+                    $row->c = $row->c = $this->randomWiegand26();
                     $row->o = 'ADD';
 
                     $changes[] = $row;
@@ -138,12 +146,12 @@ class HabiAccesos extends Controller
 
             $changeId = $since;
 
-            // 500 ADD
+            // 500 ADDa
             for ($i = 0; $i < 500; $i++) {
 
                 $row = new \stdClass();
                 $row->id = ++$changeId;
-                $row->c = random_int(1, 67108863);
+                $row->c = $this->randomWiegand26();
                 $row->o = 'ADD';
 
                 $changes[] = $row;
@@ -154,7 +162,7 @@ class HabiAccesos extends Controller
 
                 $row = new \stdClass();
                 $row->id = ++$changeId;
-                $row->c = random_int(1, 67108863);
+                $row->c = $this->randomWiegand26();
                 $row->o = 'DEL';
 
                 $changes[] = $row;

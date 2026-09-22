@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ConfigParametro;
 use App\MoviUltReporte;
-use Box\Spout\Common\Type;
-use Box\Spout\Writer\WriterFactory;
+use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
+use OpenSpout\Writer\CSV\Writer as CSVWriter;
+use OpenSpout\Writer\ODS\Writer as ODSWriter;
+use OpenSpout\Common\Entity\Row;
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -63,23 +65,27 @@ class MoviReportes extends Controller
         }
         else
         {
-            switch ($export){
-                case "xls":
-                    $typeExp=Type::XLSX;
-                    break;
-                case "csv":
-                    $typeExp=Type::CSV;
-                    break;                    
-                case "ods":
-                    $typeExp=Type::ODS;
-                    break;
-                default:
-                    $typeExp=Type::XLSX;
-                    break;
-            }
+            switch ($export) {
+    case "csv":
+        $extension = 'csv';
+        $writer = new CSVWriter();
+        break;
 
-            $fileName="Movimientos_ultimo_reporte.$typeExp";
-            $writer = WriterFactory::create($typeExp); // for XLSX files
+    case "ods":
+        $extension = 'ods';
+        $writer = new ODSWriter();
+        break;
+
+    case "xls":
+    case "xlsx":
+    default:
+        $extension = 'xlsx';
+        $writer = new XLSXWriter();
+        break;
+}
+
+            $fileName="Movimientos_ultimo_reporte.$extension";
+            
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
             $timezoneApp = new DateTimeZone(ConfigParametro::get('TIMEZONE_INFORME',false));
@@ -87,7 +93,7 @@ class MoviReportes extends Controller
             $query->chunk(1000, function($multipleRows) use ($writer,$timezoneGMT,$timezoneApp) {
                 static $FL=true;
                 if ($FL) {
-                    $writer->addRow(array_keys($multipleRows[0]->getAttributes()));
+                    $writer->addRow(Row::fromValues(array_keys($multipleRows[0]->getAttributes())));
                     $FL=false;
                 }
                 $arExport = $multipleRows->toArray();
@@ -96,7 +102,13 @@ class MoviReportes extends Controller
                     $fecha = date_create($row['stm_ult_reporte'], $timezoneGMT)->setTimeZone($timezoneApp);
                     $row['stm_ult_reporte'] =date_format($fecha,"d/m/Y H:i:s");
                 }
-                $writer->addRows($arExport);
+                $rows = [];
+
+foreach ($arExport as $row) {
+    $rows[] = Row::fromValues(array_values($row));
+}
+
+$writer->addRows($rows);
                 unset($arExport);
             });            
             $writer->close();

@@ -13,8 +13,10 @@ use Illuminate\Http\Response;
 use DateTimeZone;
 use function response;
 use App\FeriadoAsis;
-use Box\Spout\Common\Type;
-use Box\Spout\Writer\WriterFactory;
+use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
+use OpenSpout\Writer\CSV\Writer as CSVWriter;
+use OpenSpout\Writer\ODS\Writer as ODSWriter;
+use OpenSpout\Common\Entity\Row;
 use App\Novedad;
 use App\PermanenteOK;
 use Illuminate\Support\Facades\DB;
@@ -106,22 +108,26 @@ class Registros extends Controller
         }
         else
         {
-            switch ($export){
-                case "xls":
-                    $typeExp=Type::XLSX;
-                    break;
-                case "csv":
-                    $typeExp=Type::CSV;
-                    break;                    
-                case "ods":
-                    $typeExp=Type::ODS;
-                    break;
-                default:
-                    $typeExp=Type::XLSX;
-                    break;
-            }
-            $fileName="Registro.$typeExp";
-            $writer = WriterFactory::create($typeExp); // for XLSX files
+            switch ($export) {
+    case "csv":
+        $extension = 'csv';
+        $writer = new CSVWriter();
+        break;
+
+    case "ods":
+        $extension = 'ods';
+        $writer = new ODSWriter();
+        break;
+
+    case "xls":
+    case "xlsx":
+    default:
+        $extension = 'xlsx';
+        $writer = new XLSXWriter();
+        break;
+}
+            $fileName="Registro.$extension";
+            
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
             $timezoneApp = new DateTimeZone(ConfigParametro::get('TIMEZONE_INFORME',false));
@@ -129,7 +135,7 @@ class Registros extends Controller
             $query->chunk(1000, function($multipleRows) use ($writer,$timezoneGMT,$timezoneApp) {
                 static $FL=true;
                 if ($FL) {
-                    $writer->addRow(array_keys($multipleRows[0]->getAttributes()));
+                    $writer->addRow(Row::fromValues(array_keys($multipleRows[0]->getAttributes())));
                     $FL=false;
                 }
 
@@ -144,7 +150,13 @@ class Registros extends Controller
                     $row['ind_modif_horarios'] = ($row['ind_modif_horarios'] == "1") ? "Sí" : "No";
                     $row['ind_modif_novedad'] = ($row['ind_modif_novedad'] == "1") ? "Sí" : "No";
                 }
-                $writer->addRows($arExport);
+                $rows = [];
+
+foreach ($arExport as $row) {
+    $rows[] = Row::fromValues(array_values($row));
+}
+
+$writer->addRows($rows);
                 unset($arExport);
             });            
             $writer->close();

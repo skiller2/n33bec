@@ -20,6 +20,7 @@
                 "hisamu/php-xbase": "^1.2",
                 "laravel/framework": "^8.0",
                 "laravel/tinker": ">1.0",
+                "openspout/openspout": "^5.11",
                 "piphp/gpio": "^0.3.3",
                 "ratchet/pawl": "^0.3.1",
                 "revolt/event-loop": "^1.0",

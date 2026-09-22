@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ConfigParametro;
 use App\MoviUltSuceso;
-use Box\Spout\Common\Type;
-use Box\Spout\Writer\WriterFactory;
+use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
+use OpenSpout\Writer\CSV\Writer as CSVWriter;
+use OpenSpout\Writer\ODS\Writer as ODSWriter;
+use OpenSpout\Common\Entity\Row;
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -64,22 +66,26 @@ class MoviUltSucesos extends Controller
         }
         else
         {
-            switch ($export){
-                case "xls":
-                    $typeExp=Type::XLSX;
-                    break;
-                case "csv":
-                    $typeExp=Type::CSV;
-                    break;                    
-                case "ods":
-                    $typeExp=Type::ODS;
-                    break;
-                default:
-                    $typeExp=Type::XLSX;
-                    break;
-            }
-            $fileName="Movimientos_permitidos.$typeExp";
-            $writer = WriterFactory::create($typeExp); // for XLSX files
+            switch ($export) {
+    case "csv":
+        $extension = 'csv';
+        $writer = new CSVWriter();
+        break;
+
+    case "ods":
+        $extension = 'ods';
+        $writer = new ODSWriter();
+        break;
+
+    case "xls":
+    case "xlsx":
+    default:
+        $extension = 'xlsx';
+        $writer = new XLSXWriter();
+        break;
+}
+            $fileName="Movimientos_permitidos.$extension";
+            
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
             $timezoneApp = new DateTimeZone(ConfigParametro::get('TIMEZONE_INFORME',false));
@@ -87,7 +93,7 @@ class MoviUltSucesos extends Controller
             $query->chunk(1000, function($multipleRows) use ($writer,$timezoneGMT,$timezoneApp) {
                 static $FL=true;
                 if ($FL) {
-                    $writer->addRow(array_keys($multipleRows[0]->getAttributes()));
+                    $writer->addRow(Row::fromValues(array_keys($multipleRows[0]->getAttributes())));
                     $FL=false;
                 }
                 $arExport = $multipleRows->toArray();
@@ -97,7 +103,13 @@ class MoviUltSucesos extends Controller
                     //$row['stm_movimiento'] = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($fecha);
                     $row['stm_evento'] =date_format($fecha,"d/m/Y H:i:s");
                 }
-                $writer->addRows($arExport);
+                $rows = [];
+
+foreach ($arExport as $row) {
+    $rows[] = Row::fromValues(array_values($row));
+}
+
+$writer->addRows($rows);
                 unset($arExport);
             });            
             $writer->close();

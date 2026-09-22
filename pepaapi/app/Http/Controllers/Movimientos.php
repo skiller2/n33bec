@@ -9,8 +9,10 @@ use App\Http\Middleware\ComunicacionDispositivos;
 use App\PermanenteOK;
 use App\Rechazado;
 use App\TemporalOK;
-use Box\Spout\Common\Type;
-use Box\Spout\Writer\WriterFactory;
+use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
+use OpenSpout\Writer\CSV\Writer as CSVWriter;
+use OpenSpout\Writer\ODS\Writer as ODSWriter;
+use OpenSpout\Common\Entity\Row;
 use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -134,9 +136,9 @@ class Movimientos extends Controller {
                     break;
             }
             
-            $fileName = "Movimientos_permitidos_permanentes.$typeExp";
+            $fileName = "Movimientos_permitidos_permanentes.$extension";
 
-            $writer = WriterFactory::create($typeExp); // for XLSX files
+            
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
             $timezoneApp = new DateTimeZone(ConfigParametro::get('TIMEZONE_INFORME', false));
@@ -144,7 +146,7 @@ class Movimientos extends Controller {
             $query->chunk(1000, function($multipleRows) use ($writer, $timezoneGMT, $timezoneApp) {
                 static $FL = true;
                 if ($FL) {
-                    $writer->addRow(array_keys($multipleRows[0]->getAttributes()));
+                    $writer->addRow(Row::fromValues(array_keys($multipleRows[0]->getAttributes())));
                     $FL = false;
                 }
 
@@ -154,7 +156,13 @@ class Movimientos extends Controller {
                     //$row['stm_movimiento'] = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($fecha);
                     $row['stm_movimiento'] = date_format($fecha, "d/m/Y H:i:s");
                 }
-                $writer->addRows($ArExport);
+                $rows = [];
+
+foreach ($arExport as $row) {
+    $rows[] = Row::fromValues(array_values($row));
+}
+
+$writer->addRows($rows);
                 unset($ArExport);
             });
             $writer->close();
@@ -256,9 +264,9 @@ class Movimientos extends Controller {
                     break;
             }
             
-            $fileName = "Movimientos_permitidos_permanentes.$typeExp";
+            $fileName = "Movimientos_permitidos_permanentes.$extension";
 
-            $writer = WriterFactory::create($typeExp); // for XLSX files
+            
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
             $timezoneApp = new DateTimeZone(ConfigParametro::get('TIMEZONE_INFORME', false));
@@ -266,7 +274,7 @@ class Movimientos extends Controller {
             $query->chunk(1000, function($multipleRows) use ($writer, $timezoneGMT, $timezoneApp) {
                 static $FL = true;
                 if ($FL) {
-                    $writer->addRow(array_keys($multipleRows[0]->getAttributes()));
+                    $writer->addRow(Row::fromValues(array_keys($multipleRows[0]->getAttributes())));
                     $FL = false;
                 }
 
@@ -277,7 +285,13 @@ class Movimientos extends Controller {
                     //$row['stm_movimiento'] = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($fecha);
                     $row['stm_movimiento'] = date_format($fecha, "d/m/Y H:i:s");
                 }
-                $writer->addRows($ArExport);
+                $rows = [];
+
+foreach ($arExport as $row) {
+    $rows[] = Row::fromValues(array_values($row));
+}
+
+$writer->addRows($rows);
                 unset($ArExport);
             });
             $writer->close();
@@ -359,22 +373,26 @@ class Movimientos extends Controller {
             return $resultado;
         } else {
             
-            switch ($export) {
-                case "xls":
-                    $typeExp = Type::XLSX;
-                    break;
-                case "csv":
-                    $typeExp = Type::CSV;
-                    break;
-                case "ods":
-                    $typeExp = Type::ODS;
-                    break;
-                default:
-                    $typeExp = Type::XLSX;
-                    break;
-            }
-            $fileName = "Movimientos_permitidos_temporales.$typeExp";
-            $writer = WriterFactory::create($typeExp); // for XLSX files
+switch ($export) {
+    case "csv":
+        $extension = 'csv';
+        $writer = new CSVWriter();
+        break;
+
+    case "ods":
+        $extension = 'ods';
+        $writer = new ODSWriter();
+        break;
+
+    case "xls":
+    case "xlsx":
+    default:
+        $extension = 'xlsx';
+        $writer = new XLSXWriter();
+        break;
+}
+            $fileName = "Movimientos_permitidos_temporales.$extension";
+            
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
             $timezoneApp = new DateTimeZone(ConfigParametro::get('TIMEZONE_INFORME', false));
@@ -382,7 +400,7 @@ class Movimientos extends Controller {
             $query->chunk(1000, function($multipleRows) use ($writer, $timezoneGMT, $timezoneApp) {
                 static $FL = true;
                 if ($FL) {
-                    $writer->addRow(array_keys($multipleRows[0]->getAttributes()));
+                    $writer->addRow(Row::fromValues(array_keys($multipleRows[0]->getAttributes())));
                     $FL = false;
                 }
                 $ArExport=$multipleRows->toArray();
@@ -390,7 +408,13 @@ class Movimientos extends Controller {
                     $fecha = date_create($row['stm_movimiento'], $timezoneGMT)->setTimeZone($timezoneApp);
                     $row['stm_movimiento'] = date_format($fecha, "d/m/Y H:i:s");
                 }
-                $writer->addRows($ArExport);
+                $rows = [];
+
+foreach ($arExport as $row) {
+    $rows[] = Row::fromValues(array_values($row));
+}
+
+$writer->addRows($rows);
                 unset($ArExport);
             });
             $writer->close();
@@ -633,29 +657,33 @@ class Movimientos extends Controller {
             return $resultado;
         } else {
             
-            switch ($export) {
-                case "xls":
-                    $typeExp = Type::XLSX;
-                    break;
-                case "csv":
-                    $typeExp = Type::CSV;
-                    break;
-                case "ods":
-                    $typeExp = Type::ODS;
-                    break;
-                default:
-                    $typeExp = Type::XLSX;
-                    break;
-            }
-            $fileName = "Movimientos_rechazados.$typeExp";
-            $writer = WriterFactory::create($typeExp); // for XLSX files
+switch ($export) {
+    case "csv":
+        $extension = 'csv';
+        $writer = new CSVWriter();
+        break;
+
+    case "ods":
+        $extension = 'ods';
+        $writer = new ODSWriter();
+        break;
+
+    case "xls":
+    case "xlsx":
+    default:
+        $extension = 'xlsx';
+        $writer = new XLSXWriter();
+        break;
+}
+            $fileName = "Movimientos_rechazados.$extension";
+            
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
             $timezoneApp = new DateTimeZone(ConfigParametro::get('TIMEZONE_INFORME', false));
             $query->chunk(1000, function($multipleRows) use ($writer, $timezoneGMT, $timezoneApp) {
                 static $FL = true;
                 if ($FL) {
-                    $writer->addRow(array_keys($multipleRows[0]->getAttributes()));
+                    $writer->addRow(Row::fromValues(array_keys($multipleRows[0]->getAttributes())));
                     $FL = false;
                 }
                 $ArExport = $multipleRows->toArray();
@@ -664,7 +692,13 @@ class Movimientos extends Controller {
                     //$row['stm_movimiento'] = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($fecha);
                     $row['stm_movimiento'] = date_format($fecha, "d/m/Y H:i:s");
                 }
-                $writer->addRows($ArExport);
+                $rows = [];
+
+foreach ($arExport as $row) {
+    $rows[] = Row::fromValues(array_values($row));
+}
+
+$writer->addRows($rows);
                 unset($ArExport);
             });
             $writer->close();

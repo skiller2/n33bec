@@ -31,6 +31,7 @@ use Amp\Websocket\ConstantRateLimit;
 use Amp\Websocket\Parser\Rfc6455ParserFactory;
 use Amp\Parallel\Worker\createWorker;
 use function Amp\delay;
+use function Amp\async;
 use App\Helpers\TemaValue;
 
 
@@ -47,9 +48,9 @@ function parseMsg($buff, $log)
         $valor = (isset($evento['valor'])) ? $evento['valor'] : "";
     } else {
         $context = array(
-            'msgtext' => __("Error decodificando tam :TAM, data :BUFF",['TAM'=>strlen($buff),'BUFF'=>$buff]) 
+            'msgtext' => __("Error decodificando tam :TAM, data :BUFF", ['TAM' => strlen($buff), 'BUFF' => $buff])
         );
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
+        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error', $context);
         $log->info($context['msgtext'], array());
     }
     return array(
@@ -109,7 +110,7 @@ class Rs485Daemon extends Command
     const config_tag = "iolast_";
 
 
-    private $comdisp=null;
+    private $comdisp = null;
     protected function printDebugInfo($text, $status = "info")
     {
         if ($this->option('debug')) {
@@ -127,7 +128,7 @@ class Rs485Daemon extends Command
                     'msgtext' => __("Proceso BUS485 actualizando configuración")
                 );
 
-                Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
+                Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', $context);
                 $this->printDebugInfo($context['msgtext']);
 
                 exit(); //EventLoop::stop();
@@ -140,54 +141,63 @@ class Rs485Daemon extends Command
         $context = array(
             'msgtext' => __("BUS485 Check interno OK")
         );
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
+        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', $context);
     }
-/*
-    public function socklisten()
-    {
-        $datagram = DatagramSocket::bind('127.0.0.1:1337');
-        $this->printDebugInfo("Datagram active on {$datagram->getAddress()}");
-        while ([$address, $data] = $datagram->receive()) {
-            //            $data = \sprintf("Received '%s' from %s\n", \trim($data), $address);
-            $decode = json_decode($data,true);
-            $tema_base = $decode["cod_tema"];
-            $tema_base = substr($tema_base,0,strrpos($tema_base,"/"));
-            $tema_base = substr($tema_base,0,strrpos($tema_base,"/"));
-            $decode_data = $decode["data"];
-            $context = array(
-                'msgtext' => __("Enviado :DECODE_DATA a :TEMA_BASE",['TEMA_BASE'=>$tema_base,'DECODE_DATA'=>$decode_data])
-            );
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
-            if (isset($this->process[$tema_base]) && $this->process[$tema_base]->isRunning())
-                $this->process[$tema_base]->getStdin()->write("$decode_data\n");
+    /*
+        public function socklisten()
+        {
+            $datagram = DatagramSocket::bind('127.0.0.1:1337');
+            $this->printDebugInfo("Datagram active on {$datagram->getAddress()}");
+            while ([$address, $data] = $datagram->receive()) {
+                //            $data = \sprintf("Received '%s' from %s\n", \trim($data), $address);
+                $decode = json_decode($data,true);
+                $tema_base = $decode["cod_tema"];
+                $tema_base = substr($tema_base,0,strrpos($tema_base,"/"));
+                $tema_base = substr($tema_base,0,strrpos($tema_base,"/"));
+                $decode_data = $decode["data"];
+                $context = array(
+                    'msgtext' => __("Enviado :DECODE_DATA a :TEMA_BASE",['TEMA_BASE'=>$tema_base,'DECODE_DATA'=>$decode_data])
+                );
+                Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
+                if (isset($this->process[$tema_base]) && $this->process[$tema_base]->isRunning())
+                    $this->process[$tema_base]->getStdin()->write("$decode_data\n");
+            }
         }
-    }
-*/
+    */
     public function socklisten()
     {
-    $datagram = Socket\bindUdpSocket('127.0.0.1:1337');
-    $this->printDebugInfo("Datagram active on {$datagram->getAddress()}");
+        $datagram = Socket\bindUdpSocket('127.0.0.1:1337');
+        $this->printDebugInfo("Datagram active on {$datagram->getAddress()}");
 
-    /** @psalm-suppress PossiblyNullArrayAccess */
-    while ([$address, $data] = $datagram->receive()) {
-        assert($address instanceof Socket\SocketAddress);
-        assert(is_string($data));
+        /** @psalm-suppress PossiblyNullArrayAccess */
+        while ([$address, $data] = $datagram->receive()) {
+            assert($address instanceof Socket\SocketAddress);
+            assert(is_string($data));
 
-            $decode = json_decode($data,true);
+            $decode = json_decode($data, true);
+
+            if (
+                !is_array($decode)
+                || !isset($decode['cod_tema'])
+                || !isset($decode['data'])
+            ) {
+                continue;
+            }
+
             $tema_base = $decode["cod_tema"];
-            $tema_base = substr($tema_base,0,strrpos($tema_base,"/"));
-            $tema_base = substr($tema_base,0,strrpos($tema_base,"/"));
+            $tema_base = substr($tema_base, 0, strrpos($tema_base, "/"));
+            $tema_base = substr($tema_base, 0, strrpos($tema_base, "/"));
             $decode_data = $decode["data"];
             $context = array(
-                'msgtext' => __("Enviado :DECODE_DATA a :TEMA_BASE",['DECODE_DATA'=>$decode_data,'TEMA_BASE'=>$tema_base])
+                'msgtext' => __("Enviado :DECODE_DATA a :TEMA_BASE", ['DECODE_DATA' => $decode_data, 'TEMA_BASE' => $tema_base])
             );
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', $context);
             if (isset($this->process[$tema_base]) && $this->process[$tema_base]->isRunning())
                 $this->process[$tema_base]->getStdin()->write("$decode_data\n");
 
 
-//        $datagram->send($address, $message);
-    }
+            //        $datagram->send($address, $message);
+        }
     }
 
     public function rs485proc($watch_id, $config)
@@ -198,19 +208,29 @@ class Rs485Daemon extends Command
         $tema_base = $config['tema'];
         $linecache = "";
         $process = "";
+        $retryDelay = 5;
         while (true) {
             $process = Process::start($command);
             $this->process[$tema_base] = $process;
 
             $ignoralectura = false;
 
-            if (!$process->isRunning())
-                break;
+            if (!$process->isRunning()) {
+
+                $this->printDebugInfo(
+                    "No se pudo iniciar {$command_short}"
+                );
+
+                delay($retryDelay + random_int(0, 3000) / 1000.0);
+                $retryDelay = min($retryDelay + 5, 60);
+
+                continue;
+            }
 
             $context = array(
-                'msgtext' => __("Conexión exitosa con :COMMAND_SHORT, PID :PID",['COMMAND_SHORT'=>$command_short ,"PID" => $process->getPid()])
+                'msgtext' => __("Conexión exitosa con :COMMAND_SHORT, PID :PID", ['COMMAND_SHORT' => $command_short, "PID" => $process->getPid()])
             );
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  $context);
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', $context);
             $this->printDebugInfo($context['msgtext']);
 
 
@@ -225,10 +245,13 @@ class Rs485Daemon extends Command
             // $streamin->write($sendtxt);
 
             // $this->printDebugInfo($sendtxt);
-
-
+            $linecache = "";
+            $chunk = "";
             while ($process->isRunning() && null !== $chunk = $stream->read()) {
                 $linecache .= $chunk;
+                if (strlen($linecache) > 65536)
+                    $linecache = '';
+
                 $len = strpos($linecache, "\n");
 
 
@@ -280,7 +303,7 @@ class Rs485Daemon extends Command
                                 $sendtxt = sprintf("%s %s W%02d%02d%02d%02d%02d\n", $origin, $gpio, $respuesta['rele1'], $respuesta['rele2'], $respuesta['rele3'], $respuesta['buzzer'], $respuesta['led']);
                                 $streamin->write($sendtxt);
                                 if (isset($ret->original['channel']))
-                                    Broadcast::driver('fast-web-socket')->broadcast([$ret->original['channel']], $ret->original['event'],  $ret->original['context']);
+                                    Broadcast::driver('fast-web-socket')->broadcast([$ret->original['channel']], $ret->original['event'], $ret->original['context']);
                                 // $this->printDebugInfo($sendtxt);
                             }
 
@@ -297,12 +320,18 @@ class Rs485Daemon extends Command
             }
 
             $code = $process->join();
+            unset($this->process[$tema_base]);
             $context = array(
-                'msgtext' => __("Se cerró el proceso :COMMAND_SHORT con código :CODE",['COMMAND_SHORT'=>$command_short,'CODE'=>$code])
+                'msgtext' => __("Se cerró el proceso :COMMAND_SHORT con código :CODE", ['COMMAND_SHORT' => $command_short, 'CODE' => $code])
             );
-            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error',  $context);
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error', $context);
             $this->printDebugInfo($context['msgtext']);
-            \Amp\delay(0.5);
+            if ($chunk)
+                $retryDelay = 5;    
+
+            delay($retryDelay + random_int(0, 3000) / 1000.0);
+            $retryDelay = min($retryDelay + 5, 60);
+
         }
         //        EventLoop::stop();
     }
@@ -311,7 +340,7 @@ class Rs485Daemon extends Command
     {
         $cod_daemon = basename(__FILE__, ".php");
 
-        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info',  array("msgtext" => __("Inicio proceso :COD_DAEMON",['COD_DAEMON'=>$cod_daemon])));
+        Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'info', array("msgtext" => __("Inicio proceso :COD_DAEMON", ['COD_DAEMON' => $cod_daemon])));
 
         $context = array(
             'msgtext' => "",
@@ -319,7 +348,7 @@ class Rs485Daemon extends Command
             'cod_daemon' => $cod_daemon,
             'command' => 'start'
         );
-        Broadcast::driver('fast-web-socket')->broadcast(["procesos"], "info",  $context);
+        Broadcast::driver('fast-web-socket')->broadcast(["procesos"], "info", $context);
 
         $connectionFactory = new Rfc6455ConnectionFactory(
             heartbeatQueue: new PeriodicHeartbeatQueue(
@@ -335,11 +364,11 @@ class Rs485Daemon extends Command
             frameSplitThreshold: 2 ** 14, // 16 KiB
             closePeriod: 0.5, // 0.5 seconds
         );
-        
+
         $connector = new Rfc6455Connector($connectionFactory);
         $constr = "ws://localhost:80/wssub/procesos/0/1/2/3/4/5/6?token='da'&cod_usuario='fds'";
         $handshake = (new WebSocketHandshake($constr));
-        $lastTimeStamp =  Cache::get($cod_daemon . "timestamp");
+        $lastTimeStamp = Cache::get($cod_daemon . "timestamp");
 
         $this->printDebugInfo('Conectando con ' . $constr);
 
@@ -347,7 +376,8 @@ class Rs485Daemon extends Command
         foreach ($connection as $message) {
             $payload = $message->buffer();
             $payloadDecoded = json_decode($payload, true);
-
+            if (!is_array($payloadDecoded))
+                continue;
             $tmpmsg = $payloadDecoded['context']["msgtext"];
             if ($payloadDecoded['timeStamp'] . "-" . hash('sha256', $tmpmsg) <= $lastTimeStamp) {
                 $this->printDebugInfo('skip ' . $payloadDecoded['timeStamp'] . ' : ' . $tmpmsg);
@@ -363,7 +393,7 @@ class Rs485Daemon extends Command
                     case 'reset':
                         exit(); //EventLoop::stop();
                         break;
-                    
+
                     default:
                         # code...
                         break;
@@ -377,14 +407,14 @@ class Rs485Daemon extends Command
     {
         $vars485conf = array();
         $this->config = array();
-        $this->tema_local =      strtolower(ConfigParametro::get("TEMA_LOCAL", false));
+        $this->tema_local = strtolower(ConfigParametro::get("TEMA_LOCAL", false));
         $rs485conf = ConfigParametro::get('RS485_CONF', false);
-        if (trim($rs485conf)!="") 
+        if (trim($rs485conf) != "")
             $vars485conf = explode(",", $rs485conf);
 
-        $licence =  ConfigParametro::get('LICENCIA', false);
-        $licence =  ($licence) ? $licence : "UNLICENCED";
-        $enable_gpio =  ConfigParametro::get('RS485_ENABLE_GPIO', false);
+        $licence = ConfigParametro::get('LICENCIA', false);
+        $licence = ($licence) ? $licence : "UNLICENCED";
+        $enable_gpio = ConfigParametro::get('RS485_ENABLE_GPIO', false);
         $enable_gpio = ($enable_gpio) ? $enable_gpio : 11;
         $bus_id = 120;
         $this->daemon_conf_ver = Cache::get(self::confVersion);
@@ -405,9 +435,9 @@ class Rs485Daemon extends Command
                 $ipport = $vaconfig[0];
                 $baudrateport = $vaconfig[1];
                 $subtema = $vaconfig[2];
-                $procesonom = isset($vaconfig[3])?$vaconfig[3]:"";
+                $procesonom = isset($vaconfig[3]) ? $vaconfig[3] : "";
                 $this->config[$index]['command'] = dirname(__FILE__) . "/../../../bin/$procesonom $ipport $baudrateport $bus_id $enable_gpio $licence";
-                $this->config[$index]['tema']    = $this->tema_local . (($subtema!="") ? "/" . $subtema:'');
+                $this->config[$index]['tema'] = $this->tema_local . (($subtema != "") ? "/" . $subtema : '');
             }
             return true;
         } else
@@ -428,20 +458,20 @@ class Rs485Daemon extends Command
 
 
         $this->loadConfigData();
-        
-//        $factory = new BootstrapWorkerFactory(__DIR__ . '/daemon.php');
+
+        //        $factory = new BootstrapWorkerFactory(__DIR__ . '/daemon.php');
 //                    WorkerFactory(__DIR__ . '/daemon.php')
 //        $contextFactory = new ProcessContextFactory();
 //        $context = $contextFactory->start(__DIR__ . '/daemon.php');
-        $this->poolEvents =  \Amp\Parallel\Worker\createWorker();
-//        $this->poolEvents =  \Amp\Parallel\Worker\createWorker();
+        $this->poolEvents = \Amp\Parallel\Worker\createWorker();
+        //        $this->poolEvents =  \Amp\Parallel\Worker\createWorker();
         if (!defined('SIGINT'))
             define('SIGINT', 0);
         if (!defined('SIGTERM'))
             define('SIGTERM', 0);
         if (!defined('SIGHUP'))
             define('SIGHUP', 0);
-//        EventLoop::setDriver(new TracingDriver());
+        //        EventLoop::setDriver(new TracingDriver());
 
         foreach (array(constant('SIGINT'), constant('SIGTERM'), constant('SIGHUP')) as $signal) {
             EventLoop::unreference(
@@ -455,7 +485,7 @@ class Rs485Daemon extends Command
                             Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'warning',  $context);
                             $this->printDebugInfo($context['msgtext']);
                     */
-//                        $this->poolEvents->shutdown();
+                        //                        $this->poolEvents->shutdown();
                         exit(); //EventLoop::stop();
                         return;
                     }
@@ -463,13 +493,40 @@ class Rs485Daemon extends Command
             );
         }
 
-        EventLoop::repeat($sInterval = 1, function() { $this->checkConfigData();    }  );
-        EventLoop::delay(2, function(){ $this->busmsg();});
-        EventLoop::delay(2, function(){$this->socklisten();});
-        foreach ($this->config as $config) {
-            EventLoop::delay(1, function() use ($config):void {$this->rs485proc(0,$config);});
-        }
-        
+        EventLoop::repeat(
+            1,
+            fn() => $this->checkConfigData()
+        );
+
+        EventLoop::queue(function () {
+
+            async(function () {
+                try {
+                    $this->busmsg();
+                } catch (\Throwable $e) {
+                    Log::error($e);
+                }
+            });
+
+            async(function () {
+                try {
+                    $this->socklisten();
+                } catch (\Throwable $e) {
+                    Log::error($e);
+                }
+            });
+
+            foreach ($this->config as $config) {
+                async(function () use ($config) {
+                    try {
+                        $this->rs485proc(0, $config);
+                    } catch (\Throwable $e) {
+                        Log::error($e);
+                    }
+                });
+            }
+        });
+
         EventLoop::run();
     }
 }

@@ -6,8 +6,10 @@ use App\Events\TemaEvent;
 use App\Helpers\ConfigParametro;
 use App\MoviEvento;
 use App\MoviUltEvento;
-use Box\Spout\Common\Type;
-use Box\Spout\Writer\WriterFactory;
+use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
+use OpenSpout\Writer\CSV\Writer as CSVWriter;
+use OpenSpout\Writer\ODS\Writer as ODSWriter;
+use OpenSpout\Common\Entity\Row;
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -66,22 +68,26 @@ class MoviEventos extends Controller
             $resultado = $query->paginate($pageSize);
             return $resultado;
         } else {
-            switch ($export) {
-                case "xls":
-                    $typeExp = Type::XLSX;
-                    break;
-                case "csv":
-                    $typeExp = Type::CSV;
-                    break;
-                case "ods":
-                    $typeExp = Type::ODS;
-                    break;
-                default:
-                    $typeExp = Type::XLSX;
-                    break;
-            }
-            $fileName = "eventos.$typeExp";
-            $writer = WriterFactory::create($typeExp); // for XLSX files
+switch ($export) {
+    case "csv":
+        $extension = 'csv';
+        $writer = new CSVWriter();
+        break;
+
+    case "ods":
+        $extension = 'ods';
+        $writer = new ODSWriter();
+        break;
+
+    case "xls":
+    case "xlsx":
+    default:
+        $extension = 'xlsx';
+        $writer = new XLSXWriter();
+        break;
+}
+            $fileName = "eventos.$extension";;
+            
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
             $timezoneApp = new DateTimeZone(ConfigParametro::get('TIMEZONE_INFORME', false));
@@ -89,7 +95,7 @@ class MoviEventos extends Controller
             $query->chunk(1000, function ($multipleRows) use ($writer, $timezoneGMT, $timezoneApp) {
                 static $FL = true;
                 if ($FL) {
-                    $writer->addRow(array_keys($multipleRows[0]->getAttributes()));
+                    $writer->addRow(Row::fromValues(array_keys($multipleRows[0]->getAttributes())));
                     $FL = false;
                 }
                 $arExport = $multipleRows->toArray();
@@ -101,7 +107,13 @@ class MoviEventos extends Controller
                     $row['aud_stm_ingreso'] = date_format($aud_stm_ingreso, "d/m/Y H:i:s");
                     $row['json_detalle'] = json_encode($row['json_detalle']);
                 }
-                $writer->addRows($arExport);
+                $rows = [];
+
+foreach ($arExport as $row) {
+    $rows[] = Row::fromValues(array_values($row));
+}
+
+$writer->addRows($rows);
                 unset($arExport);
             });
             $writer->close();
@@ -194,7 +206,6 @@ class MoviEventos extends Controller
         $validator = Validator::make($request->all(), [
             'cod_tema' => 'required',
             'valor' => 'required',
-
         ], [
             'cod_tema.required' => __("Debe ingresar código de componente"),
             'valor.required' => __("Debe ingresar valor"),

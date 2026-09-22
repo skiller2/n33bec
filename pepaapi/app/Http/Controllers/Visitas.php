@@ -14,8 +14,10 @@ use App\MoviPersConCred;
 use App\Persona;
 use App\UnidadesOrganiz;
 use App\Usuario;
-use Box\Spout\Common\Type;
-use Box\Spout\Writer\WriterFactory;
+use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
+use OpenSpout\Writer\CSV\Writer as CSVWriter;
+use OpenSpout\Writer\ODS\Writer as ODSWriter;
+use OpenSpout\Common\Entity\Row;
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Support\Facades\DB;
@@ -151,23 +153,27 @@ class Visitas extends Controller
             }
             return $vvrespuesta;
         } else {
-            switch ($export) {
-                case "xls":
-                    $typeExp = Type::XLSX;
-                    break;
-                case "csv":
-                    $typeExp = Type::CSV;
-                    break;
-                case "ods":
-                    $typeExp = Type::ODS;
-                    break;
-                default:
-                    $typeExp = Type::XLSX;
-                    break;
-            }
+switch ($export) {
+    case "csv":
+        $extension = 'csv';
+        $writer = new CSVWriter();
+        break;
 
-            $fileName = "Habilitaciones_Visitas.$typeExp";
-            $writer = WriterFactory::create($typeExp); // for XLSX files
+    case "ods":
+        $extension = 'ods';
+        $writer = new ODSWriter();
+        break;
+
+    case "xls":
+    case "xlsx":
+    default:
+        $extension = 'xlsx';
+        $writer = new XLSXWriter();
+        break;
+}
+
+            $fileName = "Habilitaciones_Visitas.$extension";
+            
             $writer->openToBrowser($fileName); // stream data directly to the browser
             $timezoneGMT = new DateTimeZone('GMT');
             $timezoneApp = new DateTimeZone(ConfigParametro::get('TIMEZONE_INFORME', false));
@@ -175,7 +181,7 @@ class Visitas extends Controller
             $query->chunk(1000, function ($multipleRows) use ($writer, $timezoneGMT, $timezoneApp) {
                 static $FL = true;
                 if ($FL) {
-                    $writer->addRow(array_keys($multipleRows[0]->getAttributes()));
+                    $writer->addRow(Row::fromValues(array_keys($multipleRows[0]->getAttributes())));
                     $FL = false;
                 }
 
@@ -189,7 +195,13 @@ class Visitas extends Controller
                         $row['stm_habilitacion_hasta'] = date_format($fecha, "d/m/Y H:i:s");
                     }
                 }
-                $writer->addRows($arExport);
+                $rows = [];
+
+foreach ($arExport as $row) {
+    $rows[] = Row::fromValues(array_values($row));
+}
+
+$writer->addRows($rows);
                 unset($arExport);
             });
             $writer->close();
