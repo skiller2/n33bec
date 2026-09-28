@@ -375,6 +375,8 @@ class Temas extends Controller
             $temanr->delete();
 
         $this->cleanCaches();
+        Cache::forget(self::config_tag . $tema->cod_tema);
+        Cache::forget(self::config_tag . $tema->cod_tema."ext");
         return response(['ok' => __('El componente fue creado satisfactoriamente con identificador :COD_TEMA',['COD_TEMA'=>$tema->cod_tema])], Response::HTTP_OK);
     }
 
@@ -509,6 +511,8 @@ class Temas extends Controller
 
         $this->cleanCaches();
 
+        Cache::forget(self::config_tag . $tema->cod_tema);
+        Cache::forget(self::config_tag . $tema->cod_tema."ext");
 
         return response(['ok' => "Actualización exitosa #" . $tema->cod_tema], Response::HTTP_OK);
     }

@@ -28,6 +28,7 @@ use Amp\Websocket\PeriodicHeartbeatQueue;
 use Amp\Websocket\ConstantRateLimit;
 use Amp\Websocket\Parser\Rfc6455ParserFactory;
 use function Amp\delay;
+use function Amp\async;
 use Amp\Parallel\Worker\createWorker;
 
 class Area54Daemon extends Command
@@ -104,14 +105,23 @@ class Area54Daemon extends Command
         $tema_base = $config['tema'];
         $linecache = "";
         $process = "";
-        $suspension = EventLoop::getSuspension();
-
+//        $suspension = EventLoop::getSuspension();
+        $retryDelay = 5;
         while (true) {
             $process = Process::start($command);
             $this->process[$tema_base] = $process;
 
-            if (!$process->isRunning())
-                break;
+            if (!$process->isRunning()) {
+
+                $this->printDebugInfo(
+                    "No se pudo iniciar {$command_short}"
+                );
+
+                delay($retryDelay + random_int(0, 3000) / 1000.0);
+                $retryDelay = min($retryDelay + 5, 60);
+
+                continue;
+            }
 
             $context = array(
                 'msgtext' => __("Conexión exitosa con :COMMAND_SHORT PID :PID", ['COMMAND_SHORT' => $command_short, 'PID' => $process->getPid()])
@@ -120,14 +130,13 @@ class Area54Daemon extends Command
             $this->printDebugInfo($context['msgtext']);
 
             $stream = $process->getStdout();
-
-            while (null !== $chunk = $stream->read() and $process->isRunning()) {
+            $linecache = "";
+            $chunk = "";
+            while ($process->isRunning() && null !== $chunk = $stream->read()) {
                 $linecache .= $chunk;
                 $len = strpos($linecache, "\n");
-
                 if (strlen($linecache) > 65536)
                     $linecache="";
-
                 while ($len !== false) {
                     $line = substr($linecache, 0, $len);
 
@@ -151,6 +160,26 @@ class Area54Daemon extends Command
                 }
             }
 
+
+            $code = $process->join();
+            unset($this->process[$tema_base]);
+            $context = array(
+                'msgtext' => __("Se cerró el proceso :COMMAND_SHORT con código :CODE", ['COMMAND_SHORT' => $command_short, 'CODE' => $code])
+            );
+            Broadcast::driver('fast-web-socket')->broadcast(["pantalla"], 'error', $context);
+            $this->printDebugInfo($context['msgtext']);
+            if ($chunk)
+                $retryDelay = 5;    
+
+            delay($retryDelay + random_int(0, 3000) / 1000.0);
+            $retryDelay = min($retryDelay + 5, 60);
+
+
+
+
+
+
+/*
             $code = $process->join();
             //            $process->__destruct();
             $context = array(
@@ -163,6 +192,7 @@ class Area54Daemon extends Command
                 $suspension->resume(null);
             });
             $suspension->suspend();
+*/
         }
     }
 
@@ -458,15 +488,34 @@ class Area54Daemon extends Command
             $this->checkConfigData(); });
 
         EventLoop::queue(function () {
-            $this->busmsg();
-        });
+            async(function () {
+                try {
+                    $this->busmsg();
+                } catch (\Throwable $e) {
+                    Log::error($e);
+                }
+            });
 
+
+            foreach ($this->config as $config) {
+                async(function () use ($config) {
+                    try {
+                        Cache::forever(self::config_tag . $config['tema'] . "display_area54", array());
+                        $this->rs485areaproc(0, $config);
+                    } catch (\Throwable $e) {
+                        Log::error($e);
+                    }
+                });
+            }
+
+        });
+/*
         foreach ($this->config as $config) {
             Cache::forever(self::config_tag . $config['tema'] . "display_area54", array());
             EventLoop::queue(function () use ($config): void {
                 $this->rs485areaproc(0, $config); });
         }
-
+*/
         EventLoop::run();
     }
     //End Handle
