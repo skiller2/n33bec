@@ -212,7 +212,7 @@ class Rs485Daemon extends Command
         while (true) {
             $process = Process::start($command);
             $this->process[$tema_base] = $process;
-
+            delay(3);  //Wait for process to start
             $ignoralectura = false;
 
             if (!$process->isRunning()) {
@@ -435,7 +435,7 @@ class Rs485Daemon extends Command
                 $ipport = $vaconfig[0];
                 $baudrateport = $vaconfig[1];
                 $subtema = $vaconfig[2];
-                $procesonom = isset($vaconfig[3]) ? $vaconfig[3] : "";
+                $procesonom = isset($vaconfig[3]) ? $vaconfig[3] : "rs485pepa";
                 $this->config[$index]['command'] = dirname(__FILE__) . "/../../../bin/$procesonom $ipport $baudrateport $bus_id $enable_gpio $licence";
                 $this->config[$index]['tema'] = $this->tema_local . (($subtema != "") ? "/" . $subtema : '');
             }
