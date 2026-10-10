@@ -22,18 +22,18 @@ use Illuminate\Http\Request;
   });
  */
 
-Route::group(['middleware' => 'throttle:3,1,signin'],function () {
+Route::group(['middleware' => 'throttle:signin'],function () {
     Route::post('/v1/usuarios/signin', 'Usuarios@signin'); // ->middleware('auth:api')
 });
 
-Route::group(['middleware' => 'throttle:5000,1,pool'],function () {
+Route::group(['middleware' => 'throttle:pool'],function () {
     Route::get('/v1/displaysucesos/lista/{export?}', 'MoviDisplayTemas@index');
     Route::get('/v1/parametros/getParametro/{den_parametro}', 'Parametros@getParametro');
     Route::post('/v1/parametros/lang/{lang}', 'Parametros@setLang');
     Route::get('/v1/displaysucesos/listasec', 'DisplaySucesos@getLista');
 });
 
-Route::group(['middleware' => 'throttle:2500,1,normal'], function () {
+Route::group(['middleware' => 'throttle:normal'], function () {
 
 //Route::middleware('customthrottle:120,1')->group(function () {
 //    Route::post('/v1/usuarios/signup', 'Usuarios@store'); // ->middleware('auth:api')

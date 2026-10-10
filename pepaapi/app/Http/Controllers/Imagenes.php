@@ -18,7 +18,29 @@ use Illuminate\Http\Response;
  */
 class Imagenes extends Controller {
     //put your code here
+   public static function getAbility($metodo)
+    {
+        switch ($metodo) {
+            case "index":
+            case "indexnr":
+            case "store":
+            case "update":
+            case "delete":
+            case "deletenr":
+            case "gridOptions":
+            case "gridOptionsnr":
+            case "sendCommand":
+            case "runEvent":
+            case "getTemas":
+            case "detalle":
+                return "ab_config";
+            default:
+                return "";
+        }
+    }
+
     
+
     public function detalle($tipo_imagen,$clave) {
         $clave = json_decode(base64_decode($clave), true); 
         $cod_imagen = $clave[0][0];
